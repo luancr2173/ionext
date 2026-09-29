@@ -19,11 +19,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
   imports: [ReactiveFormsModule, ButtonComponent, RevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section
-      class="contact-section section-bg-main"
-      id="contato"
-      aria-label="Contato e diagnóstico"
-    >
+    <section class="contact-section section-bg-main" aria-label="Contato e diagnóstico">
       <div class="container contact-container">
         <!-- Header -->
         <header class="contact-header" appReveal>

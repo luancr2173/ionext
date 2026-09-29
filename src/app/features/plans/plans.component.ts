@@ -10,7 +10,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
   imports: [ButtonComponent, RevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="plans-section section-bg-alt" id="planos" aria-label="Planos e investimento">
+    <section class="plans-section section-bg-alt" aria-label="Planos e investimento">
       <div class="container plans-container">
         <!-- Section Header -->
         <header class="section-header" appReveal>

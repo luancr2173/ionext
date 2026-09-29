@@ -19,11 +19,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
   imports: [RevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section
-      class="process-section section-bg-main"
-      id="processo"
-      aria-label="Processo de trabalho"
-    >
+    <section class="process-section section-bg-main" aria-label="Processo de trabalho">
       <div class="container process-container">
         <!-- Section Header -->
         <header class="section-header" appReveal>

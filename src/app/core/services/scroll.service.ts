@@ -1,5 +1,6 @@
 import { Injectable, signal, computed, inject, PLATFORM_ID, NgZone } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { NavigationService } from './navigation.service';
 
 @Injectable({
   providedIn: 'root',
@@ -7,6 +8,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class ScrollService {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly ngZone = inject(NgZone);
+  private readonly navigationService = inject(NavigationService);
 
   // Reactive state signals
   readonly scrollY = signal(0);
@@ -74,10 +76,6 @@ export class ScrollService {
    */
   scrollTo(targetId: string): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    const id = targetId.startsWith('#') ? targetId.slice(1) : targetId;
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    this.navigationService.scrollToSection(targetId);
   }
 }

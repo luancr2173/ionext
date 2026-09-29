@@ -45,7 +45,7 @@ export const SITE_CONFIG = {
 
   navigation: {
     links: [
-      { label: 'Serviços', href: '#produtos' },
+      { label: 'Serviços', href: '#servicos' },
       { label: 'Processo', href: '#processo' },
       { label: 'Planos', href: '#planos' },
     ],
@@ -61,7 +61,7 @@ export const SITE_CONFIG = {
       'Do primeiro contato ao pós-venda, automatizamos o que trava o crescimento da sua empresa.',
     ctaPrimary: {
       label: 'Ver serviços',
-      href: '#produtos',
+      href: '#servicos',
     },
     ctaSecondary: {
       label: 'Falar com a Ionext',

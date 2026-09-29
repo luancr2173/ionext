@@ -10,6 +10,7 @@ import { ContactComponent } from './features/contact/contact.component';
 import { FooterComponent } from './features/footer/footer.component';
 
 import { ThemeService } from './core/services/theme.service';
+import { NavigationService } from './core/services/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -31,4 +32,5 @@ import { ThemeService } from './core/services/theme.service';
 })
 export class App {
   private readonly themeService = inject(ThemeService);
+  protected readonly navigationService = inject(NavigationService);
 }

@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ScrollService } from '../../core/services/scroll.service';
+import { NavigationService } from '../../core/services/navigation.service';
 import { SITE_CONFIG } from '../../core/config/site.config';
 import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ionext-symbol.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
@@ -143,6 +144,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 })
 export class NavbarComponent implements OnDestroy {
   protected readonly scrollService = inject(ScrollService);
+  protected readonly navigationService = inject(NavigationService);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly el = inject(ElementRef<HTMLElement>);
 
@@ -252,15 +254,13 @@ export class NavbarComponent implements OnDestroy {
   protected onLogoClick(e: MouseEvent): void {
     e.preventDefault();
     this.closeMobileMenu();
-    if (isPlatformBrowser(this.platformId)) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    this.navigationService.scrollToSection('#inicio');
   }
 
   protected onLinkClick(e: MouseEvent, href: string): void {
     if (href.startsWith('#')) {
       e.preventDefault();
-      this.scrollService.scrollTo(href);
+      this.navigationService.scrollToSection(href);
     }
   }
 

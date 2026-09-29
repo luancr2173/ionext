@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
 import { ScrollService } from '../../core/services/scroll.service';
+import { NavigationService } from '../../core/services/navigation.service';
 import { SITE_CONFIG } from '../../core/config/site.config';
 import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ionext-symbol.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
@@ -98,6 +99,7 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 })
 export class HeroComponent {
   protected readonly scrollService = inject(ScrollService);
+  protected readonly navigationService = inject(NavigationService);
 
   protected readonly heroConfig = SITE_CONFIG.hero;
 
@@ -128,7 +130,7 @@ export class HeroComponent {
   protected onCtaClick(e: MouseEvent, href: string): void {
     if (href.startsWith('#')) {
       e.preventDefault();
-      this.scrollService.scrollTo(href);
+      this.navigationService.scrollToSection(href);
     }
   }
 }

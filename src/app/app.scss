@@ -9,3 +9,34 @@ main {
   display: block;
   width: 100%;
 }
+
+.section-wrapper {
+  display: block;
+  width: 100%;
+  position: relative;
+  scroll-margin-top: calc(var(--nav-height) + env(safe-area-inset-top, 0px));
+}
+
+.anchor-alias {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  visibility: hidden;
+  scroll-margin-top: calc(var(--nav-height) + env(safe-area-inset-top, 0px));
+}
+
+.section-placeholder {
+  display: block;
+  width: 100%;
+
+  &.section-main {
+    background-color: var(--bg);
+  }
+
+  &.section-alt {
+    background-color: var(--bg-alt);
+  }
+}
