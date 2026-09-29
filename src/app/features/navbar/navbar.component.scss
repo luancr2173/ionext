@@ -1,0 +1,226 @@
+:host {
+  display: block;
+}
+
+.nav-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  z-index: var(--z-nav);
+  background-color: transparent;
+  transition:
+    background-color var(--duration-normal) var(--ease-apple),
+    border-color var(--duration-normal) var(--ease-apple);
+  border-bottom: 1px solid transparent;
+
+  &.is-scrolled {
+    background-color: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  &.menu-open {
+    background-color: #000000;
+  }
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: #ffffff;
+  text-decoration: none;
+  z-index: 10;
+}
+
+.docked-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition:
+    opacity 280ms var(--ease-apple),
+    transform 280ms var(--ease-apple);
+  will-change: opacity, transform;
+}
+
+.nav-brand-wordmark {
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+/* Desktop Links */
+.nav-desktop-links {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.nav-link {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-dark-text-secondary);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: -0.01em;
+  padding: 8px 4px;
+  transition: color var(--duration-fast) var(--ease-out);
+
+  &:hover {
+    color: #ffffff;
+  }
+
+  &:focus-visible {
+    color: #ffffff;
+  }
+}
+
+/* Right Side Actions */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  z-index: 10;
+
+  app-button {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: inline-block;
+    }
+  }
+}
+
+/* Mobile Toggle Hamburger */
+.mobile-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+
+  .toggle-bar {
+    display: block;
+    width: 20px;
+    height: 1.5px;
+    background-color: #ffffff;
+    transition:
+      transform 240ms var(--ease-apple),
+      opacity 240ms var(--ease-apple);
+  }
+}
+
+.nav-header.menu-open {
+  .top-bar {
+    transform: translateY(3.75px) rotate(45deg);
+  }
+  .bottom-bar {
+    transform: translateY(-3.75px) rotate(-45deg);
+  }
+}
+
+/* Mobile Fullscreen Menu */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  top: var(--nav-height);
+  background-color: #000000;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-3xl) var(--container-padding) var(--space-2xl);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition:
+    opacity 300ms var(--ease-apple),
+    transform 300ms var(--ease-apple),
+    visibility 300ms;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  @media (min-width: 768px) {
+    display: none !important;
+  }
+}
+
+.mobile-menu-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.mobile-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.mobile-nav-link {
+  font-size: 32px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+  color: #f5f5f7;
+  display: block;
+  padding: 4px 0;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-accent);
+  }
+}
+
+.mobile-cta-item {
+  margin-top: var(--space-xl);
+
+  app-button {
+    display: block;
+    width: 100%;
+
+    ::ng-deep .app-button {
+      width: 100%;
+    }
+  }
+}
+
+.mobile-menu-footer {
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-dark-line);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-dark-text-tertiary);
+}

@@ -1,0 +1,312 @@
+/* ==========================================================================
+   IONEXT - Design Tokens & Global Styles
+   Aesthetic: Apple-inspired minimalism, massive typography, generous whitespace,
+   precise motion, robust performance.
+   ========================================================================== */
+
+:root {
+  /* Colors - Core Dark */
+  --color-black: #000000;
+  --color-dark-bg: #000000;
+  --color-dark-surface: #0b0b0c;
+  --color-dark-card: #141416;
+  --color-dark-card-hover: #1c1c1f;
+  --color-dark-text: #f5f5f7;
+  --color-dark-text-secondary: #a1a1a6;
+  --color-dark-text-tertiary: #6e6e73;
+  --color-dark-line: #2c2c2e;
+  --color-dark-border: rgba(255, 255, 255, 0.12);
+
+  /* Colors - Core Light */
+  --color-light-bg: #ffffff;
+  --color-light-surface: #f5f5f7;
+  --color-light-card: #ffffff;
+  --color-light-card-hover: #f0f0f3;
+  --color-light-text: #1d1d1f;
+  --color-light-text-secondary: #6e6e73;
+  --color-light-text-tertiary: #86868b;
+  --color-light-line: #d2d2d7;
+  --color-light-border: rgba(0, 0, 0, 0.08);
+
+  /* Accent (Discrete focus and interactive cues only) */
+  --color-accent: #2997ff;
+  --color-accent-hover: #147ce5;
+  --color-accent-subtle: rgba(41, 151, 255, 0.12);
+  --color-accent-glow: rgba(41, 151, 255, 0.28);
+
+  /* Feedback Colors */
+  --color-error: #ff453a;
+  --color-error-bg: rgba(255, 69, 58, 0.1);
+  --color-success: #30d158;
+  --color-success-bg: rgba(48, 209, 88, 0.1);
+
+  /* Typography */
+  --font-family-system: -apple-system, 'SF Pro Display', Inter, 'Helvetica Neue', Arial, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --letter-spacing-tight: -0.03em;
+  --letter-spacing-heading: -0.025em;
+  --letter-spacing-normal: -0.01em;
+
+  /* Fluid Typography Scale */
+  --font-size-hero: clamp(44px, 8.5vw, 96px);
+  --font-size-display: clamp(36px, 6vw, 72px);
+  --font-size-h1: clamp(32px, 5vw, 56px);
+  --font-size-h2: clamp(26px, 4vw, 44px);
+  --font-size-h3: clamp(20px, 2.8vw, 32px);
+  --font-size-body-lg: clamp(17px, 1.8vw, 21px);
+  --font-size-body: 16px;
+  --font-size-body-sm: 14px;
+  --font-size-caption: 12px;
+
+  /* Line Heights */
+  --line-height-tight: 1.05;
+  --line-height-heading: 1.15;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+
+  /* Spacing */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+  --space-5xl: 128px;
+  --space-6xl: 160px;
+
+  /* Container Widths */
+  --container-max: 1280px;
+  --container-narrow: 980px;
+  --container-text: 65ch;
+  --container-padding: clamp(20px, 5vw, 48px);
+
+  /* Border Radii */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-card: 28px; /* Large 28px for plan cards */
+  --radius-full: 9999px; /* Pills */
+
+  /* Timing & Easings */
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-reveal: 700ms;
+  --duration-slow: 1200ms;
+  --duration-intro: 1600ms;
+
+  /* Header & Fixed Elements */
+  --nav-height: 56px;
+  --z-nav: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+
+  /* Interactive Elements */
+  --touch-target-min: 44px;
+}
+
+/* ==========================================================================
+   CSS Reset & Base Rules
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-family-system);
+  font-size: 16px;
+  line-height: var(--line-height-normal);
+  color: var(--color-dark-text);
+  background-color: var(--color-black);
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-black);
+  color: var(--color-dark-text);
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Accessible focus outlines */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Typography Defaults */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-heading);
+  text-wrap: balance;
+}
+
+p {
+  max-width: var(--container-text);
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Layout Utilities */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* Section Colors - Apple Clean Cut (No Shadows) */
+.section-dark {
+  background-color: var(--color-black);
+  color: var(--color-dark-text);
+}
+
+.section-dark-surface {
+  background-color: var(--color-dark-surface);
+  color: var(--color-dark-text);
+}
+
+.section-light {
+  background-color: var(--color-light-bg);
+  color: var(--color-light-text);
+}
+
+.section-light-surface {
+  background-color: var(--color-light-surface);
+  color: var(--color-light-text);
+}
+
+/* Skip link for accessibility */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 20px;
+  background: var(--color-accent);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  z-index: 9999;
+  font-weight: var(--font-weight-medium);
+  transition: top var(--duration-fast) var(--ease-out);
+
+  &:focus {
+    top: 20px;
+  }
+}
+
+/* Living Arrow Hover Effect (Subtle 4px diagonal shift) */
+.living-arrow-trigger {
+  .living-arrow {
+    display: inline-block;
+    transition: transform var(--duration-fast) var(--ease-apple);
+  }
+
+  &:hover .living-arrow,
+  &:focus-visible .living-arrow {
+    transform: translate(4px, -4px);
+  }
+}
+
+/* Global Reveal Animation Base */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--duration-reveal) var(--ease-apple) var(--reveal-delay, 0ms),
+    transform var(--duration-reveal) var(--ease-apple) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+
+  &.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+    will-change: auto;
+  }
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+}

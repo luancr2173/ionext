@@ -1,0 +1,108 @@
+:host {
+  display: block;
+}
+
+.products-section {
+  padding-top: clamp(80px, 12vw, 160px);
+  padding-bottom: clamp(80px, 12vw, 160px);
+  background-color: var(--color-light-bg);
+  color: var(--color-light-text);
+  border-bottom: 1px solid var(--color-light-line);
+}
+
+.section-header {
+  margin-bottom: clamp(48px, 8vw, 96px);
+}
+
+.section-title {
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-light-text);
+  margin-bottom: var(--space-xs);
+}
+
+.section-subtitle {
+  font-size: var(--font-size-body-lg);
+  color: var(--color-light-text-secondary);
+}
+
+.product-rows-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-row {
+  border-top: 1px solid var(--color-light-line);
+  padding-top: clamp(36px, 5vw, 64px);
+  padding-bottom: clamp(36px, 5vw, 64px);
+  transition: background-color var(--duration-fast) var(--ease-out);
+
+  &:last-child {
+    border-bottom: 1px solid var(--color-light-line);
+  }
+}
+
+.product-row-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  align-items: baseline;
+
+  @media (min-width: 860px) {
+    grid-template-columns: 1.1fr 1.4fr;
+    gap: var(--space-3xl);
+  }
+}
+
+.product-name-col {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-lg);
+}
+
+.product-index {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-light-text-tertiary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+.product-name {
+  font-size: clamp(36px, 5.5vw, 68px);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: 1.05;
+  color: var(--color-light-text);
+}
+
+.product-content-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.product-highlight-badge {
+  display: inline-block;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.01em;
+  color: var(--color-light-text);
+  margin-bottom: var(--space-2xs);
+}
+
+.product-subtitle {
+  font-size: var(--font-size-body-lg);
+  color: var(--color-light-text-secondary);
+  line-height: var(--line-height-normal);
+  max-width: 50ch;
+}
+
+.product-description {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-light-text-tertiary);
+  line-height: var(--line-height-relaxed);
+  max-width: 52ch;
+  margin-top: var(--space-xs);
+}
