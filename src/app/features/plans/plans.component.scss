@@ -12,6 +12,9 @@
 .section-header {
   margin-bottom: clamp(64px, 10vw, 110px);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .section-label {
@@ -30,11 +33,15 @@
   letter-spacing: var(--letter-spacing-tight);
   color: var(--fg);
   margin-bottom: var(--space-sm);
+  width: 100%;
 }
 
 .section-subtitle {
   font-size: var(--font-size-body-lg);
   color: var(--fg-muted);
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* 3-Card Grid */
@@ -70,7 +77,8 @@
   }
 
   &:active {
-    transform: scale(0.975);
+    transform: scale(0.985);
+    border-color: var(--accent);
   }
 
   /* Featured Card: Inverted contrast (Black on light, White on dark) */

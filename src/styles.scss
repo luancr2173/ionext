@@ -364,7 +364,7 @@ svg {
   }
 }
 
-/* Living Arrow Hover Effect (Subtle 4px diagonal shift) */
+/* Living Arrow Hover & Touch Effect (Subtle 4px diagonal shift) */
 .living-arrow-trigger {
   .living-arrow {
     display: inline-block;
@@ -372,6 +372,7 @@ svg {
   }
 
   &:hover .living-arrow,
+  &:active .living-arrow,
   &:focus-visible .living-arrow {
     transform: translate(4px, -4px);
   }
@@ -387,7 +388,8 @@ svg {
   will-change: opacity, transform;
 
   @media (max-width: 768px) {
-    transform: translateY(32px);
+    transform: translateY(16px);
+    transition-duration: 520ms;
   }
 
   &.is-revealed {
@@ -409,6 +411,10 @@ svg {
       transform var(--dur-reveal) var(--ease-apple),
       opacity var(--dur-reveal) var(--ease-apple);
     will-change: transform, opacity;
+
+    @media (max-width: 768px) {
+      transition-duration: 520ms;
+    }
   }
 }
 
@@ -447,19 +453,27 @@ svg {
    View Transitions API & Fallback Theme Transitions
    ========================================================================== */
 
-/* Disable default cross-fade for custom circular clip-path transition */
-::view-transition-old(root),
-::view-transition-new(root) {
+::view-transition-old(root) {
   animation: none;
   mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
   z-index: 1;
 }
 
 ::view-transition-new(root) {
+  /* Provides native CSS circular reveal fallback for Safari iOS 18 (WebKit), where
+     WAAPI pseudoElement is unsupported, while allowing WAAPI override on Chromium */
+  animation: circularThemeReveal var(--dur-theme, 650ms) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  mix-blend-mode: normal;
   z-index: 9999;
+}
+
+@keyframes circularThemeReveal {
+  0% {
+    clip-path: circle(0px at var(--theme-x, 50%) var(--theme-y, 50%));
+  }
+  100% {
+    clip-path: circle(var(--theme-r, 150vmax) at var(--theme-x, 50%) var(--theme-y, 50%));
+  }
 }
 
 /* Isolate navbar during theme transition to avoid backdrop-filter flicker */

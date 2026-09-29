@@ -167,10 +167,10 @@
   -webkit-mask-position: center;
 }
 
-/* Disable cursor glow on touch screens */
+/* Mobile touch screens glow response */
 @media (hover: none), (pointer: coarse) {
   .symbol-glow {
-    display: none !important;
+    transition: opacity 200ms ease;
   }
 }
 

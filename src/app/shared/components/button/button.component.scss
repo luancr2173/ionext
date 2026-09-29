@@ -31,7 +31,8 @@
   }
 
   &:active {
-    transform: scale(0.975);
+    transform: scale(0.965);
+    opacity: 0.92;
   }
 
   &:focus-visible {

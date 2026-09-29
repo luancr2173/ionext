@@ -194,8 +194,21 @@ export class IonextSymbolComponent implements OnInit {
     );
   }
 
+  @HostListener('touchstart')
+  onTouchStart(): void {
+    if (!this.interactive() || !isPlatformBrowser(this.platformId)) return;
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    this.tiltTransform.set('perspective(600px) scale3d(0.96, 0.96, 0.96)');
+    this.glowStyle.set(
+      'radial-gradient(circle 140px at 50% 50%, rgba(41, 151, 255, 0.35), transparent 70%)',
+    );
+  }
+
   @HostListener('mouseleave')
   @HostListener('touchend')
+  @HostListener('touchcancel')
   onMouseLeave(): void {
     if (!this.interactive()) return;
     this.tiltTransform.set('perspective(600px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)');

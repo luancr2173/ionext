@@ -41,7 +41,8 @@ export class RevealDirective implements OnInit, OnDestroy {
     }
 
     nativeEl.classList.add('reveal-init');
-    const delay = this.revealDelay();
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    const delay = isMobile ? Math.min(this.revealDelay(), 60) : this.revealDelay();
     if (delay > 0) {
       nativeEl.style.setProperty('--reveal-delay', `${delay}ms`);
     }
@@ -62,8 +63,8 @@ export class RevealDirective implements OnInit, OnDestroy {
 
     if (!RevealDirective.sharedObserver) {
       const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-      const threshold = isMobile ? 0.05 : 0.1;
-      const rootMargin = isMobile ? '0px 0px -6% 0px' : '0px 0px -40px 0px';
+      const threshold = isMobile ? 0.01 : 0.08;
+      const rootMargin = isMobile ? '0px 0px -16px 0px' : '0px 0px -40px 0px';
 
       this.ngZone.runOutsideAngular(() => {
         RevealDirective.sharedObserver = new IntersectionObserver(
