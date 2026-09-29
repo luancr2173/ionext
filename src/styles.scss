@@ -163,6 +163,12 @@
   --nav-bg: rgba(255, 255, 255, 0.82);
   --nav-border: rgba(0, 0, 0, 0.08);
 
+  /* Accent with WCAG AA compliance (>= 4.5:1) on light background */
+  --accent: #0066cc;
+  --accent-hover: #004fb0;
+  --accent-subtle: rgba(0, 102, 204, 0.1);
+  --accent-glow: rgba(0, 102, 204, 0.25);
+
   --input-bg: rgba(0, 0, 0, 0.03);
   --input-border: rgba(0, 0, 0, 0.15);
   --input-border-hover: rgba(0, 0, 0, 0.3);
@@ -230,6 +236,13 @@ body {
   overflow-x: hidden;
   width: 100%;
   min-height: 100vh;
+}
+
+/* Mobile menu scroll locking without inline styles */
+html.is-menu-open,
+html.is-menu-open body {
+  overflow: hidden !important;
+  overscroll-behavior: none;
 }
 
 /* Accessible focus outlines */

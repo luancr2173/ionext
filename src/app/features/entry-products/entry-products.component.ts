@@ -27,7 +27,6 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
               <div class="product-row-inner">
                 <!-- Left: Giant Product Name -->
                 <div class="product-name-col">
-                  <span class="product-index">0{{ idx + 1 }}</span>
                   <h3 class="product-name">{{ product.name }}</h3>
                 </div>
 

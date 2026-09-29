@@ -58,15 +58,6 @@
 .product-name-col {
   display: flex;
   align-items: baseline;
-  gap: var(--space-lg);
-}
-
-.product-index {
-  font-size: var(--font-size-body-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--fg-subtle);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.05em;
 }
 
 .product-name {

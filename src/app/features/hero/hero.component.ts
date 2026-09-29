@@ -1,28 +1,18 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  inject,
-  computed,
-  signal,
-  OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
 import { ScrollService } from '../../core/services/scroll.service';
 import { SITE_CONFIG } from '../../core/config/site.config';
 import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ionext-symbol.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
-import { RevealDirective } from '../../core/directives/reveal.directive';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [IonextSymbolComponent, ButtonComponent, RevealDirective],
+  imports: [IonextSymbolComponent, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="hero-section" id="inicio" aria-label="Apresentação Ionext">
       <div class="container hero-container">
-        <!-- Centerpiece Logo Group (Symbol + Animated Wordmark) -->
+        <!-- Centerpiece Logo Group (Symbol + Wordmark) -->
         <div
           class="hero-logo-stage"
           [style.opacity]="heroLogoOpacity()"
@@ -38,7 +28,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
             />
           </div>
 
-          <div class="hero-wordmark" [class.animate-in]="wordmarkAnimated()">
+          <div class="hero-wordmark">
             <img
               src="assets/logo/ionext-wordmark-white.png"
               alt="ionext"
@@ -60,17 +50,17 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
           </div>
         </div>
 
-        <!-- Hero Content (Typography & CTAs) -->
+        <!-- Hero Content (Typography & CTAs - Progressive Enhancement: fully visible by default) -->
         <div class="hero-content">
-          <h1 class="hero-title" appReveal [appRevealDelay]="1000">
+          <h1 class="hero-title">
             {{ heroConfig.title }}
           </h1>
 
-          <p class="hero-subtitle" appReveal [appRevealDelay]="1150">
+          <p class="hero-subtitle">
             {{ heroConfig.subtitle }}
           </p>
 
-          <div class="hero-cta-group" appReveal [appRevealDelay]="1300">
+          <div class="hero-cta-group">
             <app-button
               variant="primary"
               size="lg"
@@ -106,12 +96,10 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
   `,
   styleUrl: './hero.component.scss',
 })
-export class HeroComponent implements OnInit {
+export class HeroComponent {
   protected readonly scrollService = inject(ScrollService);
-  private readonly platformId = inject(PLATFORM_ID);
 
   protected readonly heroConfig = SITE_CONFIG.hero;
-  protected readonly wordmarkAnimated = signal<boolean>(false);
 
   // Dynamic responsive symbol size
   protected readonly heroSymbolSize = computed(() => {
@@ -136,24 +124,6 @@ export class HeroComponent implements OnInit {
     const p = this.scrollService.dockingProgress();
     return Math.max(0, 1 - p * 3);
   });
-
-  ngOnInit(): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      this.wordmarkAnimated.set(true);
-      return;
-    }
-
-    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      this.wordmarkAnimated.set(true);
-      return;
-    }
-
-    // Choreographed intro: wordmark fades in after symbol sequence (~1.2s)
-    setTimeout(() => {
-      this.wordmarkAnimated.set(true);
-    }, 1250);
-  }
 
   protected onCtaClick(e: MouseEvent, href: string): void {
     if (href.startsWith('#')) {

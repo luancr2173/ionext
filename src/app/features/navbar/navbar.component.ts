@@ -7,6 +7,7 @@ import {
   ElementRef,
   HostListener,
   PLATFORM_ID,
+  OnDestroy,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ScrollService } from '../../core/services/scroll.service';
@@ -79,7 +80,9 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
             type="button"
             [attr.aria-expanded]="mobileMenuOpen()"
             aria-controls="mobile-navigation-menu"
-            aria-label="Abrir menu de navegação"
+            [attr.aria-label]="
+              mobileMenuOpen() ? 'Fechar menu de navegação' : 'Abrir menu de navegação'
+            "
             (click)="toggleMobileMenu()"
           >
             <span class="toggle-bar top-bar"></span>
@@ -87,58 +90,58 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
           </button>
         </div>
       </div>
+    </header>
 
-      <!-- Mobile Fullscreen Navigation Modal -->
-      <div
-        id="mobile-navigation-menu"
-        class="mobile-menu-overlay"
-        [class.is-open]="mobileMenuOpen()"
-        [attr.aria-hidden]="!mobileMenuOpen()"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Menu móvel"
-      >
-        <div class="mobile-menu-content">
-          <nav class="mobile-nav" aria-label="Menu mobile">
-            <ul class="mobile-nav-list">
-              @for (link of navLinks; track link.href) {
-                <li class="mobile-nav-item">
-                  <a
-                    [href]="link.href"
-                    class="mobile-nav-link"
-                    (click)="onMobileLinkClick($event, link.href)"
-                  >
-                    {{ link.label }}
-                  </a>
-                </li>
-              }
-              <li class="mobile-nav-item mobile-theme-item">
-                <app-theme-toggle [showLabel]="true" />
-              </li>
-              <li class="mobile-nav-item mobile-cta-item">
-                <app-button
-                  variant="primary"
-                  size="lg"
-                  [label]="ctaConfig.label"
-                  [href]="ctaConfig.href"
-                  (clicked)="onMobileLinkClick($event, ctaConfig.href)"
+    <!-- Mobile Fullscreen Navigation Modal (Rendered outside header as sibling to avoid backdrop-filter containing block bug) -->
+    <div
+      id="mobile-navigation-menu"
+      class="mobile-menu-overlay"
+      [class.is-open]="mobileMenuOpen()"
+      [attr.aria-hidden]="!mobileMenuOpen()"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Menu móvel"
+    >
+      <div class="mobile-menu-content">
+        <nav class="mobile-nav" aria-label="Menu mobile">
+          <ul class="mobile-nav-list">
+            @for (link of navLinks; track link.href) {
+              <li class="mobile-nav-item">
+                <a
+                  [href]="link.href"
+                  class="mobile-nav-link"
+                  (click)="onMobileLinkClick($event, link.href)"
                 >
-                  {{ ctaConfig.label }}
-                </app-button>
+                  {{ link.label }}
+                </a>
               </li>
-            </ul>
-          </nav>
+            }
+            <li class="mobile-nav-item mobile-theme-item">
+              <app-theme-toggle [showLabel]="true" />
+            </li>
+            <li class="mobile-nav-item mobile-cta-item">
+              <app-button
+                variant="primary"
+                size="lg"
+                [label]="ctaConfig.label"
+                [href]="ctaConfig.href"
+                (clicked)="onMobileLinkClick($event, ctaConfig.href)"
+              >
+                {{ ctaConfig.label }}
+              </app-button>
+            </li>
+          </ul>
+        </nav>
 
-          <div class="mobile-menu-footer">
-            <p>{{ brandConfig.copyright }}</p>
-          </div>
+        <div class="mobile-menu-footer">
+          <p>{{ brandConfig.copyright }}</p>
         </div>
       </div>
-    </header>
+    </div>
   `,
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnDestroy {
   protected readonly scrollService = inject(ScrollService);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly el = inject(ElementRef<HTMLElement>);
@@ -175,7 +178,7 @@ export class NavbarComponent {
         this.lastFocusedElement = document.activeElement as HTMLElement;
       }
       this.mobileMenuOpen.set(true);
-      this.handleScrollLock(true);
+      this.setScrollLock(true);
       if (isPlatformBrowser(this.platformId)) {
         setTimeout(() => {
           const firstLink = this.el.nativeElement.querySelector(
@@ -192,7 +195,7 @@ export class NavbarComponent {
   closeMobileMenu(): void {
     if (this.mobileMenuOpen()) {
       this.mobileMenuOpen.set(false);
-      this.handleScrollLock(false);
+      this.setScrollLock(false);
       if (isPlatformBrowser(this.platformId)) {
         const toggleBtn =
           this.lastFocusedElement ||
@@ -205,6 +208,14 @@ export class NavbarComponent {
   @HostListener('window:keydown.escape')
   onEscape(): void {
     this.closeMobileMenu();
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    if (window.innerWidth >= 820 && this.mobileMenuOpen()) {
+      this.closeMobileMenu();
+    }
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -258,14 +269,16 @@ export class NavbarComponent {
     this.onLinkClick(e, href);
   }
 
-  private handleScrollLock(lock: boolean): void {
+  private setScrollLock(locked: boolean): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    if (lock) {
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
+    if (locked) {
+      document.documentElement.classList.add('is-menu-open');
     } else {
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
+      document.documentElement.classList.remove('is-menu-open');
     }
+  }
+
+  ngOnDestroy(): void {
+    this.setScrollLock(false);
   }
 }

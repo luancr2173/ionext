@@ -54,16 +54,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 700ms var(--ease-apple),
-    transform 700ms var(--ease-apple);
-
-  &.animate-in {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  opacity: 1;
+  transform: none;
 }
 
 .hero-wordmark-img {
