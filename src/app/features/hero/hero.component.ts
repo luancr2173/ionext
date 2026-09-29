@@ -51,8 +51,12 @@ import { ButtonComponent } from '../../shared/components/button/button.component
           </div>
         </div>
 
-        <!-- Hero Content (Typography & CTAs - Progressive Enhancement: fully visible by default) -->
-        <div class="hero-content">
+        <!-- Hero Content (Typography & CTAs - Smooth entrance & exit linked to scroll) -->
+        <div
+          class="hero-content"
+          [style.opacity]="heroContentOpacity()"
+          [style.transform]="heroContentTransform()"
+        >
           <h1 class="hero-title">
             {{ heroConfig.title }}
           </h1>
@@ -120,6 +124,16 @@ export class HeroComponent {
   protected readonly heroLogoOpacity = computed(() => {
     const p = this.scrollService.dockingProgress();
     return Math.max(0, 1 - p * 1.5);
+  });
+
+  protected readonly heroContentOpacity = computed(() => {
+    const p = this.scrollService.dockingProgress();
+    return Math.max(0, 1 - p * 1.5);
+  });
+
+  protected readonly heroContentTransform = computed(() => {
+    const p = this.scrollService.dockingProgress();
+    return `translate3d(0, ${-p * 36}px, 0)`;
   });
 
   protected readonly scrollHintOpacity = computed(() => {

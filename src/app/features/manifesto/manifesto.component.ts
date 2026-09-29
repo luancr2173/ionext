@@ -11,14 +11,16 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { SITE_CONFIG } from '../../core/config/site.config';
+import { RevealDirective } from '../../core/directives/reveal.directive';
 
 @Component({
   selector: 'app-manifesto',
   standalone: true,
+  imports: [RevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="manifesto-section section-bg-alt" aria-label="Manifesto Ionext">
-      <div class="container-narrow manifesto-container">
+      <div class="container-narrow manifesto-container" appReveal>
         <p class="manifesto-statement" #statementEl>
           @for (word of words; track $index) {
             <span

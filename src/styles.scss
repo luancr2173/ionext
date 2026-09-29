@@ -380,28 +380,31 @@ svg {
   }
 }
 
-/* Global Reveal Animation Base */
+/* Global Reveal Animation Base (Entrance & Exit) */
 .reveal-init {
   opacity: 0;
   transform: translateY(24px);
   transition:
-    opacity var(--dur-reveal) var(--ease-apple) var(--reveal-delay, 0ms),
-    transform var(--dur-reveal) var(--ease-apple) var(--reveal-delay, 0ms);
+    opacity 420ms var(--ease-apple),
+    transform 420ms var(--ease-apple);
   will-change: opacity, transform;
 
   @media (max-width: 768px) {
     transform: translateY(16px);
-    transition-duration: 520ms;
+    transition-duration: 380ms;
   }
 
   &.is-revealed {
     opacity: 1;
     transform: translateY(0);
+    transition:
+      opacity var(--dur-reveal) var(--ease-apple) var(--reveal-delay, 0ms),
+      transform var(--dur-reveal) var(--ease-apple) var(--reveal-delay, 0ms);
     will-change: auto;
   }
 }
 
-/* Masked Title Entrance (Slide up behind clip edge) */
+/* Masked Title Entrance & Exit (Slide up behind clip edge) */
 .section-title {
   overflow: hidden;
 
@@ -410,12 +413,12 @@ svg {
     transform: translateY(110%);
     opacity: 0;
     transition:
-      transform var(--dur-reveal) var(--ease-apple),
-      opacity var(--dur-reveal) var(--ease-apple);
+      transform 380ms var(--ease-apple),
+      opacity 380ms var(--ease-apple);
     will-change: transform, opacity;
 
     @media (max-width: 768px) {
-      transition-duration: 520ms;
+      transition-duration: 320ms;
     }
   }
 }
@@ -424,6 +427,9 @@ svg {
 .section-title.is-revealed .masked-title-inner {
   transform: translateY(0);
   opacity: 1;
+  transition:
+    transform var(--dur-reveal) var(--ease-apple),
+    opacity var(--dur-reveal) var(--ease-apple);
   will-change: auto;
 }
 

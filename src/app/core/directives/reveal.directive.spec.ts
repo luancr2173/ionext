@@ -117,13 +117,19 @@ describe('RevealDirective', () => {
 
     expect(el.classList.contains('reveal-init')).toBe(true);
 
-    // Simulate element scrolling into view
+    // Simulate element scrolling into view (entrance)
     observerCallback([{ target: el, isIntersecting: true }]);
+    expect(el.classList.contains('is-revealed')).toBe(true);
 
+    // Simulate element scrolling out of view (exit)
+    observerCallback([{ target: el, isIntersecting: false }]);
+    expect(el.classList.contains('is-revealed')).toBe(false);
+
+    // Simulate element scrolling back into view (re-entrance)
+    observerCallback([{ target: el, isIntersecting: true }]);
     expect(el.classList.contains('is-revealed')).toBe(true);
 
     // Destroy component to test unobserve cleanup
     fixture.destroy();
-    expect(el.classList.contains('is-revealed')).toBe(true);
   });
 });

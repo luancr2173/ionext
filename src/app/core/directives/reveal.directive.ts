@@ -20,13 +20,13 @@ export class RevealDirective implements OnInit, OnDestroy {
   private readonly ngZone = inject(NgZone);
 
   /**
-   * Transition delay in milliseconds.
+   * Transition delay in milliseconds on entrance.
    */
   readonly revealDelay = input<number>(0, { alias: 'appRevealDelay' });
 
   // Shared static observer to avoid duplicated IntersectionObserver instances
   private static sharedObserver?: IntersectionObserver;
-  private static readonly elementsMap = new Map<Element, () => void>();
+  private static readonly elementsMap = new Map<Element, (isIntersecting: boolean) => void>();
 
   ngOnInit(): void {
     const nativeEl = this.el.nativeElement;
@@ -57,26 +57,27 @@ export class RevealDirective implements OnInit, OnDestroy {
   }
 
   private registerElement(element: HTMLElement): void {
-    RevealDirective.elementsMap.set(element, () => {
-      element.classList.add('is-revealed');
+    // Both entrance (isIntersecting: true) and exit (isIntersecting: false)
+    RevealDirective.elementsMap.set(element, (isIntersecting: boolean) => {
+      if (isIntersecting) {
+        element.classList.add('is-revealed');
+      } else {
+        element.classList.remove('is-revealed');
+      }
     });
 
     if (!RevealDirective.sharedObserver) {
       const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-      const threshold = isMobile ? 0.01 : 0.08;
-      const rootMargin = isMobile ? '0px 0px -16px 0px' : '0px 0px -40px 0px';
+      const threshold = isMobile ? 0.02 : 0.05;
+      const rootMargin = isMobile ? '20px 0px -20px 0px' : '40px 0px -40px 0px';
 
       this.ngZone.runOutsideAngular(() => {
         RevealDirective.sharedObserver = new IntersectionObserver(
           (entries) => {
             for (const entry of entries) {
-              if (entry.isIntersecting) {
-                const revealCallback = RevealDirective.elementsMap.get(entry.target);
-                if (revealCallback) {
-                  revealCallback();
-                  RevealDirective.elementsMap.delete(entry.target);
-                }
-                RevealDirective.sharedObserver?.unobserve(entry.target);
+              const callback = RevealDirective.elementsMap.get(entry.target);
+              if (callback) {
+                callback(entry.isIntersecting);
               }
             }
           },

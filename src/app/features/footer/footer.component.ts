@@ -2,17 +2,18 @@ import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { SITE_CONFIG } from '../../core/config/site.config';
 import { ScrollService } from '../../core/services/scroll.service';
 import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ionext-symbol.component';
+import { RevealDirective } from '../../core/directives/reveal.directive';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [IonextSymbolComponent],
+  imports: [IonextSymbolComponent, RevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <footer class="footer-section section-bg-alt" role="contentinfo">
       <div class="container footer-container">
         <!-- Top Row: Big Symbol with Shooting Arrow Effect + Tagline -->
-        <div class="footer-brand-stage">
+        <div class="footer-brand-stage" appReveal>
           <div class="footer-symbol-box">
             <ionext-symbol [size]="110" color="currentColor" mode="footer" />
           </div>
@@ -20,7 +21,7 @@ import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ion
         </div>
 
         <!-- Links Grid -->
-        <div class="footer-nav-grid">
+        <div class="footer-nav-grid" appReveal [appRevealDelay]="100">
           <!-- Col 1: Navegação -->
           <div class="footer-col">
             <h4 class="footer-col-title">Navegação</h4>
@@ -90,7 +91,7 @@ import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ion
         </div>
 
         <!-- Bottom Copyright Row -->
-        <div class="footer-bottom-row">
+        <div class="footer-bottom-row" appReveal [appRevealDelay]="150">
           <p class="footer-copyright">{{ brandConfig.copyright }}</p>
         </div>
       </div>
