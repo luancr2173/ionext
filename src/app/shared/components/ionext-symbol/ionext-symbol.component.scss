@@ -36,81 +36,57 @@
 }
 
 /* ==========================================================================
-   Hero Intro Animation (~1.6s sequential choreographed sequence)
+   Hero Intro Animation (Smooth choreographed ribbon unfolding + arrows)
    ========================================================================== */
 .mode-hero.is-animating {
-  .symbol-dot {
-    animation: heroDotDrop 500ms cubic-bezier(0.2, 0.8, 0.2, 1.2) 0ms forwards;
+  .symbol-loop-tl {
+    animation: heroLoopScale 600ms cubic-bezier(0.16, 1, 0.3, 1) 0ms forwards;
     transform-origin: center center;
     opacity: 0;
   }
 
-  .symbol-stem {
-    transform-origin: bottom center;
-    animation: heroStemGrow 550ms cubic-bezier(0.16, 1, 0.3, 1) 250ms forwards;
+  .symbol-loop-br {
+    animation: heroLoopScale 600ms cubic-bezier(0.16, 1, 0.3, 1) 150ms forwards;
+    transform-origin: center center;
     opacity: 0;
   }
 
-  .symbol-curve {
-    stroke-dasharray: 100;
-    stroke-dashoffset: 100;
-    animation: heroCurveDraw 650ms cubic-bezier(0.16, 1, 0.3, 1) 500ms forwards;
+  .symbol-arrow-bl {
+    animation: heroArrowBlSlide 650ms cubic-bezier(0.16, 1, 0.3, 1) 350ms forwards;
     opacity: 0;
   }
 
-  .symbol-arrow {
-    animation: heroArrowSlide 550ms cubic-bezier(0.16, 1, 0.3, 1) 850ms forwards;
+  .symbol-arrow-tr {
+    animation: heroArrowTrSlide 650ms cubic-bezier(0.16, 1, 0.3, 1) 500ms forwards;
     opacity: 0;
   }
 }
 
-@keyframes heroDotDrop {
+@keyframes heroLoopScale {
   0% {
-    transform: translateY(-140px);
-    opacity: 0;
-  }
-  65% {
-    transform: translateY(10px);
-    opacity: 1;
-  }
-  82% {
-    transform: translateY(-4px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes heroStemGrow {
-  0% {
-    transform: scaleY(0);
+    transform: scale(0.7);
     opacity: 0;
   }
   100% {
-    transform: scaleY(1);
+    transform: scale(1);
     opacity: 1;
   }
 }
 
-@keyframes heroCurveDraw {
+@keyframes heroArrowBlSlide {
   0% {
-    stroke-dashoffset: 100;
+    transform: translate(30px, -30px);
     opacity: 0;
   }
-  20% {
-    opacity: 1;
-  }
   100% {
-    stroke-dashoffset: 0;
+    transform: translate(0, 0);
     opacity: 1;
   }
 }
 
-@keyframes heroArrowSlide {
+@keyframes heroArrowTrSlide {
   0% {
-    transform: translate(45px, -45px);
+    transform: translate(-30px, 30px);
     opacity: 0;
   }
   100% {
@@ -120,7 +96,7 @@
 }
 
 /* ==========================================================================
-   Footer Animation ("Shooting arrow" when revealed in viewport)
+   Footer Animation ("Shooting arrows" when revealed in viewport)
    ========================================================================== */
 .mode-footer {
   .symbol-arrow {
@@ -129,14 +105,23 @@
       opacity 600ms ease;
   }
 
-  &:not(.is-footer-revealed) .symbol-arrow {
-    transform: translate(-30px, 30px);
-    opacity: 0;
+  &:not(.is-footer-revealed) {
+    .symbol-arrow-tr {
+      transform: translate(-25px, 25px);
+      opacity: 0;
+    }
+    .symbol-arrow-bl {
+      transform: translate(25px, -25px);
+      opacity: 0;
+    }
   }
 
-  &.is-footer-revealed .symbol-arrow {
-    transform: translate(0, 0);
-    opacity: 1;
+  &.is-footer-revealed {
+    .symbol-arrow-tr,
+    .symbol-arrow-bl {
+      transform: translate(0, 0);
+      opacity: 1;
+    }
   }
 }
 
@@ -160,22 +145,43 @@
   filter: drop-shadow(0 0 10px rgba(41, 151, 255, 0.75));
 }
 
-.mode-hero:hover .symbol-arrow,
-:host-context(.hero-logo-stage:hover) .mode-hero .symbol-arrow {
-  transform: translate(3px, -3px);
-  filter: drop-shadow(0 0 16px rgba(41, 151, 255, 0.9));
+/* Hero hover arrow displacements */
+.mode-hero:hover,
+:host-context(.hero-logo-stage:hover) .mode-hero {
+  .symbol-arrow-tr {
+    transform: translate(3px, -3px);
+    filter: drop-shadow(0 0 16px rgba(41, 151, 255, 0.9));
+  }
+  .symbol-arrow-bl {
+    transform: translate(-3px, 3px);
+    filter: drop-shadow(0 0 16px rgba(41, 151, 255, 0.9));
+  }
 }
 
-.mode-nav:hover .symbol-arrow,
-:host-context(.nav-brand:hover) .mode-nav .symbol-arrow {
-  transform: translate(2px, -2px);
-  filter: drop-shadow(0 0 8px rgba(41, 151, 255, 0.8));
+/* Navbar hover arrow displacements */
+.mode-nav:hover,
+:host-context(.nav-brand:hover) .mode-nav {
+  .symbol-arrow-tr {
+    transform: translate(2px, -2px);
+    filter: drop-shadow(0 0 8px rgba(41, 151, 255, 0.8));
+  }
+  .symbol-arrow-bl {
+    transform: translate(-2px, 2px);
+    filter: drop-shadow(0 0 8px rgba(41, 151, 255, 0.8));
+  }
 }
 
-.mode-footer:hover .symbol-arrow,
-:host-context(.footer-brand-stage:hover) .mode-footer .symbol-arrow {
-  transform: translate(4px, -4px);
-  filter: drop-shadow(0 0 16px rgba(41, 151, 255, 0.85));
+/* Footer hover arrow displacements */
+.mode-footer:hover,
+:host-context(.footer-brand-stage:hover) .mode-footer {
+  .symbol-arrow-tr {
+    transform: translate(4px, -4px);
+    filter: drop-shadow(0 0 16px rgba(41, 151, 255, 0.85));
+  }
+  .symbol-arrow-bl {
+    transform: translate(-4px, 4px);
+    filter: drop-shadow(0 0 16px rgba(41, 151, 255, 0.85));
+  }
 }
 
 .mode-icon {
@@ -187,9 +193,14 @@
   }
 }
 
-:host-context(:hover) .mode-icon .symbol-arrow,
-:host-context(:focus-visible) .mode-icon .symbol-arrow {
-  transform: translate(4px, -4px);
+:host-context(:hover) .mode-icon,
+:host-context(:focus-visible) .mode-icon {
+  .symbol-arrow-tr {
+    transform: translate(3px, -3px);
+  }
+  .symbol-arrow-bl {
+    transform: translate(-3px, 3px);
+  }
 }
 
 /* Fallback Mask Support */
@@ -219,7 +230,6 @@
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
-    stroke-dashoffset: 0 !important;
   }
 
   .symbol-wrapper {

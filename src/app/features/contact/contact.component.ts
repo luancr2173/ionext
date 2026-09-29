@@ -124,7 +124,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
                 <!-- Email Field -->
                 <div class="form-group">
                   <label for="contact-email" class="form-label">
-                    E-mail corporativo <span class="required-star">*</span>
+                    E-mail <span class="required-star">*</span>
                   </label>
                   <input
                     id="contact-email"

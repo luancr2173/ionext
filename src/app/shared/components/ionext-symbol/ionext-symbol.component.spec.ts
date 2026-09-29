@@ -18,15 +18,15 @@ describe('IonextSymbolComponent', () => {
 
   it('should render the 4 geometric parts of the symbol', () => {
     const el = fixture.nativeElement as HTMLElement;
-    const dot = el.querySelector('.symbol-dot');
-    const stem = el.querySelector('.symbol-stem');
-    const curve = el.querySelector('.symbol-curve');
-    const arrow = el.querySelector('.symbol-arrow');
+    const arrowTr = el.querySelector('.symbol-arrow-tr');
+    const arrowBl = el.querySelector('.symbol-arrow-bl');
+    const loopTl = el.querySelector('.symbol-loop-tl');
+    const loopBr = el.querySelector('.symbol-loop-br');
 
-    expect(dot).toBeTruthy();
-    expect(stem).toBeTruthy();
-    expect(curve).toBeTruthy();
-    expect(arrow).toBeTruthy();
+    expect(arrowTr).toBeTruthy();
+    expect(arrowBl).toBeTruthy();
+    expect(loopTl).toBeTruthy();
+    expect(loopBr).toBeTruthy();
   });
 
   it('should apply mode classes properly', () => {
