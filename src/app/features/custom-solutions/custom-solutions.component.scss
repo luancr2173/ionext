@@ -82,9 +82,11 @@
       border-color: var(--accent);
       color: var(--accent);
       background-color: var(--accent-subtle);
+      filter: drop-shadow(0 0 8px rgba(41, 151, 255, 0.5));
     }
     .action-arrow {
       transform: translateX(4px);
+      filter: drop-shadow(0 0 6px rgba(41, 151, 255, 0.7));
     }
     .action-text {
       color: var(--fg);

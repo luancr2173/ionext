@@ -165,13 +165,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform var(--duration-fast) var(--ease-apple);
+  transition:
+    transform var(--duration-fast) var(--ease-apple),
+    color var(--duration-fast) var(--ease-apple),
+    filter var(--duration-fast) var(--ease-apple);
   will-change: transform;
 }
 
 .app-button:hover .button-arrow,
 .app-button:focus-visible .button-arrow {
   transform: translate(4px, -4px);
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px rgba(41, 151, 255, 0.7));
 }
 
 /* Loading Spinner */

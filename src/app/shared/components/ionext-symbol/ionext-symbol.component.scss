@@ -141,11 +141,49 @@
 }
 
 /* ==========================================================================
-   Living Arrow (Hover on buttons / CTAs)
+   Interactive Blue Arrow Hover Glow across Logo contexts
    ========================================================================== */
+.symbol-arrow {
+  transition:
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    fill 280ms var(--ease-apple),
+    filter 280ms var(--ease-apple),
+    opacity 280ms ease;
+  will-change: transform, fill, filter;
+}
+
+:host(:hover) .symbol-arrow,
+.symbol-wrapper:hover .symbol-arrow,
+:host-context(:hover) .symbol-arrow,
+:host-context(:focus-visible) .symbol-arrow {
+  fill: var(--accent) !important;
+  filter: drop-shadow(0 0 10px rgba(41, 151, 255, 0.75));
+}
+
+.mode-hero:hover .symbol-arrow,
+:host-context(.hero-logo-stage:hover) .mode-hero .symbol-arrow {
+  transform: translate(3px, -3px);
+  filter: drop-shadow(0 0 16px rgba(41, 151, 255, 0.9));
+}
+
+.mode-nav:hover .symbol-arrow,
+:host-context(.nav-brand:hover) .mode-nav .symbol-arrow {
+  transform: translate(2px, -2px);
+  filter: drop-shadow(0 0 8px rgba(41, 151, 255, 0.8));
+}
+
+.mode-footer:hover .symbol-arrow,
+:host-context(.footer-brand-stage:hover) .mode-footer .symbol-arrow {
+  transform: translate(4px, -4px);
+  filter: drop-shadow(0 0 16px rgba(41, 151, 255, 0.85));
+}
+
 .mode-icon {
   .symbol-arrow {
-    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition:
+      transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      fill 200ms ease,
+      filter 200ms ease;
   }
 }
 

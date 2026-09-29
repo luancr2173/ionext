@@ -113,7 +113,7 @@ describe('NavigationService', () => {
       expect(service.forceLoad()).toBe(true);
 
       // Wait for rendering frames
-      await new Promise((resolve) => setTimeout(resolve, 80));
+      await new Promise((resolve) => setTimeout(resolve, 120));
 
       expect(animateScrollSpy).toHaveBeenCalled();
       // Invoke arrival callback manually to test post-scroll logic
@@ -136,7 +136,7 @@ describe('NavigationService', () => {
       service.scrollToSection('#produtos');
       expect(service.forceLoad()).toBe(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 80));
+      await new Promise((resolve) => setTimeout(resolve, 120));
 
       expect(animateScrollSpy).toHaveBeenCalled();
     });

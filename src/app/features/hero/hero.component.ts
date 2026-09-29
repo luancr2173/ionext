@@ -58,7 +58,7 @@ import { ButtonComponent } from '../../shared/components/button/button.component
           [style.transform]="heroContentTransform()"
         >
           <h1 class="hero-title">
-            {{ heroConfig.title }}
+            <span class="hero-ai-badge">IA</span> em todo o funil de vendas.
           </h1>
 
           <p class="hero-subtitle">

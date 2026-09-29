@@ -29,6 +29,30 @@
   font-weight: var(--font-weight-medium);
   color: var(--fg-muted);
   max-width: 32ch;
+  cursor: default;
+  transition: color 240ms var(--ease-apple);
+
+  &:hover {
+    color: var(--fg);
+
+    .footer-ai-badge {
+      transform: translateY(-1px) scale(1.06);
+      filter: drop-shadow(0 0 14px rgba(41, 151, 255, 0.85));
+    }
+  }
+}
+
+.footer-ai-badge {
+  display: inline-block;
+  color: var(--accent);
+  background: linear-gradient(135deg, #2997ff 0%, #60a5fa 60%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: var(--font-weight-semibold);
+  filter: drop-shadow(0 0 8px rgba(41, 151, 255, 0.4));
+  transition:
+    transform 240ms var(--ease-apple),
+    filter 240ms var(--ease-apple);
 }
 
 .footer-nav-grid {

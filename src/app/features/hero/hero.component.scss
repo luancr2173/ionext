@@ -97,6 +97,47 @@
   color: var(--fg);
   margin-bottom: var(--space-lg);
   text-wrap: balance;
+  cursor: default;
+  transition: text-shadow var(--duration-fast) var(--ease-apple);
+}
+
+.hero-ai-badge {
+  display: inline-block;
+  color: var(--accent);
+  background: linear-gradient(135deg, #2997ff 0%, #60a5fa 55%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  transition:
+    transform 280ms var(--ease-apple),
+    filter 280ms var(--ease-apple),
+    text-shadow 280ms var(--ease-apple);
+
+  /* Subtle ambient blue glow */
+  filter: drop-shadow(0 0 12px rgba(41, 151, 255, 0.4));
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -6px -8px;
+    background: radial-gradient(circle, rgba(41, 151, 255, 0.3) 0%, transparent 0,9%);
+    border-radius: var(--radius-sm);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 280ms var(--ease-apple);
+    z-index: -1;
+  }
+}
+
+.hero-title:hover {
+  .hero-ai-badge {
+    transform: translateY(-2px) scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(41, 151, 255, 0.9));
+
+    &::after {
+      opacity: 1;
+    }
+  }
 }
 
 .hero-subtitle {

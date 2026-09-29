@@ -416,9 +416,21 @@
   -webkit-tap-highlight-color: transparent;
   transition: all var(--duration-fast) var(--ease-apple);
 
+  svg {
+    transition:
+      transform var(--duration-fast) var(--ease-apple),
+      color var(--duration-fast) var(--ease-apple),
+      filter var(--duration-fast) var(--ease-apple);
+  }
+
   &:hover:not(:disabled) {
     background-color: var(--surface-hover);
     border-color: var(--fg-muted);
+
+    svg {
+      color: var(--accent);
+      filter: drop-shadow(0 0 6px rgba(41, 151, 255, 0.7));
+    }
   }
 
   &:active:not(:disabled) {

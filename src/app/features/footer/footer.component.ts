@@ -17,7 +17,9 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
           <div class="footer-symbol-box">
             <ionext-symbol [size]="110" color="currentColor" mode="footer" />
           </div>
-          <p class="footer-tagline">{{ brandConfig.tagline }}</p>
+          <p class="footer-tagline">
+            <span class="footer-ai-badge">IA</span> em todo o funil de vendas.
+          </p>
         </div>
 
         <!-- Links Grid -->
