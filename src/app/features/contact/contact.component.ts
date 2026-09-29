@@ -199,7 +199,6 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
                   type="submit"
                   variant="primary"
                   size="lg"
-                  [label]="isLoading() ? 'Enviando...' : 'Solicitar diagnóstico gratuito'"
                   [withArrow]="true"
                   [loading]="isLoading()"
                   [disabled]="isLoading()"
