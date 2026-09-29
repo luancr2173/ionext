@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   inject,
   signal,
+  effect,
   ElementRef,
   PLATFORM_ID,
 } from '@angular/core';
@@ -236,6 +237,16 @@ export class ContactComponent {
     message: ['', [Validators.required, Validators.minLength(10)]],
     website: [''], // Honeypot
   });
+
+  constructor() {
+    effect(() => {
+      const msg = this.contactService.prefilledMessage();
+      if (msg) {
+        this.contactForm.patchValue({ message: msg });
+        this.contactForm.get('message')?.markAsDirty();
+      }
+    });
+  }
 
   protected isFieldInvalid(fieldName: string): boolean {
     const field = this.contactForm.get(fieldName);

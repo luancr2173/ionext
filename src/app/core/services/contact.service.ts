@@ -1,4 +1,4 @@
-import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { SITE_CONFIG } from '../config/site.config';
 
@@ -22,6 +22,12 @@ export interface ContactResult {
 })
 export class ContactService {
   private readonly platformId = inject(PLATFORM_ID);
+
+  readonly prefilledMessage = signal<string>('');
+
+  setPrefilledMessage(message: string): void {
+    this.prefilledMessage.set(message);
+  }
 
   /**
    * Submission channel strategy:

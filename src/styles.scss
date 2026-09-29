@@ -252,9 +252,11 @@ body {
   min-height: 100vh;
 }
 
-/* Mobile menu scroll locking without inline styles */
+/* Mobile menu and modal scroll locking without inline styles */
 html.is-menu-open,
-html.is-menu-open body {
+html.is-menu-open body,
+html.is-modal-open,
+html.is-modal-open body {
   overflow: hidden !important;
   overscroll-behavior: none;
 }
