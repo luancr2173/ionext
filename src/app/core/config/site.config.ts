@@ -516,8 +516,7 @@ export const SITE_CONFIG = {
     title: 'Vamos automatizar o seu funil.',
     subtitle:
       'Preencha as informações abaixo para receber um diagnóstico preliminar e entender o potencial de automação da sua empresa.',
-    // TODO: Inserir número oficial de WhatsApp com DDI e DDD (ex: 5511999999999)
-    whatsappNumber: '5511999999999',
+    whatsappNumber: '5561996213055',
     // TODO: Inserir e-mail corporativo oficial da Ionext
     email: 'contato@ionext.com.br',
     // TODO: Inserir endereço físico ou cidade sede

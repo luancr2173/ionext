@@ -200,7 +200,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
                     formControlName="phone"
                     class="form-input"
                     [class.has-error]="isFieldInvalid('phone')"
-                    placeholder="(11) 99999-9999"
+                    placeholder="(61) 99621-3055"
                     autocomplete="tel"
                     (input)="onPhoneInput($event)"
                     [attr.aria-invalid]="isFieldInvalid('phone')"

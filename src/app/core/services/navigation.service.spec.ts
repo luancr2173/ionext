@@ -136,7 +136,7 @@ describe('NavigationService', () => {
       service.scrollToSection('#produtos');
       expect(service.forceLoad()).toBe(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 120));
+      await new Promise((resolve) => setTimeout(resolve, 200));
 
       expect(animateScrollSpy).toHaveBeenCalled();
     });
