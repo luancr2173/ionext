@@ -1,80 +1,188 @@
 :host {
   display: inline-flex;
   align-items: center;
+  vertical-align: middle;
 }
 
 .theme-toggle-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: var(--space-xs);
-  min-width: var(--touch-target-min);
-  min-height: var(--touch-target-min);
-  padding: 8px;
-  border-radius: var(--radius-full);
-  background-color: var(--surface-hover);
-  color: var(--fg);
-  border: 1px solid var(--line-subtle);
+  background: transparent;
+  border: none;
+  padding: 6px;
   cursor: pointer;
-  transition:
-    transform var(--duration-fast) var(--ease-apple),
-    background-color var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out),
-    border-color var(--duration-fast) var(--ease-out);
-
-  &:hover {
-    transform: scale(1.05);
-    background-color: var(--surface-alt);
-    border-color: var(--line);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
+  border-radius: var(--radius-full);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: opacity var(--duration-fast) var(--ease-apple);
 
   &:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
   }
 
+  &:hover {
+    .switch-track {
+      border-color: var(--fg-muted);
+    }
+  }
+
   &.show-label {
-    padding: 8px 16px;
-    border-radius: var(--radius-full);
+    padding: 6px 12px;
+    background-color: var(--surface-alt);
+    border: 1px solid var(--line-subtle);
+
+    &:hover {
+      background-color: var(--surface-hover);
+      border-color: var(--line);
+    }
   }
 }
 
-.icon-stage {
+/* Switch Capsule Track */
+.switch-track {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
+  justify-content: space-between;
+  width: 52px;
+  height: 28px;
+  padding: 0 7px;
+  box-sizing: border-box;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--line);
+  background-color: var(--surface-hover);
+  transition:
+    background-color 300ms var(--ease-apple),
+    border-color 300ms var(--ease-apple),
+    box-shadow 300ms var(--ease-apple);
 }
 
-.theme-icon {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  display: block;
-  opacity: 0;
-  transform: rotate(-90deg) scale(0.5);
-  transition:
-    transform 400ms var(--ease-apple),
-    opacity 400ms var(--ease-apple);
+.theme-toggle-btn.is-dark .switch-track {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.theme-toggle-btn.is-light .switch-track {
+  background-color: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* Track Icons (Sun on left, Moon on right) */
+.track-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  color: var(--fg-muted);
   pointer-events: none;
-  will-change: transform, opacity;
+  z-index: 1;
+  transition:
+    opacity 300ms var(--ease-apple),
+    color 300ms var(--ease-apple);
+}
+
+.track-icon-sun {
+  opacity: 0.4;
+}
+
+.track-icon-moon {
+  opacity: 0.4;
+}
+
+.theme-toggle-btn.is-dark {
+  .track-icon-sun {
+    opacity: 0.65;
+    color: var(--fg-muted);
+  }
+  .track-icon-moon {
+    opacity: 0.12; // Under the dark thumb
+  }
+}
+
+.theme-toggle-btn.is-light {
+  .track-icon-sun {
+    opacity: 0.12; // Under the light thumb
+  }
+  .track-icon-moon {
+    opacity: 0.65;
+    color: var(--fg-muted);
+  }
+}
+
+/* Sliding Thumb (Knob) */
+.switch-thumb {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+  transform: translateY(-50%) translateX(0);
+  transition:
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    width 200ms var(--ease-apple),
+    background-color 300ms var(--ease-apple),
+    box-shadow 300ms var(--ease-apple),
+    border-color 300ms var(--ease-apple);
+}
+
+/* Light Mode: Thumb on the Left (0px travel) */
+.theme-toggle-btn.is-light .switch-thumb {
+  transform: translateY(-50%) translateX(0);
+  background-color: #ffffff;
+  color: #d97706; /* Warm amber sun */
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.18),
+    0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode: Thumb on the Right (52px - 22px - 3px - 3px = 24px travel) */
+.theme-toggle-btn.is-dark .switch-thumb {
+  transform: translateY(-50%) translateX(24px);
+  background-color: #1a1a1e;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #38bdf8; /* Cool lunar blue */
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+/* Active squeeze effect on thumb */
+.theme-toggle-btn:active .switch-thumb {
+  width: 25px;
+}
+
+.theme-toggle-btn.is-dark:active .switch-thumb {
+  transform: translateY(-50%) translateX(21px);
+}
+
+/* Thumb Icons with rotation and scale transition */
+.thumb-icon {
+  position: absolute;
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.4);
+  transition:
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 250ms var(--ease-apple);
 
   &.is-active {
     opacity: 1;
     transform: rotate(0deg) scale(1);
-    pointer-events: auto;
-    will-change: auto;
   }
 }
 
-.icon-moon {
-  transform: rotate(90deg) scale(0.5);
+.thumb-icon.icon-moon {
+  transform: rotate(90deg) scale(0.4);
 
   &.is-active {
     transform: rotate(0deg) scale(1);
@@ -85,18 +193,14 @@
   font-size: var(--font-size-body-sm);
   font-weight: var(--font-weight-medium);
   color: var(--fg);
+  white-space: nowrap;
 }
 
+/* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .theme-toggle-btn,
-  .theme-icon {
+  .switch-track,
+  .switch-thumb,
+  .thumb-icon {
     transition: none !important;
-    animation: none !important;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-
-  .theme-icon:not(.is-active) {
-    display: none !important;
   }
 }

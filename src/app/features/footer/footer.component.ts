@@ -92,14 +92,6 @@ import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ion
         <!-- Bottom Copyright Row -->
         <div class="footer-bottom-row">
           <p class="footer-copyright">{{ brandConfig.copyright }}</p>
-          <button
-            type="button"
-            class="back-to-top-btn"
-            (click)="onLinkClick($event, '#inicio')"
-            aria-label="Voltar ao início da página"
-          >
-            Voltar ao topo ↑
-          </button>
         </div>
       </div>
     </footer>

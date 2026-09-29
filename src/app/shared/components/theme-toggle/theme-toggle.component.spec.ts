@@ -20,38 +20,43 @@ describe('ThemeToggleComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should render the toggle button with aria-label and aria-pressed', () => {
+  it('should render the toggle switch button with aria-label and role', () => {
     const btn = fixture.nativeElement.querySelector('.theme-toggle-btn') as HTMLButtonElement;
     expect(btn).toBeTruthy();
     expect(btn.getAttribute('aria-label')).toBe('Alternar tema');
+    expect(btn.getAttribute('role')).toBe('switch');
   });
 
-  it('should display the sun icon and aria-pressed="true" when theme is dark', () => {
+  it('should display dark state and active moon icon when theme is dark', () => {
     themeService.theme.set('dark');
     fixture.detectChanges();
 
     const btn = fixture.nativeElement.querySelector('.theme-toggle-btn') as HTMLButtonElement;
     expect(btn.getAttribute('aria-pressed')).toBe('true');
+    expect(btn.getAttribute('aria-checked')).toBe('true');
+    expect(btn.classList.contains('is-dark')).toBe(true);
 
-    const sunIcon = fixture.nativeElement.querySelector('.icon-sun');
-    const moonIcon = fixture.nativeElement.querySelector('.icon-moon');
-    expect(sunIcon).toBeTruthy();
-    expect(sunIcon.classList.contains('is-active')).toBe(true);
-    expect(moonIcon.classList.contains('is-active')).toBe(false);
+    const moonIcon = fixture.nativeElement.querySelector('.thumb-icon.icon-moon');
+    const sunIcon = fixture.nativeElement.querySelector('.thumb-icon.icon-sun');
+    expect(moonIcon).toBeTruthy();
+    expect(moonIcon.classList.contains('is-active')).toBe(true);
+    expect(sunIcon.classList.contains('is-active')).toBe(false);
   });
 
-  it('should display the moon icon and aria-pressed="false" when theme is light', () => {
+  it('should display light state and active sun icon when theme is light', () => {
     themeService.theme.set('light');
     fixture.detectChanges();
 
     const btn = fixture.nativeElement.querySelector('.theme-toggle-btn') as HTMLButtonElement;
     expect(btn.getAttribute('aria-pressed')).toBe('false');
+    expect(btn.getAttribute('aria-checked')).toBe('false');
+    expect(btn.classList.contains('is-light')).toBe(true);
 
-    const sunIcon = fixture.nativeElement.querySelector('.icon-sun');
-    const moonIcon = fixture.nativeElement.querySelector('.icon-moon');
-    expect(moonIcon).toBeTruthy();
-    expect(moonIcon.classList.contains('is-active')).toBe(true);
-    expect(sunIcon.classList.contains('is-active')).toBe(false);
+    const sunIcon = fixture.nativeElement.querySelector('.thumb-icon.icon-sun');
+    const moonIcon = fixture.nativeElement.querySelector('.thumb-icon.icon-moon');
+    expect(sunIcon).toBeTruthy();
+    expect(sunIcon.classList.contains('is-active')).toBe(true);
+    expect(moonIcon.classList.contains('is-active')).toBe(false);
   });
 
   it('should trigger themeService.toggle when clicked', () => {
