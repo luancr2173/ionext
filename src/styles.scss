@@ -419,3 +419,40 @@ html.theme-transitioning *::after {
     transition: none !important;
   }
 }
+
+/* ==========================================================================
+   Theme Visibility Utilities
+   ========================================================================== */
+[data-theme='dark'] .light-only {
+  display: none !important;
+}
+
+[data-theme='dark'] .dark-only {
+  display: block !important;
+}
+
+[data-theme='light'] .dark-only {
+  display: none !important;
+}
+
+[data-theme='light'] .light-only {
+  display: block !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .light-only {
+    display: none !important;
+  }
+  :root:not([data-theme='light']) .dark-only {
+    display: block !important;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) .dark-only {
+    display: none !important;
+  }
+  :root:not([data-theme='dark']) .light-only {
+    display: block !important;
+  }
+}

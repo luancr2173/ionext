@@ -66,6 +66,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
           <app-button
             variant="primary"
             size="sm"
+            [label]="ctaConfig.label"
             [href]="ctaConfig.href"
             (clicked)="onLinkClick($event, ctaConfig.href)"
           >
@@ -118,6 +119,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
                 <app-button
                   variant="primary"
                   size="lg"
+                  [label]="ctaConfig.label"
                   [href]="ctaConfig.href"
                   (clicked)="onMobileLinkClick($event, ctaConfig.href)"
                 >

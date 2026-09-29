@@ -69,6 +69,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
                 <app-button
                   [variant]="plan.featured ? 'primary' : 'dark'"
                   size="md"
+                  [label]="plan.ctaText"
                   [withArrow]="true"
                   href="#contato"
                   (clicked)="onPlanCtaClick($event)"

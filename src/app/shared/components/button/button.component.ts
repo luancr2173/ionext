@@ -15,7 +15,12 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
         [attr.aria-label]="ariaLabel() || null"
         (click)="handleClick($event)"
       >
-        <span class="button-label"><ng-content /></span>
+        <span class="button-label">
+          @if (label()) {
+            {{ label() }}
+          }
+          <ng-content></ng-content>
+        </span>
         @if (withArrow()) {
           <span class="button-arrow" aria-hidden="true">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -41,12 +46,17 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
         @if (loading()) {
           <span class="button-spinner" aria-hidden="true"></span>
         }
-        <span class="button-label"><ng-content /></span>
+        <span class="button-label">
+          @if (label()) {
+            {{ label() }}
+          }
+          <ng-content></ng-content>
+        </span>
         @if (withArrow() && !loading()) {
           <span class="button-arrow" aria-hidden="true">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <path
-                d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"
+                d="M2.5 9.5L9.5 2.5H4M9.5 2.5V8"
                 stroke="currentColor"
                 stroke-width="1.75"
                 stroke-linecap="round"
@@ -61,6 +71,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
+  readonly label = input<string>('');
   readonly variant = input<ButtonVariant>('primary');
   readonly size = input<ButtonSize>('md');
   readonly href = input<string | undefined>(undefined);

@@ -50,7 +50,12 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
               </div>
               <h3 class="feedback-title">Mensagem Enviada!</h3>
               <p class="feedback-message">{{ feedbackMessage() }}</p>
-              <app-button variant="secondary" size="md" (clicked)="resetForm()">
+              <app-button
+                variant="secondary"
+                size="md"
+                label="Enviar outra mensagem"
+                (clicked)="resetForm()"
+              >
                 Enviar outra mensagem
               </app-button>
             </div>
@@ -197,6 +202,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
                   type="submit"
                   variant="primary"
                   size="lg"
+                  [label]="isLoading() ? 'Enviando...' : 'Solicitar diagnóstico gratuito'"
                   [withArrow]="true"
                   [loading]="isLoading()"
                   [disabled]="isLoading()"

@@ -38,7 +38,26 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
             />
           </div>
 
-          <div class="hero-wordmark" [class.animate-in]="wordmarkAnimated()">ionext</div>
+          <div class="hero-wordmark" [class.animate-in]="wordmarkAnimated()">
+            <img
+              src="assets/logo/ionext-wordmark-white.png"
+              alt="ionext"
+              class="hero-wordmark-img dark-only"
+              width="678"
+              height="194"
+              loading="eager"
+              decoding="async"
+            />
+            <img
+              src="assets/logo/ionext-wordmark-black.png"
+              alt="ionext"
+              class="hero-wordmark-img light-only"
+              width="678"
+              height="194"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
         </div>
 
         <!-- Hero Content (Typography & CTAs) -->
@@ -55,6 +74,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
             <app-button
               variant="primary"
               size="lg"
+              [label]="heroConfig.ctaPrimary.label"
               [withArrow]="true"
               [href]="heroConfig.ctaPrimary.href"
               (clicked)="onCtaClick($event, heroConfig.ctaPrimary.href)"
@@ -65,6 +85,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
             <app-button
               variant="secondary"
               size="lg"
+              [label]="heroConfig.ctaSecondary.label"
               [withArrow]="true"
               [href]="heroConfig.ctaSecondary.href"
               (clicked)="onCtaClick($event, heroConfig.ctaSecondary.href)"
@@ -73,13 +94,13 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
             </app-button>
           </div>
         </div>
+      </div>
 
-        <!-- Scroll Indicator Hint -->
-        <div class="hero-scroll-indicator" aria-hidden="true" [style.opacity]="scrollHintOpacity()">
-          <span class="scroll-mouse-track">
-            <span class="scroll-mouse-wheel"></span>
-          </span>
-        </div>
+      <!-- Scroll Indicator Hint (Positioned at base of hero-section) -->
+      <div class="hero-scroll-indicator" aria-hidden="true" [style.opacity]="scrollHintOpacity()">
+        <span class="scroll-mouse-track">
+          <span class="scroll-mouse-wheel"></span>
+        </span>
       </div>
     </section>
   `,
