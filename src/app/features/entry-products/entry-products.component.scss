@@ -33,13 +33,60 @@
 }
 
 .product-row {
-  border-top: 1px solid var(--line);
+  position: relative;
+  border-top: none;
   padding-top: clamp(36px, 5vw, 64px);
   padding-bottom: clamp(36px, 5vw, 64px);
-  transition: background-color var(--duration-fast) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-touch) var(--ease-apple);
+
+  /* Animated top divider line (scaleX 0 -> 1 on reveal) */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--line);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur-reveal) var(--ease-apple) var(--reveal-delay, 0ms);
+    will-change: transform;
+  }
+
+  &.is-revealed::before {
+    transform: scaleX(1);
+    will-change: auto;
+  }
 
   &:last-child {
-    border-bottom: 1px solid var(--line);
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: var(--line);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform var(--dur-reveal) var(--ease-apple)
+        calc(var(--reveal-delay, 0ms) + 100ms);
+      will-change: transform;
+    }
+
+    &.is-revealed::after {
+      transform: scaleX(1);
+      will-change: auto;
+    }
+  }
+
+  &:active {
+    background-color: var(--surface);
+    transform: scale(0.985);
   }
 }
 

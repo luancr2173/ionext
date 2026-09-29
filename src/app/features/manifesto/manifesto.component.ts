@@ -76,6 +76,7 @@ export class ManifestoComponent implements OnInit, OnDestroy {
 
     this.ngZone.runOutsideAngular(() => {
       window.addEventListener('scroll', this.scrollHandler!, { passive: true });
+      window.addEventListener('touchmove', this.scrollHandler!, { passive: true });
       window.addEventListener('resize', this.scrollHandler!, { passive: true });
     });
 
@@ -122,6 +123,7 @@ export class ManifestoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.scrollHandler && isPlatformBrowser(this.platformId)) {
       window.removeEventListener('scroll', this.scrollHandler);
+      window.removeEventListener('touchmove', this.scrollHandler);
       window.removeEventListener('resize', this.scrollHandler);
     }
   }

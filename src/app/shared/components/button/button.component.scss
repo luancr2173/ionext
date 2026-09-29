@@ -15,8 +15,9 @@
   text-decoration: none;
   cursor: pointer;
   border: 1px solid transparent;
+  -webkit-tap-highlight-color: transparent;
   transition:
-    transform var(--duration-fast) var(--ease-apple),
+    transform var(--dur-touch) var(--ease-apple),
     background-color var(--duration-fast) var(--ease-out),
     border-color var(--duration-fast) var(--ease-out),
     color var(--duration-fast) var(--ease-out),
@@ -30,7 +31,7 @@
   }
 
   &:active {
-    transform: scale(0.985);
+    transform: scale(0.975);
   }
 
   &:focus-visible {

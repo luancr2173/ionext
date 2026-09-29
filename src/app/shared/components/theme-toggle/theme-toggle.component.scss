@@ -44,6 +44,7 @@
 }
 
 .icon-stage {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -52,28 +53,31 @@
 }
 
 .theme-icon {
+  position: absolute;
+  top: 2px;
+  left: 2px;
   display: block;
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
   transition:
-    transform var(--duration-normal) var(--ease-apple),
-    opacity var(--duration-normal) var(--ease-apple);
+    transform 400ms var(--ease-apple),
+    opacity 400ms var(--ease-apple);
+  pointer-events: none;
+  will-change: transform, opacity;
 
-  &.icon-sun {
-    animation: iconPop 250ms var(--ease-apple);
-  }
-
-  &.icon-moon {
-    animation: iconPop 250ms var(--ease-apple);
+  &.is-active {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+    pointer-events: auto;
+    will-change: auto;
   }
 }
 
-@keyframes iconPop {
-  0% {
-    transform: rotate(-30deg) scale(0.7);
-    opacity: 0;
-  }
-  100% {
+.icon-moon {
+  transform: rotate(90deg) scale(0.5);
+
+  &.is-active {
     transform: rotate(0deg) scale(1);
-    opacity: 1;
   }
 }
 
@@ -89,5 +93,10 @@
     transition: none !important;
     animation: none !important;
     transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .theme-icon:not(.is-active) {
+    display: none !important;
   }
 }

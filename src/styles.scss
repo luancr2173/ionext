@@ -59,10 +59,23 @@
   --radius-card: 28px; /* Large 28px strictly for plan cards */
   --radius-full: 9999px; /* Pills */
 
-  /* Timing & Easings */
+  /* Timing & Motion Tokens (Centralized Calibration) */
   --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-slow: 600ms;
+  --dur-touch: 120ms;
+  --dur-reveal: 700ms;
+  --dur-theme-desktop: 650ms;
+  --dur-theme-mobile: 500ms;
+  --dur-theme-fallback: 350ms;
+  --dur-scroll-min: 450ms;
+  --dur-scroll-max: 900ms;
+  --dur-highlight: 600ms;
+
   --duration-fast: 200ms;
   --duration-normal: 300ms;
   --duration-reveal: 700ms;
@@ -212,6 +225,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -368,14 +382,64 @@ svg {
   opacity: 0;
   transform: translateY(24px);
   transition:
-    opacity var(--duration-reveal) var(--ease-apple) var(--reveal-delay, 0ms),
-    transform var(--duration-reveal) var(--ease-apple) var(--reveal-delay, 0ms);
+    opacity var(--dur-reveal) var(--ease-apple) var(--reveal-delay, 0ms),
+    transform var(--dur-reveal) var(--ease-apple) var(--reveal-delay, 0ms);
   will-change: opacity, transform;
+
+  @media (max-width: 768px) {
+    transform: translateY(32px);
+  }
 
   &.is-revealed {
     opacity: 1;
     transform: translateY(0);
     will-change: auto;
+  }
+}
+
+/* Masked Title Entrance (Slide up behind clip edge) */
+.section-title {
+  overflow: hidden;
+
+  .masked-title-inner {
+    display: inline-block;
+    transform: translateY(110%);
+    opacity: 0;
+    transition:
+      transform var(--dur-reveal) var(--ease-apple),
+      opacity var(--dur-reveal) var(--ease-apple);
+    will-change: transform, opacity;
+  }
+}
+
+.is-revealed .section-title .masked-title-inner,
+.section-title.is-revealed .masked-title-inner {
+  transform: translateY(0);
+  opacity: 1;
+  will-change: auto;
+}
+
+/* Destination Section Title Arrival Pulse (~600ms) */
+.section-title-highlight {
+  animation: sectionGlow var(--dur-highlight) var(--ease-apple);
+}
+
+@keyframes sectionGlow {
+  0% {
+    opacity: 0.65;
+    transform: translateY(2px) scale(0.99);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0) scale(1.015);
+    color: var(--accent);
+    text-shadow: 0 0 16px var(--accent-subtle);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    color: var(--fg);
+    text-shadow: none;
   }
 }
 
@@ -398,15 +462,32 @@ svg {
   z-index: 9999;
 }
 
+/* Isolate navbar during theme transition to avoid backdrop-filter flicker */
+.nav-header {
+  view-transition-name: navbar;
+}
+
+::view-transition-old(navbar),
+::view-transition-new(navbar) {
+  animation-duration: 350ms;
+  animation-timing-function: var(--ease-apple);
+}
+
 /* Fallback smooth transition when View Transitions API is unsupported */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after,
 html.theme-transitioning,
 html.theme-transitioning *,
 html.theme-transitioning *::before,
 html.theme-transitioning *::after {
   transition:
-    background-color 300ms var(--ease-apple),
-    color 300ms var(--ease-apple),
-    border-color 300ms var(--ease-apple) !important;
+    background-color 350ms var(--ease-apple),
+    color 350ms var(--ease-apple),
+    border-color 350ms var(--ease-apple),
+    fill 350ms var(--ease-apple),
+    stroke 350ms var(--ease-apple) !important;
 }
 
 /* Reduced Motion Override */
@@ -427,7 +508,24 @@ html.theme-transitioning *::after {
     will-change: auto !important;
   }
 
+  .section-title {
+    overflow: visible !important;
+  }
+
+  .section-title .masked-title-inner {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+
+  .section-title-highlight {
+    animation: none !important;
+  }
+
+  html.theme-transition,
   html.theme-transitioning,
+  html.theme-transition *,
   html.theme-transitioning * {
     transition: none !important;
   }

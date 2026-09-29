@@ -6,6 +6,42 @@ export interface ScrollToSectionOptions {
   updateHistory?: boolean;
 }
 
+/**
+ * Apple-style easing cubic-bezier(0.16, 1, 0.3, 1)
+ * Solves X(u) = t for u, then computes Y(u) = 1 - (1-u)^3
+ */
+export function easeApple(t: number): number {
+  if (t <= 0) return 0;
+  if (t >= 1) return 1;
+
+  let u = t;
+  for (let i = 0; i < 6; i++) {
+    const oneMinusU = 1 - u;
+    const currentX = 3 * oneMinusU * oneMinusU * u * 0.16 + 3 * oneMinusU * u * u * 0.3 + u * u * u;
+    const diff = currentX - t;
+    if (Math.abs(diff) < 1e-4) break;
+    const dX =
+      3 * oneMinusU * oneMinusU * 0.16 + 6 * oneMinusU * u * (0.3 - 0.16) + 3 * u * u * (1 - 0.3);
+    if (Math.abs(dX) < 1e-6) break;
+    u -= diff / dX;
+    u = Math.max(0, Math.min(1, u));
+  }
+  const oneMinusU = 1 - u;
+  return 1 - oneMinusU * oneMinusU * oneMinusU;
+}
+
+/**
+ * Calculates animation duration proportional to scroll distance:
+ * 450ms for small distances up to 900ms for long distances (>= 3000px).
+ */
+export function calculateScrollDuration(distance: number): number {
+  const minDur = 450;
+  const maxDur = 900;
+  const refDistance = 3000;
+  const factor = Math.min(1, Math.max(0, distance / refDistance));
+  return Math.round(minDur + factor * (maxDur - minDur));
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,6 +54,9 @@ export class NavigationService {
    * Triggered on user interaction (link click) or when opening the page with an anchor hash.
    */
   readonly forceLoad = signal<boolean>(false);
+
+  private activeScrollRafId: number | null = null;
+  private cancelScrollListeners: (() => void) | null = null;
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -39,12 +78,93 @@ export class NavigationService {
   }
 
   /**
+   * Cancels active animated scroll if user scrolls/touches or if another scroll starts.
+   */
+  cancelActiveScroll(): void {
+    if (this.activeScrollRafId !== null) {
+      if (typeof window !== 'undefined' && typeof window.cancelAnimationFrame === 'function') {
+        window.cancelAnimationFrame(this.activeScrollRafId);
+      }
+      this.activeScrollRafId = null;
+    }
+    if (this.cancelScrollListeners) {
+      this.cancelScrollListeners();
+      this.cancelScrollListeners = null;
+    }
+  }
+
+  /**
+   * Animates window scroll position to targetY using requestAnimationFrame
+   * with cubic-bezier(0.16, 1, 0.3, 1) and user gesture cancellation.
+   */
+  animateScrollTo(targetY: number, onArrival?: () => void): void {
+    this.cancelActiveScroll();
+
+    if (!isPlatformBrowser(this.platformId)) {
+      onArrival?.();
+      return;
+    }
+
+    const startY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    const distance = Math.abs(targetY - startY);
+
+    if (distance < 2 || this.shouldReduceMotion()) {
+      window.scrollTo(0, targetY);
+      onArrival?.();
+      return;
+    }
+
+    const duration = calculateScrollDuration(distance);
+    const startTime = performance.now();
+
+    const cancelEvents = ['wheel', 'touchstart', 'touchmove', 'pointerdown', 'keydown'] as const;
+    const onUserInteraction = () => {
+      this.cancelActiveScroll();
+    };
+
+    const removeListeners = () => {
+      cancelEvents.forEach((evt) => {
+        window.removeEventListener(evt, onUserInteraction);
+      });
+    };
+
+    cancelEvents.forEach((evt) => {
+      window.addEventListener(evt, onUserInteraction, { passive: true, capture: true });
+    });
+
+    this.cancelScrollListeners = removeListeners;
+
+    this.ngZone.runOutsideAngular(() => {
+      const step = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(1, elapsed / duration);
+        const easedProgress = easeApple(progress);
+
+        const currentPos = startY + (targetY - startY) * easedProgress;
+        window.scrollTo(0, Math.round(currentPos));
+
+        if (progress < 1) {
+          this.activeScrollRafId = window.requestAnimationFrame(step);
+        } else {
+          this.cancelActiveScroll();
+          this.ngZone.run(() => {
+            onArrival?.();
+          });
+        }
+      };
+
+      this.activeScrollRafId = window.requestAnimationFrame(step);
+    });
+  }
+
+  /**
    * Smoothly navigates to any section ID:
    * 1. Signals deferred blocks to render immediately via `forceLoad(true)`
    * 2. Waits for browser rendering frames
-   * 3. Executes scrollIntoView (respecting prefers-reduced-motion)
+   * 3. Executes custom animated scroll (or auto if prefers-reduced-motion)
    * 4. Updates URL hash via history.replaceState
    * 5. Moves accessible focus to the section heading
+   * 6. Triggers brief arrival pulse on the destination title (~600ms)
    */
   scrollToSection(rawTargetId: string, options?: ScrollToSectionOptions): void {
     if (!isPlatformBrowser(this.platformId)) return;
@@ -70,16 +190,23 @@ export class NavigationService {
       if (!targetElement) {
         // Fallback: if id is 'inicio', scroll to top
         if (id === 'inicio') {
-          window.scrollTo({
-            top: 0,
-            behavior: this.shouldReduceMotion() ? 'auto' : 'smooth',
-          });
-          if (options?.updateHistory !== false && window.history?.replaceState) {
-            window.history.replaceState(
-              null,
-              '',
-              window.location.pathname + window.location.search,
-            );
+          const onArrival = () => {
+            if (options?.updateHistory !== false && window.history?.replaceState) {
+              window.history.replaceState(
+                null,
+                '',
+                window.location.pathname + window.location.search,
+              );
+            }
+          };
+
+          const isReduced = this.shouldReduceMotion();
+          const smooth = options?.smooth !== false && !isReduced;
+          if (!smooth) {
+            window.scrollTo(0, 0);
+            onArrival();
+          } else {
+            this.animateScrollTo(0, onArrival);
           }
         }
         return;
@@ -87,6 +214,27 @@ export class NavigationService {
 
       this.executeScrollAndFocus(targetElement, id, options);
     });
+  }
+
+  /**
+   * Highlights destination section heading for ~600ms upon arrival.
+   */
+  highlightSectionTitle(targetElement: HTMLElement): void {
+    if (this.shouldReduceMotion()) return;
+
+    const titleEl = targetElement.querySelector<HTMLElement>(
+      'h1, h2, h3, [role="heading"], .section-title',
+    );
+    if (!titleEl) return;
+
+    titleEl.classList.remove('section-title-highlight');
+    // Force DOM reflow to restart CSS keyframe animation
+    void titleEl.offsetWidth;
+    titleEl.classList.add('section-title-highlight');
+
+    setTimeout(() => {
+      titleEl.classList.remove('section-title-highlight');
+    }, 650);
   }
 
   private waitForRender(callback: () => void): void {
@@ -107,7 +255,7 @@ export class NavigationService {
     }
   }
 
-  private shouldReduceMotion(): boolean {
+  shouldReduceMotion(): boolean {
     return Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches);
   }
 
@@ -118,25 +266,50 @@ export class NavigationService {
   ): void {
     const isReduced = this.shouldReduceMotion();
     const smooth = options?.smooth !== false && !isReduced;
-    const behavior: ScrollBehavior = smooth ? 'smooth' : 'auto';
 
-    // Scroll section into view (CSS scroll-margin-top accounts for the fixed header)
-    targetElement.scrollIntoView({ behavior, block: 'start' });
+    const rect = targetElement.getBoundingClientRect();
+    const currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
 
-    // Update URL hash via history.replaceState to avoid jumping or polluting history
-    if (options?.updateHistory !== false && window.history?.replaceState) {
-      window.history.replaceState(null, '', '#' + id);
+    let offset = 64;
+    const navHeader = document.querySelector('.nav-header') as HTMLElement | null;
+    if (navHeader) {
+      offset = navHeader.offsetHeight;
+    }
+    const computed = window.getComputedStyle(targetElement);
+    const parsedMargin = parseFloat(computed.scrollMarginTop);
+    if (!isNaN(parsedMargin) && parsedMargin > 0) {
+      offset = parsedMargin;
     }
 
-    // Move focus to section heading or container for keyboard/screen-reader users
-    const heading = targetElement.querySelector(
-      'h1, h2, h3, [role="heading"]',
-    ) as HTMLElement | null;
-    const focusTarget = heading || targetElement;
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const targetY = Math.min(Math.max(0, currentY + rect.top - offset), maxScroll);
 
-    if (!focusTarget.hasAttribute('tabindex')) {
-      focusTarget.setAttribute('tabindex', '-1');
+    const onArrival = () => {
+      // Update URL hash via history.replaceState to avoid jumping or polluting history
+      if (options?.updateHistory !== false && window.history?.replaceState) {
+        window.history.replaceState(null, '', '#' + id);
+      }
+
+      // Move focus to section heading or container for keyboard/screen-reader users
+      const heading = targetElement.querySelector(
+        'h1, h2, h3, [role="heading"]',
+      ) as HTMLElement | null;
+      const focusTarget = heading || targetElement;
+
+      if (!focusTarget.hasAttribute('tabindex')) {
+        focusTarget.setAttribute('tabindex', '-1');
+      }
+      focusTarget.focus({ preventScroll: true });
+
+      // Briefly glow / highlight the arrival section title (~600ms)
+      this.highlightSectionTitle(targetElement);
+    };
+
+    if (!smooth) {
+      window.scrollTo(0, targetY);
+      onArrival();
+    } else {
+      this.animateScrollTo(targetY, onArrival);
     }
-    focusTarget.focus({ preventScroll: true });
   }
 }

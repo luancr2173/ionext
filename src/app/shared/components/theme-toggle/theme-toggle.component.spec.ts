@@ -36,7 +36,8 @@ describe('ThemeToggleComponent', () => {
     const sunIcon = fixture.nativeElement.querySelector('.icon-sun');
     const moonIcon = fixture.nativeElement.querySelector('.icon-moon');
     expect(sunIcon).toBeTruthy();
-    expect(moonIcon).toBeNull();
+    expect(sunIcon.classList.contains('is-active')).toBe(true);
+    expect(moonIcon.classList.contains('is-active')).toBe(false);
   });
 
   it('should display the moon icon and aria-pressed="false" when theme is light', () => {
@@ -49,7 +50,8 @@ describe('ThemeToggleComponent', () => {
     const sunIcon = fixture.nativeElement.querySelector('.icon-sun');
     const moonIcon = fixture.nativeElement.querySelector('.icon-moon');
     expect(moonIcon).toBeTruthy();
-    expect(sunIcon).toBeNull();
+    expect(moonIcon.classList.contains('is-active')).toBe(true);
+    expect(sunIcon.classList.contains('is-active')).toBe(false);
   });
 
   it('should trigger themeService.toggle when clicked', () => {

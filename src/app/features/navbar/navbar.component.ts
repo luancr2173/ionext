@@ -106,8 +106,8 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
       <div class="mobile-menu-content">
         <nav class="mobile-nav" aria-label="Menu mobile">
           <ul class="mobile-nav-list">
-            @for (link of navLinks; track link.href) {
-              <li class="mobile-nav-item">
+            @for (link of navLinks; track link.href; let idx = $index) {
+              <li class="mobile-nav-item" [style.--item-idx]="idx">
                 <a
                   [href]="link.href"
                   class="mobile-nav-link"
@@ -117,10 +117,10 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
                 </a>
               </li>
             }
-            <li class="mobile-nav-item mobile-theme-item">
+            <li class="mobile-nav-item mobile-theme-item" [style.--item-idx]="navLinks.length">
               <app-theme-toggle [showLabel]="true" />
             </li>
-            <li class="mobile-nav-item mobile-cta-item">
+            <li class="mobile-nav-item mobile-cta-item" [style.--item-idx]="navLinks.length + 1">
               <app-button
                 variant="primary"
                 size="lg"

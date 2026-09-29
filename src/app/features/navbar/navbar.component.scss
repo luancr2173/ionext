@@ -131,6 +131,7 @@
   border: none;
   cursor: pointer;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 
   @media (min-width: 820px) {
     display: none;
@@ -141,9 +142,17 @@
     width: 20px;
     height: 1.5px;
     background-color: var(--fg);
+    transform-origin: center;
     transition:
-      transform 240ms var(--ease-apple),
-      opacity 240ms var(--ease-apple);
+      transform var(--dur-base) var(--ease-apple),
+      opacity var(--dur-base) var(--ease-apple),
+      background-color var(--dur-fast) var(--ease-apple);
+    will-change: transform;
+  }
+
+  &:active {
+    transform: scale(0.96);
+    transition: transform var(--dur-touch) var(--ease-apple);
   }
 }
 
@@ -175,9 +184,10 @@
   pointer-events: none;
   transform: translateY(-8px);
   transition:
-    opacity 300ms var(--ease-apple),
-    transform 300ms var(--ease-apple),
-    visibility 300ms;
+    opacity var(--dur-base) var(--ease-apple),
+    transform var(--dur-base) var(--ease-apple),
+    visibility var(--dur-base);
+  will-change: opacity, transform;
 
   &.is-open {
     opacity: 1;
@@ -205,6 +215,21 @@
   gap: var(--space-md);
 }
 
+.mobile-nav-item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--dur-base) var(--ease-apple),
+    transform var(--dur-base) var(--ease-apple);
+  will-change: opacity, transform;
+}
+
+.mobile-menu-overlay.is-open .mobile-nav-item {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--item-idx, 0) * 50ms + 40ms);
+}
+
 .mobile-nav-link {
   font-size: 28px;
   font-weight: var(--font-weight-semibold);
@@ -214,10 +239,18 @@
   align-items: center;
   min-height: var(--touch-target-min);
   padding: 6px 0;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-touch) var(--ease-apple);
 
   &:hover,
   &:focus-visible {
     color: var(--accent);
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 }
 
@@ -239,4 +272,16 @@
   border-top: 1px solid var(--line);
   font-size: var(--font-size-body-sm);
   color: var(--fg-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-toggle,
+  .mobile-toggle .toggle-bar,
+  .mobile-menu-overlay,
+  .mobile-nav-item,
+  .mobile-nav-link {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }

@@ -12,7 +12,9 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
       <div class="container products-container">
         <!-- Section Header -->
         <header class="section-header" appReveal>
-          <h2 class="section-title">{{ config.title }}</h2>
+          <h2 class="section-title">
+            <span class="masked-title-inner">{{ config.title }}</span>
+          </h2>
           <p class="section-subtitle">{{ config.subtitle }}</p>
         </header>
 

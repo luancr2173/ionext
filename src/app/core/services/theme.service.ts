@@ -1,15 +1,22 @@
-import { Injectable, signal, inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, signal, inject, PLATFORM_ID, ApplicationRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 export type Theme = 'light' | 'dark';
 
 export const THEME_STORAGE_KEY = 'ionext-theme';
 
+export interface ViewTransition {
+  ready: Promise<void>;
+  finished: Promise<void>;
+  skipTransition?: () => void;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly appRef = inject(ApplicationRef);
 
   /**
    * Reactive signal for current theme.
@@ -20,6 +27,12 @@ export class ThemeService {
    * Tracks whether the theme was explicitly chosen by the user.
    */
   private hasManualPreference = false;
+
+  /**
+   * Active View Transition handle for skipping when rapid clicks occur.
+   */
+  private activeTransition?: ViewTransition;
+  private fallbackTimeoutId?: ReturnType<typeof setTimeout>;
 
   constructor() {
     this.init();
@@ -67,9 +80,10 @@ export class ThemeService {
 
   /**
    * Toggles between 'light' and 'dark'.
-   * Uses View Transitions API with circular reveal if available and not reduced-motion.
+   * Uses View Transitions API with expanding circular clip-path from the button center.
+   * Duration: ~650ms on desktop and ~500ms on <=768px.
    */
-  async toggle(event?: MouseEvent): Promise<void> {
+  async toggle(event?: MouseEvent | HTMLElement): Promise<void> {
     const nextTheme: Theme = this.theme() === 'dark' ? 'light' : 'dark';
     this.hasManualPreference = true;
 
@@ -84,59 +98,111 @@ export class ThemeService {
       return;
     }
 
-    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = Boolean(
+      window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches,
+    );
 
-    // View Transitions API with circular reveal
+    // Cancel any active View Transition if in progress (handles rapid clicks)
+    if (this.activeTransition?.skipTransition) {
+      try {
+        this.activeTransition.skipTransition();
+      } catch {
+        // Ignored
+      }
+      this.activeTransition = undefined;
+    }
+
+    // Cancel any pending fallback timeout
+    if (this.fallbackTimeoutId) {
+      clearTimeout(this.fallbackTimeoutId);
+      this.fallbackTimeoutId = undefined;
+      document.documentElement.classList.remove('theme-transition', 'theme-transitioning');
+    }
+
+    // 1. Reduced Motion: Immediate update, no animation
+    if (prefersReducedMotion) {
+      this.theme.set(nextTheme);
+      this.applyTheme(nextTheme);
+      this.appRef.tick();
+      return;
+    }
+
+    // 2. View Transitions API with circular reveal
     const doc = document as unknown as {
-      startViewTransition?: (callback: () => void) => {
-        ready: Promise<void>;
-        finished: Promise<void>;
-      };
+      startViewTransition?: (callback: () => Promise<void> | void) => ViewTransition;
     };
 
-    if (typeof doc.startViewTransition === 'function' && !prefersReducedMotion) {
-      const x = event?.clientX ?? window.innerWidth / 2;
-      const y = event?.clientY ?? window.innerHeight / 2;
+    if (typeof doc.startViewTransition === 'function') {
+      let x = window.innerWidth / 2;
+      let y = window.innerHeight / 2;
+
+      if (event instanceof HTMLElement) {
+        const rect = event.getBoundingClientRect();
+        x = rect.left + rect.width / 2;
+        y = rect.top + rect.height / 2;
+      } else if (event) {
+        const target = (event.currentTarget || event.target) as HTMLElement | null;
+        if (target && typeof target.getBoundingClientRect === 'function') {
+          const rect = target.getBoundingClientRect();
+          x = rect.left + rect.width / 2;
+          y = rect.top + rect.height / 2;
+        } else if ('clientX' in event && typeof event.clientX === 'number') {
+          x = event.clientX;
+          y = event.clientY;
+        }
+      }
+
       const endRadius = Math.hypot(
         Math.max(x, window.innerWidth - x),
         Math.max(y, window.innerHeight - y),
       );
 
-      const transition = doc.startViewTransition(() => {
+      const isMobile = window.innerWidth <= 768;
+      const duration = isMobile ? 500 : 650;
+
+      const transition = doc.startViewTransition(async () => {
         this.theme.set(nextTheme);
         this.applyTheme(nextTheme);
+        this.appRef.tick();
+      });
+
+      this.activeTransition = transition;
+      transition.finished.finally(() => {
+        if (this.activeTransition === transition) {
+          this.activeTransition = undefined;
+        }
       });
 
       try {
         await transition.ready;
-        document.documentElement.animate(
-          {
-            clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`],
-          },
-          {
-            duration: 480,
-            easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-            pseudoElement: '::view-transition-new(root)',
-          },
-        );
+        if (document.documentElement.animate) {
+          document.documentElement.animate(
+            {
+              clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`],
+            },
+            {
+              duration,
+              easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+              pseudoElement: '::view-transition-new(root)',
+            },
+          );
+        }
       } catch {
-        // Fallback handled automatically by browser
+        // Fallback handled automatically if transition was skipped or aborted
       }
       return;
     }
 
-    // Fallback transition for browsers without View Transitions
-    if (!prefersReducedMotion) {
-      document.documentElement.classList.add('theme-transitioning');
-      this.theme.set(nextTheme);
-      this.applyTheme(nextTheme);
-      setTimeout(() => {
-        document.documentElement.classList.remove('theme-transitioning');
-      }, 320);
-    } else {
-      this.theme.set(nextTheme);
-      this.applyTheme(nextTheme);
-    }
+    // 3. Fallback for browsers without View Transitions API (~350ms)
+    document.documentElement.classList.add('theme-transition');
+    this.theme.set(nextTheme);
+    this.applyTheme(nextTheme);
+    this.appRef.tick();
+
+    this.fallbackTimeoutId = setTimeout(() => {
+      document.documentElement.classList.remove('theme-transition');
+      this.fallbackTimeoutId = undefined;
+    }, 350);
   }
 
   private applyTheme(theme: Theme): void {
@@ -144,7 +210,7 @@ export class ThemeService {
 
     document.documentElement.setAttribute('data-theme', theme);
 
-    // Update <meta name="theme-color">
+    // Update <meta name="theme-color"> at the exact same moment
     const metaThemeColor = document.querySelector(
       'meta[name="theme-color"]',
     ) as HTMLMetaElement | null;

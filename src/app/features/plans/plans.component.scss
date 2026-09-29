@@ -59,12 +59,18 @@
   background-color: var(--card);
   color: var(--fg);
   border: 1px solid var(--card-border);
+  -webkit-tap-highlight-color: transparent;
   transition:
-    transform var(--duration-fast) var(--ease-apple),
-    border-color var(--duration-fast) var(--ease-apple);
+    transform var(--dur-touch) var(--ease-apple),
+    border-color var(--duration-fast) var(--ease-apple),
+    box-shadow var(--duration-fast) var(--ease-apple);
 
   &:hover {
     transform: translateY(-4px);
+  }
+
+  &:active {
+    transform: scale(0.975);
   }
 
   /* Featured Card: Inverted contrast (Black on light, White on dark) */
