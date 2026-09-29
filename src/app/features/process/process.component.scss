@@ -3,7 +3,7 @@
 }
 
 .process-section {
-  padding: clamp(96px, 14vw, 192px) 0;
+  padding: clamp(80px, 12vw, 160px) 0;
   background-color: var(--bg);
   color: var(--fg);
   border: solid var(--line);
@@ -11,7 +11,7 @@
 }
 
 .section-header {
-  margin-bottom: clamp(48px, 8vw, 88px);
+  margin-bottom: clamp(40px, 6vw, 72px);
 }
 
 .section-label {
@@ -40,6 +40,7 @@
 .process-carousel-wrapper {
   position: relative;
   outline: none;
+  touch-action: pan-y;
 
   &:focus-visible {
     outline: 2px solid var(--accent);
@@ -48,81 +49,106 @@
   }
 }
 
-/* Phase Navigation Tabs */
+/* Pinned Segmented Progress Bar (100% Width Grid, Never Loose) */
 .carousel-tabs {
-  display: flex;
-  gap: var(--space-xs);
-  margin-bottom: var(--space-xl);
-  border-bottom: 1px solid var(--line);
-  overflow-x: auto;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(6px, 1.5vw, 16px);
+  margin-bottom: var(--space-md);
+  width: 100%;
 }
 
 .carousel-tab-btn {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 22px;
+  flex-direction: column;
+  gap: 6px;
   background: transparent;
   border: none;
   cursor: pointer;
-  color: var(--fg-muted);
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-medium);
-  position: relative;
-  white-space: nowrap;
-  transition: color var(--duration-fast) var(--ease-apple);
+  padding: 8px 4px;
+  text-align: left;
+  outline: none;
+  transition: opacity var(--duration-fast);
 
   &:hover {
-    color: var(--fg);
-  }
-
-  .tab-index {
-    font-size: var(--font-size-caption);
-    font-weight: var(--font-weight-semibold);
-    color: var(--accent);
-  }
-
-  .tab-title {
-    font-size: var(--font-size-body-sm);
-  }
-
-  .tab-indicator {
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: transparent;
-    transition: background-color var(--duration-fast) var(--ease-apple);
-  }
-
-  &.is-active {
-    color: var(--fg);
-    font-weight: var(--font-weight-semibold);
-
-    .tab-indicator {
-      background-color: var(--accent);
+    .tab-title {
+      color: var(--fg);
     }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
   }
 }
 
-/* Carousel Viewport */
+.tab-progress-track {
+  width: 100%;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background-color: var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.tab-progress-fill {
+  position: absolute;
+  inset: 0;
+  background-color: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 350ms var(--ease-apple);
+}
+
+.carousel-tab-btn.is-active {
+  .tab-progress-fill {
+    transform: scaleX(1);
+    box-shadow: 0 0 10px var(--accent-glow);
+  }
+
+  .tab-title {
+    color: var(--fg);
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
+.tab-label-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.tab-index {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.tab-title {
+  font-size: clamp(11px, 2vw, 13px);
+  color: var(--fg-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--duration-fast) var(--ease-apple);
+}
+
+/* Carousel Viewport (Equal stable height to prevent vertical jitter) */
 .carousel-viewport {
   overflow: hidden;
   width: 100%;
   border-radius: var(--radius-card);
+  touch-action: pan-y;
 }
 
 .carousel-track {
   display: flex;
   width: 100%;
-  transition: transform 500ms var(--ease-apple);
+  align-items: stretch;
+  transition: transform 450ms var(--ease-apple);
   will-change: transform;
 }
 
@@ -130,17 +156,20 @@
   flex: 0 0 100%;
   width: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Phase Slide Card */
+/* Phase Card */
 .phase-card {
   position: relative;
   overflow: hidden;
   background-color: var(--surface);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-card);
-  padding: clamp(28px, 4.5vw, 56px);
-  min-height: 440px;
+  padding: clamp(24px, 4vw, 52px);
+  min-height: clamp(480px, 60vh, 520px);
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -148,9 +177,9 @@
 
 .card-watermark {
   position: absolute;
-  right: 28px;
+  right: 20px;
   bottom: -20px;
-  font-size: clamp(120px, 18vw, 240px);
+  font-size: clamp(100px, 16vw, 220px);
   font-weight: var(--font-weight-bold);
   line-height: 0.8;
   letter-spacing: -0.05em;
@@ -172,8 +201,8 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-xl);
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
   position: relative;
   z-index: 1;
 }
@@ -182,7 +211,7 @@
 .meta-right {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: 6px;
   flex-wrap: wrap;
 }
 
@@ -193,7 +222,7 @@
   letter-spacing: 0.08em;
   color: var(--accent);
   background-color: var(--accent-subtle);
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: var(--radius-full);
 }
 
@@ -205,12 +234,12 @@
 .phase-pill-time {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   font-size: var(--font-size-caption);
   color: var(--fg-muted);
   background-color: var(--surface-alt);
   border: 1px solid var(--line-subtle);
-  padding: 4px 10px;
+  padding: 3px 9px;
   border-radius: var(--radius-full);
 }
 
@@ -219,7 +248,7 @@
   color: var(--fg);
   background-color: var(--surface-alt);
   border: 1px solid var(--line-subtle);
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: var(--radius-full);
   font-weight: var(--font-weight-medium);
 }
@@ -231,30 +260,31 @@
 }
 
 .phase-title {
-  font-size: clamp(30px, 4.2vw, 48px);
+  font-size: clamp(28px, 4vw, 44px);
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-tight);
   color: var(--fg);
-  margin-bottom: var(--space-xs);
-  line-height: 1.1;
+  margin-bottom: 4px;
+  line-height: 1.15;
 }
 
 .phase-summary {
-  font-size: var(--font-size-body-lg);
+  font-size: var(--font-size-body);
   color: var(--fg-muted);
   line-height: var(--line-height-normal);
   max-width: 58ch;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
 
 /* Activities Grid */
 .activities-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-md);
+  gap: var(--space-xs);
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-sm);
   }
 }
 
@@ -262,17 +292,14 @@
   background-color: var(--surface-alt);
   border: 1px solid var(--line-subtle);
   border-radius: var(--radius-md);
-  padding: clamp(16px, 2.5vw, 22px);
+  padding: clamp(12px, 2vw, 18px);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
-  transition:
-    border-color var(--duration-fast) var(--ease-apple),
-    transform var(--duration-fast) var(--ease-apple);
+  gap: 2px;
+  transition: border-color var(--duration-fast) var(--ease-apple);
 
   &:hover {
     border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
   }
 }
 
@@ -300,24 +327,23 @@
 .activity-text {
   font-size: var(--font-size-body-sm);
   color: var(--fg);
-  line-height: var(--line-height-normal);
+  line-height: 1.4;
 }
 
-/* Bottom Control Bar */
+/* Control Bar (Stationary, no vertical bounce) */
 .carousel-control-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: var(--space-lg);
-  padding: var(--space-xs) 0;
-  flex-wrap: wrap;
-  gap: var(--space-md);
+  margin-top: var(--space-sm);
+  padding: 6px 0;
+  gap: var(--space-sm);
 }
 
 .carousel-pagination {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
 .pagination-counter {
@@ -333,12 +359,12 @@
 .pagination-dots {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .dot-btn {
-  width: 22px;
-  height: 4px;
+  width: 18px;
+  height: 3px;
   border-radius: var(--radius-full);
   background-color: var(--line);
   border: none;
@@ -348,7 +374,7 @@
     background-color 300ms var(--ease-apple);
 
   &.is-active {
-    width: 40px;
+    width: 32px;
     background-color: var(--accent);
   }
 }
@@ -356,14 +382,14 @@
 .carousel-buttons {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: 6px;
 }
 
 .carousel-nav-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
+  gap: 6px;
+  padding: 8px 16px;
   border-radius: var(--radius-full);
   border: 1px solid var(--line);
   background-color: var(--surface);

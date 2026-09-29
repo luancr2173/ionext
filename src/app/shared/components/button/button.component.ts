@@ -18,8 +18,9 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
         <span class="button-label">
           @if (label()) {
             {{ label() }}
+          } @else {
+            <ng-content></ng-content>
           }
-          <ng-content></ng-content>
         </span>
         @if (withArrow()) {
           <span class="button-arrow" aria-hidden="true">
@@ -49,8 +50,9 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
         <span class="button-label">
           @if (label()) {
             {{ label() }}
+          } @else {
+            <ng-content></ng-content>
           }
-          <ng-content></ng-content>
         </span>
         @if (withArrow() && !loading()) {
           <span class="button-arrow" aria-hidden="true">

@@ -26,7 +26,7 @@ import { ScrollService } from '../../core/services/scroll.service';
           <p class="section-subtitle">{{ config.subtitle }}</p>
         </header>
 
-        <!-- Carousel Container -->
+        <!-- Carousel Container with pan-y touch action -->
         <div
           class="process-carousel-wrapper"
           appReveal
@@ -38,9 +38,10 @@ import { ScrollService } from '../../core/services/scroll.service';
           (keydown.arrowLeft)="prevStep()"
           (keydown.arrowRight)="nextStep()"
           (touchstart)="onTouchStart($event)"
+          (touchmove)="onTouchMove($event)"
           (touchend)="onTouchEnd($event)"
         >
-          <!-- Top Phase Navigation Tabs -->
+          <!-- Top Segmented Phase Bar (100% width, non-overflowing) -->
           <nav class="carousel-tabs" role="tablist" aria-label="Fases da metodologia">
             @for (step of config.steps; track step.number; let idx = $index) {
               <button
@@ -53,14 +54,21 @@ import { ScrollService } from '../../core/services/scroll.service';
                 [id]="'phase-tab-' + idx"
                 (click)="goToStep(idx)"
               >
-                <span class="tab-index">{{ step.number }}</span>
-                <span class="tab-title">{{ step.title }}</span>
-                <span class="tab-indicator" aria-hidden="true"></span>
+                <!-- Segmented Progress Track & Fill -->
+                <div class="tab-progress-track">
+                  <div class="tab-progress-fill"></div>
+                </div>
+
+                <!-- Tab Label -->
+                <div class="tab-label-wrap">
+                  <span class="tab-index">{{ step.number }}</span>
+                  <span class="tab-title">{{ step.title }}</span>
+                </div>
               </button>
             }
           </nav>
 
-          <!-- Carousel Viewport & Sliding Track -->
+          <!-- Carousel Viewport & Sliding Track (Fixed Equal Height) -->
           <div class="carousel-viewport">
             <div
               class="carousel-track"
@@ -86,7 +94,7 @@ import { ScrollService } from '../../core/services/scroll.service';
                       </div>
                       <div class="meta-right">
                         <span class="phase-pill-time">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <circle cx="12" cy="12" r="10"></circle>
                             <polyline points="12 6 12 12 16 14"></polyline>
                           </svg>
@@ -110,7 +118,7 @@ import { ScrollService } from '../../core/services/scroll.service';
                             <div class="activity-top">
                               <span class="activity-number">0{{ dIdx + 1 }}</span>
                               <span class="activity-check" aria-hidden="true">
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                                   <path
                                     d="M2.5 7L5.5 10L11.5 4"
                                     stroke="currentColor"
@@ -132,7 +140,7 @@ import { ScrollService } from '../../core/services/scroll.service';
             </div>
           </div>
 
-          <!-- Carousel Bottom Control Bar -->
+          <!-- Carousel Bottom Control Bar (Stable vertical alignment) -->
           <footer class="carousel-control-bar">
             <!-- Left: Phase Indicator & Dots -->
             <div class="carousel-pagination">
@@ -161,7 +169,7 @@ import { ScrollService } from '../../core/services/scroll.service';
                 aria-label="Fase anterior"
                 (click)="prevStep()"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <polyline points="15 18 9 12 15 6"></polyline>
                 </svg>
                 <span class="btn-text">Anterior</span>
@@ -175,7 +183,7 @@ import { ScrollService } from '../../core/services/scroll.service';
                   (click)="nextStep()"
                 >
                   <span class="btn-text">Próxima Fase</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <polyline points="9 18 15 12 9 6"></polyline>
                   </svg>
                 </button>
@@ -187,7 +195,7 @@ import { ScrollService } from '../../core/services/scroll.service';
                   (click)="onCtaClick()"
                 >
                   <span>Iniciar Projeto</span>
-                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                     <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </button>
@@ -211,7 +219,8 @@ export class ProcessComponent {
   });
 
   private touchStartX = 0;
-  private touchEndX = 0;
+  private touchStartY = 0;
+  private isSwiping = false;
 
   goToStep(index: number): void {
     if (index >= 0 && index < this.config.steps.length) {
@@ -232,26 +241,43 @@ export class ProcessComponent {
   }
 
   protected onTouchStart(event: TouchEvent): void {
-    this.touchStartX = event.changedTouches[0].screenX;
+    if (event.touches.length !== 1) return;
+    this.touchStartX = event.touches[0].clientX;
+    this.touchStartY = event.touches[0].clientY;
+    this.isSwiping = false;
+  }
+
+  protected onTouchMove(event: TouchEvent): void {
+    if (event.touches.length !== 1) return;
+    const currentX = event.touches[0].clientX;
+    const currentY = event.touches[0].clientY;
+    const diffX = Math.abs(currentX - this.touchStartX);
+    const diffY = Math.abs(currentY - this.touchStartY);
+
+    // If vertical movement dominates, the user is scrolling the page vertically!
+    if (diffY > diffX && diffY > 8) {
+      this.isSwiping = false;
+      return;
+    }
+
+    if (diffX > diffY && diffX > 15) {
+      this.isSwiping = true;
+    }
   }
 
   protected onTouchEnd(event: TouchEvent): void {
-    this.touchEndX = event.changedTouches[0].screenX;
-    this.handleSwipe();
-  }
+    if (!this.isSwiping) return;
+    const touchEndX = event.changedTouches[0].clientX;
+    const diffX = this.touchStartX - touchEndX;
 
-  private handleSwipe(): void {
-    const swipeThreshold = 50;
-    const diff = this.touchStartX - this.touchEndX;
-    if (Math.abs(diff) > swipeThreshold) {
-      if (diff > 0) {
-        // Swiped left -> next
+    if (Math.abs(diffX) > 40) {
+      if (diffX > 0) {
         this.nextStep();
       } else {
-        // Swiped right -> prev
         this.prevStep();
       }
     }
+    this.isSwiping = false;
   }
 
   protected onCtaClick(): void {
