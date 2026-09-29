@@ -78,4 +78,12 @@ export class ScrollService {
     if (!isPlatformBrowser(this.platformId)) return;
     this.navigationService.scrollToSection(targetId);
   }
+
+  /**
+   * Smoothly scrolls back to top of the page.
+   */
+  scrollToTop(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.navigationService.scrollToSection('#inicio');
+  }
 }

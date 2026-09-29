@@ -11,6 +11,7 @@ import { FooterComponent } from './features/footer/footer.component';
 
 import { ThemeService } from './core/services/theme.service';
 import { NavigationService } from './core/services/navigation.service';
+import { ScrollToTopComponent } from './shared/components/scroll-to-top/scroll-to-top.component';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ import { NavigationService } from './core/services/navigation.service';
     PlansComponent,
     ContactComponent,
     FooterComponent,
+    ScrollToTopComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
