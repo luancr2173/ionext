@@ -335,8 +335,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: var(--space-sm);
-  padding: 6px 0;
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--line-subtle);
   gap: var(--space-sm);
 }
 
@@ -344,22 +345,26 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
+  flex-shrink: 0;
 }
 
 .pagination-counter {
   font-size: var(--font-size-body-sm);
   color: var(--fg-muted);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
 
   strong {
     color: var(--fg);
+    font-weight: var(--font-weight-semibold);
   }
 }
 
 .pagination-dots {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 }
 
 .dot-btn {
@@ -368,6 +373,7 @@
   border-radius: var(--radius-full);
   background-color: var(--line);
   border: none;
+  padding: 0;
   cursor: pointer;
   transition:
     width 300ms var(--ease-apple),
@@ -377,31 +383,46 @@
     width: 32px;
     background-color: var(--accent);
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
 }
 
 .carousel-buttons {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .carousel-nav-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   padding: 8px 16px;
+  min-height: 40px;
   border-radius: var(--radius-full);
   border: 1px solid var(--line);
   background-color: var(--surface);
   color: var(--fg);
   font-size: var(--font-size-body-sm);
   font-weight: var(--font-weight-medium);
+  white-space: nowrap;
   cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
   transition: all var(--duration-fast) var(--ease-apple);
 
   &:hover:not(:disabled) {
     background-color: var(--surface-hover);
     border-color: var(--fg-muted);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
   }
 
   &:disabled {
@@ -418,6 +439,50 @@
     &:hover {
       background-color: var(--btn-primary-hover);
       transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0) scale(0.98);
+    }
+  }
+}
+
+/* Mobile Responsive Optimization (<= 600px) */
+@media (max-width: 600px) {
+  .carousel-control-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    padding-top: var(--space-xs);
+  }
+
+  .carousel-pagination {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 2px;
+  }
+
+  .pagination-counter {
+    font-size: var(--font-size-caption);
+  }
+
+  .carousel-buttons {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+
+  .carousel-nav-btn {
+    flex: 1;
+    min-height: 44px;
+    padding: 10px 14px;
+    font-size: var(--font-size-body-sm);
+    justify-content: center;
+
+    &.btn-next,
+    &.btn-cta {
+      flex: 1.25;
     }
   }
 }
