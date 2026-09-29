@@ -34,6 +34,9 @@ export interface CustomSolutionItem {
 export interface ProcessStep {
   number: string;
   title: string;
+  tagline: string;
+  duration: string;
+  deliverable: string;
   summary: string;
   details: string[];
 }
@@ -410,6 +413,9 @@ export const SITE_CONFIG = {
       {
         number: '01',
         title: 'Diagnóstico',
+        tagline: 'Mapeamento & Estratégia',
+        duration: 'Semana 1',
+        deliverable: 'Blueprint Arquitetural & Mapa de Gargalos',
         summary: 'Mapeamos o fluxo atual e identificamos os pontos de atrito.',
         details: [
           'Entrevistas de processo com liderança e time de vendas',
@@ -420,6 +426,9 @@ export const SITE_CONFIG = {
       {
         number: '02',
         title: 'Implementação',
+        tagline: 'Construção & Integração',
+        duration: 'Semanas 2 a 3',
+        deliverable: 'Agentes Calibrados & Conectados em Produção',
         summary: 'Construímos, conectamos e validamos antes da liberação.',
         details: [
           'Treinamento da IA com regras de negócio e tom de voz exclusivo',
@@ -430,6 +439,9 @@ export const SITE_CONFIG = {
       {
         number: '03',
         title: 'Operação',
+        tagline: 'Otimização Contínua & ROI',
+        duration: 'Contínuo',
+        deliverable: 'Relatórios Semanais de Assertividade e Expansão',
         summary: 'Acompanhamos métricas e refinamos continuamente.',
         details: [
           'Monitoramento ativo de conversão e assertividade das respostas',

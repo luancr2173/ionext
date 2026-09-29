@@ -3,15 +3,11 @@ import {
   ChangeDetectionStrategy,
   signal,
   inject,
-  ElementRef,
-  AfterViewInit,
-  OnDestroy,
-  PLATFORM_ID,
-  NgZone,
+  computed,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { SITE_CONFIG } from '../../core/config/site.config';
+import { SITE_CONFIG, ProcessStep } from '../../core/config/site.config';
 import { RevealDirective } from '../../core/directives/reveal.directive';
+import { ScrollService } from '../../core/services/scroll.service';
 
 @Component({
   selector: 'app-process',
@@ -19,7 +15,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
   imports: [RevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="process-section section-bg-main" aria-label="Processo de trabalho">
+    <section class="process-section section-bg-main" id="processo-section" aria-label="Processo de trabalho">
       <div class="container process-container">
         <!-- Section Header -->
         <header class="section-header" appReveal>
@@ -30,148 +26,235 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
           <p class="section-subtitle">{{ config.subtitle }}</p>
         </header>
 
-        <!-- Sticky Scroll Storytelling Layout -->
-        <div class="storytelling-layout">
-          <!-- Left: Sticky Panel -->
-          <div class="sticky-panel-col">
-            <aside class="sticky-panel" aria-label="Etapas do processo">
-              <div class="sticky-card">
-                <div class="sticky-badge">Fase {{ activeStep().number }} de 03</div>
-
-                <div class="sticky-number">
-                  {{ activeStep().number }}
-                </div>
-
-                <h3 class="sticky-step-title">
-                  {{ activeStep().title }}
-                </h3>
-
-                <p class="sticky-step-summary">
-                  {{ activeStep().summary }}
-                </p>
-
-                <!-- Navigation Indicator Dots/Lines -->
-                <div class="sticky-progress-indicators" role="tablist">
-                  @for (step of config.steps; track step.number; let idx = $index) {
-                    <button
-                      type="button"
-                      class="step-nav-item"
-                      [class.is-active]="activeStepIndex() === idx"
-                      [attr.aria-selected]="activeStepIndex() === idx"
-                      (click)="scrollToStep(idx)"
-                    >
-                      <span class="step-nav-bar"></span>
-                      <span class="step-nav-label">{{ step.number }} {{ step.title }}</span>
-                    </button>
-                  }
-                </div>
-              </div>
-            </aside>
-          </div>
-
-          <!-- Right: Scrolling Steps -->
-          <div class="scrolling-steps-col">
+        <!-- Carousel Container -->
+        <div
+          class="process-carousel-wrapper"
+          appReveal
+          [appRevealDelay]="100"
+          tabindex="0"
+          role="region"
+          aria-roledescription="carrossel de fases"
+          aria-label="Metodologia em 3 fases"
+          (keydown.arrowLeft)="prevStep()"
+          (keydown.arrowRight)="nextStep()"
+          (touchstart)="onTouchStart($event)"
+          (touchend)="onTouchEnd($event)"
+        >
+          <!-- Top Phase Navigation Tabs -->
+          <nav class="carousel-tabs" role="tablist" aria-label="Fases da metodologia">
             @for (step of config.steps; track step.number; let idx = $index) {
-              <article
-                class="step-card"
-                [attr.data-step-index]="idx"
-                [id]="'process-step-' + idx"
+              <button
+                type="button"
+                role="tab"
+                class="carousel-tab-btn"
                 [class.is-active]="activeStepIndex() === idx"
+                [attr.aria-selected]="activeStepIndex() === idx"
+                [attr.aria-controls]="'phase-panel-' + idx"
+                [id]="'phase-tab-' + idx"
+                (click)="goToStep(idx)"
               >
-                <div class="step-card-header">
-                  <span class="step-card-number">{{ step.number }}</span>
-                  <h3 class="step-card-title">{{ step.title }}</h3>
-                </div>
-
-                <p class="step-card-summary">{{ step.summary }}</p>
-
-                <ul class="step-card-details">
-                  @for (detail of step.details; track detail) {
-                    <li class="step-detail-item">
-                      <span class="detail-check" aria-hidden="true">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                          <path
-                            d="M2.5 7L5.5 10L11.5 4"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </span>
-                      <span>{{ detail }}</span>
-                    </li>
-                  }
-                </ul>
-              </article>
+                <span class="tab-index">{{ step.number }}</span>
+                <span class="tab-title">{{ step.title }}</span>
+                <span class="tab-indicator" aria-hidden="true"></span>
+              </button>
             }
+          </nav>
+
+          <!-- Carousel Viewport & Sliding Track -->
+          <div class="carousel-viewport">
+            <div
+              class="carousel-track"
+              [style.transform]="'translateX(-' + activeStepIndex() * 100 + '%)'"
+            >
+              @for (step of config.steps; track step.number; let idx = $index) {
+                <div
+                  class="carousel-slide"
+                  role="tabpanel"
+                  [id]="'phase-panel-' + idx"
+                  [attr.aria-labelledby]="'phase-tab-' + idx"
+                  [attr.aria-hidden]="activeStepIndex() !== idx"
+                >
+                  <article class="phase-card">
+                    <!-- Giant Watermark Number in Background -->
+                    <div class="card-watermark" aria-hidden="true">{{ step.number }}</div>
+
+                    <!-- Card Header Meta -->
+                    <div class="phase-meta-row">
+                      <div class="meta-left">
+                        <span class="phase-pill-step">Fase {{ step.number }}</span>
+                        <span class="phase-pill-tagline">{{ step.tagline }}</span>
+                      </div>
+                      <div class="meta-right">
+                        <span class="phase-pill-time">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                          </svg>
+                          {{ step.duration }}
+                        </span>
+                        <span class="phase-pill-deliverable">
+                          {{ step.deliverable }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Main Phase Content -->
+                    <div class="phase-content">
+                      <h3 class="phase-title">{{ step.title }}</h3>
+                      <p class="phase-summary">{{ step.summary }}</p>
+
+                      <!-- Key Activities Grid (3 distinct deliverables/steps) -->
+                      <div class="activities-grid">
+                        @for (detail of step.details; track detail; let dIdx = $index) {
+                          <div class="activity-card">
+                            <div class="activity-top">
+                              <span class="activity-number">0{{ dIdx + 1 }}</span>
+                              <span class="activity-check" aria-hidden="true">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                  <path
+                                    d="M2.5 7L5.5 10L11.5 4"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                </svg>
+                              </span>
+                            </div>
+                            <p class="activity-text">{{ detail }}</p>
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              }
+            </div>
           </div>
+
+          <!-- Carousel Bottom Control Bar -->
+          <footer class="carousel-control-bar">
+            <!-- Left: Phase Indicator & Dots -->
+            <div class="carousel-pagination">
+              <span class="pagination-counter">
+                Fase <strong>{{ activeStep().number }}</strong> de {{ config.steps.length < 10 ? '0' + config.steps.length : config.steps.length }}
+              </span>
+              <div class="pagination-dots" role="presentation">
+                @for (step of config.steps; track step.number; let idx = $index) {
+                  <button
+                    type="button"
+                    class="dot-btn"
+                    [class.is-active]="activeStepIndex() === idx"
+                    [attr.aria-label]="'Ir para fase ' + step.number + ': ' + step.title"
+                    (click)="goToStep(idx)"
+                  ></button>
+                }
+              </div>
+            </div>
+
+            <!-- Right: Prev / Next Navigation Buttons -->
+            <div class="carousel-buttons">
+              <button
+                type="button"
+                class="carousel-nav-btn btn-prev"
+                [disabled]="activeStepIndex() === 0"
+                aria-label="Fase anterior"
+                (click)="prevStep()"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                <span class="btn-text">Anterior</span>
+              </button>
+
+              @if (activeStepIndex() < config.steps.length - 1) {
+                <button
+                  type="button"
+                  class="carousel-nav-btn btn-next"
+                  aria-label="Próxima fase"
+                  (click)="nextStep()"
+                >
+                  <span class="btn-text">Próxima Fase</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+              } @else {
+                <button
+                  type="button"
+                  class="carousel-nav-btn btn-cta"
+                  aria-label="Falar com a Ionext"
+                  (click)="onCtaClick()"
+                >
+                  <span>Iniciar Projeto</span>
+                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              }
+            </div>
+          </footer>
         </div>
       </div>
     </section>
   `,
   styleUrl: './process.component.scss',
 })
-export class ProcessComponent implements AfterViewInit, OnDestroy {
-  private readonly platformId = inject(PLATFORM_ID);
-  private readonly el = inject(ElementRef<HTMLElement>);
-  private readonly ngZone = inject(NgZone);
+export class ProcessComponent {
+  private readonly scrollService = inject(ScrollService);
 
   protected readonly config = SITE_CONFIG.process;
-  protected readonly activeStepIndex = signal<number>(0);
+  readonly activeStepIndex = signal<number>(0);
 
-  protected get activeStep() {
-    return () => this.config.steps[this.activeStepIndex()] || this.config.steps[0];
-  }
+  protected readonly activeStep = computed<ProcessStep>(() => {
+    return this.config.steps[this.activeStepIndex()] || this.config.steps[0];
+  });
 
-  private stepObserver?: IntersectionObserver;
+  private touchStartX = 0;
+  private touchEndX = 0;
 
-  ngAfterViewInit(): void {
-    if (!isPlatformBrowser(this.platformId) || typeof IntersectionObserver === 'undefined') {
-      return;
-    }
-
-    this.setupIntersectionObserver();
-  }
-
-  private setupIntersectionObserver(): void {
-    const cards = this.el.nativeElement.querySelectorAll('.step-card');
-    if (!cards.length) return;
-
-    this.ngZone.runOutsideAngular(() => {
-      this.stepObserver = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) {
-              const idxAttr = entry.target.getAttribute('data-step-index');
-              if (idxAttr !== null) {
-                const idx = parseInt(idxAttr, 10);
-                this.ngZone.run(() => {
-                  this.activeStepIndex.set(idx);
-                });
-              }
-            }
-          }
-        },
-        {
-          rootMargin: '-30% 0px -40% 0px',
-          threshold: 0.2,
-        },
-      );
-
-      cards.forEach((card: Element) => this.stepObserver?.observe(card));
-    });
-  }
-
-  protected scrollToStep(idx: number): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    const target = this.el.nativeElement.querySelector(`#process-step-${idx}`);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  goToStep(index: number): void {
+    if (index >= 0 && index < this.config.steps.length) {
+      this.activeStepIndex.set(index);
     }
   }
 
-  ngOnDestroy(): void {
-    this.stepObserver?.disconnect();
+  prevStep(): void {
+    if (this.activeStepIndex() > 0) {
+      this.activeStepIndex.update((curr) => curr - 1);
+    }
+  }
+
+  nextStep(): void {
+    if (this.activeStepIndex() < this.config.steps.length - 1) {
+      this.activeStepIndex.update((curr) => curr + 1);
+    }
+  }
+
+  protected onTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.changedTouches[0].screenX;
+  }
+
+  protected onTouchEnd(event: TouchEvent): void {
+    this.touchEndX = event.changedTouches[0].screenX;
+    this.handleSwipe();
+  }
+
+  private handleSwipe(): void {
+    const swipeThreshold = 50;
+    const diff = this.touchStartX - this.touchEndX;
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swiped left -> next
+        this.nextStep();
+      } else {
+        // Swiped right -> prev
+        this.prevStep();
+      }
+    }
+  }
+
+  protected onCtaClick(): void {
+    this.scrollService.scrollTo('#contato');
   }
 }
