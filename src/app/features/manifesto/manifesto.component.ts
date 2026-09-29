@@ -17,7 +17,7 @@ import { SITE_CONFIG } from '../../core/config/site.config';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="manifesto-section section-light" aria-label="Manifesto Ionext">
+    <section class="manifesto-section section-bg-alt" aria-label="Manifesto Ionext">
       <div class="container-narrow manifesto-container">
         <p class="manifesto-statement" #statementEl>
           @for (word of words; track $index) {
@@ -88,7 +88,21 @@ export class ManifestoComponent implements OnInit, OnDestroy {
     const rect = nativeEl.getBoundingClientRect();
     const vh = window.innerHeight || 1000;
 
-    // Define trigger window: when top of section is between 75% and 25% of viewport
+    // Fast-path early exit if section is far off-screen
+    if (rect.bottom < 0) {
+      if (this.litIndex() !== this.words.length) {
+        this.litIndex.set(this.words.length);
+      }
+      return;
+    }
+    if (rect.top > vh) {
+      if (this.litIndex() !== -1) {
+        this.litIndex.set(-1);
+      }
+      return;
+    }
+
+    // Define trigger window: when top of section is between 78% and 25% of viewport
     const startY = vh * 0.78;
     const endY = vh * 0.25;
 

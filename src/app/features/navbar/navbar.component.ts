@@ -4,6 +4,7 @@ import {
   signal,
   inject,
   computed,
+  ElementRef,
   HostListener,
   PLATFORM_ID,
 } from '@angular/core';
@@ -138,12 +139,14 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 export class NavbarComponent {
   protected readonly scrollService = inject(ScrollService);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly el = inject(ElementRef<HTMLElement>);
 
   protected readonly brandConfig = SITE_CONFIG.brand;
   protected readonly navLinks = SITE_CONFIG.navigation.links;
   protected readonly ctaConfig = SITE_CONFIG.navigation.cta;
 
   protected readonly mobileMenuOpen = signal<boolean>(false);
+  private lastFocusedElement?: HTMLElement;
 
   /**
    * Docked logo opacity starts at 0 at page top and becomes 1 as hero scrolls out.
@@ -165,20 +168,72 @@ export class NavbarComponent {
 
   toggleMobileMenu(): void {
     const nextState = !this.mobileMenuOpen();
-    this.mobileMenuOpen.set(nextState);
-    this.handleScrollLock(nextState);
+    if (nextState) {
+      if (isPlatformBrowser(this.platformId)) {
+        this.lastFocusedElement = document.activeElement as HTMLElement;
+      }
+      this.mobileMenuOpen.set(true);
+      this.handleScrollLock(true);
+      if (isPlatformBrowser(this.platformId)) {
+        setTimeout(() => {
+          const firstLink = this.el.nativeElement.querySelector(
+            '#mobile-navigation-menu a, #mobile-navigation-menu button',
+          ) as HTMLElement;
+          firstLink?.focus();
+        }, 50);
+      }
+    } else {
+      this.closeMobileMenu();
+    }
   }
 
   closeMobileMenu(): void {
     if (this.mobileMenuOpen()) {
       this.mobileMenuOpen.set(false);
       this.handleScrollLock(false);
+      if (isPlatformBrowser(this.platformId)) {
+        const toggleBtn =
+          this.lastFocusedElement ||
+          (this.el.nativeElement.querySelector('.mobile-toggle') as HTMLElement);
+        toggleBtn?.focus();
+      }
     }
   }
 
   @HostListener('window:keydown.escape')
   onEscape(): void {
     this.closeMobileMenu();
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onKeydown(e: KeyboardEvent): void {
+    if (!this.mobileMenuOpen() || e.key !== 'Tab' || !isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const menuEl = this.el.nativeElement.querySelector('#mobile-navigation-menu');
+    if (!menuEl) return;
+
+    const focusables = Array.from(
+      menuEl.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ),
+    ).filter(
+      (item): item is HTMLElement => item instanceof HTMLElement && item.offsetParent !== null,
+    );
+
+    if (focusables.length === 0) return;
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   }
 
   protected onLogoClick(e: MouseEvent): void {

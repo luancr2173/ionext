@@ -167,6 +167,13 @@
   -webkit-mask-position: center;
 }
 
+/* Disable cursor glow on touch screens */
+@media (hover: none), (pointer: coarse) {
+  .symbol-glow {
+    display: none !important;
+  }
+}
+
 /* Disable animations for prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .symbol-part {

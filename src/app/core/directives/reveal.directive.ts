@@ -24,7 +24,9 @@ export class RevealDirective implements OnInit, OnDestroy {
    */
   readonly revealDelay = input<number>(0, { alias: 'appRevealDelay' });
 
-  private observer?: IntersectionObserver;
+  // Shared static observer to avoid duplicated IntersectionObserver instances
+  private static sharedObserver?: IntersectionObserver;
+  private static readonly elementsMap = new Map<Element, () => void>();
 
   ngOnInit(): void {
     const nativeEl = this.el.nativeElement;
@@ -50,30 +52,43 @@ export class RevealDirective implements OnInit, OnDestroy {
       return;
     }
 
-    this.ngZone.runOutsideAngular(() => {
-      this.observer = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) {
-              nativeEl.classList.add('is-revealed');
-              // Disconnect after revealing once
-              this.observer?.disconnect();
-              this.observer = undefined;
-              break;
-            }
-          }
-        },
-        {
-          threshold: 0.1,
-          rootMargin: '0px 0px -40px 0px',
-        },
-      );
+    this.registerElement(nativeEl);
+  }
 
-      this.observer.observe(nativeEl);
+  private registerElement(element: HTMLElement): void {
+    RevealDirective.elementsMap.set(element, () => {
+      element.classList.add('is-revealed');
     });
+
+    if (!RevealDirective.sharedObserver) {
+      this.ngZone.runOutsideAngular(() => {
+        RevealDirective.sharedObserver = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                const revealCallback = RevealDirective.elementsMap.get(entry.target);
+                if (revealCallback) {
+                  revealCallback();
+                  RevealDirective.elementsMap.delete(entry.target);
+                }
+                RevealDirective.sharedObserver?.unobserve(entry.target);
+              }
+            }
+          },
+          {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px',
+          },
+        );
+      });
+    }
+
+    RevealDirective.sharedObserver?.observe(element);
   }
 
   ngOnDestroy(): void {
-    this.observer?.disconnect();
+    const nativeEl = this.el.nativeElement;
+    RevealDirective.elementsMap.delete(nativeEl);
+    RevealDirective.sharedObserver?.unobserve(nativeEl);
   }
 }

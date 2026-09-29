@@ -48,6 +48,14 @@
   }
 }
 
+.sticky-panel-col {
+  display: none;
+
+  @media (min-width: 900px) {
+    display: block;
+  }
+}
+
 .sticky-panel {
   @media (min-width: 900px) {
     position: sticky;
@@ -120,7 +128,8 @@
   gap: var(--space-sm);
   text-align: left;
   cursor: pointer;
-  padding: 6px 0;
+  padding: 8px 0;
+  min-height: var(--touch-target-min);
 }
 
 .step-nav-bar {

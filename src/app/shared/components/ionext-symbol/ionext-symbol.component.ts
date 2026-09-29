@@ -164,6 +164,10 @@ export class IonextSymbolComponent implements OnInit {
   onMouseMove(e: MouseEvent): void {
     if (!this.interactive() || !isPlatformBrowser(this.platformId)) return;
 
+    // Disable 3D tilt & cursor-following glow on touch screens or when user prefers reduced motion
+    const hasFinePointer = window.matchMedia?.('(hover: hover) and (pointer: fine)').matches;
+    if (!hasFinePointer) return;
+
     const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
@@ -191,6 +195,7 @@ export class IonextSymbolComponent implements OnInit {
   }
 
   @HostListener('mouseleave')
+  @HostListener('touchend')
   onMouseLeave(): void {
     if (!this.interactive()) return;
     this.tiltTransform.set('perspective(600px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)');

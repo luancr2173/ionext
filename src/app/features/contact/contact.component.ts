@@ -1,4 +1,12 @@
-import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  inject,
+  signal,
+  ElementRef,
+  PLATFORM_ID,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContactService } from '../../core/services/contact.service';
 import { SITE_CONFIG } from '../../core/config/site.config';
@@ -119,6 +127,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
                   <input
                     id="contact-email"
                     type="email"
+                    inputmode="email"
                     formControlName="email"
                     class="form-input"
                     [class.has-error]="isFieldInvalid('email')"
@@ -142,6 +151,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
                   <input
                     id="contact-phone"
                     type="tel"
+                    inputmode="tel"
                     formControlName="phone"
                     class="form-input"
                     [class.has-error]="isFieldInvalid('phone')"
@@ -206,6 +216,8 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
 export class ContactComponent {
   private readonly fb = inject(FormBuilder);
   private readonly contactService = inject(ContactService);
+  private readonly el = inject(ElementRef<HTMLElement>);
+  private readonly platformId = inject(PLATFORM_ID);
 
   protected readonly config = SITE_CONFIG.contact;
 
@@ -261,6 +273,7 @@ export class ContactComponent {
   async onSubmit(): Promise<void> {
     if (this.contactForm.invalid) {
       this.contactForm.markAllAsTouched();
+      this.scrollToFirstInvalidField();
       return;
     }
 
@@ -286,6 +299,19 @@ export class ContactComponent {
     } else {
       this.errorMessage.set(result.message);
     }
+  }
+
+  private scrollToFirstInvalidField(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    setTimeout(() => {
+      const firstInvalid = this.el.nativeElement.querySelector(
+        '.form-input.has-error, .form-textarea.has-error',
+      ) as HTMLElement;
+      if (firstInvalid) {
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstInvalid.focus({ preventScroll: true });
+      }
+    }, 50);
   }
 
   protected resetForm(): void {

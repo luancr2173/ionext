@@ -70,11 +70,13 @@
 }
 
 .product-name {
-  font-size: clamp(36px, 5.5vw, 68px);
+  font-size: clamp(30px, 5.5vw, 68px);
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-tight);
   line-height: 1.05;
   color: var(--fg);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .product-content-col {

@@ -255,7 +255,7 @@ export const SITE_CONFIG = {
     // TODO: Inserir e-mail corporativo oficial da Ionext
     email: 'contato@ionext.com.br',
     // TODO: Inserir endereço físico ou cidade sede
-    location: 'São Paulo, SP — Brasil',
+    location: 'Brasília, DF — Brasil',
     socials: {
       // TODO: Inserir perfil oficial do Instagram
       instagram: 'https://instagram.com/ionext',
