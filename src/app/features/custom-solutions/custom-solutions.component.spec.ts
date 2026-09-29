@@ -83,9 +83,9 @@ describe('CustomSolutionsComponent', () => {
     expect(fixture.nativeElement.querySelector('.solution-modal-dialog')).toBeFalsy();
   });
 
-  it('should prefill message and scroll to contact when requesting a solution', () => {
+  it('should select solution and scroll to contact when requesting a solution', () => {
     const scrollSpy = vi.spyOn(scrollService, 'scrollTo');
-    const messageSpy = vi.spyOn(contactService, 'setPrefilledMessage');
+    const selectSpy = vi.spyOn(contactService, 'selectSolution');
 
     const cards = fixture.nativeElement.querySelectorAll('.custom-card');
     cards[0].click(); // Open Vender
@@ -97,7 +97,7 @@ describe('CustomSolutionsComponent', () => {
     primaryBtn.click();
     fixture.detectChanges();
 
-    expect(messageSpy).toHaveBeenCalledWith(expect.stringContaining('Vender'));
+    expect(selectSpy).toHaveBeenCalledWith('Vender', 'vender');
     expect(scrollSpy).toHaveBeenCalledWith('#contato');
     expect(fixture.nativeElement.querySelector('.solution-modal-dialog')).toBeFalsy();
   });

@@ -1,6 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { SITE_CONFIG } from '../../core/config/site.config';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { SITE_CONFIG, ProductItem } from '../../core/config/site.config';
 import { RevealDirective } from '../../core/directives/reveal.directive';
+import { ContactService } from '../../core/services/contact.service';
+import { ScrollService } from '../../core/services/scroll.service';
 
 @Component({
   selector: 'app-entry-products',
@@ -28,13 +30,35 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
                   <h3 class="product-name">{{ product.name }}</h3>
                 </div>
 
-                <!-- Right: Highlight + Details -->
+                <!-- Right: Highlight + Details + Contextual Action -->
                 <div class="product-content-col">
                   <div class="product-highlight-badge">
                     {{ product.highlight }}
                   </div>
                   <p class="product-subtitle">{{ product.subtitle }}</p>
                   <p class="product-description">{{ product.description }}</p>
+
+                  <div class="product-action-row">
+                    <button
+                      type="button"
+                      class="product-cta-btn"
+                      (click)="onSelectProduct(product)"
+                      [attr.aria-label]="'Iniciar com ' + product.name"
+                    >
+                      <span class="cta-text">Iniciar com {{ product.name }}</span>
+                      <span class="cta-arrow" aria-hidden="true">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <path
+                            d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"
+                            stroke="currentColor"
+                            stroke-width="1.75"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </article>
@@ -47,4 +71,11 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
 })
 export class EntryProductsComponent {
   protected readonly config = SITE_CONFIG.entryProducts;
+  private readonly contactService = inject(ContactService);
+  private readonly scrollService = inject(ScrollService);
+
+  protected onSelectProduct(product: ProductItem): void {
+    this.contactService.selectProduct(product.name, product.id);
+    this.scrollService.scrollTo('#contato');
+  }
 }

@@ -17,6 +17,12 @@ export interface ContactResult {
   channel?: 'whatsapp' | 'mailto' | 'rest';
 }
 
+export interface SelectedContext {
+  type: 'solution' | 'product';
+  name: string;
+  id: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -24,9 +30,49 @@ export class ContactService {
   private readonly platformId = inject(PLATFORM_ID);
 
   readonly prefilledMessage = signal<string>('');
+  readonly selectedContext = signal<SelectedContext | null>(null);
+  readonly selectedBottlenecks = signal<string[]>([]);
 
   setPrefilledMessage(message: string): void {
     this.prefilledMessage.set(message);
+  }
+
+  selectSolution(name: string, id: string): void {
+    this.selectedContext.set({ type: 'solution', name, id });
+  }
+
+  selectProduct(name: string, id: string): void {
+    this.selectedContext.set({ type: 'product', name, id });
+    const productBottleneckMap: Record<string, string> = {
+      atender: 'Demora para qualificar leads',
+      agendar: 'Perda de reuniões por no-show',
+      acompanhar: 'Leads esquecidos no follow-up',
+      enxergar: 'Outro gargalo operacional',
+    };
+    const mapped =
+      productBottleneckMap[id.toLowerCase()] || productBottleneckMap[name.toLowerCase()];
+    if (mapped) {
+      this.selectedBottlenecks.update((current) => {
+        return current.includes(mapped) ? current : [...current, mapped];
+      });
+    }
+  }
+
+  toggleBottleneck(bottleneck: string): void {
+    this.selectedBottlenecks.update((current) => {
+      if (current.includes(bottleneck)) {
+        return current.filter((b) => b !== bottleneck);
+      }
+      return [...current, bottleneck];
+    });
+  }
+
+  clearSelectedContext(): void {
+    this.selectedContext.set(null);
+  }
+
+  clearBottlenecks(): void {
+    this.selectedBottlenecks.set([]);
   }
 
   /**

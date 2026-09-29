@@ -81,7 +81,7 @@ export const SITE_CONFIG = {
       href: '#servicos',
     },
     ctaSecondary: {
-      label: 'Falar com a Ionext',
+      label: 'Receber Diagnóstico do Funil',
       href: '#contato',
     },
   },
@@ -528,5 +528,29 @@ export const SITE_CONFIG = {
       // TODO: Inserir URL da Company Page no LinkedIn
       linkedin: 'https://linkedin.com/company/ionext',
     },
+    bottlenecks: [
+      'Demora para qualificar leads',
+      'Leads esquecidos no follow-up',
+      'Perda de reuniões por no-show',
+      'Integração com CRM / ERP legados',
+      'Outro gargalo operacional',
+    ],
+    expectationTimeline: [
+      {
+        step: '01',
+        title: 'Análise do funil por especialista em até 24h',
+        description: 'Mapeamento detalhado dos pontos de atrito e gargalos operacionais.',
+      },
+      {
+        step: '02',
+        title: 'Desenho do blueprint preliminar de IA',
+        description: 'Estruturação da arquitetura recomendada de agentes e integrações.',
+      },
+      {
+        step: '03',
+        title: 'Sessão de diagnóstico de 30 min sem compromisso',
+        description: 'Apresentação executiva e validação da viabilidade prática de ROI.',
+      },
+    ],
   },
 } as const;

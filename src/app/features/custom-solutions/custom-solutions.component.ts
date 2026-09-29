@@ -341,9 +341,7 @@ export class CustomSolutionsComponent implements OnDestroy {
   }
 
   protected requestSolution(item: CustomSolutionItem): void {
-    this.contactService.setPrefilledMessage(
-      `Olá! Tenho interesse no projeto sob medida: ${item.name} (${item.detailedTitle}). Gostaria de entender viabilidade e próximos passos para minha empresa.`
-    );
+    this.contactService.selectSolution(item.name, item.id);
     this.closeSolution();
     this.scrollService.scrollTo('#contato');
   }

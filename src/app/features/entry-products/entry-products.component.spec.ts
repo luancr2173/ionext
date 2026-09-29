@@ -32,4 +32,13 @@ describe('EntryProductsComponent', () => {
       expect(nameEl.textContent?.trim()).not.toMatch(/^0\d/);
     });
   });
+
+  it('should render contextual CTA buttons for all 4 products', () => {
+    const ctaBtns = fixture.nativeElement.querySelectorAll('.product-cta-btn');
+    expect(ctaBtns.length).toBe(4);
+
+    const firstBtn = ctaBtns[0] as HTMLButtonElement;
+    expect(firstBtn.textContent).toContain('Iniciar com Atender');
+  });
 });
+

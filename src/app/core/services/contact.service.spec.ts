@@ -79,4 +79,35 @@ describe('ContactService', () => {
     expect(result.success).toBe(true);
     expect(result.channel).toBe('mailto');
   });
+
+  it('should set selected solution context and clear it', () => {
+    service.selectSolution('Vender', 'vender');
+    expect(service.selectedContext()).toEqual({
+      type: 'solution',
+      name: 'Vender',
+      id: 'vender',
+    });
+
+    service.clearSelectedContext();
+    expect(service.selectedContext()).toBeNull();
+  });
+
+  it('should set selected product and map initial bottleneck tag', () => {
+    service.selectProduct('Atender', 'atender');
+    expect(service.selectedContext()).toEqual({
+      type: 'product',
+      name: 'Atender',
+      id: 'atender',
+    });
+    expect(service.selectedBottlenecks()).toContain('Demora para qualificar leads');
+  });
+
+  it('should toggle bottlenecks correctly', () => {
+    service.toggleBottleneck('Demora para qualificar leads');
+    expect(service.selectedBottlenecks()).toContain('Demora para qualificar leads');
+
+    service.toggleBottleneck('Demora para qualificar leads');
+    expect(service.selectedBottlenecks()).not.toContain('Demora para qualificar leads');
+  });
 });
+

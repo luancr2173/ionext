@@ -65,4 +65,45 @@ describe('ContactComponent', () => {
 
     submitSpy.mockRestore();
   });
+
+  it('should render the expectation timeline with 3 steps', () => {
+    const steps = fixture.nativeElement.querySelectorAll('.timeline-step');
+    expect(steps.length).toBe(3);
+  });
+
+  it('should toggle bottleneck chips when clicked', () => {
+    const chipBtns = fixture.nativeElement.querySelectorAll('.chip-button');
+    expect(chipBtns.length).toBe(5);
+
+    const firstChip = chipBtns[0] as HTMLButtonElement;
+    firstChip.click();
+    fixture.detectChanges();
+
+    expect(contactService.selectedBottlenecks().length).toBe(1);
+    expect(firstChip.classList.contains('is-selected')).toBe(true);
+
+    firstChip.click();
+    fixture.detectChanges();
+    expect(contactService.selectedBottlenecks().length).toBe(0);
+    expect(firstChip.classList.contains('is-selected')).toBe(false);
+  });
+
+  it('should display selected solution banner and allow dismissing it', () => {
+    contactService.selectSolution('Vender', 'vender');
+    fixture.detectChanges();
+
+    const banner = fixture.nativeElement.querySelector('.selected-context-banner');
+    expect(banner).toBeTruthy();
+    expect(banner.textContent).toContain('Solução selecionada:');
+    expect(banner.textContent).toContain('Vender');
+
+    const dismissBtn = fixture.nativeElement.querySelector('.pill-dismiss-btn') as HTMLButtonElement;
+    dismissBtn.click();
+    fixture.detectChanges();
+
+    expect(contactService.selectedContext()).toBeNull();
+    const bannerAfter = fixture.nativeElement.querySelector('.selected-context-banner');
+    expect(bannerAfter).toBeNull();
+  });
 });
+
