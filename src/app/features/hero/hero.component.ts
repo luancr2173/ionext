@@ -31,7 +31,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
           <div class="hero-symbol-box">
             <ionext-symbol
               [size]="heroSymbolSize()"
-              color="#ffffff"
+              color="currentColor"
               mode="hero"
               [animated]="true"
               [interactive]="true"

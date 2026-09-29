@@ -9,9 +9,23 @@
       name="description"
       content="Do primeiro contato ao pós-venda, automatizamos o que trava o crescimento da sua empresa com inteligência artificial e processos sob medida."
     />
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#000000" />
+
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('ionext-theme');
+          var theme =
+            saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />

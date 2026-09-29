@@ -34,7 +34,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
   }
 
@@ -64,37 +64,35 @@
   font-size: var(--font-size-body-lg);
 }
 
-/* Variants */
+/* Variants with Semantic Tokens */
 .btn-primary {
-  background-color: #ffffff;
-  color: #000000;
-  border-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  border-color: var(--btn-primary-border);
 
   &:hover {
-    background-color: #f5f5f7;
-    color: #000000;
+    background-color: var(--btn-primary-hover);
+    color: var(--btn-primary-fg);
   }
 }
 
 .btn-dark {
-  background-color: #000000;
-  color: #ffffff;
-  border-color: rgba(0, 0, 0, 0.1);
+  background-color: var(--btn-dark-bg);
+  color: var(--btn-dark-fg);
+  border-color: var(--btn-dark-border);
 
   &:hover {
-    background-color: #1d1d1f;
-    color: #ffffff;
+    opacity: 0.9;
   }
 }
 
 .btn-secondary {
-  background-color: rgba(255, 255, 255, 0.08);
-  color: #f5f5f7;
-  border-color: rgba(255, 255, 255, 0.14);
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-fg);
+  border-color: var(--btn-secondary-border);
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.25);
+    background-color: var(--btn-secondary-hover);
   }
 }
 
@@ -106,20 +104,20 @@
 
   &:hover {
     opacity: 1;
-    background-color: rgba(128, 128, 128, 0.08);
+    background-color: var(--surface-hover);
   }
 }
 
 .btn-link {
   background-color: transparent;
   border-color: transparent;
-  color: var(--color-dark-text-secondary);
+  color: var(--fg-muted);
   padding-left: 0;
   padding-right: 0;
   min-height: auto;
 
   &:hover {
-    color: var(--color-dark-text);
+    color: var(--fg);
     transform: none;
   }
 }

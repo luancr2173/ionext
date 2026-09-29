@@ -5,7 +5,6 @@ import {
   inject,
   computed,
   HostListener,
-  ElementRef,
   PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
@@ -13,11 +12,12 @@ import { ScrollService } from '../../core/services/scroll.service';
 import { SITE_CONFIG } from '../../core/config/site.config';
 import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ionext-symbol.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [IonextSymbolComponent, ButtonComponent],
+  imports: [IonextSymbolComponent, ButtonComponent, ThemeToggleComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header
@@ -40,7 +40,7 @@ import { ButtonComponent } from '../../shared/components/button/button.component
             [style.opacity]="dockedLogoOpacity()"
             [style.transform]="dockedLogoTransform()"
           >
-            <ionext-symbol [size]="28" color="#ffffff" mode="nav" />
+            <ionext-symbol [size]="28" color="currentColor" mode="nav" />
             <span class="nav-brand-wordmark">ionext</span>
           </div>
         </a>
@@ -58,8 +58,10 @@ import { ButtonComponent } from '../../shared/components/button/button.component
           </ul>
         </nav>
 
-        <!-- Right Side CTA -->
+        <!-- Right Side Actions & Theme Toggle -->
         <div class="nav-actions">
+          <app-theme-toggle />
+
           <app-button
             variant="primary"
             size="sm"
@@ -108,6 +110,9 @@ import { ButtonComponent } from '../../shared/components/button/button.component
                   </a>
                 </li>
               }
+              <li class="mobile-nav-item mobile-theme-item">
+                <app-theme-toggle [showLabel]="true" />
+              </li>
               <li class="mobile-nav-item mobile-cta-item">
                 <app-button
                   variant="primary"
@@ -133,7 +138,6 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 export class NavbarComponent {
   protected readonly scrollService = inject(ScrollService);
   private readonly platformId = inject(PLATFORM_ID);
-  private readonly el = inject(ElementRef);
 
   protected readonly brandConfig = SITE_CONFIG.brand;
   protected readonly navLinks = SITE_CONFIG.navigation.links;
@@ -148,7 +152,6 @@ export class NavbarComponent {
   protected readonly dockedLogoOpacity = computed(() => {
     if (this.mobileMenuOpen()) return 1;
     const progress = this.scrollService.dockingProgress();
-    // Quick ramp up after progress > 0.4
     if (progress <= 0.2) return 0;
     return Math.min(1, (progress - 0.2) / 0.6);
   });

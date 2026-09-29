@@ -5,8 +5,8 @@
 .custom-section {
   padding-top: clamp(96px, 14vw, 192px);
   padding-bottom: clamp(96px, 14vw, 192px);
-  background-color: var(--color-black);
-  color: var(--color-dark-text);
+  background-color: var(--bg-alt);
+  color: var(--fg);
 }
 
 .section-header {
@@ -19,7 +19,7 @@
   font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--color-accent);
+  color: var(--accent);
   margin-bottom: var(--space-xs);
 }
 
@@ -27,13 +27,13 @@
   font-size: var(--font-size-display);
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-tight);
-  color: #ffffff;
+  color: var(--fg);
   margin-bottom: var(--space-sm);
 }
 
 .section-subtitle {
   font-size: var(--font-size-body-lg);
-  color: var(--color-dark-text-secondary);
+  color: var(--fg-muted);
   max-width: 48ch;
 }
 
@@ -64,12 +64,12 @@
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-tight);
   line-height: 1.1;
-  color: #ffffff;
+  color: var(--fg);
 }
 
 .custom-item-description {
   font-size: var(--font-size-body);
   line-height: var(--line-height-relaxed);
-  color: var(--color-dark-text-secondary);
+  color: var(--fg-muted);
   max-width: 38ch;
 }

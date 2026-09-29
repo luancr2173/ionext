@@ -20,7 +20,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section
-      class="process-section section-light-surface"
+      class="process-section section-bg-main"
       id="processo"
       aria-label="Processo de trabalho"
     >

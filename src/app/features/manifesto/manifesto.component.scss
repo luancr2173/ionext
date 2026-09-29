@@ -4,8 +4,8 @@
 
 .manifesto-section {
   position: relative;
-  background-color: var(--color-light-bg);
-  color: var(--color-light-text);
+  background-color: var(--bg-alt);
+  color: var(--fg);
   padding-top: clamp(96px, 14vw, 192px);
   padding-bottom: clamp(96px, 14vw, 192px);
   overflow: hidden;
@@ -30,21 +30,21 @@
 
 .manifesto-word {
   display: inline-block;
-  color: var(--color-light-text-tertiary);
+  color: var(--fg-subtle);
   transition:
     color 350ms var(--ease-apple),
     transform 350ms var(--ease-apple);
   will-change: color;
 
   &.is-lit {
-    color: var(--color-light-text);
+    color: var(--fg);
   }
 }
 
 /* Reduced Motion Override */
 @media (prefers-reduced-motion: reduce) {
   .manifesto-word {
-    color: var(--color-light-text) !important;
+    color: var(--fg) !important;
     transition: none !important;
   }
 }

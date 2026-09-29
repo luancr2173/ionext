@@ -8,7 +8,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
   imports: [RevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="custom-section section-dark" id="sob-medida" aria-label="Soluções sob medida">
+    <section class="custom-section section-bg-alt" id="sob-medida" aria-label="Soluções sob medida">
       <div class="container custom-container">
         <!-- Section Header -->
         <header class="section-header" appReveal>

@@ -9,12 +9,12 @@ import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ion
   imports: [IonextSymbolComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <footer class="footer-section section-dark-surface" role="contentinfo">
+    <footer class="footer-section section-bg-alt" role="contentinfo">
       <div class="container footer-container">
         <!-- Top Row: Big Symbol with Shooting Arrow Effect + Tagline -->
         <div class="footer-brand-stage">
           <div class="footer-symbol-box">
-            <ionext-symbol [size]="110" color="#ffffff" mode="footer" />
+            <ionext-symbol [size]="110" color="currentColor" mode="footer" />
           </div>
           <p class="footer-tagline">{{ brandConfig.tagline }}</p>
         </div>

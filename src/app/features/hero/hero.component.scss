@@ -1,6 +1,7 @@
 :host {
   display: block;
-  background-color: var(--color-black);
+  background-color: var(--bg);
+  color: var(--fg);
 }
 
 .hero-section {
@@ -14,7 +15,7 @@
   padding-top: calc(var(--nav-height) + var(--space-xl));
   padding-bottom: var(--space-4xl);
   overflow: hidden;
-  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 65%);
+  background: radial-gradient(circle at 50% 30%, var(--surface-hover) 0%, transparent 65%);
 }
 
 .hero-container {
@@ -33,6 +34,7 @@
   align-items: center;
   gap: var(--space-md);
   margin-bottom: var(--space-2xl);
+  color: var(--fg);
   transition:
     transform 160ms var(--ease-apple),
     opacity 160ms ease-out;
@@ -44,13 +46,14 @@
   align-items: center;
   justify-content: center;
   cursor: default;
+  color: var(--fg);
 }
 
 .hero-wordmark {
   font-size: clamp(32px, 5vw, 48px);
   font-weight: var(--font-weight-bold);
   letter-spacing: -0.05em;
-  color: #ffffff;
+  color: var(--fg);
   opacity: 0;
   transform: translateY(8px);
   transition:
@@ -78,7 +81,7 @@
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-tight);
-  color: #ffffff;
+  color: var(--fg);
   margin-bottom: var(--space-lg);
   text-wrap: balance;
 }
@@ -86,7 +89,7 @@
 .hero-subtitle {
   font-size: var(--font-size-body-lg);
   line-height: var(--line-height-normal);
-  color: var(--color-dark-text-secondary);
+  color: var(--fg-muted);
   max-width: 58ch;
   margin-bottom: var(--space-2xl);
   text-wrap: pretty;
@@ -120,7 +123,7 @@
   .scroll-mouse-track {
     width: 22px;
     height: 36px;
-    border: 1.5px solid rgba(255, 255, 255, 0.24);
+    border: 1.5px solid var(--line);
     border-radius: 12px;
     display: flex;
     justify-content: center;
@@ -130,7 +133,7 @@
   .scroll-mouse-wheel {
     width: 3px;
     height: 6px;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: var(--fg-muted);
     border-radius: 2px;
     animation: scrollWheel 1800ms ease-in-out infinite;
   }

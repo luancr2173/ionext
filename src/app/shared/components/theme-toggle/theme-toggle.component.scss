@@ -1,0 +1,93 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+}
+
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  padding: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-hover);
+  color: var(--fg);
+  border: 1px solid var(--line-subtle);
+  cursor: pointer;
+  transition:
+    transform var(--duration-fast) var(--ease-apple),
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: var(--surface-alt);
+    border-color: var(--line);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  &.show-label {
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+  }
+}
+
+.icon-stage {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.theme-icon {
+  display: block;
+  transition:
+    transform var(--duration-normal) var(--ease-apple),
+    opacity var(--duration-normal) var(--ease-apple);
+
+  &.icon-sun {
+    animation: iconPop 250ms var(--ease-apple);
+  }
+
+  &.icon-moon {
+    animation: iconPop 250ms var(--ease-apple);
+  }
+}
+
+@keyframes iconPop {
+  0% {
+    transform: rotate(-30deg) scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+.toggle-label {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle-btn,
+  .theme-icon {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { NavbarComponent } from './features/navbar/navbar.component';
 import { HeroComponent } from './features/hero/hero.component';
 import { ManifestoComponent } from './features/manifesto/manifesto.component';
@@ -8,6 +8,8 @@ import { ProcessComponent } from './features/process/process.component';
 import { PlansComponent } from './features/plans/plans.component';
 import { ContactComponent } from './features/contact/contact.component';
 import { FooterComponent } from './features/footer/footer.component';
+
+import { ThemeService } from './core/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -27,4 +29,6 @@ import { FooterComponent } from './features/footer/footer.component';
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App {}
+export class App {
+  private readonly themeService = inject(ThemeService);
+}
