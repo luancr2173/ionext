@@ -270,6 +270,12 @@ html.is-modal-open body {
   outline-offset: 3px;
 }
 
+@media (max-width: 768px) {
+  .section-navigation-focus:focus-visible {
+    outline: none;
+  }
+}
+
 /* Typography Defaults */
 h1,
 h2,

@@ -277,6 +277,12 @@ export class NavigationService {
       if (!focusTarget.hasAttribute('tabindex')) {
         focusTarget.setAttribute('tabindex', '-1');
       }
+      focusTarget.classList.add('section-navigation-focus');
+      focusTarget.addEventListener(
+        'blur',
+        () => focusTarget.classList.remove('section-navigation-focus'),
+        { once: true },
+      );
       focusTarget.focus({ preventScroll: true });
     };
 

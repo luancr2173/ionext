@@ -123,7 +123,10 @@ describe('NavigationService', () => {
       expect(replaceStateSpy).toHaveBeenCalledWith(null, '', '#processo');
       expect(heading.getAttribute('tabindex')).toBe('-1');
       expect(document.activeElement).toBe(heading);
-      expect(heading.classList.contains('section-title-highlight')).toBe(false);
+      expect(heading.classList.contains('section-navigation-focus')).toBe(true);
+
+      heading.dispatchEvent(new FocusEvent('blur'));
+      expect(heading.classList.contains('section-navigation-focus')).toBe(false);
     });
 
     it('should handle alias #produtos by resolving to #servicos', async () => {
