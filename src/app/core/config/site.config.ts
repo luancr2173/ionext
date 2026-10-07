@@ -523,7 +523,7 @@ export const SITE_CONFIG = {
     location: 'Brasília, DF — Brasil',
     socials: {
       // TODO: Inserir perfil oficial do Instagram
-      instagram: 'https://instagram.com/ionext',
+      instagram: 'https://instagram.com/ionext_solutions',
       // TODO: Inserir URL da Company Page no LinkedIn
       linkedin: 'https://linkedin.com/company/ionext',
     },
