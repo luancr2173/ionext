@@ -163,8 +163,7 @@ export class NavigationService {
    * 2. Waits for browser rendering frames
    * 3. Executes custom animated scroll (or auto if prefers-reduced-motion)
    * 4. Updates URL hash via history.replaceState
-   * 5. Moves accessible focus to the section heading
-   * 6. Triggers brief arrival pulse on the destination title (~600ms)
+   * 5. Moves accessible focus to the destination heading
    */
   scrollToSection(rawTargetId: string, options?: ScrollToSectionOptions): void {
     if (!isPlatformBrowser(this.platformId)) return;
@@ -214,27 +213,6 @@ export class NavigationService {
 
       this.executeScrollAndFocus(targetElement, id, options);
     });
-  }
-
-  /**
-   * Highlights destination section heading for ~600ms upon arrival.
-   */
-  highlightSectionTitle(targetElement: HTMLElement): void {
-    if (this.shouldReduceMotion()) return;
-
-    const titleEl = targetElement.querySelector<HTMLElement>(
-      'h1, h2, h3, [role="heading"], .section-title',
-    );
-    if (!titleEl) return;
-
-    titleEl.classList.remove('section-title-highlight');
-    // Force DOM reflow to restart CSS keyframe animation
-    void titleEl.offsetWidth;
-    titleEl.classList.add('section-title-highlight');
-
-    setTimeout(() => {
-      titleEl.classList.remove('section-title-highlight');
-    }, 650);
   }
 
   private waitForRender(callback: () => void): void {
@@ -300,9 +278,6 @@ export class NavigationService {
         focusTarget.setAttribute('tabindex', '-1');
       }
       focusTarget.focus({ preventScroll: true });
-
-      // Briefly glow / highlight the arrival section title (~600ms)
-      this.highlightSectionTitle(targetElement);
     };
 
     if (!smooth) {

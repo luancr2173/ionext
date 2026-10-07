@@ -74,7 +74,6 @@
   --dur-theme-fallback: 350ms;
   --dur-scroll-min: 450ms;
   --dur-scroll-max: 900ms;
-  --dur-highlight: 600ms;
 
   --duration-fast: 200ms;
   --duration-normal: 300ms;
@@ -433,30 +432,6 @@ svg {
   will-change: auto;
 }
 
-/* Destination Section Title Arrival Pulse (~600ms) */
-.section-title-highlight {
-  animation: sectionGlow var(--dur-highlight) var(--ease-apple);
-}
-
-@keyframes sectionGlow {
-  0% {
-    opacity: 0.65;
-    transform: translateY(2px) scale(0.99);
-  }
-  50% {
-    opacity: 1;
-    transform: translateY(0) scale(1.015);
-    color: var(--accent);
-    text-shadow: 0 0 16px var(--accent-subtle);
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-    color: var(--fg);
-    text-shadow: none;
-  }
-}
-
 /* ==========================================================================
    View Transitions API & Fallback Theme Transitions
    ========================================================================== */
@@ -539,10 +514,6 @@ html.theme-transitioning *::after {
     opacity: 1 !important;
     transition: none !important;
     will-change: auto !important;
-  }
-
-  .section-title-highlight {
-    animation: none !important;
   }
 
   html.theme-transition,
