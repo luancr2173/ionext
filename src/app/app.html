@@ -1,75 +1,15 @@
-<a href="#inicio" class="skip-to-content">Pular para o conteúdo principal</a>
+<a href="#main-content" class="skip-to-content">Pular para o conteúdo principal</a>
+<div class="page-transition-bar" [class.is-active]="isNavigating()" aria-hidden="true"></div>
 
-<!-- Fixed Navigation Bar with Translucent Blur & Logo Docking -->
+<!-- Fixed Navigation Bar with Translucent Blur & Logo -->
 <app-navbar />
 
 <main id="main-content">
-  <!-- 1. Hero Section (Above the fold - immediate render) -->
-  <app-hero />
-
-  <!-- 2. Manifesto Section (Scroll-linked lighting words) -->
-  <section id="manifesto" class="section-wrapper">
-    @defer (on idle; when navigationService.forceLoad()) {
-      <app-manifesto />
-    } @placeholder {
-      <div class="section-placeholder section-alt" style="min-height: 480px"></div>
-    }
-  </section>
-
-  <!-- 3. Entry Products / Serviços (#servicos) -->
-  <section id="servicos" class="section-wrapper">
-    <span id="produtos" class="anchor-alias"></span>
-    @defer (on idle; when navigationService.forceLoad()) {
-      <app-entry-products />
-    } @placeholder {
-      <div class="section-placeholder section-main" style="min-height: 1050px"></div>
-    }
-  </section>
-
-  <!-- 4. Custom Solutions (Sob medida) -->
-  <section id="sob-medida" class="section-wrapper">
-    @defer (on idle; when navigationService.forceLoad()) {
-      <app-custom-solutions />
-    } @placeholder {
-      <div class="section-placeholder section-alt" style="min-height: 750px"></div>
-    }
-  </section>
-
-  <!-- 5. Process (Metodologia em Carrossel de Fases) -->
-  <section id="processo" class="section-wrapper">
-    @defer (on idle; when navigationService.forceLoad()) {
-      <app-process />
-    } @placeholder {
-      <div class="section-placeholder section-main" style="min-height: 850px"></div>
-    }
-  </section>
-
-  <!-- 6. Plans (Modelos de investimento) -->
-  <section id="planos" class="section-wrapper">
-    @defer (on idle; when navigationService.forceLoad()) {
-      <app-plans />
-    } @placeholder {
-      <div class="section-placeholder section-alt" style="min-height: 1000px"></div>
-    }
-  </section>
-
-  <!-- 7. Contact CTA & Diagnostic Form -->
-  <section id="contato" class="section-wrapper">
-    @defer (on idle; when navigationService.forceLoad()) {
-      <app-contact />
-    } @placeholder {
-      <div class="section-placeholder section-main" style="min-height: 950px"></div>
-    }
-  </section>
+  <router-outlet />
 </main>
 
-<!-- Footer with Shooting Arrow Symbol -->
-@defer (on idle; when navigationService.forceLoad()) {
-  <app-footer />
-} @placeholder {
-  <div class="section-placeholder section-alt" style="min-height: 400px"></div>
-}
+<!-- Footer -->
+<app-footer />
 
 <!-- Floating Lateral Scroll-to-Top Arrow Button -->
 <app-scroll-to-top />
-

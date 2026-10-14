@@ -1,0 +1,44 @@
+/* Shared inner-page hero styles */
+:host {
+  display: block;
+}
+
+.page-hero {
+  padding: calc(var(--nav-height) + var(--space-4xl)) 0 var(--space-3xl);
+  text-align: center;
+
+  @media (max-width: 768px) {
+    padding: calc(var(--nav-height) + var(--space-2xl)) 0 var(--space-2xl);
+  }
+}
+
+.page-hero-container {
+  max-width: var(--container-narrow);
+}
+
+.page-label {
+  display: inline-block;
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+.page-title {
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-tight);
+  color: var(--fg);
+  margin-bottom: var(--space-lg);
+}
+
+.page-subtitle {
+  font-size: var(--font-size-body-lg);
+  color: var(--fg-muted);
+  max-width: 56ch;
+  margin: 0 auto;
+  line-height: var(--line-height-relaxed);
+}

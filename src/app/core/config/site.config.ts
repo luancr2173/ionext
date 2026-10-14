@@ -9,6 +9,7 @@ export interface ProductItem {
   subtitle: string;
   highlight: string;
   description: string;
+  whatsappMessage: string;
 }
 
 export interface CustomSolutionStep {
@@ -50,6 +51,7 @@ export interface PlanItem {
   featured?: boolean;
   features: string[];
   ctaText: string;
+  ctaHref: string;
 }
 
 export const SITE_CONFIG = {
@@ -62,13 +64,13 @@ export const SITE_CONFIG = {
 
   navigation: {
     links: [
-      { label: 'Serviços', href: '#servicos' },
-      { label: 'Processo', href: '#processo' },
-      { label: 'Planos', href: '#planos' },
+      { label: 'Serviços', href: '/servicos' },
+      { label: 'Processo', href: '/processo' },
+      { label: 'Planos', href: '/planos' },
     ],
     cta: {
       label: 'Falar com a Ionext',
-      href: '#contato',
+      href: '/contato',
     },
   },
 
@@ -78,11 +80,11 @@ export const SITE_CONFIG = {
       'Do primeiro contato ao pós-venda, automatizamos o que trava o crescimento da sua empresa.',
     ctaPrimary: {
       label: 'Ver serviços',
-      href: '#servicos',
+      href: '/servicos',
     },
     ctaSecondary: {
       label: 'Receber Diagnóstico do Funil',
-      href: '#contato',
+      href: '/contato',
     },
   },
 
@@ -96,35 +98,39 @@ export const SITE_CONFIG = {
     items: [
       {
         id: 'atender',
-        name: 'Atender',
+        name: 'Atendimento',
         subtitle: 'Agente de IA no WhatsApp, Instagram ou site, 24/7, qualifica cada lead.',
         highlight: 'Nenhum contato fica sem resposta.',
+        whatsappMessage: 'Olá! Tenho interesse no serviço Atendimento (agente de IA para atendimento e qualificação de leads). Pode me passar mais informações?',
         description:
           'Responde em segundos, entende o contexto da mensagem, esclarece dúvidas com a base de conhecimento da sua empresa e encaminha contatos quentes.',
       },
       {
         id: 'agendar',
-        name: 'Agendar',
+        name: 'Agendamento',
         subtitle: 'Reuniões e demonstrações marcadas direto na agenda do time.',
         highlight: 'Mais reuniões, sem troca de mensagens.',
+        whatsappMessage: 'Olá! Tenho interesse no serviço Agendamento (agente de IA para agendamento de reuniões e demonstrações). Pode me passar mais informações?',
         description:
           'Cruza horários disponíveis, envia confirmação, sincroniza com Google Agenda ou Outlook e reduz no-show com lembretes automáticos.',
       },
       {
         id: 'acompanhar',
-        name: 'Acompanhar',
+        name: 'Acompanhamento',
         subtitle: 'Follow-up e reativação que se adaptam a cada lead.',
         highlight: 'Ninguém esquecido no funil.',
+        whatsappMessage: 'Olá! Tenho interesse no serviço Acompanhamento (agente de IA para acompanhamento e reativação de leads). Pode me passar mais informações?',
         description:
           'Retoma propostas paradas, cadencia contatos no momento certo e reativa leads dormentes com mensagens personalizadas.',
       },
       {
         id: 'enxergar',
-        name: 'Enxergar',
-        subtitle: 'Painel simples com as métricas do funil.',
+        name: 'Dashboards',
+        subtitle: 'Painel completo com as métricas do funil.',
         highlight: 'Decisões com dados, em uma tela.',
+        whatsappMessage: 'Olá! Tenho interesse no serviço Dashboards (agente de IA para dashboards e métricas do funil). Pode me passar mais informações?',
         description:
-          'Taxa de conversão, tempo de resposta, gargalos por etapa e custo por oportunidade em visualização clara e em tempo real.',
+          'Acompanhe métricas do funil em tempo real: taxa de conversão, tempo de resposta, gargalos por etapa e custo por oportunidade.',
       },
     ] as ProductItem[],
   },
@@ -472,6 +478,7 @@ export const SITE_CONFIG = {
           'Relatório quinzenal de desempenho',
         ],
         ctaText: 'Escolher Essencial',
+        ctaHref: '/contato',
       },
       {
         id: 'profissional',
@@ -490,6 +497,7 @@ export const SITE_CONFIG = {
           'Suporte prioritário via canal dedicado',
         ],
         ctaText: 'Escolher Profissional',
+        ctaHref: '/contato',
       },
       {
         id: 'enterprise',
@@ -508,6 +516,7 @@ export const SITE_CONFIG = {
           'Treinamento e capacitação do time',
         ],
         ctaText: 'Falar com Consultor',
+        ctaHref: '/contato',
       },
     ] as PlanItem[],
   },

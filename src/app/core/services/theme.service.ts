@@ -170,6 +170,7 @@ export class ThemeService {
       document.documentElement.style.setProperty('--theme-y', `${Math.round(y)}px`);
       document.documentElement.style.setProperty('--theme-r', `${Math.ceil(endRadius)}px`);
       document.documentElement.style.setProperty('--dur-theme', `${duration}ms`);
+      document.documentElement.classList.add('theme-transitioning');
 
       const transition = doc.startViewTransition(async () => {
         this.theme.set(nextTheme);
@@ -179,6 +180,7 @@ export class ThemeService {
 
       this.activeTransition = transition;
       transition.finished.finally(() => {
+        document.documentElement.classList.remove('theme-transitioning');
         document.documentElement.style.removeProperty('--theme-x');
         document.documentElement.style.removeProperty('--theme-y');
         document.documentElement.style.removeProperty('--theme-r');

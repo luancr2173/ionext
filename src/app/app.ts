@@ -1,30 +1,18 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, DestroyRef } from '@angular/core';
+import { RouterOutlet, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavbarComponent } from './features/navbar/navbar.component';
-import { HeroComponent } from './features/hero/hero.component';
-import { ManifestoComponent } from './features/manifesto/manifesto.component';
-import { EntryProductsComponent } from './features/entry-products/entry-products.component';
-import { CustomSolutionsComponent } from './features/custom-solutions/custom-solutions.component';
-import { ProcessComponent } from './features/process/process.component';
-import { PlansComponent } from './features/plans/plans.component';
-import { ContactComponent } from './features/contact/contact.component';
 import { FooterComponent } from './features/footer/footer.component';
+import { ScrollToTopComponent } from './shared/components/scroll-to-top/scroll-to-top.component';
 
 import { ThemeService } from './core/services/theme.service';
-import { NavigationService } from './core/services/navigation.service';
-import { ScrollToTopComponent } from './shared/components/scroll-to-top/scroll-to-top.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
+    RouterOutlet,
     NavbarComponent,
-    HeroComponent,
-    ManifestoComponent,
-    EntryProductsComponent,
-    CustomSolutionsComponent,
-    ProcessComponent,
-    PlansComponent,
-    ContactComponent,
     FooterComponent,
     ScrollToTopComponent,
   ],
@@ -34,5 +22,26 @@ import { ScrollToTopComponent } from './shared/components/scroll-to-top/scroll-t
 })
 export class App {
   private readonly themeService = inject(ThemeService);
-  protected readonly navigationService = inject(NavigationService);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
+
+  readonly isNavigating = signal<boolean>(false);
+
+  constructor() {
+    this.router.events
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          this.isNavigating.set(true);
+        } else if (
+          event instanceof NavigationEnd ||
+          event instanceof NavigationCancel ||
+          event instanceof NavigationError
+        ) {
+          setTimeout(() => {
+            this.isNavigating.set(false);
+          }, 180);
+        }
+      });
+  }
 }

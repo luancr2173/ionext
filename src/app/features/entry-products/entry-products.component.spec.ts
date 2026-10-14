@@ -38,7 +38,7 @@ describe('EntryProductsComponent', () => {
     expect(ctaBtns.length).toBe(4);
 
     const firstBtn = ctaBtns[0] as HTMLButtonElement;
-    expect(firstBtn.textContent).toContain('Iniciar com Atender');
+    expect(firstBtn.textContent).toContain('Iniciar com Atendimento');
   });
 });
 

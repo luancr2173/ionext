@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { HeroComponent } from './hero.component';
 import { ScrollService } from '../../core/services/scroll.service';
 import { describe, it, expect, beforeEach } from 'vitest';
@@ -10,7 +11,7 @@ describe('HeroComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HeroComponent],
-      providers: [ScrollService],
+      providers: [ScrollService, provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeroComponent);

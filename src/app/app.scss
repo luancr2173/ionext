@@ -40,3 +40,38 @@ main {
     background-color: var(--bg-alt);
   }
 }
+
+/* Elegant top navigation progress bar */
+.page-transition-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), #6366f1, #38bdf8, var(--accent));
+  background-size: 250% 100%;
+  z-index: calc(var(--z-nav, 100) + 20);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+  box-shadow: 0 0 10px var(--accent-glow, rgba(99, 102, 241, 0.4));
+  transition:
+    transform 350ms var(--ease-apple),
+    opacity 200ms var(--ease-out);
+
+  &.is-active {
+    opacity: 1;
+    transform: scaleX(0.85);
+    animation: barSweep 1.6s infinite linear;
+  }
+}
+
+@keyframes barSweep {
+  0% {
+    background-position: 250% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

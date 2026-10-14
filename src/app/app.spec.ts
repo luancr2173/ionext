@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { App } from './app';
+import { routes } from './app.routes';
 import { NavigationService } from './core/services/navigation.service';
 import { describe, it, expect, beforeEach, beforeAll, vi } from 'vitest';
 
@@ -10,6 +12,7 @@ describe('App', () => {
       class MockIntersectionObserver implements IntersectionObserver {
         readonly root: Element | Document | null = null;
         readonly rootMargin: string = '';
+        readonly scrollMargin: string = '';
         readonly thresholds: ReadonlyArray<number> = [];
         observe(): void {}
         unobserve(): void {}
@@ -30,6 +33,7 @@ describe('App', () => {
 
     await TestBed.configureTestingModule({
       imports: [App],
+      providers: [provideRouter(routes)],
     }).compileComponents();
   });
 
@@ -39,49 +43,21 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render navbar and hero elements', () => {
+  it('should render navbar, router-outlet, footer and transition bar', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('app-navbar')).toBeTruthy();
-    expect(compiled.querySelector('app-hero')).toBeTruthy();
+    expect(compiled.querySelector('router-outlet')).toBeTruthy();
+    expect(compiled.querySelector('app-footer')).toBeTruthy();
+    expect(compiled.querySelector('.page-transition-bar')).toBeTruthy();
   });
 
-  it('should have all anchor target sections present in the DOM on first render outside of @defer', () => {
+  it('should track navigation state', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-
-    // Anchor sections must exist in the DOM immediately on initial paint
-    expect(compiled.querySelector('#inicio')).toBeTruthy();
-    expect(compiled.querySelector('#manifesto')).toBeTruthy();
-    expect(compiled.querySelector('#servicos')).toBeTruthy();
-    expect(compiled.querySelector('#sob-medida')).toBeTruthy();
-    expect(compiled.querySelector('#processo')).toBeTruthy();
-    expect(compiled.querySelector('#planos')).toBeTruthy();
-    expect(compiled.querySelector('#contato')).toBeTruthy();
-
-    // Verify sections have .section-wrapper class
-    const servicos = compiled.querySelector('#servicos');
-    expect(servicos?.classList.contains('section-wrapper')).toBe(true);
-  });
-
-  it('should trigger navigation and scrollToSection when clicking an anchor link', () => {
-    const fixture = TestBed.createComponent(App);
-    const navService = TestBed.inject(NavigationService);
-    const scrollSpy = vi.spyOn(navService, 'scrollToSection');
-
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-
-    // Find desktop nav link for Processo
-    const processLink = compiled.querySelector('a.nav-link[href="#processo"]') as HTMLAnchorElement;
-    expect(processLink).toBeTruthy();
-
-    processLink.click();
-    fixture.detectChanges();
-
-    expect(scrollSpy).toHaveBeenCalledWith('#processo');
+    const app = fixture.componentInstance;
+    expect(app.isNavigating()).toBe(false);
   });
 
   it('should handle opening the page with an anchor hash directly', () => {

@@ -13,6 +13,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ScrollService } from '../../core/services/scroll.service';
 import { NavigationService } from '../../core/services/navigation.service';
 import { SITE_CONFIG } from '../../core/config/site.config';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ionext-symbol.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
@@ -20,7 +21,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [IonextSymbolComponent, ButtonComponent, ThemeToggleComponent],
+  imports: [IonextSymbolComponent, ButtonComponent, ThemeToggleComponent, RouterLink, RouterLinkActive],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header
@@ -32,7 +33,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
       <div class="container nav-container">
         <!-- Logo Docking Target / Brand Anchor -->
         <a
-          href="#"
+          routerLink="/"
           class="nav-brand"
           (click)="onLogoClick($event)"
           aria-label="Ionext - Voltar ao início"
@@ -53,9 +54,20 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
           <ul class="nav-list">
             @for (link of navLinks; track link.href) {
               <li>
-                <a [href]="link.href" class="nav-link" (click)="onLinkClick($event, link.href)">
-                  {{ link.label }}
-                </a>
+                @if (isRoute(link.href)) {
+                  <a
+                    [routerLink]="link.href"
+                    routerLinkActive="is-active"
+                    class="nav-link"
+                    (click)="closeMobileMenu()"
+                  >
+                    {{ link.label }}
+                  </a>
+                } @else {
+                  <a [href]="link.href" class="nav-link" (click)="onLinkClick($event, link.href)">
+                    {{ link.label }}
+                  </a>
+                }
               </li>
             }
           </ul>
@@ -69,8 +81,8 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
             variant="primary"
             size="sm"
             [label]="ctaConfig.label"
-            [href]="ctaConfig.href"
-            (clicked)="onLinkClick($event, ctaConfig.href)"
+            [routerLink]="ctaConfig.href"
+            (clicked)="closeMobileMenu()"
           >
             {{ ctaConfig.label }}
           </app-button>
@@ -108,13 +120,24 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
           <ul class="mobile-nav-list">
             @for (link of navLinks; track link.href; let idx = $index) {
               <li class="mobile-nav-item" [style.--item-idx]="idx">
-                <a
-                  [href]="link.href"
-                  class="mobile-nav-link"
-                  (click)="onMobileLinkClick($event, link.href)"
-                >
-                  {{ link.label }}
-                </a>
+                @if (isRoute(link.href)) {
+                  <a
+                    [routerLink]="link.href"
+                    routerLinkActive="is-active"
+                    class="mobile-nav-link"
+                    (click)="closeMobileMenu()"
+                  >
+                    {{ link.label }}
+                  </a>
+                } @else {
+                  <a
+                    [href]="link.href"
+                    class="mobile-nav-link"
+                    (click)="onMobileLinkClick($event, link.href)"
+                  >
+                    {{ link.label }}
+                  </a>
+                }
               </li>
             }
             <li class="mobile-nav-item mobile-theme-item" [style.--item-idx]="navLinks.length">
@@ -125,8 +148,8 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
                 variant="primary"
                 size="lg"
                 [label]="ctaConfig.label"
-                [href]="ctaConfig.href"
-                (clicked)="onMobileLinkClick($event, ctaConfig.href)"
+                [routerLink]="ctaConfig.href"
+                (clicked)="closeMobileMenu()"
               >
                 {{ ctaConfig.label }}
               </app-button>
@@ -251,10 +274,16 @@ export class NavbarComponent implements OnDestroy {
     }
   }
 
+  protected isRoute(href: string): boolean {
+    return href.startsWith('/') && !href.startsWith('/#');
+  }
+
   protected onLogoClick(e: MouseEvent): void {
-    e.preventDefault();
     this.closeMobileMenu();
-    this.navigationService.scrollToSection('#inicio');
+    if (isPlatformBrowser(this.platformId) && (window.location.pathname === '/' || window.location.pathname === '')) {
+      e.preventDefault();
+      this.navigationService.scrollToSection('#inicio');
+    }
   }
 
   protected onLinkClick(e: MouseEvent, href: string): void {

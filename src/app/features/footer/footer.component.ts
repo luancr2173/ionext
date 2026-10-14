@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { SITE_CONFIG } from '../../core/config/site.config';
 import { ScrollService } from '../../core/services/scroll.service';
 import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ionext-symbol.component';
@@ -7,7 +8,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [IonextSymbolComponent, RevealDirective],
+  imports: [IonextSymbolComponent, RevealDirective, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <footer class="footer-section section-bg-alt" role="contentinfo">
@@ -29,17 +30,17 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
             <h4 class="footer-col-title">Navegação</h4>
             <ul class="footer-links-list">
               <li>
-                <a href="#inicio" (click)="onLinkClick($event, '#inicio')">Início</a>
+                <a routerLink="/">Início</a>
               </li>
               @for (link of navLinks; track link.href) {
                 <li>
-                  <a [href]="link.href" (click)="onLinkClick($event, link.href)">
+                  <a [routerLink]="link.href">
                     {{ link.label }}
                   </a>
                 </li>
               }
               <li>
-                <a href="#contato" (click)="onLinkClick($event, '#contato')">Contato</a>
+                <a routerLink="/contato">Contato</a>
               </li>
             </ul>
           </div>
@@ -50,7 +51,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
             <ul class="footer-links-list">
               @for (prod of products; track prod.id) {
                 <li>
-                  <a href="#produtos" (click)="onLinkClick($event, '#produtos')">
+                  <a routerLink="/servicos">
                     {{ prod.name }}
                   </a>
                 </li>

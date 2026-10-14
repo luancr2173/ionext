@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { NavbarComponent } from './navbar.component';
 import { ScrollService } from '../../core/services/scroll.service';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
@@ -13,7 +14,7 @@ describe('NavbarComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [NavbarComponent],
-      providers: [ScrollService],
+      providers: [ScrollService, provideRouter([{ path: '**', children: [] }])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavbarComponent);

@@ -87,18 +87,41 @@
   color: var(--fg-muted);
   font-weight: var(--font-weight-regular);
   letter-spacing: -0.01em;
-  padding: 8px 10px;
+  padding: 8px 12px;
   min-height: var(--touch-target-min);
   display: inline-flex;
   align-items: center;
-  transition: color var(--duration-fast) var(--ease-out);
+  position: relative;
+  border-radius: var(--radius-full);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
 
   &:hover {
     color: var(--fg);
+    background-color: var(--surface);
   }
 
   &:focus-visible {
     color: var(--fg);
+  }
+
+  &.is-active {
+    color: var(--fg);
+    font-weight: var(--font-weight-medium);
+    background-color: var(--surface);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 14px;
+      right: 14px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: var(--radius-full);
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
   }
 }
 
@@ -247,6 +270,11 @@
   &:hover,
   &:focus-visible {
     color: var(--accent);
+  }
+
+  &.is-active {
+    color: var(--accent);
+    padding-left: var(--space-xs);
   }
 
   &:active {

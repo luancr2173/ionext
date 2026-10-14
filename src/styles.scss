@@ -439,16 +439,60 @@ svg {
 }
 
 /* ==========================================================================
-   View Transitions API & Fallback Theme Transitions
+   View Transitions API (Page Navigation & Theme Transitions)
    ========================================================================== */
 
-::view-transition-old(root) {
+/* 1. Page Navigation Transitions (Default router transitions when NOT toggling themes) */
+::view-transition-group(root) {
+  animation-duration: 360ms;
+}
+
+/* Exiting page: soft slide up, fade and subtle blur */
+html:not(.theme-transitioning)::view-transition-old(root) {
+  animation: pageTransitionOut 200ms var(--ease-out) forwards;
+  mix-blend-mode: normal;
+}
+
+/* Entering page: smooth upward glide, fade-in and subtle scale settle */
+html:not(.theme-transitioning)::view-transition-new(root) {
+  animation: pageTransitionIn 360ms var(--ease-apple) forwards;
+  mix-blend-mode: normal;
+}
+
+@keyframes pageTransitionOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.992);
+    filter: blur(2px);
+  }
+}
+
+@keyframes pageTransitionIn {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.992);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* 2. Theme Circular Reveal Transition (Only when toggling theme) */
+html.theme-transitioning::view-transition-old(root) {
   animation: none;
   mix-blend-mode: normal;
   z-index: 1;
 }
 
-::view-transition-new(root) {
+html.theme-transitioning::view-transition-new(root) {
   /* Provides native CSS circular reveal fallback for Safari iOS 18 (WebKit), where
      WAAPI pseudoElement is unsupported, while allowing WAAPI override on Chromium */
   animation: circularThemeReveal var(--dur-theme, 650ms) cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -465,14 +509,14 @@ svg {
   }
 }
 
-/* Isolate navbar during theme transition to avoid backdrop-filter flicker */
+/* 3. Navbar isolation: keeps header locked in place without flicker or jumping */
 .nav-header {
   view-transition-name: navbar;
 }
 
 ::view-transition-old(navbar),
 ::view-transition-new(navbar) {
-  animation-duration: 350ms;
+  animation-duration: 300ms;
   animation-timing-function: var(--ease-apple);
 }
 
@@ -527,6 +571,17 @@ html.theme-transitioning *::after {
   html.theme-transition *,
   html.theme-transitioning * {
     transition: none !important;
+  }
+
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-old(navbar),
+  ::view-transition-new(navbar) {
+    animation-duration: 0.01ms !important;
+    animation-name: none !important;
+    transform: none !important;
+    filter: none !important;
   }
 }
 

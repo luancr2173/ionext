@@ -7,12 +7,32 @@ describe('ThemeService', () => {
 
   const originalMatchMedia = window.matchMedia;
 
+  let store: Map<string, string>;
+
   beforeEach(() => {
-    try {
-      localStorage.clear();
-    } catch {
-      // ignore
-    }
+    store = new Map<string, string>();
+    const mockLocalStorage = {
+      getItem: (key: string) => store.get(key) ?? null,
+      setItem: (key: string, value: string) => store.set(key, String(value)),
+      removeItem: (key: string) => store.delete(key),
+      clear: () => store.clear(),
+      get length() {
+        return store.size;
+      },
+      key: (i: number) => Array.from(store.keys())[i] ?? null,
+    };
+
+    Object.defineProperty(window, 'localStorage', {
+      value: mockLocalStorage,
+      writable: true,
+      configurable: true,
+    });
+    Object.defineProperty(globalThis, 'localStorage', {
+      value: mockLocalStorage,
+      writable: true,
+      configurable: true,
+    });
+
     document.documentElement.removeAttribute('data-theme');
     document.documentElement.className = '';
     window.matchMedia = vi.fn().mockImplementation((query: string) => ({
@@ -30,11 +50,7 @@ describe('ThemeService', () => {
   afterEach(() => {
     vi.restoreAllMocks();
     window.matchMedia = originalMatchMedia;
-    try {
-      localStorage.clear();
-    } catch {
-      // ignore
-    }
+    store?.clear();
   });
 
   it('should initialize with system default when localStorage is empty', () => {
