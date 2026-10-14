@@ -1,6 +1,14 @@
 import { Injectable, inject, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { SITE_CONFIG } from '../config/site.config';
+import { SITE_CONFIG, IONEXT_WHATSAPP_NUMBER } from '../config/site.config';
+
+export interface ServiceQuoteRequest {
+  name: string;
+  subtitle?: string;
+  description?: string;
+  highlight?: string;
+  id?: string;
+}
 
 export interface ContactPayload {
   name: string;
@@ -134,6 +142,47 @@ export class ContactService {
     }
   }
 
+  /**
+   * Constrói a mensagem personalizada para solicitação de orçamento do serviço via WhatsApp.
+   * Contém:
+   * 1. Saudação cordial
+   * 2. Nome do serviço selecionado
+   * 3. Breve resumo e sua finalidade
+   * 4. Solicitação formal de orçamento
+   */
+  buildServiceQuoteMessage(service: ServiceQuoteRequest): string {
+    const greeting = 'Olá! Gostaria de mais informações e um orçamento da Ionext.';
+    const serviceName = service.name.trim();
+    const summary = (service.subtitle || service.description || service.highlight || '').trim();
+
+    return (
+      `${greeting}\n\n` +
+      `*Serviço de interesse:* ${serviceName}\n` +
+      `*Finalidade:* ${summary}\n\n` +
+      `Poderiam me passar uma proposta e detalhes de orçamento para essa solução?`
+    );
+  }
+
+  /**
+   * Retorna a URL do WhatsApp com o número comercial oficial e texto codificado via encodeURIComponent().
+   * Formato: https://wa.me/5561998145516?text=MENSAGEM_CODIFICADA
+   */
+  getServiceQuoteWhatsAppUrl(service: ServiceQuoteRequest): string {
+    const message = this.buildServiceQuoteMessage(service);
+    const encoded = encodeURIComponent(message);
+    const phone = IONEXT_WHATSAPP_NUMBER || SITE_CONFIG.contact.whatsappNumber;
+    return `https://wa.me/${phone}?text=${encoded}`;
+  }
+
+  /**
+   * Redireciona o usuário para o WhatsApp oficial em uma nova aba com a mensagem pré-preenchida.
+   */
+  openServiceQuoteWhatsApp(service: ServiceQuoteRequest): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    const targetUrl = this.getServiceQuoteWhatsAppUrl(service);
+    window.open(targetUrl, '_blank', 'noopener,noreferrer');
+  }
+
   private openWhatsApp(payload: ContactPayload): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
@@ -146,7 +195,8 @@ export class ContactService {
       `*Mensagem:*\n${payload.message.trim()}`;
 
     const encoded = encodeURIComponent(formattedText);
-    const targetUrl = `https://wa.me/${SITE_CONFIG.contact.whatsappNumber}?text=${encoded}`;
+    const phone = IONEXT_WHATSAPP_NUMBER || SITE_CONFIG.contact.whatsappNumber;
+    const targetUrl = `https://wa.me/${phone}?text=${encoded}`;
     window.open(targetUrl, '_blank', 'noopener,noreferrer');
   }
 

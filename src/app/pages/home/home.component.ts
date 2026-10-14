@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HeroComponent } from '../../features/hero/hero.component';
 import { ManifestoComponent } from '../../features/manifesto/manifesto.component';
-import { SITE_CONFIG } from '../../core/config/site.config';
+import { SITE_CONFIG, ProductItem } from '../../core/config/site.config';
 import { RevealDirective } from '../../core/directives/reveal.directive';
+import { ContactService } from '../../core/services/contact.service';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +38,22 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
                 <h3 class="preview-product-name">{{ product.name }}</h3>
                 <p class="preview-highlight">{{ product.highlight }}</p>
                 <p class="preview-description">{{ product.subtitle }}</p>
+
+                <div class="preview-card-action">
+                  <button
+                    type="button"
+                    class="preview-card-btn"
+                    (click)="onRequestQuote(product)"
+                    [attr.aria-label]="'Solicitar orçamento via WhatsApp para ' + product.name"
+                  >
+                    <span>Solicitar Orçamento</span>
+                    <span class="preview-btn-arrow" aria-hidden="true">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </button>
+                </div>
               </div>
             </article>
           }
@@ -116,4 +133,25 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
 export class HomeComponent {
   protected readonly productsConfig = SITE_CONFIG.entryProducts;
   protected readonly processConfig = SITE_CONFIG.process;
+  private readonly contactService = inject(ContactService);
+
+  protected onRequestQuote(product: ProductItem): void {
+    this.contactService.openServiceQuoteWhatsApp({
+      name: product.name,
+      subtitle: product.subtitle,
+      description: product.description,
+      highlight: product.highlight,
+      id: product.id,
+    });
+  }
+
+  protected getWhatsAppUrl(product: ProductItem): string {
+    return this.contactService.getServiceQuoteWhatsAppUrl({
+      name: product.name,
+      subtitle: product.subtitle,
+      description: product.description,
+      highlight: product.highlight,
+      id: product.id,
+    });
+  }
 }

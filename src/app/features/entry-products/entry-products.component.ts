@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { SITE_CONFIG, ProductItem } from '../../core/config/site.config';
 import { RevealDirective } from '../../core/directives/reveal.directive';
 import { ContactService } from '../../core/services/contact.service';
-import { ScrollService } from '../../core/services/scroll.service';
 
 @Component({
   selector: 'app-entry-products',
@@ -72,10 +71,24 @@ import { ScrollService } from '../../core/services/scroll.service';
 export class EntryProductsComponent {
   protected readonly config = SITE_CONFIG.entryProducts;
   private readonly contactService = inject(ContactService);
-  private readonly scrollService = inject(ScrollService);
+
+  protected getWhatsAppUrl(product: ProductItem): string {
+    return this.contactService.getServiceQuoteWhatsAppUrl({
+      name: product.name,
+      subtitle: product.subtitle,
+      description: product.description,
+      highlight: product.highlight,
+      id: product.id,
+    });
+  }
 
   protected onSelectProduct(product: ProductItem): void {
-    this.contactService.selectProduct(product.name, product.id);
-    this.scrollService.scrollTo('#contato');
+    this.contactService.openServiceQuoteWhatsApp({
+      name: product.name,
+      subtitle: product.subtitle,
+      description: product.description,
+      highlight: product.highlight,
+      id: product.id,
+    });
   }
 }

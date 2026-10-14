@@ -54,6 +54,13 @@ export interface PlanItem {
   ctaHref: string;
 }
 
+/**
+ * Número comercial oficial da IONEXT para WhatsApp (DDI + DDD + Número sem formatação)
+ * Formato internacional: +55 61 99814-5516 -> 5561998145516
+ */
+export const IONEXT_WHATSAPP_NUMBER = '5561998145516';
+export const IONEXT_WHATSAPP_DISPLAY = '+55 61 99814-5516';
+
 export const SITE_CONFIG = {
   brand: {
     name: 'Ionext',
@@ -102,7 +109,7 @@ export const SITE_CONFIG = {
         name: 'Atendimento',
         subtitle: 'Agente de IA no WhatsApp, Instagram ou site, 24/7, qualifica cada lead.',
         highlight: 'Nenhum contato fica sem resposta.',
-        whatsappMessage: 'Olá! Tenho interesse no serviço Atendimento (agente de IA para atendimento e qualificação de leads). Pode me passar mais informações?',
+        whatsappMessage: 'Olá! Gostaria de mais informações e um orçamento da Ionext.\n\n*Serviço de interesse:* Atendimento\n*Finalidade:* Agente de IA no WhatsApp, Instagram ou site, 24/7, qualifica cada lead.\n\nPoderiam me passar uma proposta e detalhes de orçamento para essa solução?',
         description:
           'Responde em segundos, entende o contexto da mensagem, esclarece dúvidas com a base de conhecimento da sua empresa e encaminha contatos quentes.',
       },
@@ -111,7 +118,7 @@ export const SITE_CONFIG = {
         name: 'Agendamento',
         subtitle: 'Reuniões e demonstrações marcadas direto na agenda do time.',
         highlight: 'Mais reuniões, sem troca de mensagens.',
-        whatsappMessage: 'Olá! Tenho interesse no serviço Agendamento (agente de IA para agendamento de reuniões e demonstrações). Pode me passar mais informações?',
+        whatsappMessage: 'Olá! Gostaria de mais informações e um orçamento da Ionext.\n\n*Serviço de interesse:* Agendamento\n*Finalidade:* Reuniões e demonstrações marcadas direto na agenda do time.\n\nPoderiam me passar uma proposta e detalhes de orçamento para essa solução?',
         description:
           'Cruza horários disponíveis, envia confirmação, sincroniza com Google Agenda ou Outlook e reduz no-show com lembretes automáticos.',
       },
@@ -120,7 +127,7 @@ export const SITE_CONFIG = {
         name: 'Acompanhamento',
         subtitle: 'Follow-up e reativação que se adaptam a cada lead.',
         highlight: 'Ninguém esquecido no funil.',
-        whatsappMessage: 'Olá! Tenho interesse no serviço Acompanhamento (agente de IA para acompanhamento e reativação de leads). Pode me passar mais informações?',
+        whatsappMessage: 'Olá! Gostaria de mais informações e um orçamento da Ionext.\n\n*Serviço de interesse:* Acompanhamento\n*Finalidade:* Follow-up e reativação que se adaptam a cada lead.\n\nPoderiam me passar uma proposta e detalhes de orçamento para essa solução?',
         description:
           'Retoma propostas paradas, cadencia contatos no momento certo e reativa leads dormentes com mensagens personalizadas.',
       },
@@ -129,7 +136,7 @@ export const SITE_CONFIG = {
         name: 'Dashboards',
         subtitle: 'Painel completo com as métricas do funil.',
         highlight: 'Decisões com dados, em uma tela.',
-        whatsappMessage: 'Olá! Tenho interesse no serviço Dashboards (agente de IA para dashboards e métricas do funil). Pode me passar mais informações?',
+        whatsappMessage: 'Olá! Gostaria de mais informações e um orçamento da Ionext.\n\n*Serviço de interesse:* Dashboards\n*Finalidade:* Painel completo com as métricas do funil em tempo real.\n\nPoderiam me passar uma proposta e detalhes de orçamento para essa solução?',
         description:
           'Acompanhe métricas do funil em tempo real: taxa de conversão, tempo de resposta, gargalos por etapa e custo por oportunidade.',
       },
@@ -526,7 +533,8 @@ export const SITE_CONFIG = {
     title: 'Vamos automatizar o seu funil.',
     subtitle:
       'Preencha as informações abaixo para receber um diagnóstico preliminar e entender o potencial de automação da sua empresa.',
-    whatsappNumber: '5561996213055',
+    whatsappNumber: IONEXT_WHATSAPP_NUMBER,
+    whatsappDisplay: IONEXT_WHATSAPP_DISPLAY,
     // TODO: Inserir e-mail corporativo oficial da Ionext
     email: 'contato@ionext.com.br',
     // TODO: Inserir endereço físico ou cidade sede
