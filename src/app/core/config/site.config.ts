@@ -64,6 +64,7 @@ export const SITE_CONFIG = {
 
   navigation: {
     links: [
+      { label: 'Home', href: '/' },
       { label: 'Serviços', href: '/servicos' },
       { label: 'Processo', href: '/processo' },
       { label: 'Planos', href: '/planos' },
