@@ -58,6 +58,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
                   <a
                     [routerLink]="link.href"
                     routerLinkActive="is-active"
+                    [routerLinkActiveOptions]="{ exact: link.href === '/' }"
                     class="nav-link"
                     (click)="closeMobileMenu()"
                   >
