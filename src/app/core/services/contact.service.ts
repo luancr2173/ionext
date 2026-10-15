@@ -120,7 +120,7 @@ export class ContactService {
         this.openWhatsApp(payload);
         return {
           success: true,
-          message: 'Redirecionando para o WhatsApp da Ionext...',
+          message: 'Revise os dados no WhatsApp e confirme o envio por lá.',
           channel: 'whatsapp',
         };
       } else if (this.channel === 'mailto') {

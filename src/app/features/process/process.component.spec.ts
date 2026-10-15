@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProcessComponent } from './process.component';
-import { ScrollService } from '../../core/services/scroll.service';
+import { ContactService } from '../../core/services/contact.service';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('ProcessComponent', () => {
   let component: ProcessComponent;
   let fixture: ComponentFixture<ProcessComponent>;
-  let scrollService: ScrollService;
+  let contactService: ContactService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -15,7 +15,7 @@ describe('ProcessComponent', () => {
 
     fixture = TestBed.createComponent(ProcessComponent);
     component = fixture.componentInstance;
-    scrollService = TestBed.inject(ScrollService);
+    contactService = TestBed.inject(ContactService);
     fixture.detectChanges();
   });
 
@@ -82,8 +82,8 @@ describe('ProcessComponent', () => {
     expect(thirdTab.classList.contains('is-active')).toBe(true);
   });
 
-  it('should trigger scroll to #contato on last phase CTA click', () => {
-    const scrollSpy = vi.spyOn(scrollService, 'scrollTo');
+  it('should open WhatsApp with a project-start message from the last phase CTA', () => {
+    const whatsappSpy = vi.spyOn(contactService, 'openServiceQuoteWhatsApp');
     component.goToStep(2); // Last phase
     fixture.detectChanges();
 
@@ -92,6 +92,10 @@ describe('ProcessComponent', () => {
     expect(ctaBtn.textContent).toContain('Iniciar Projeto');
 
     ctaBtn.click();
-    expect(scrollSpy).toHaveBeenCalledWith('#contato');
+    expect(whatsappSpy).toHaveBeenCalledWith({
+      name: 'Iniciar Projeto',
+      subtitle: 'Gostaria de conversar sobre um projeto de IA e automação para o meu funil de vendas.',
+      id: 'iniciar-projeto',
+    });
   });
 });

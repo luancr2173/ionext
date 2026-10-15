@@ -152,6 +152,11 @@ describe('NavigationService', () => {
       document.body.appendChild(section);
 
       const scrollToSpy = vi.spyOn(window, 'scrollTo');
+      const animationFrames: FrameRequestCallback[] = [];
+      vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => {
+        animationFrames.push(callback);
+        return animationFrames.length;
+      });
 
       window.matchMedia = vi.fn().mockImplementation((query: string) => ({
         matches: query === '(prefers-reduced-motion: reduce)',
@@ -166,7 +171,9 @@ describe('NavigationService', () => {
 
       service.scrollToSection('#planos');
 
-      await new Promise((resolve) => setTimeout(resolve, 80));
+      await Promise.resolve();
+      animationFrames.shift()?.(performance.now());
+      animationFrames.shift()?.(performance.now());
 
       expect(scrollToSpy).toHaveBeenCalled();
     });

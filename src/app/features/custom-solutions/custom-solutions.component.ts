@@ -10,7 +10,6 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 import { SITE_CONFIG, CustomSolutionItem } from '../../core/config/site.config';
 import { RevealDirective } from '../../core/directives/reveal.directive';
-import { ScrollService } from '../../core/services/scroll.service';
 import { ContactService } from '../../core/services/contact.service';
 
 @Component({
@@ -315,7 +314,6 @@ export class CustomSolutionsComponent implements OnDestroy {
   protected readonly config = SITE_CONFIG.customSolutions;
   protected readonly selectedSolution = signal<CustomSolutionItem | null>(null);
 
-  private readonly scrollService = inject(ScrollService);
   private readonly contactService = inject(ContactService);
   private readonly platformId = inject(PLATFORM_ID);
 
@@ -341,9 +339,14 @@ export class CustomSolutionsComponent implements OnDestroy {
   }
 
   protected requestSolution(item: CustomSolutionItem): void {
-    this.contactService.selectSolution(item.name, item.id);
     this.closeSolution();
-    this.scrollService.scrollTo('#contato');
+    this.contactService.openServiceQuoteWhatsApp({
+      name: item.name,
+      subtitle: item.description,
+      description: item.detailedTitle,
+      highlight: item.category,
+      id: item.id,
+    });
   }
 
   ngOnDestroy(): void {

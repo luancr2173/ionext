@@ -12,7 +12,7 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 import { ScrollService } from '../../core/services/scroll.service';
 import { NavigationService } from '../../core/services/navigation.service';
-import { SITE_CONFIG } from '../../core/config/site.config';
+import { IONEXT_WHATSAPP_URL, SITE_CONFIG } from '../../core/config/site.config';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ionext-symbol.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
@@ -87,6 +87,21 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
           >
             {{ ctaConfig.label }}
           </app-button>
+
+          <a
+            class="nav-whatsapp-link"
+            [href]="whatsappHref"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Falar com a Ionext pelo WhatsApp"
+            title="Falar com a Ionext pelo WhatsApp"
+          >
+            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+              <path
+                d="M16 3.2a12.3 12.3 0 0 0-10.5 18.7L4 27.9l6.2-1.6A12.3 12.3 0 1 0 16 3.2Zm0 22.3c-1.9 0-3.8-.5-5.4-1.6l-.4-.2-3.7 1 1-3.6-.3-.4a10 10 0 1 1 8.8 4.8Zm5.5-7.5c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2-.8 1-.9 1.2-.3.2-.6.1a8.2 8.2 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.6l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.8 1.2 3.2 1.4 3.4 2.4 3.7 5.8 5.1c.8.3 1.4.5 1.9.6.8.3 1.5.2 2.1.1.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4s-.3-.2-.6-.4Z"
+              />
+            </svg>
+          </a>
 
           <!-- Mobile Hamburger Toggle -->
           <button
@@ -176,6 +191,7 @@ export class NavbarComponent implements OnDestroy {
   protected readonly brandConfig = SITE_CONFIG.brand;
   protected readonly navLinks = SITE_CONFIG.navigation.links;
   protected readonly ctaConfig = SITE_CONFIG.navigation.cta;
+  protected readonly whatsappHref = IONEXT_WHATSAPP_URL;
 
   protected readonly mobileMenuOpen = signal<boolean>(false);
   private lastFocusedElement?: HTMLElement;

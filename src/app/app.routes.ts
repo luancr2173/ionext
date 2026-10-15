@@ -33,7 +33,8 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
-    pathMatch: 'full',
+    loadComponent: () =>
+      import('./pages/not-found/not-found.component').then((m) => m.NotFoundComponent),
+    title: 'Página não encontrada — IONEXT',
   },
 ];

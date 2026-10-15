@@ -141,6 +141,43 @@
   }
 }
 
+.nav-whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  color: #25d366;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--dur-touch) var(--ease-apple);
+
+  svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  &:hover {
+    color: #1ebe5d;
+    background-color: var(--surface-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  &:active {
+    transform: scale(0.94);
+  }
+}
+
 /* Mobile Toggle Hamburger */
 .mobile-toggle {
   display: flex;

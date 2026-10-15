@@ -1,5 +1,6 @@
 import { Injectable, signal, inject, PLATFORM_ID, NgZone } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 
 export interface ScrollToSectionOptions {
   smooth?: boolean;
@@ -48,6 +49,7 @@ export function calculateScrollDuration(distance: number): number {
 export class NavigationService {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly ngZone = inject(NgZone);
+  private readonly router = inject(Router);
 
   /**
    * Signal indicating whether deferred sections should be forced to load immediately.
@@ -176,42 +178,74 @@ export class NavigationService {
       id = 'servicos';
     }
 
-    // 1. Force deferred blocks to load immediately
+    // Se não estamos na home, navega para ela e rola depois
+    const currentPath = this.router.url.split('#')[0].split('?')[0];
+    if (currentPath !== '/' && currentPath !== '') {
+      this.router.navigateByUrl('/').then(() => {
+        this.scrollToSection('#' + id, options);
+      });
+      return;
+    }
+
+    // 1. Força os blocos deferidos a carregarem
     this.forceLoad.set(true);
 
-    // 2. Wait for rendering (two animation frames)
-    this.waitForRender(() => {
-      let targetElement = document.getElementById(id);
-      if (!targetElement) {
-        targetElement = document.querySelector(`[id="${id}"]`) as HTMLElement | null;
-      }
+    // 2. Espera o elemento existir no DOM
+    this.waitForElement(id).then((targetElement) => {
+      this.ngZone.run(() => {
+        if (!targetElement) {
+          if (id === 'inicio') {
+            const onArrival = () => {
+              if (options?.updateHistory !== false && window.history?.replaceState) {
+                window.history.replaceState(
+                  null,
+                  '',
+                  window.location.pathname + window.location.search,
+                );
+              }
+            };
 
-      if (!targetElement) {
-        // Fallback: if id is 'inicio', scroll to top
-        if (id === 'inicio') {
-          const onArrival = () => {
-            if (options?.updateHistory !== false && window.history?.replaceState) {
-              window.history.replaceState(
-                null,
-                '',
-                window.location.pathname + window.location.search,
-              );
+            const smooth = options?.smooth !== false && !this.shouldReduceMotion();
+            if (!smooth) {
+              window.scrollTo(0, 0);
+              onArrival();
+            } else {
+              this.animateScrollTo(0, onArrival);
             }
-          };
-
-          const isReduced = this.shouldReduceMotion();
-          const smooth = options?.smooth !== false && !isReduced;
-          if (!smooth) {
-            window.scrollTo(0, 0);
-            onArrival();
           } else {
-            this.animateScrollTo(0, onArrival);
+            console.warn(`[NavigationService] Elemento #${id} não encontrado`);
           }
+          return;
         }
+
+        // 3. Dá 2 frames para o layout assentar e então rola
+        this.waitForRender(() => this.executeScrollAndFocus(targetElement, id, options));
+      });
+    });
+  }
+
+  private waitForElement(id: string, timeoutMs = 3000): Promise<HTMLElement | null> {
+    return new Promise((resolve) => {
+      const existing = document.getElementById(id);
+      if (existing) {
+        resolve(existing);
         return;
       }
 
-      this.executeScrollAndFocus(targetElement, id, options);
+      const timer = setTimeout(() => {
+        observer.disconnect();
+        resolve(document.getElementById(id));
+      }, timeoutMs);
+
+      const observer = new MutationObserver(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          clearTimeout(timer);
+          observer.disconnect();
+          resolve(el);
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
     });
   }
 

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { NavbarComponent } from './navbar.component';
 import { ScrollService } from '../../core/services/scroll.service';
+import { IONEXT_WHATSAPP_URL } from '../../core/config/site.config';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 describe('NavbarComponent', () => {
@@ -29,6 +30,21 @@ describe('NavbarComponent', () => {
 
   it('should create the navbar component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show an accessible WhatsApp link for the Ionext business number', () => {
+    const whatsappLink = fixture.nativeElement.querySelector(
+      '.nav-whatsapp-link',
+    ) as HTMLAnchorElement;
+
+    expect(whatsappLink).toBeTruthy();
+    expect(whatsappLink.href).toBe(IONEXT_WHATSAPP_URL);
+    expect(whatsappLink.href).toContain(`text=${encodeURIComponent('Olá! Gostaria de falar com a Ionext.')}`);
+    expect(whatsappLink.target).toBe('_blank');
+    expect(whatsappLink.rel).toContain('noopener');
+    expect(whatsappLink.getAttribute('aria-label')).toBe(
+      'Falar com a Ionext pelo WhatsApp',
+    );
   });
 
   it('should have mobile menu closed by default without is-menu-open class', () => {

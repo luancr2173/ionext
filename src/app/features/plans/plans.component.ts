@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { SITE_CONFIG } from '../../core/config/site.config';
-import { ScrollService } from '../../core/services/scroll.service';
+import { SITE_CONFIG, PlanItem } from '../../core/config/site.config';
+import { ContactService } from '../../core/services/contact.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { RevealDirective } from '../../core/directives/reveal.directive';
 
@@ -74,7 +74,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
                   [label]="plan.ctaText"
                   [withArrow]="true"
                   href="#contato"
-                  (clicked)="onPlanCtaClick($event)"
+                  (clicked)="onPlanCtaClick($event, plan)"
                 >
                   {{ plan.ctaText }}
                 </app-button>
@@ -89,10 +89,16 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
 })
 export class PlansComponent {
   protected readonly config = SITE_CONFIG.plans;
-  private readonly scrollService = inject(ScrollService);
+  private readonly contactService = inject(ContactService);
 
-  protected onPlanCtaClick(e: MouseEvent): void {
-    e.preventDefault();
-    this.scrollService.scrollTo('#contato');
+  protected onPlanCtaClick(event: MouseEvent, plan: PlanItem): void {
+    event.preventDefault();
+    this.contactService.openServiceQuoteWhatsApp({
+      name: `Plano ${plan.name}`,
+      subtitle: plan.description,
+      description: plan.pricingModel,
+      highlight: plan.target,
+      id: plan.id,
+    });
   }
 }

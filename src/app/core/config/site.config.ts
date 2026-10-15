@@ -60,6 +60,9 @@ export interface PlanItem {
  */
 export const IONEXT_WHATSAPP_NUMBER = '5561998145516';
 export const IONEXT_WHATSAPP_DISPLAY = '+55 61 99814-5516';
+export const IONEXT_WHATSAPP_MESSAGE = 'Olá! Gostaria de falar com a Ionext.';
+export const IONEXT_WHATSAPP_URL =
+  `https://wa.me/${IONEXT_WHATSAPP_NUMBER}?text=${encodeURIComponent(IONEXT_WHATSAPP_MESSAGE)}`;
 
 export const SITE_CONFIG = {
   brand: {

@@ -1,13 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CustomSolutionsComponent } from './custom-solutions.component';
-import { ScrollService } from '../../core/services/scroll.service';
 import { ContactService } from '../../core/services/contact.service';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('CustomSolutionsComponent', () => {
   let component: CustomSolutionsComponent;
   let fixture: ComponentFixture<CustomSolutionsComponent>;
-  let scrollService: ScrollService;
   let contactService: ContactService;
 
   beforeEach(async () => {
@@ -17,7 +15,6 @@ describe('CustomSolutionsComponent', () => {
 
     fixture = TestBed.createComponent(CustomSolutionsComponent);
     component = fixture.componentInstance;
-    scrollService = TestBed.inject(ScrollService);
     contactService = TestBed.inject(ContactService);
     fixture.detectChanges();
   });
@@ -83,9 +80,8 @@ describe('CustomSolutionsComponent', () => {
     expect(fixture.nativeElement.querySelector('.solution-modal-dialog')).toBeFalsy();
   });
 
-  it('should select solution and scroll to contact when requesting a solution', () => {
-    const scrollSpy = vi.spyOn(scrollService, 'scrollTo');
-    const selectSpy = vi.spyOn(contactService, 'selectSolution');
+  it('should open WhatsApp with the selected solution details when requesting it', () => {
+    const whatsappSpy = vi.spyOn(contactService, 'openServiceQuoteWhatsApp');
 
     const cards = fixture.nativeElement.querySelectorAll('.custom-card');
     cards[0].click(); // Open Vender
@@ -97,8 +93,13 @@ describe('CustomSolutionsComponent', () => {
     primaryBtn.click();
     fixture.detectChanges();
 
-    expect(selectSpy).toHaveBeenCalledWith('Vender', 'vender');
-    expect(scrollSpy).toHaveBeenCalledWith('#contato');
+    expect(whatsappSpy).toHaveBeenCalledWith({
+      name: 'Vender',
+      subtitle: 'Agente de vendas completo, do pitch ao fechamento assistido.',
+      description: 'Agente de vendas completo, do pitch ao fechamento assistido',
+      highlight: 'Funil Comercial',
+      id: 'vender',
+    });
     expect(fixture.nativeElement.querySelector('.solution-modal-dialog')).toBeFalsy();
   });
 });

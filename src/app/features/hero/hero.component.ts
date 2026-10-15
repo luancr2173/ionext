@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { ScrollService } from '../../core/services/scroll.service';
 import { NavigationService } from '../../core/services/navigation.service';
 import { SITE_CONFIG } from '../../core/config/site.config';
@@ -8,7 +9,7 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [IonextSymbolComponent, ButtonComponent],
+  imports: [NgOptimizedImage, IonextSymbolComponent, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="hero-section" id="inicio" aria-label="Apresentação Ionext">
@@ -31,21 +32,21 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 
           <div class="hero-wordmark">
             <img
-              src="assets/logo/ionext-wordmark-white.png"
+              ngSrc="assets/logo/ionext-wordmark-white.png"
               alt="ionext"
               class="hero-wordmark-img dark-only"
-              width="678"
-              height="194"
-              loading="eager"
+              width="400"
+              height="130"
+              priority
               decoding="async"
             />
             <img
-              src="assets/logo/ionext-wordmark-black.png"
+              ngSrc="assets/logo/ionext-wordmark-black.png"
               alt="ionext"
               class="hero-wordmark-img light-only"
-              width="678"
-              height="194"
-              loading="eager"
+              width="400"
+              height="130"
+              priority
               decoding="async"
             />
           </div>

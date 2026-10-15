@@ -60,6 +60,7 @@ describe('ContactService', () => {
     const result = await service.submitContact(validPayload);
     expect(result.success).toBe(true);
     expect(result.channel).toBe('whatsapp');
+    expect(result.message).toContain('confirme o envio');
     expect(openSpy).toHaveBeenCalled();
 
     openSpy.mockRestore();
@@ -110,4 +111,3 @@ describe('ContactService', () => {
     expect(service.selectedBottlenecks()).not.toContain('Demora para qualificar leads');
   });
 });
-

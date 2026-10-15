@@ -1,0 +1,43 @@
+:host {
+  display: block;
+}
+
+.not-found {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  padding: calc(var(--nav-height) + var(--space-4xl)) var(--container-padding)
+    var(--space-4xl);
+  text-align: center;
+}
+
+.not-found__container {
+  max-width: var(--container-narrow);
+}
+
+.not-found__label {
+  display: inline-block;
+  margin-bottom: var(--space-md);
+  color: var(--accent);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.not-found__title {
+  margin-bottom: var(--space-lg);
+  color: var(--fg);
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-tight);
+}
+
+.not-found__message {
+  max-width: 56ch;
+  margin: 0 auto var(--space-xl);
+  color: var(--fg-muted);
+  font-size: var(--font-size-body-lg);
+  line-height: var(--line-height-relaxed);
+}

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { SITE_CONFIG, ProcessStep } from '../../core/config/site.config';
 import { RevealDirective } from '../../core/directives/reveal.directive';
-import { ScrollService } from '../../core/services/scroll.service';
+import { ContactService } from '../../core/services/contact.service';
 
 @Component({
   selector: 'app-process',
@@ -209,7 +209,7 @@ import { ScrollService } from '../../core/services/scroll.service';
   styleUrl: './process.component.scss',
 })
 export class ProcessComponent {
-  private readonly scrollService = inject(ScrollService);
+  private readonly contactService = inject(ContactService);
 
   protected readonly config = SITE_CONFIG.process;
   readonly activeStepIndex = signal<number>(0);
@@ -281,6 +281,10 @@ export class ProcessComponent {
   }
 
   protected onCtaClick(): void {
-    this.scrollService.scrollTo('#contato');
+    this.contactService.openServiceQuoteWhatsApp({
+      name: 'Iniciar Projeto',
+      subtitle: 'Gostaria de conversar sobre um projeto de IA e automação para o meu funil de vendas.',
+      id: 'iniciar-projeto',
+    });
   }
 }
