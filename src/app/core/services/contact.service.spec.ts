@@ -100,14 +100,14 @@ describe('ContactService', () => {
       name: 'Atender',
       id: 'atender',
     });
-    expect(service.selectedBottlenecks()).toContain('Demora para qualificar leads');
+    expect(service.selectedBottlenecks()).toContain('Demora para qualificar clientes');
   });
 
   it('should toggle bottlenecks correctly', () => {
-    service.toggleBottleneck('Demora para qualificar leads');
-    expect(service.selectedBottlenecks()).toContain('Demora para qualificar leads');
+    service.toggleBottleneck('Demora para qualificar clientes');
+    expect(service.selectedBottlenecks()).toContain('Demora para qualificar clientes');
 
-    service.toggleBottleneck('Demora para qualificar leads');
-    expect(service.selectedBottlenecks()).not.toContain('Demora para qualificar leads');
+    service.toggleBottleneck('Demora para qualificar clientes');
+    expect(service.selectedBottlenecks()).not.toContain('Demora para qualificar clientes');
   });
 });

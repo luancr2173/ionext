@@ -100,7 +100,7 @@ export const SITE_CONFIG = {
   },
 
   manifesto: {
-    sentence: 'Cada contato respondido. Cada lead acompanhado. Cada decisão com dados.',
+    sentence: 'Cada contato respondido. Cada cliente acompanhado. Cada decisão com dados.',
   },
 
   entryProducts: {
@@ -110,9 +110,9 @@ export const SITE_CONFIG = {
       {
         id: 'atender',
         name: 'Atendimento',
-        subtitle: 'Agente de IA no WhatsApp, Instagram ou site, 24/7, qualifica cada lead.',
+        subtitle: 'Agente de IA no WhatsApp, Instagram ou site, 24 horas por dia, 7 dias na semana, qualifica cada cliente.',
         highlight: 'Nenhum contato fica sem resposta.',
-        whatsappMessage: 'Olá! Gostaria de mais informações e um orçamento da Ionext.\n\n*Serviço de interesse:* Atendimento\n*Finalidade:* Agente de IA no WhatsApp, Instagram ou site, 24/7, qualifica cada lead.\n\nPoderiam me passar uma proposta e detalhes de orçamento para essa solução?',
+        whatsappMessage: 'Olá! Gostaria de mais informações e um orçamento da Ionext.\n\n*Serviço de interesse:* Atendimento\n*Finalidade:* Agente de IA no WhatsApp, Instagram ou site, 24 horas por dia, 7 dias na semanaras , qualifica cada cliente.\n\nPoderiam me passar uma proposta e detalhes de orçamento para essa solução?',
         description:
           'Responde em segundos, entende o contexto da mensagem, esclarece dúvidas com a base de conhecimento da sua empresa e encaminha contatos quentes.',
       },
@@ -128,11 +128,11 @@ export const SITE_CONFIG = {
       {
         id: 'acompanhar',
         name: 'Acompanhamento',
-        subtitle: 'Follow-up e reativação que se adaptam a cada lead.',
+        subtitle: 'Follow-up e reativação que se adaptam a cada cliente.',
         highlight: 'Ninguém esquecido no funil.',
-        whatsappMessage: 'Olá! Gostaria de mais informações e um orçamento da Ionext.\n\n*Serviço de interesse:* Acompanhamento\n*Finalidade:* Follow-up e reativação que se adaptam a cada lead.\n\nPoderiam me passar uma proposta e detalhes de orçamento para essa solução?',
+        whatsappMessage: 'Olá! Gostaria de mais informações e um orçamento da Ionext.\n\n*Serviço de interesse:* Acompanhamento\n*Finalidade:* Follow-up e reativação que se adaptam a cada cliente.\n\nPoderiam me passar uma proposta e detalhes de orçamento para essa solução?',
         description:
-          'Retoma propostas paradas, cadencia contatos no momento certo e reativa leads dormentes com mensagens personalizadas.',
+          'Retoma propostas paradas, cadencia contatos no momento certo e reativa clientes dormentes com mensagens personalizadas.',
       },
       {
         id: 'enxergar',
@@ -173,7 +173,7 @@ export const SITE_CONFIG = {
           {
             title: 'Diagnóstico Consultivo e Escuta Ativa',
             description:
-              'Mapeia dores, autoridade de decisão, prazo de compra e capacidade de investimento do lead em tempo real.',
+              'Mapeia dores, autoridade de decisão, prazo de compra e capacidade de investimento do cliente em tempo real.',
           },
           {
             title: 'Pitch de Valor Dinâmico',
@@ -188,7 +188,7 @@ export const SITE_CONFIG = {
           {
             title: 'Fechamento & Transbordo Assistido',
             description:
-              'Gera propostas contratuais, links de pagamento ou transfere o lead pronto para assinatura final com resumo executivo.',
+              'Gera propostas contratuais, links de pagamento ou transfere o cliente pronto para assinatura final com resumo executivo.',
           },
         ],
         deliverables: [
@@ -199,7 +199,7 @@ export const SITE_CONFIG = {
         ],
         benefits: [
           'Capacidade de negociação e fechamento ativa 24/7, inclusive fins de semana e madrugadas',
-          'Aumento médio de até 35% na conversão de leads que demandam venda consultiva',
+          'Aumento médio de até 35% na conversão de clientes que demandam venda consultiva',
           'Ciclo médio de vendas encurtado de semanas para horas',
         ],
         integrations: ['WhatsApp Oficial', 'HubSpot', 'Pipedrive', 'Salesforce', 'Stripe / Asaas', 'DocuSign'],
@@ -330,7 +330,7 @@ export const SITE_CONFIG = {
           'Motor gerador de copys calibrado no manual de voz e estilo da empresa',
           'Clonagem e modelagem de voz sintética autorizada para comunicações no WhatsApp',
           'Acervo dinâmico de criativos e testes A/B estruturados para Meta Ads e Google Ads',
-          'Esteira de produção ágil de roteiros comerciais e sequências de nutrição de leads',
+          'Esteira de produção ágil de roteiros comerciais e sequências de nutrição de clientes',
         ],
         benefits: [
           'Redução de até 80% nos prazos e custos de desenvolvimento criativo',
@@ -492,7 +492,7 @@ export const SITE_CONFIG = {
         featured: false,
         features: [
           '1 agente de IA dedicado (WhatsApp ou Web)',
-          'Qualificação automática de leads 24/7',
+          'Qualificação automática de clientes 24/7',
           'Transbordo humanizado para atendentes',
           'Base de conhecimento customizada',
           'Relatório quinzenal de desempenho',
@@ -558,8 +558,8 @@ export const SITE_CONFIG = {
       linkedin: 'https://linkedin.com/company/ionext',
     },
     bottlenecks: [
-      'Demora para qualificar leads',
-      'Leads esquecidos no follow-up',
+      'Demora para qualificar clientes',
+      'Clientes esquecidos no follow-up',
       'Perda de reuniões por no-show',
       'Integração com CRM / ERP legados',
       'Outro gargalo operacional',

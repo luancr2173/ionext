@@ -52,9 +52,9 @@ export class ContactService {
   selectProduct(name: string, id: string): void {
     this.selectedContext.set({ type: 'product', name, id });
     const productBottleneckMap: Record<string, string> = {
-      atender: 'Demora para qualificar leads',
+      atender: 'Demora para qualificar clientes',
       agendar: 'Perda de reuniões por no-show',
-      acompanhar: 'Leads esquecidos no follow-up',
+      acompanhar: 'Clientes esquecidos no follow-up',
       enxergar: 'Outro gargalo operacional',
       sites: 'Outro gargalo operacional',
     };
@@ -86,7 +86,7 @@ export class ContactService {
 
   /**
    * Submission channel strategy:
-   * - 'whatsapp': opens wa.me with pre-formatted greeting and lead details (default)
+   * - 'whatsapp': opens wa.me with pre-formatted greeting and client details (default)
    * - 'mailto': opens user default mail client with formatted subject and body
    * - 'rest': sends JSON POST to backend API (e.g. Spring Boot)
    */
