@@ -3,14 +3,24 @@ import { SITE_CONFIG, PlanItem } from '../../core/config/site.config';
 import { ContactService } from '../../core/services/contact.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { RevealDirective } from '../../core/directives/reveal.directive';
+import { ParallaxDirective } from '../../core/directives/parallax.directive';
 
 @Component({
   selector: 'app-plans',
   standalone: true,
-  imports: [ButtonComponent, RevealDirective],
+  imports: [ButtonComponent, RevealDirective, ParallaxDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="plans-section section-bg-alt" aria-label="Planos e investimento">
+      <!-- Decorative ambient parallax orb in background -->
+      <div
+        class="plans-parallax-blob"
+        aria-hidden="true"
+        appParallax
+        [appParallaxSpeed]="0.1"
+        [appParallaxMaxOffset]="45"
+      ></div>
+
       <div class="container plans-container">
         <!-- Section Header -->
         <header class="section-header" appReveal>
@@ -21,7 +31,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
           <p class="section-subtitle">{{ config.subtitle }}</p>
         </header>
 
-        <!-- Plans 3-Card Grid -->
+        <!-- Plans 3-Card Grid with subtle stair parallax on desktop -->
         <div class="plans-grid">
           @for (plan of config.items; track plan.id; let idx = $index) {
             <article
@@ -29,6 +39,9 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
               [class.is-featured]="plan.featured"
               appReveal
               [appRevealDelay]="idx * 120"
+              appParallax
+              [appParallaxSpeed]="idx === 1 ? -0.03 : 0.03"
+              [appParallaxMaxOffset]="20"
             >
               @if (plan.featured) {
                 <div class="featured-badge">Mais Escolhido</div>

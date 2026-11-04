@@ -15,11 +15,40 @@
   align-items: center;
   padding-top: calc(var(--nav-height) + var(--space-xl) + env(safe-area-inset-top, 0px));
   padding-bottom: var(--space-4xl);
-  overflow: hidden;
+  overflow: clip;
   background-color: var(--bg);
   transition:
     background-color var(--duration-normal) var(--ease-apple),
     color var(--duration-normal) var(--ease-apple);
+}
+
+/* Horizontal sliding watermark text in background */
+.hero-watermark-track {
+  position: absolute;
+  top: 48%;
+  left: -10%;
+  width: 200%;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.hero-watermark-text {
+  display: block;
+  font-size: clamp(48px, 10vw, 120px);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.02);
+  line-height: 1;
+  transition: color var(--duration-normal) var(--ease-apple);
+}
+
+:host-context([data-theme='light']) .hero-watermark-text {
+  color: rgba(0, 0, 0, 0.025);
 }
 
 /* Subtle particle canvas behind hero */

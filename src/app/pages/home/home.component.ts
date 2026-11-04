@@ -4,12 +4,13 @@ import { HeroComponent } from '../../features/hero/hero.component';
 import { ManifestoComponent } from '../../features/manifesto/manifesto.component';
 import { SITE_CONFIG, ProductItem } from '../../core/config/site.config';
 import { RevealDirective } from '../../core/directives/reveal.directive';
+import { ParallaxDirective } from '../../core/directives/parallax.directive';
 import { ContactService } from '../../core/services/contact.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeroComponent, ManifestoComponent, RouterLink, RevealDirective],
+  imports: [HeroComponent, ManifestoComponent, RouterLink, RevealDirective, ParallaxDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- 1. Hero Section (Above the fold) -->
@@ -17,11 +18,34 @@ import { ContactService } from '../../core/services/contact.service';
 
     <!-- 2. Manifesto (Scroll-linked lighting words) -->
     <section id="manifesto" class="section-wrapper">
+      <div
+        class="section-parallax-blob blob-manifesto"
+        aria-hidden="true"
+        appParallax
+        [appParallaxSpeed]="0.1"
+        [appParallaxMaxOffset]="45"
+      ></div>
       <app-manifesto />
     </section>
 
     <!-- 3. Services Preview (Cards linking to /servicos) -->
     <section class="services-preview section-bg-main" aria-label="Visão geral dos serviços">
+      <!-- Background subtle floating gradient orbs -->
+      <div
+        class="section-parallax-blob blob-services-left"
+        aria-hidden="true"
+        appParallax
+        [appParallaxSpeed]="0.12"
+        [appParallaxMaxOffset]="50"
+      ></div>
+      <div
+        class="section-parallax-blob blob-services-right"
+        aria-hidden="true"
+        appParallax
+        [appParallaxSpeed]="-0.08"
+        [appParallaxMaxOffset]="40"
+      ></div>
+
       <div class="container preview-container">
         <header class="section-header" appReveal>
           <span class="section-label">O que fazemos</span>
@@ -33,7 +57,14 @@ import { ContactService } from '../../core/services/contact.service';
 
         <div class="preview-grid" appReveal [appRevealDelay]="100">
           @for (product of productsConfig.items; track product.id; let idx = $index) {
-            <article class="preview-card" appReveal [appRevealDelay]="idx * 80">
+            <article
+              class="preview-card"
+              appReveal
+              [appRevealDelay]="idx * 80"
+              appParallax
+              [appParallaxSpeed]="getCardSpeed(idx)"
+              [appParallaxMaxOffset]="22"
+            >
               <div class="preview-card-inner">
                 <div class="preview-card-header">
                   <div class="preview-card-icon" aria-hidden="true">
@@ -114,6 +145,19 @@ import { ContactService } from '../../core/services/contact.service';
       </div>
     </section>
 
+    <!-- Decorative parallax transition curve into Process section -->
+    <div
+      class="section-divider-parallax"
+      aria-hidden="true"
+      appParallax
+      [appParallaxSpeed]="0.06"
+      [appParallaxMaxOffset]="25"
+    >
+      <svg viewBox="0 0 1440 48" fill="none" preserveAspectRatio="none">
+        <path d="M0,0 C480,48 960,48 1440,0 L1440,48 L0,48 Z" fill="var(--bg-alt)" />
+      </svg>
+    </div>
+
     <!-- 4. Process Preview -->
     <section class="process-preview section-bg-alt" aria-label="Metodologia">
       <div class="container preview-container">
@@ -127,7 +171,14 @@ import { ContactService } from '../../core/services/contact.service';
 
         <div class="process-steps-row" appReveal [appRevealDelay]="100">
           @for (step of processConfig.steps; track step.number; let idx = $index) {
-            <div class="process-step-card" appReveal [appRevealDelay]="idx * 100">
+            <div
+              class="process-step-card"
+              appReveal
+              [appRevealDelay]="idx * 100"
+              appParallax
+              [appParallaxSpeed]="idx === 1 ? -0.03 : 0.03"
+              [appParallaxMaxOffset]="20"
+            >
               <div class="step-number-circle">{{ step.number }}</div>
               <h3 class="step-name">{{ step.title }}</h3>
               <p class="step-tagline">{{ step.tagline }}</p>
@@ -176,6 +227,14 @@ export class HomeComponent {
   protected readonly productsConfig = SITE_CONFIG.entryProducts;
   protected readonly processConfig = SITE_CONFIG.process;
   private readonly contactService = inject(ContactService);
+
+  /**
+   * Subtle staggered vertical parallax offset for desktop cards
+   */
+  protected getCardSpeed(idx: number): number {
+    const speeds = [0.035, -0.025, 0.045, -0.03, 0.03];
+    return speeds[idx % speeds.length];
+  }
 
   protected onRequestQuote(product: ProductItem): void {
     this.contactService.openServiceQuoteWhatsApp({

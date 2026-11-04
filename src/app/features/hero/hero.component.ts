@@ -20,6 +20,7 @@ import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ion
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { WhatsappMockupComponent } from './whatsapp-mockup/whatsapp-mockup.component';
 import { CountUpDirective } from '../../core/directives/count-up.directive';
+import { ParallaxDirective } from '../../core/directives/parallax.directive';
 
 interface Particle {
   x: number;
@@ -38,6 +39,7 @@ interface Particle {
     ButtonComponent,
     WhatsappMockupComponent,
     CountUpDirective,
+    ParallaxDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -45,8 +47,26 @@ interface Particle {
       <!-- Subtle particle background canvas -->
       <canvas #particleCanvas class="hero-particle-canvas" aria-hidden="true"></canvas>
 
-      <!-- Gradient mesh background overlay -->
-      <div class="hero-gradient-overlay" aria-hidden="true"></div>
+      <!-- Gradient mesh background overlay with slow parallax -->
+      <div
+        class="hero-gradient-overlay"
+        aria-hidden="true"
+        appParallax
+        [appParallaxSpeed]="0.08"
+        [appParallaxMaxOffset]="40"
+      ></div>
+
+      <!-- Large decorative background watermark sliding horizontally with scroll -->
+      <div
+        class="hero-watermark-track"
+        aria-hidden="true"
+        appParallax
+        [appParallaxSpeed]="0.14"
+        [appParallaxAxis]="'x'"
+        [appParallaxMaxOffset]="120"
+      >
+        <span class="hero-watermark-text">IA · VENDAS · ATENDIMENTO · AGENDAMENTO · CONVERSÃO</span>
+      </div>
 
       <div class="container hero-container">
         <!-- Logo Docking Stage (Symbol + Wordmark) -->
@@ -135,14 +155,25 @@ interface Particle {
             </div>
           </div>
 
-          <!-- Right Column: Interactive WhatsApp Neo Mockup -->
-          <div class="hero-mockup-col">
+          <!-- Right Column: Interactive WhatsApp Neo Mockup with counter-parallax -->
+          <div
+            class="hero-mockup-col"
+            appParallax
+            [appParallaxSpeed]="-0.08"
+            [appParallaxMaxOffset]="45"
+          >
             <app-whatsapp-mockup />
           </div>
         </div>
 
-        <!-- Stats Bar with Animated CountUp -->
-        <div class="hero-stats-bar" aria-label="Números de impacto">
+        <!-- Stats Bar with Animated CountUp and subtle parallax lift -->
+        <div
+          class="hero-stats-bar"
+          aria-label="Números de impacto"
+          appParallax
+          [appParallaxSpeed]="0.06"
+          [appParallaxMaxOffset]="30"
+        >
           @for (stat of heroConfig.stats; track stat.label) {
             <div class="hero-stat-item">
               <div class="hero-stat-value">

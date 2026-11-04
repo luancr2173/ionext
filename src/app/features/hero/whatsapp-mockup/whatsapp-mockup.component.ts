@@ -9,6 +9,7 @@ import {
   NgZone,
   ElementRef,
   ViewChild,
+  HostListener,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { SITE_CONFIG, NeoChatMessage } from '../../../core/config/site.config';
@@ -23,6 +24,7 @@ import { MotionService } from '../../../core/services/motion.service';
       class="wa-mockup"
       aria-hidden="true"
       #mockupEl
+      [style.transform]="tiltTransform()"
     >
       <!-- Header -->
       <div class="wa-header">
@@ -76,7 +78,7 @@ export class WhatsappMockupComponent implements OnInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly motionService = inject(MotionService);
   private readonly ngZone = inject(NgZone);
-  private readonly hostEl = inject(ElementRef);
+  private readonly hostEl = inject(ElementRef<HTMLElement>);
 
   @ViewChild('messagesArea') messagesAreaRef?: ElementRef<HTMLDivElement>;
 
@@ -85,6 +87,7 @@ export class WhatsappMockupComponent implements OnInit, OnDestroy {
 
   readonly visibleMessages = signal<NeoChatMessage[]>([]);
   readonly isTyping = signal<boolean>(false);
+  readonly tiltTransform = signal<string>('none');
 
   private observer?: IntersectionObserver;
   private isVisible = false;
@@ -120,6 +123,36 @@ export class WhatsappMockupComponent implements OnInit, OnDestroy {
       );
       this.observer.observe(this.hostEl.nativeElement);
     });
+  }
+
+  // 3D Mouse Tilt effect on desktop
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(e: MouseEvent): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    if (!this.motionService.animationsEnabled()) return;
+
+    const hasFinePointer = window.matchMedia?.('(hover: hover) and (pointer: fine)').matches;
+    if (!hasFinePointer) return;
+
+    const rect = this.hostEl.nativeElement.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+
+    const nx = (e.clientX - rect.left) / rect.width * 2 - 1; // -1 to 1
+    const ny = (e.clientY - rect.top) / rect.height * 2 - 1; // -1 to 1
+
+    const rotX = (-ny * 6).toFixed(2);
+    const rotY = (nx * 6).toFixed(2);
+
+    this.tiltTransform.set(
+      `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`,
+    );
+  }
+
+  @HostListener('mouseleave')
+  onMouseLeave(): void {
+    if (this.tiltTransform() !== 'none') {
+      this.tiltTransform.set('perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)');
+    }
   }
 
   private startMessageLoop(): void {

@@ -28,7 +28,10 @@
   display: flex;
   flex-direction: column;
   height: 420px;
+  transform-style: preserve-3d;
+  will-change: transform;
   transition:
+    transform 160ms var(--ease-apple),
     background-color var(--duration-normal) var(--ease-apple),
     border-color var(--duration-normal) var(--ease-apple),
     box-shadow var(--duration-normal) var(--ease-apple);
