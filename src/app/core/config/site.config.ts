@@ -105,7 +105,7 @@ export const SITE_CONFIG = {
 
   entryProducts: {
     title: 'Comece por aqui.',
-    subtitle: 'Quatro produtos prontos, com preço fechado.',
+    subtitle: 'Produtos prontos, com preço fechado.',
     items: [
       {
         id: 'atender',
@@ -142,6 +142,15 @@ export const SITE_CONFIG = {
         whatsappMessage: 'Olá! Gostaria de mais informações e um orçamento da Ionext.\n\n*Serviço de interesse:* Dashboards\n*Finalidade:* Painel completo com as métricas do funil em tempo real.\n\nPoderiam me passar uma proposta e detalhes de orçamento para essa solução?',
         description:
           'Acompanhe métricas do funil em tempo real: taxa de conversão, tempo de resposta, gargalos por etapa e custo por oportunidade.',
+      },
+      {
+        id: 'sites',
+        name: 'Sites & Landing Pages',
+        subtitle: 'Criação de sites e landing pages de alta conversão, responsivos e velozes.',
+        highlight: 'Presença digital que converte visitantes em clientes.',
+        whatsappMessage: 'Olá! Gostaria de mais informações e um orçamento da Ionext.\n\n*Serviço de interesse:* Sites & Landing Pages\n*Finalidade:* Criação de sites e landing pages de alta conversão, responsivos e velozes.\n\nPoderiam me passar uma proposta e detalhes de orçamento para essa solução?',
+        description:
+          'Desenvolvimento de páginas ultra-rápidas, design moderno e persuasivo, copywriting orientado a conversão e integração nativa com seus canais de atendimento e automação.',
       },
     ] as ProductItem[],
   },
@@ -500,7 +509,7 @@ export const SITE_CONFIG = {
         pricingModel: 'Implementação + mensalidade',
         featured: true,
         features: [
-          '4 produtos de entrada integrados',
+          'Produtos de entrada integrados',
           'Sincronização bidirecional com CRM',
           'Agendamento automático de reuniões',
           'Cadência de follow-up inteligente',

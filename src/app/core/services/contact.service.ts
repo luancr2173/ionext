@@ -56,6 +56,7 @@ export class ContactService {
       agendar: 'Perda de reuniões por no-show',
       acompanhar: 'Leads esquecidos no follow-up',
       enxergar: 'Outro gargalo operacional',
+      sites: 'Outro gargalo operacional',
     };
     const mapped =
       productBottleneckMap[id.toLowerCase()] || productBottleneckMap[name.toLowerCase()];

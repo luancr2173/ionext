@@ -33,12 +33,15 @@ describe('EntryProductsComponent', () => {
     });
   });
 
-  it('should render contextual CTA buttons for all 4 products', () => {
+  it('should render contextual CTA buttons for all 5 products', () => {
     const ctaBtns = fixture.nativeElement.querySelectorAll('.product-cta-btn');
-    expect(ctaBtns.length).toBe(4);
+    expect(ctaBtns.length).toBe(5);
 
     const firstBtn = ctaBtns[0] as HTMLButtonElement;
     expect(firstBtn.textContent).toContain('Iniciar com Atendimento');
+
+    const lastBtn = ctaBtns[4] as HTMLButtonElement;
+    expect(lastBtn.textContent).toContain('Iniciar com Sites & Landing Pages');
   });
 });
 
