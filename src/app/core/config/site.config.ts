@@ -42,6 +42,19 @@ export interface ProcessStep {
   details: string[];
 }
 
+export interface NeoChatMessage {
+  sender: 'neo' | 'client';
+  text: string;
+  time?: string;
+}
+
+export interface HeroStatItem {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+}
+
 export interface PlanItem {
   id: string;
   name: string;
@@ -86,16 +99,69 @@ export const SITE_CONFIG = {
   },
 
   hero: {
-    title: 'IA em todo o funil de vendas.',
+    title: 'IA no seu funil de',
+    titlePrefix: 'IA no seu funil de',
+    rotatingWords: ['vendas', 'atendimento', 'agendamento', 'conversão'],
     subtitle:
-      'Do primeiro contato ao pós-venda, automatizamos o que trava o crescimento da sua empresa.',
+      'Do primeiro contato ao fechamento, nossos agentes inteligentes aceleram respostas, qualificam clientes e destravam o crescimento da sua empresa.',
     ctaPrimary: {
-      label: 'Ver serviços',
-      href: '/servicos',
-    },
-    ctaSecondary: {
       label: 'Receber Diagnóstico do Funil',
       href: '/contato',
+    },
+    ctaSecondary: {
+      label: 'Conhecer os planos',
+      href: '#planos',
+    },
+    stats: [
+      {
+        value: 24,
+        suffix: '/7',
+        label: 'Atendimento ativo em tempo real',
+      },
+      {
+        value: 10,
+        prefix: '< ',
+        suffix: 's',
+        label: 'Tempo de primeira resposta',
+      },
+      {
+        value: 35,
+        prefix: '+',
+        suffix: '%',
+        label: 'Conversão média de clientes',
+      },
+      {
+        value: 100,
+        suffix: '%',
+        label: 'Contatos e oportunidades registrados',
+      },
+    ] as HeroStatItem[],
+    neoChat: {
+      botName: 'Neo',
+      botRole: 'Especialista em IA · Ionext',
+      status: 'online',
+      messages: [
+        {
+          sender: 'neo',
+          text: 'Olá! Sou o Neo, especialista em IA da Ionext. Como sua equipe lida hoje com o volume de clientes que chegam?',
+          time: '14:20',
+        },
+        {
+          sender: 'client',
+          text: 'Temos dificuldade em responder rápido no WhatsApp e muitos clientes esfriam antes de agendarmos.',
+          time: '14:21',
+        },
+        {
+          sender: 'neo',
+          text: 'Entendi perfeitamente. Nossos agentes qualificam em segundos e agendam reuniões 24/7 direto no CRM.',
+          time: '14:21',
+        },
+        {
+          sender: 'neo',
+          text: 'Que tal fazermos uma sessão de diagnóstico gratuita de 30 min para mapear o seu funil?',
+          time: '14:22',
+        },
+      ] as NeoChatMessage[],
     },
   },
 

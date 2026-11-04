@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavbarComponent } from './features/navbar/navbar.component';
 import { FooterComponent } from './features/footer/footer.component';
 import { ScrollToTopComponent } from './shared/components/scroll-to-top/scroll-to-top.component';
+import { AppLoaderComponent } from './shared/components/app-loader/app-loader.component';
 
 import { ThemeService } from './core/services/theme.service';
 
@@ -15,6 +16,7 @@ import { ThemeService } from './core/services/theme.service';
     NavbarComponent,
     FooterComponent,
     ScrollToTopComponent,
+    AppLoaderComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',

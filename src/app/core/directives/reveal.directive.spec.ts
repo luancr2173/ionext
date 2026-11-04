@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RevealDirective } from './reveal.directive';
+import { MotionService } from '../services/motion.service';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 @Component({
@@ -13,10 +14,27 @@ class TestHostComponent {}
 describe('RevealDirective', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let el: HTMLElement;
-
-  const originalMatchMedia = window.matchMedia;
+  let motionService: MotionService;
 
   beforeEach(() => {
+    const store: Record<string, string> = {};
+    Object.defineProperty(window, 'localStorage', {
+      value: {
+        getItem: (key: string) => store[key] ?? null,
+        setItem: (key: string, value: string) => {
+          store[key] = value;
+        },
+        removeItem: (key: string) => {
+          delete store[key];
+        },
+        clear: () => {
+          Object.keys(store).forEach((k) => delete store[k]);
+        },
+      },
+      writable: true,
+      configurable: true,
+    });
+
     window.matchMedia = vi.fn().mockImplementation((query: string) => ({
       matches: false,
       media: query,
@@ -31,13 +49,16 @@ describe('RevealDirective', () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
-    window.matchMedia = originalMatchMedia;
   });
 
   it('should initialize element with reveal classes', async () => {
     await TestBed.configureTestingModule({
       imports: [TestHostComponent],
+      providers: [MotionService],
     }).compileComponents();
+
+    motionService = TestBed.inject(MotionService);
+    motionService.setMotionMode('enabled');
 
     fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
@@ -51,7 +72,11 @@ describe('RevealDirective', () => {
   it('should set --reveal-delay property if delay provided', async () => {
     await TestBed.configureTestingModule({
       imports: [TestHostComponent],
+      providers: [MotionService],
     }).compileComponents();
+
+    motionService = TestBed.inject(MotionService);
+    motionService.setMotionMode('enabled');
 
     fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
@@ -78,7 +103,11 @@ describe('RevealDirective', () => {
     TestBed.resetTestingModule();
     await TestBed.configureTestingModule({
       imports: [TestHostComponent],
+      providers: [MotionService],
     }).compileComponents();
+
+    motionService = TestBed.inject(MotionService);
+    motionService.setMotionMode('auto');
 
     fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
@@ -109,7 +138,11 @@ describe('RevealDirective', () => {
     TestBed.resetTestingModule();
     await TestBed.configureTestingModule({
       imports: [TestHostComponent],
+      providers: [MotionService],
     }).compileComponents();
+
+    motionService = TestBed.inject(MotionService);
+    motionService.setMotionMode('enabled');
 
     fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();

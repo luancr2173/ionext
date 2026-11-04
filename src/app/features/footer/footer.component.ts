@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IONEXT_WHATSAPP_URL, SITE_CONFIG } from '../../core/config/site.config';
 import { ScrollService } from '../../core/services/scroll.service';
+import { MotionService, MotionMode } from '../../core/services/motion.service';
 import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ionext-symbol.component';
 import { RevealDirective } from '../../core/directives/reveal.directive';
 
@@ -132,9 +133,43 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
           </div>
         </div>
 
-        <!-- Bottom Copyright Row -->
+        <!-- Bottom Row: Copyright + Animation Controller -->
         <div class="footer-bottom-row" appReveal [appRevealDelay]="150">
           <p class="footer-copyright">{{ brandConfig.copyright }}</p>
+
+          <!-- Animation Control Selector -->
+          <div class="footer-motion-control" aria-label="Controle de animações">
+            <span class="motion-control-label">Animações:</span>
+            <div class="motion-pill-group" role="group" aria-label="Preferência de movimento">
+              <button
+                type="button"
+                class="motion-pill-btn"
+                [class.is-active]="motionService.motionMode() === 'auto'"
+                (click)="setMotionMode('auto')"
+                aria-label="Animações automáticas (segue o sistema)"
+              >
+                Auto
+              </button>
+              <button
+                type="button"
+                class="motion-pill-btn"
+                [class.is-active]="motionService.motionMode() === 'enabled'"
+                (click)="setMotionMode('enabled')"
+                aria-label="Animações ativadas"
+              >
+                Ativadas
+              </button>
+              <button
+                type="button"
+                class="motion-pill-btn"
+                [class.is-active]="motionService.motionMode() === 'disabled'"
+                (click)="setMotionMode('disabled')"
+                aria-label="Animações desativadas"
+              >
+                Desativadas
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
@@ -143,12 +178,17 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
 })
 export class FooterComponent {
   private readonly scrollService = inject(ScrollService);
+  protected readonly motionService = inject(MotionService);
 
   protected readonly brandConfig = SITE_CONFIG.brand;
   protected readonly navLinks = SITE_CONFIG.navigation.links;
   protected readonly products = SITE_CONFIG.entryProducts.items;
   protected readonly contactConfig = SITE_CONFIG.contact;
   protected readonly whatsappHref = IONEXT_WHATSAPP_URL;
+
+  protected setMotionMode(mode: MotionMode): void {
+    this.motionService.setMotionMode(mode);
+  }
 
   protected onLinkClick(e: MouseEvent, href: string): void {
     if (href.startsWith('#')) {

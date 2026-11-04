@@ -9,6 +9,7 @@ import {
   NgZone,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { MotionService } from '../services/motion.service';
 
 @Directive({
   selector: '[appReveal]',
@@ -18,6 +19,7 @@ export class RevealDirective implements OnInit, OnDestroy {
   private readonly el = inject(ElementRef<HTMLElement>);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly ngZone = inject(NgZone);
+  private readonly motionService = inject(MotionService);
 
   /**
    * Transition delay in milliseconds on entrance.
@@ -31,11 +33,8 @@ export class RevealDirective implements OnInit, OnDestroy {
   ngOnInit(): void {
     const nativeEl = this.el.nativeElement;
 
-    // Check prefers-reduced-motion
-    if (
-      typeof window !== 'undefined' &&
-      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    ) {
+    // Check motion preference / settings
+    if (!this.motionService.animationsEnabled()) {
       nativeEl.classList.add('is-revealed');
       return;
     }

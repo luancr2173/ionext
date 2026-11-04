@@ -184,6 +184,58 @@
   color: var(--fg-subtle);
 }
 
+/* Motion control pills */
+.footer-motion-control {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-caption);
+}
+
+.motion-control-label {
+  color: var(--fg-subtle);
+  font-size: 11px;
+}
+
+.motion-pill-group {
+  display: inline-flex;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  padding: 2px;
+  gap: 2px;
+}
+
+.motion-pill-btn {
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  color: var(--fg-muted);
+  font-size: 11px;
+  font-weight: var(--font-weight-medium);
+  padding: 4px 10px;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+
+  &:hover {
+    color: var(--fg);
+  }
+
+  &.is-active {
+    background-color: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 1px 4px rgba(41, 151, 255, 0.35);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
 .back-to-top-btn {
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-medium);
