@@ -110,8 +110,6 @@ interface Particle {
         <!-- Main Hero Two-Column Grid -->
         <div
           class="hero-content hero-main-grid"
-          [style.opacity]="heroContentOpacity()"
-          [style.transform]="heroContentTransform()"
         >
           <!-- Left Column: Headline, Rotating word, Subtitle & CTAs -->
           <div class="hero-text-col">
@@ -247,16 +245,6 @@ export class HeroComponent implements OnInit, OnDestroy {
   protected readonly heroLogoOpacity = computed(() => {
     const p = this.scrollService.dockingProgress();
     return Math.max(0, 1 - p * 1.5);
-  });
-
-  protected readonly heroContentOpacity = computed(() => {
-    const p = this.scrollService.dockingProgress();
-    return Math.max(0, 1 - p * 1.5);
-  });
-
-  protected readonly heroContentTransform = computed(() => {
-    const p = this.scrollService.dockingProgress();
-    return `translate3d(0, ${-p * 36}px, 0)`;
   });
 
   protected readonly scrollHintOpacity = computed(() => {
