@@ -65,7 +65,8 @@
     linear-gradient(0deg, var(--bg) 0%, transparent 25%);
 
   @media (max-width: 768px) {
-    background: linear-gradient(180deg, transparent 0%, transparent 40%, color-mix(in srgb, var(--bg) 85%, transparent) 62%, var(--bg) 100%);
+    /* só escurece abaixo da arte, onde começa o texto */
+    background: linear-gradient(180deg, transparent 0%, transparent 56%, color-mix(in srgb, var(--bg) 80%, transparent) 76%, var(--bg) 100%);
   }
 }
 

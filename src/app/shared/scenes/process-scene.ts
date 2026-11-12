@@ -55,7 +55,7 @@ export class ProcessScene extends BaseScene {
   }
 
   protected override layoutFor(aspect: number) {
-    if (aspect < 0.8) return { x: 0, y: 1.85, scale: 0.4 };
+    if (aspect < 0.8) return { x: 0, y: 1.2, scale: 0.55 };
     if (aspect < 1.25) return { x: 1.9, y: 0.75, scale: 0.55 };
     return { x: 3.65, y: 0.7, scale: 0.64 };
   }

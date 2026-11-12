@@ -146,7 +146,7 @@ export class ServicesScene extends BaseScene {
 
   // a órbita é larga e baixa: ocupa a faixa superior direita, acima do título
   protected override layoutFor(aspect: number) {
-    if (aspect < 0.8) return { x: 0, y: 2.25, scale: 0.44 };
+    if (aspect < 0.8) return { x: 0, y: 1.45, scale: 0.6 };
     if (aspect < 1.25) return { x: 1.7, y: 1.35, scale: 0.68 };
     return { x: 3.35, y: 1.5, scale: 0.8 };
   }

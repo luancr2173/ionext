@@ -179,10 +179,12 @@ export abstract class BaseScene implements ManagedScene {
     this.renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
-      antialias: !this.isMobile,
+      // celulares têm tela 2–3x: sem antialias e a 1,5x as bordas ficam serrilhadas.
+      // A queda de qualidade automática (FPS baixo) ainda reduz para 1x se precisar.
+      antialias: true,
       powerPreference: 'high-performance',
     });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, this.isMobile ? 1.5 : 2));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.setClearColor(0x000000, 0);
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.05;

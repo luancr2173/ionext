@@ -64,8 +64,17 @@ export class FunnelSceneDirective implements AfterViewInit, OnDestroy {
   private destroyed = false;
 
   constructor() {
-    effect(() => this.scene?.setTheme(this.theme.theme()));
-    effect(() => this.scene?.setAnimate(this.motion.animationsEnabled()));
+    // Leia o signal ANTES do `?.`: com `this.scene?.setTheme(this.theme.theme())` o
+    // argumento nem é avaliado enquanto a cena não existe, o effect fica sem dependência
+    // e nunca mais roda — a arte só trocava de tema ao mudar de página.
+    effect(() => {
+      const theme = this.theme.theme();
+      this.scene?.setTheme(theme);
+    });
+    effect(() => {
+      const animate = this.motion.animationsEnabled();
+      this.scene?.setAnimate(animate);
+    });
   }
 
   ngAfterViewInit(): void {

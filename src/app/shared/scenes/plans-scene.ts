@@ -54,7 +54,7 @@ export class PlansScene extends BaseScene {
   }
 
   protected override layoutFor(aspect: number) {
-    if (aspect < 0.8) return { x: 0, y: 2.1, scale: 0.42 };
+    if (aspect < 0.8) return { x: 0, y: 1.55, scale: 0.58 };
     if (aspect < 1.25) return { x: 1.9, y: 1.05, scale: 0.55 };
     return { x: 3.75, y: 1.3, scale: 0.6 };
   }
