@@ -5,8 +5,11 @@
    ========================================================================== */
 
 :root {
-  /* Typography */
-  --font-family-system: -apple-system, 'SF Pro Display', Inter, 'Helvetica Neue', Arial, sans-serif;
+  /* Typography — Archivo (display/texto) + Instrument Serif (ênfase) + JetBrains Mono (microtexto) */
+  --font-display: 'Archivo Variable', 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-family-system: var(--font-display);
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -90,11 +93,12 @@
   /* Interactive Elements */
   --touch-target-min: 44px;
 
-  /* Accent (Discrete focus and interactive cues only) */
-  --accent: #2997ff;
-  --accent-hover: #147ce5;
-  --accent-subtle: rgba(41, 151, 255, 0.12);
-  --accent-glow: rgba(41, 151, 255, 0.28);
+  /* Accent — "azul íon": uma única cor saturada, usada com parcimônia */
+  --accent: #4d7cff;
+  --accent-hover: #6b93ff;
+  --accent-subtle: rgba(77, 124, 255, 0.12);
+  --accent-glow: rgba(77, 124, 255, 0.32);
+  --accent-ink: #ffffff;
 
   /* Feedback Colors */
   --color-error: #ff453a;
@@ -108,14 +112,14 @@
    ========================================================================== */
 :root,
 :root[data-theme='dark'] {
-  --bg: #000000;
-  --bg-alt: #0b0b0c;
-  --fg: #f5f5f7;
-  --fg-muted: #a1a1a6;
-  --fg-subtle: #6e6e73;
-  --line: #2c2c2e;
+  --bg: #0a0a0c;
+  --bg-alt: #111114;
+  --fg: #f3f2ef;
+  --fg-muted: rgba(243, 242, 239, 0.62);
+  --fg-subtle: rgba(243, 242, 239, 0.36);
+  --line: rgba(243, 242, 239, 0.14);
   --line-subtle: rgba(255, 255, 255, 0.1);
-  --surface: #0b0b0c;
+  --surface: #111114;
   --surface-alt: #141416;
   --surface-hover: rgba(255, 255, 255, 0.08);
   --card: #141416;
@@ -160,26 +164,26 @@
    Light Theme
    ========================================================================== */
 :root[data-theme='light'] {
-  --bg: #ffffff;
-  --bg-alt: #f5f5f7;
-  --fg: #1d1d1f;
-  --fg-muted: #6e6e73;
-  --fg-subtle: #86868b;
-  --line: #d2d2d7;
+  --bg: #f4f2ee;
+  --bg-alt: #ebe8e2;
+  --fg: #111113;
+  --fg-muted: rgba(17, 17, 19, 0.64);
+  --fg-subtle: rgba(17, 17, 19, 0.4);
+  --line: rgba(17, 17, 19, 0.14);
   --line-subtle: rgba(0, 0, 0, 0.08);
-  --surface: #ffffff;
-  --surface-alt: #f5f5f7;
+  --surface: #f4f2ee;
+  --surface-alt: #ebe8e2;
   --surface-hover: rgba(0, 0, 0, 0.05);
-  --card: #ffffff;
-  --card-border: #d2d2d7;
-  --nav-bg: rgba(255, 255, 255, 0.82);
+  --card: #fbfaf7;
+  --card-border: rgba(17, 17, 19, 0.12);
+  --nav-bg: rgba(244, 242, 238, 0.82);
   --nav-border: rgba(0, 0, 0, 0.08);
 
   /* Accent with WCAG AA compliance (>= 4.5:1) on light background */
-  --accent: #0066cc;
-  --accent-hover: #004fb0;
-  --accent-subtle: rgba(0, 102, 204, 0.1);
-  --accent-glow: rgba(0, 102, 204, 0.25);
+  --accent: #1f4fe0;
+  --accent-hover: #163db3;
+  --accent-subtle: rgba(31, 79, 224, 0.1);
+  --accent-glow: rgba(31, 79, 224, 0.25);
 
   --input-bg: rgba(0, 0, 0, 0.03);
   --input-border: rgba(0, 0, 0, 0.15);
@@ -237,8 +241,22 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
+}
+
+/* Lenis (rolagem suave) assume o controle: desliga o smooth nativo para não brigar */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+html.lenis.lenis-stopped {
+  overflow: clip;
 }
 
 body {
@@ -246,7 +264,7 @@ body {
   padding: 0;
   background-color: var(--bg);
   color: var(--fg);
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
   min-height: 100vh;
 }
@@ -283,11 +301,50 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 108%;
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-heading);
   text-wrap: balance;
   color: var(--fg);
+}
+
+/* ==========================================================================
+   Primitivas editoriais (usadas em todo o site)
+   ========================================================================== */
+
+/* Microtexto mono em caixa alta */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  line-height: 1.4;
+}
+
+/* Ênfase em serif itálica dentro de títulos display */
+.serif-em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: 100%;
+  letter-spacing: -0.01em;
+}
+
+/* Máscara para revelar palavras de baixo para cima (GSAP) */
+.split-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.split-word {
+  display: inline-block;
+  will-change: transform;
 }
 
 p {
@@ -535,6 +592,33 @@ html.theme-transitioning *::after {
     border-color 350ms var(--ease-apple),
     fill 350ms var(--ease-apple),
     stroke 350ms var(--ease-apple) !important;
+}
+
+/* Animações: Desativadas (seletor no rodapé) — mesmo efeito do reduced-motion */
+html.motion-off {
+  scroll-behavior: auto;
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .section-title {
+    overflow: visible !important;
+  }
+
+  .section-title .masked-title-inner {
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
 
 /* Reduced Motion Override */

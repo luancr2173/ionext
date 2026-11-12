@@ -200,19 +200,10 @@ export class NavbarComponent implements OnDestroy {
    * Docked logo opacity starts at 0 at page top and becomes 1 as hero scrolls out.
    * If mobile menu is open, logo is always visible.
    */
-  protected readonly dockedLogoOpacity = computed(() => {
-    if (this.mobileMenuOpen()) return 1;
-    const progress = this.scrollService.dockingProgress();
-    if (progress <= 0.2) return 0;
-    return Math.min(1, (progress - 0.2) / 0.6);
-  });
+  // O hero não tem mais o logo gigante: a marca fica sempre visível na navegação.
+  protected readonly dockedLogoOpacity = computed(() => 1);
 
-  protected readonly dockedLogoTransform = computed(() => {
-    if (this.mobileMenuOpen()) return 'none';
-    const progress = this.scrollService.dockingProgress();
-    const translateY = (1 - Math.min(1, progress)) * 12;
-    return `translateY(${translateY}px)`;
-  });
+  protected readonly dockedLogoTransform = computed(() => 'none');
 
   toggleMobileMenu(): void {
     const nextState = !this.mobileMenuOpen();

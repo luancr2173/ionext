@@ -77,6 +77,19 @@ export const IONEXT_WHATSAPP_MESSAGE = 'Olá! Gostaria de falar com a Ionext.';
 export const IONEXT_WHATSAPP_URL =
   `https://wa.me/${IONEXT_WHATSAPP_NUMBER}?text=${encodeURIComponent(IONEXT_WHATSAPP_MESSAGE)}`;
 
+/** Link do WhatsApp com mensagem pré-preenchida pelo contexto do CTA. */
+export function whatsappUrl(message: string): string {
+  return `https://wa.me/${IONEXT_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+/** Mensagens pré-preenchidas por CTA (cada botão abre o WhatsApp com o contexto certo). */
+export const WHATSAPP_MESSAGES = {
+  floating: 'Olá! Vim pelo site da Ionext e quero tirar uma dúvida.',
+  heroDiagnosis: 'Olá! Vi o site da Ionext e quero um diagnóstico gratuito do meu funil de vendas.',
+  neoDemo: 'Olá! Vi o Neo no site e quero um agente de IA atendendo os clientes da minha empresa.',
+  finalCta: 'Olá! Quero conversar sobre automatizar o atendimento e as vendas da minha empresa com IA.',
+} as const;
+
 export const SITE_CONFIG = {
   brand: {
     name: 'Ionext',
@@ -167,6 +180,120 @@ export const SITE_CONFIG = {
 
   manifesto: {
     sentence: 'Cada contato respondido. Cada cliente acompanhado. Cada decisão com dados.',
+  },
+
+  /** Cabeçalhos e faixas finais das páginas internas. */
+  pages: {
+    servicos: {
+      index: '02',
+      label: 'Serviços & soluções',
+      lead: 'Tudo o que a IA faz',
+      em: 'pelo seu funil.',
+      subtitle:
+        'Produtos prontos com preço fechado para começar rápido, e projetos sob medida para operações que exigem personalização total.',
+      cta: {
+        lead: 'Não sabe por onde',
+        em: 'começar?',
+        text: 'Conte como funciona o seu atendimento hoje. A gente indica o produto certo — ou desenha um projeto sob medida.',
+        message: 'Olá! Vi os serviços no site da Ionext e quero ajuda para escolher a solução certa para o meu funil.',
+        secondaryLabel: 'Ver planos',
+        secondaryLink: '/planos',
+      },
+    },
+    processo: {
+      index: '03',
+      label: 'Metodologia',
+      lead: 'Da análise à escala',
+      em: 'em três fases.',
+      subtitle: 'Cada projeto segue o mesmo método: diagnóstico, implementação e operação, com entregas claras em cada etapa.',
+      cta: {
+        lead: 'Tudo começa no',
+        em: 'diagnóstico.',
+        text: 'Na primeira semana você recebe o mapa dos gargalos do seu funil e a arquitetura recomendada. Peça o seu pelo WhatsApp.',
+        message: 'Olá! Vi o processo da Ionext e quero começar pelo diagnóstico do meu funil.',
+        secondaryLabel: 'Ver planos',
+        secondaryLink: '/planos',
+      },
+    },
+    planos: {
+      index: '04',
+      label: 'Modelos de parceria',
+      lead: 'Um plano para cada',
+      em: 'estágio da operação.',
+      subtitle:
+        'Estruturas de investimento sem surpresa, desenhadas para o tamanho do seu time e a complexidade do seu funil.',
+      cta: {
+        lead: 'Ficou entre',
+        em: 'dois planos?',
+        text: 'Fale com um consultor: em poucos minutos de conversa a gente indica o plano que cabe na sua operação.',
+        message: 'Olá! Vi os planos da Ionext e quero ajuda para escolher o ideal para a minha empresa.',
+        secondaryLabel: 'Ver serviços',
+        secondaryLink: '/servicos',
+      },
+    },
+    contato: {
+      index: '05',
+      label: 'Próximo passo',
+      lead: 'Fale com a',
+      em: 'Ionext.',
+      subtitle:
+        'Preencha o formulário para receber um diagnóstico preliminar gratuito do seu funil — ou chame direto no WhatsApp.',
+      whatsappMessage: 'Olá! Estou na página de contato da Ionext e prefiro conversar direto pelo WhatsApp.',
+    },
+    notFound: {
+      index: '404',
+      label: 'Página não encontrada',
+      lead: 'Esta página',
+      em: 'saiu do funil.',
+      subtitle: 'O endereço pode ter mudado ou não existe mais. Volte ao início — ou fale com a gente.',
+    },
+  },
+
+  /** Textos das seções novas da home (hero imersivo, letreiro, demo do Neo e CTA final). */
+  home: {
+    kicker: 'Agência de IA · Brasília — DF · Atende o Brasil todo',
+    heroCtaPrimary: 'Receber diagnóstico grátis',
+    heroCtaSecondary: 'Ver soluções',
+    scrollHint: 'Role para ver o funil',
+    marqueeLabel: 'Conecta com o que o seu time já usa',
+    // Integrações citadas em customSolutions — confirme antes de exibir logos oficiais
+    marquee: [
+      'WhatsApp Oficial',
+      'HubSpot',
+      'Pipedrive',
+      'RD Station',
+      'Salesforce',
+      'Google Agenda',
+      'Outlook 365',
+      'TOTVS',
+      'SAP',
+      'Zendesk',
+      'Meta Ads',
+      'Stripe',
+    ],
+    neo: {
+      label: 'Demonstração',
+      titleLead: 'Conheça o',
+      titleEm: 'Neo,',
+      titleTail: 'seu novo atendente.',
+      text:
+        'O Neo é treinado com o jeito da sua empresa: preços, regras, tom de voz. Responde em segundos, tira dúvidas, qualifica e marca a reunião — e só passa para o seu time quem está pronto para comprar.',
+      bullets: [
+        'Responde no WhatsApp, Instagram e site',
+        'Agenda direto no Google Agenda ou Outlook',
+        'Registra cada conversa no seu CRM',
+      ],
+      cta: 'Quero um Neo na minha empresa',
+    },
+    finalCta: {
+      lead: 'Seu próximo cliente',
+      em: 'já está',
+      tail: 'chamando.',
+      text: 'Fale com a gente no WhatsApp. Em até 24h você recebe um diagnóstico do seu funil, sem compromisso.',
+      cta: 'Chamar no WhatsApp',
+      secondary: 'Ver planos',
+      meta: ['Análise em até 24h', 'Sessão de diagnóstico de 30 min', 'Sem compromisso'],
+    },
   },
 
   entryProducts: {

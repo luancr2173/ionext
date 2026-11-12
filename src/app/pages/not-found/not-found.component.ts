@@ -1,21 +1,30 @@
-import { Component } from '@angular/core';
-import { ButtonComponent } from '../../shared/components/button/button.component';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { PageHeroComponent } from '../../shared/components/page-hero/page-hero.component';
+import { SITE_CONFIG, WHATSAPP_MESSAGES, whatsappUrl } from '../../core/config/site.config';
 
 @Component({
   selector: 'app-not-found',
-  imports: [ButtonComponent],
+  standalone: true,
+  imports: [PageHeroComponent, RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="not-found section-bg-main" aria-labelledby="not-found-title">
-      <div class="container not-found__container">
-        <span class="not-found__label">Erro 404</span>
-        <h1 id="not-found-title" class="not-found__title">Página não encontrada.</h1>
-        <p class="not-found__message">
-          O endereço pode ter sido alterado ou não existe. Volte ao início para continuar navegando.
-        </p>
-        <app-button routerLink="/" [withArrow]="true">Voltar ao início</app-button>
+    <app-page-hero
+      [index]="page.index"
+      [label]="page.label"
+      [lead]="page.lead"
+      [em]="page.em"
+      [subtitle]="page.subtitle"
+    >
+      <div class="nf-actions">
+        <a routerLink="/" class="nf-btn nf-btn--solid">Voltar ao início</a>
+        <a [href]="whatsappHref" target="_blank" rel="noopener noreferrer" class="nf-btn nf-btn--ghost">Falar no WhatsApp</a>
       </div>
-    </section>
+    </app-page-hero>
   `,
   styleUrl: './not-found.component.scss',
 })
-export class NotFoundComponent {}
+export class NotFoundComponent {
+  protected readonly page = SITE_CONFIG.pages.notFound;
+  protected readonly whatsappHref = whatsappUrl(WHATSAPP_MESSAGES.floating);
+}

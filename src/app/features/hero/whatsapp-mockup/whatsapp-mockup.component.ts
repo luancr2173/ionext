@@ -14,10 +14,12 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 import { SITE_CONFIG, NeoChatMessage } from '../../../core/config/site.config';
 import { MotionService } from '../../../core/services/motion.service';
+import { IonextSymbolComponent } from '../../../shared/components/ionext-symbol/ionext-symbol.component';
 
 @Component({
   selector: 'app-whatsapp-mockup',
   standalone: true,
+  imports: [IonextSymbolComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
@@ -29,7 +31,7 @@ import { MotionService } from '../../../core/services/motion.service';
       <!-- Header -->
       <div class="wa-header">
         <div class="wa-avatar">
-          <span class="wa-avatar-icon" aria-hidden="true">🤖</span>
+          <ionext-symbol class="wa-avatar-icon" [size]="20" color="#ffffff" mode="icon" />
         </div>
         <div class="wa-header-info">
           <span class="wa-contact-name">{{ chatConfig.botName }}</span>

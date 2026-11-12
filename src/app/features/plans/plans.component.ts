@@ -3,28 +3,18 @@ import { SITE_CONFIG, PlanItem } from '../../core/config/site.config';
 import { ContactService } from '../../core/services/contact.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { RevealDirective } from '../../core/directives/reveal.directive';
-import { ParallaxDirective } from '../../core/directives/parallax.directive';
 
 @Component({
   selector: 'app-plans',
   standalone: true,
-  imports: [ButtonComponent, RevealDirective, ParallaxDirective],
+  imports: [ButtonComponent, RevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="plans-section section-bg-alt" aria-label="Planos e investimento">
-      <!-- Decorative ambient parallax orb in background -->
-      <div
-        class="plans-parallax-blob"
-        aria-hidden="true"
-        appParallax
-        [appParallaxSpeed]="0.1"
-        [appParallaxMaxOffset]="45"
-      ></div>
-
       <div class="container plans-container">
         <!-- Section Header -->
         <header class="section-header" appReveal>
-          <span class="section-label">Modelos de Parceria</span>
+          <span class="mono-label section-label">(A) — Três formatos, sem letra miúda</span>
           <h2 class="section-title">
             <span class="masked-title-inner">{{ config.title }}</span>
           </h2>
@@ -39,9 +29,6 @@ import { ParallaxDirective } from '../../core/directives/parallax.directive';
               [class.is-featured]="plan.featured"
               appReveal
               [appRevealDelay]="idx * 120"
-              appParallax
-              [appParallaxSpeed]="idx === 1 ? -0.03 : 0.03"
-              [appParallaxMaxOffset]="20"
             >
               @if (plan.featured) {
                 <div class="featured-badge">Mais Escolhido</div>

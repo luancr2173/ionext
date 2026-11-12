@@ -5,7 +5,7 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('./pages/home/home.component').then((m) => m.HomeComponent),
-    title: 'IONEXT — IA e Automação para Todo o Funil de Vendas',
+    title: 'IONEXT — Agentes de IA para vendas e atendimento',
   },
   {
     path: 'servicos',

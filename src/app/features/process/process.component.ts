@@ -19,7 +19,7 @@ import { ContactService } from '../../core/services/contact.service';
       <div class="container process-container">
         <!-- Section Header -->
         <header class="section-header" appReveal>
-          <span class="section-label">Metodologia</span>
+          <span class="mono-label section-label">(A) — As três fases</span>
           <h2 class="section-title">
             <span class="masked-title-inner">{{ config.title }}</span>
           </h2>

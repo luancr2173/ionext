@@ -276,10 +276,10 @@ describe('ThemeService', () => {
 
     service.theme.set('dark');
     await service.toggle(); // switches to light
-    expect(meta.getAttribute('content')).toBe('#ffffff');
+    expect(meta.getAttribute('content')).toBe('#f4f2ee');
 
     await service.toggle(); // switches to dark
-    expect(meta.getAttribute('content')).toBe('#000000');
+    expect(meta.getAttribute('content')).toBe('#0a0a0c');
   });
 
   it('should handle localStorage throwing SecurityError gracefully', async () => {

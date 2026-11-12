@@ -1,26 +1,37 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ProcessComponent } from '../../features/process/process.component';
+import { PageHeroComponent } from '../../shared/components/page-hero/page-hero.component';
+import { PageCtaComponent } from '../../shared/components/page-cta/page-cta.component';
+import { SITE_CONFIG } from '../../core/config/site.config';
 
 @Component({
   selector: 'app-processo-page',
   standalone: true,
-  imports: [ProcessComponent],
+  imports: [ProcessComponent, PageHeroComponent, PageCtaComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <!-- Page Header -->
-    <section class="page-hero section-bg-alt" aria-label="Processo">
-      <div class="container page-hero-container">
-        <span class="page-label">Metodologia</span>
-        <h1 class="page-title">Da análise à escala, em três fases claras.</h1>
-        <p class="page-subtitle">
-          Cada projeto segue uma metodologia estruturada que garante resultado e previsibilidade.
-        </p>
-      </div>
-    </section>
+    <app-page-hero
+      [index]="page.index"
+      [label]="page.label"
+      [lead]="page.lead"
+      [em]="page.em"
+      [subtitle]="page.subtitle"
+      scene="process"
+    />
 
-    <!-- Process Section -->
     <app-process />
+
+    <app-page-cta
+      [lead]="page.cta.lead"
+      [em]="page.cta.em"
+      [text]="page.cta.text"
+      [message]="page.cta.message"
+      [secondaryLabel]="page.cta.secondaryLabel"
+      [secondaryLink]="page.cta.secondaryLink"
+    />
   `,
   styleUrl: './processo.component.scss',
 })
-export class ProcessoPageComponent {}
+export class ProcessoPageComponent {
+  protected readonly page = SITE_CONFIG.pages.processo;
+}

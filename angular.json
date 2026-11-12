@@ -26,6 +26,10 @@
               }
             ],
             "styles": [
+              "node_modules/@fontsource-variable/archivo/wdth.css",
+              "node_modules/@fontsource/instrument-serif/400.css",
+              "node_modules/@fontsource/instrument-serif/400-italic.css",
+              "node_modules/@fontsource-variable/jetbrains-mono/wght.css",
               "src/styles.scss"
             ]
           },
@@ -34,13 +38,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
+                  "maximumWarning": "600kB",
                   "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "10kB",
-                  "maximumError": "16kB"
+                  "maximumWarning": "24kB",
+                  "maximumError": "40kB"
                 }
               ],
               "outputHashing": "all"

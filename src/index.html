@@ -2,15 +2,16 @@
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
-    <title>IONEXT — IA e Automação para Todo o Funil de Vendas</title>
+    <title>IONEXT — Agentes de IA para vendas e atendimento</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta
       name="description"
-      content="Do primeiro contato ao pós-venda, automatizamos o que trava o crescimento da sua empresa com inteligência artificial e processos sob medida."
+      content="Agência de IA em Brasília: agentes que respondem no WhatsApp em segundos, qualificam clientes e agendam reuniões 24/7. Peça um diagnóstico gratuito."
     />
     <meta name="color-scheme" content="dark light" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#0a0a0c" />
+    <link rel="canonical" href="https://ionext.com.br/" />
 
     <script>
       (function () {
@@ -20,7 +21,7 @@
             saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
           document.documentElement.setAttribute('data-theme', theme);
           var meta = document.querySelector('meta[name="theme-color"]');
-          if (meta) meta.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#0a0a0c' : '#f4f2ee');
         } catch (e) {
           document.documentElement.setAttribute('data-theme', 'dark');
         }
@@ -29,22 +30,27 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="IONEXT" />
     <meta property="og:url" content="https://ionext.com.br/" />
-    <meta property="og:title" content="IONEXT — IA e Automação para Todo o Funil de Vendas" />
+    <meta property="og:title" content="IONEXT — Agentes de IA para vendas e atendimento" />
     <meta
       property="og:description"
-      content="Do primeiro contato ao pós-venda, automatizamos o que trava o crescimento da sua empresa com IA."
+      content="Agentes de IA que respondem no WhatsApp em segundos, qualificam clientes e agendam reuniões 24/7."
     />
-    <meta property="og:image" content="https://ionext.com.br/icon-512x512.png" />
+    <meta property="og:image" content="https://ionext.com.br/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="IONEXT — IA no seu funil de vendas" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="IONEXT — IA e Automação para Todo o Funil de Vendas" />
+    <meta name="twitter:title" content="IONEXT — Agentes de IA para vendas e atendimento" />
     <meta
       name="twitter:description"
-      content="Do primeiro contato ao pós-venda, automatizamos o que trava o crescimento da sua empresa com IA."
+      content="Agentes de IA que respondem no WhatsApp em segundos, qualificam clientes e agendam reuniões 24/7."
     />
-    <meta name="twitter:image" content="https://ionext.com.br/icon-512x512.png" />
+    <meta name="twitter:image" content="https://ionext.com.br/og-image.png" />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -52,13 +58,43 @@
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
     <link rel="manifest" href="manifest.webmanifest" />
 
-    <!-- Preconnect and Google Fonts Inter fallback -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Dados estruturados (fonte: src/app/core/config/site.config.ts — mantenha os dois em sincronia) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "@id": "https://ionext.com.br/#empresa",
+        "name": "IONEXT",
+        "url": "https://ionext.com.br/",
+        "logo": "https://ionext.com.br/icon-512x512.png",
+        "image": "https://ionext.com.br/og-image.png",
+        "description": "Agência de inteligência artificial que implanta agentes de atendimento, agendamento, follow-up e dashboards em todo o funil de vendas.",
+        "telephone": "+55-61-99814-5516",
+        "email": "contato@ionext.com.br",
+        "areaServed": "BR",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Brasília",
+          "addressRegion": "DF",
+          "addressCountry": "BR"
+        },
+        "sameAs": [
+          "https://instagram.com/ionext_solutions",
+          "https://linkedin.com/company/ionext"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Soluções de IA para o funil de vendas",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Agente de atendimento com IA no WhatsApp" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Agendamento automático de reuniões" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Follow-up e reativação de clientes" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dashboards do funil de vendas" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sites e landing pages" } }
+          ]
+        }
+      }
+    </script>
   </head>
   <body ontouchstart="">
     <app-root></app-root>

@@ -11,27 +11,24 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { SITE_CONFIG } from '../../core/config/site.config';
-import { RevealDirective } from '../../core/directives/reveal.directive';
+import { MotionService } from '../../core/services/motion.service';
 
 @Component({
   selector: 'app-manifesto',
   standalone: true,
-  imports: [RevealDirective],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="manifesto-section section-bg-alt" aria-label="Manifesto Ionext">
-      <div class="container-narrow manifesto-container" appReveal>
+      <div class="container manifesto-container">
         <p class="manifesto-statement" #statementEl>
           @for (word of words; track $index) {
             <span
               class="manifesto-word"
               [class.is-lit]="litIndex() >= $index"
+              [class.is-em]="word.endsWith('.')"
               [style.--word-idx]="$index"
-            >
-              {{ word }}
-            </span>
-            <!-- Preserve spacing between words -->
-            {{ ' ' }}
+            >{{ word }}</span>{{ ' ' }}
           }
         </p>
       </div>
@@ -43,6 +40,7 @@ export class ManifestoComponent implements OnInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly el = inject(ElementRef<HTMLElement>);
   private readonly ngZone = inject(NgZone);
+  private readonly motionService = inject(MotionService);
 
   protected readonly words = SITE_CONFIG.manifesto.sentence.split(' ');
   protected readonly litIndex = signal<number>(-1);
@@ -56,8 +54,7 @@ export class ManifestoComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
+    if (!this.motionService.animationsEnabled()) {
       this.litIndex.set(this.words.length);
       return;
     }

@@ -22,7 +22,7 @@ import { ContactService } from '../../core/services/contact.service';
       <div class="container custom-container">
         <!-- Section Header -->
         <header class="section-header" appReveal>
-          <span class="section-label">Tailor-made</span>
+          <span class="mono-label section-label">(B) — Projetos sob medida</span>
           <h2 class="section-title">
             <span class="masked-title-inner">{{ config.title }}</span>
           </h2>
@@ -135,7 +135,7 @@ import { ContactService } from '../../core/services/contact.service';
             <!-- Modal Top Bar -->
             <div class="modal-top-bar">
               <div class="modal-badges-group">
-                <span class="modal-pill-tag">Tailor-made · Sob Medida</span>
+                <span class="modal-pill-tag">Projeto sob medida</span>
                 <span class="modal-pill-step">{{ item.stepNumber }} · {{ item.badge }}</span>
               </div>
 

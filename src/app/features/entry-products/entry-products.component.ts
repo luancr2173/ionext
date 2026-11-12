@@ -13,10 +13,11 @@ import { ContactService } from '../../core/services/contact.service';
       <div class="container products-container">
         <!-- Section Header -->
         <header class="section-header" appReveal>
+          <p class="mono-label section-index">(A) — Produtos de entrada</p>
           <h2 class="section-title">
             <span class="masked-title-inner">{{ config.title }}</span>
           </h2>
-          <p class="section-subtitle">{{ config.subtitle }}</p>
+          <p class="section-subtitle">{{ config.subtitle }} Escolha um e comece em poucas semanas.</p>
         </header>
 
         <!-- Product Rows -->
@@ -26,6 +27,7 @@ import { ContactService } from '../../core/services/contact.service';
               <div class="product-row-inner">
                 <!-- Left: Giant Product Name -->
                 <div class="product-name-col">
+                  <span class="mono-label product-num" aria-hidden="true">0{{ idx + 1 }}</span>
                   <h3 class="product-name">{{ product.name }}</h3>
                 </div>
 

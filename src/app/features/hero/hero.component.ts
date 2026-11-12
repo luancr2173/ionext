@@ -4,214 +4,121 @@ import {
   inject,
   computed,
   signal,
-  OnInit,
+  effect,
+  AfterViewInit,
   OnDestroy,
   ElementRef,
   ViewChild,
   PLATFORM_ID,
   NgZone,
 } from '@angular/core';
-import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
-import { ScrollService } from '../../core/services/scroll.service';
+import { isPlatformBrowser } from '@angular/common';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { NavigationService } from '../../core/services/navigation.service';
 import { MotionService } from '../../core/services/motion.service';
-import { SITE_CONFIG } from '../../core/config/site.config';
-import { IonextSymbolComponent } from '../../shared/components/ionext-symbol/ionext-symbol.component';
-import { ButtonComponent } from '../../shared/components/button/button.component';
-import { WhatsappMockupComponent } from './whatsapp-mockup/whatsapp-mockup.component';
+import { SITE_CONFIG, WHATSAPP_MESSAGES, whatsappUrl } from '../../core/config/site.config';
 import { CountUpDirective } from '../../core/directives/count-up.directive';
-import { ParallaxDirective } from '../../core/directives/parallax.directive';
-
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  radius: number;
-}
+import { motionRuntimeAvailable } from '../../core/services/smooth-scroll.service';
+import { FunnelSceneDirective } from './funnel-scene/funnel-scene.directive';
+import { FunnelFallbackComponent } from './funnel-scene/funnel-fallback.component';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [
-    NgOptimizedImage,
-    IonextSymbolComponent,
-    ButtonComponent,
-    WhatsappMockupComponent,
-    CountUpDirective,
-    ParallaxDirective,
-  ],
+  imports: [CountUpDirective, FunnelSceneDirective, FunnelFallbackComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="hero-section" id="inicio" aria-label="Apresentação Ionext" #heroSection>
-      <!-- Subtle particle background canvas -->
-      <canvas #particleCanvas class="hero-particle-canvas" aria-hidden="true"></canvas>
+    <section class="hero-section" id="inicio" aria-labelledby="hero-title" #heroSection>
+      <!-- Cena 3D: o funil que não perde nenhum contato -->
+      <div class="hero-stage" aria-hidden="true">
+        <canvas class="hero-canvas" appFunnelScene="hero" (fallback)="useFallback.set(true)"></canvas>
 
-      <!-- Gradient mesh background overlay with slow parallax -->
-      <div
-        class="hero-gradient-overlay"
-        aria-hidden="true"
-        appParallax
-        [appParallaxSpeed]="0.08"
-        [appParallaxMaxOffset]="40"
-      ></div>
-
-      <!-- Large decorative background watermark sliding horizontally with scroll -->
-      <div
-        class="hero-watermark-track"
-        aria-hidden="true"
-        appParallax
-        [appParallaxSpeed]="0.14"
-        [appParallaxAxis]="'x'"
-        [appParallaxMaxOffset]="120"
-      >
-        <span class="hero-watermark-text">IA · VENDAS · ATENDIMENTO · AGENDAMENTO · CONVERSÃO</span>
+        @if (useFallback()) {
+          <!-- Sem WebGL: o mesmo funil desenhado em SVG, na mesma composição -->
+          <app-funnel-fallback class="hero-fallback" />
+        }
+        <div class="hero-scrim"></div>
       </div>
 
-      <div class="container hero-container">
-        <!-- Logo Docking Stage (Symbol + Wordmark) -->
-        <div
-          class="hero-logo-stage"
-          [style.opacity]="heroLogoOpacity()"
-          [style.transform]="heroLogoTransform()"
-        >
-          <div class="hero-symbol-box">
-            <ionext-symbol
-              [size]="heroSymbolSize()"
-              color="currentColor"
-              mode="hero"
-              [animated]="true"
-              [interactive]="true"
-            />
-          </div>
+      <div class="container hero-inner" #heroInner>
+        <p class="mono-label hero-kicker" data-hero-fade>
+          <span class="kicker-dot" aria-hidden="true"></span>
+          {{ home.kicker }}
+        </p>
 
-          <div class="hero-wordmark">
-            <img
-              ngSrc="assets/logo/ionext-wordmark-white.png"
-              alt="ionext"
-              class="hero-wordmark-img dark-only"
-              width="400"
-              height="130"
-              priority
-              decoding="async"
-            />
-            <img
-              ngSrc="assets/logo/ionext-wordmark-black.png"
-              alt="ionext"
-              class="hero-wordmark-img light-only"
-              width="400"
-              height="130"
-              priority
-              decoding="async"
-            />
-          </div>
-        </div>
+        <h1 class="hero-title" id="hero-title">
+          <span class="split-line"><span class="split-word">IA</span>&ngsp;<span class="split-word">no</span>&ngsp;<span class="split-word">seu</span></span>&ngsp;
+          <span class="split-line"><span class="split-word">funil</span>&ngsp;<span class="split-word">de</span></span>&ngsp;
+          <span class="split-line hero-rotating-line">
+            <span class="split-word">
+              <span class="hero-rotating-word serif-em" [class.is-changing]="isWordChanging()">{{ currentWord() }}.</span>
+            </span>
+          </span>
+        </h1>
 
-        <!-- Main Hero Two-Column Grid -->
-        <div
-          class="hero-content hero-main-grid"
-        >
-          <!-- Left Column: Headline, Rotating word, Subtitle & CTAs -->
-          <div class="hero-text-col">
-            <h1 class="hero-title">
-              <span class="hero-ai-badge">IA</span>
-              <span class="hero-title-prefix"> no seu funil de </span>
-              <span
-                class="hero-rotating-word"
-                [class.is-changing]="isWordChanging()"
-              >
-                {{ currentWord() }}
-              </span>
-            </h1>
+        <div class="hero-bottom" data-hero-fade>
+          <p class="hero-subtitle">{{ heroConfig.subtitle }}</p>
 
-            <p class="hero-subtitle">
-              {{ heroConfig.subtitle }}
-            </p>
-
-            <div class="hero-cta-group">
-              <app-button
-                variant="primary"
-                size="lg"
-                [label]="heroConfig.ctaPrimary.label"
-                [withArrow]="true"
-                [href]="heroConfig.ctaPrimary.href"
-                (clicked)="onCtaClick($event, heroConfig.ctaPrimary.href)"
-              >
-                {{ heroConfig.ctaPrimary.label }}
-              </app-button>
-
-              <app-button
-                variant="secondary"
-                size="lg"
-                [label]="heroConfig.ctaSecondary.label"
-                [withArrow]="true"
-                [href]="heroConfig.ctaSecondary.href"
-                (clicked)="onCtaClick($event, heroConfig.ctaSecondary.href)"
-              >
-                {{ heroConfig.ctaSecondary.label }}
-              </app-button>
-            </div>
-          </div>
-
-          <!-- Right Column: Interactive WhatsApp Neo Mockup with counter-parallax -->
-          <div
-            class="hero-mockup-col"
-            appParallax
-            [appParallaxSpeed]="-0.08"
-            [appParallaxMaxOffset]="45"
-          >
-            <app-whatsapp-mockup />
+          <div class="hero-cta-group">
+            <a
+              class="hero-btn hero-btn--solid"
+              [href]="diagnosisUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Receber diagnóstico grátis do funil pelo WhatsApp"
+            >
+              <span>{{ home.heroCtaPrimary }}</span>
+              <svg width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+            <a class="hero-btn hero-btn--ghost" href="#servicos" (click)="onAnchor($event, '#servicos')">
+              {{ home.heroCtaSecondary }}
+            </a>
           </div>
         </div>
 
-        <!-- Stats Bar with Animated CountUp and subtle parallax lift -->
-        <div
-          class="hero-stats-bar"
-          aria-label="Números de impacto"
-          appParallax
-          [appParallaxSpeed]="0.06"
-          [appParallaxMaxOffset]="30"
-        >
-          @for (stat of heroConfig.stats; track stat.label) {
+        <dl class="hero-stats" aria-label="Números de impacto" data-hero-fade>
+          @for (stat of heroConfig.stats; track stat.label; let i = $index) {
             <div class="hero-stat-item">
-              <div class="hero-stat-value">
+              <dt class="mono-label hero-stat-label">
+                <span class="hero-stat-index">0{{ i + 1 }}</span>
+                {{ stat.label }}
+              </dt>
+              <dd class="hero-stat-value">
                 @if (stat.prefix) {
                   <span class="stat-affix">{{ stat.prefix }}</span>
-                }
-                <span [appCountUp]="stat.value">{{ stat.value }}</span>
-                @if (stat.suffix) {
+                }<span [appCountUp]="stat.value">{{ stat.value }}</span>@if (stat.suffix) {
                   <span class="stat-affix">{{ stat.suffix }}</span>
                 }
-              </div>
-              <span class="hero-stat-label">{{ stat.label }}</span>
+              </dd>
             </div>
           }
-        </div>
+        </dl>
       </div>
 
-      <!-- Scroll Indicator Hint -->
-      <div class="hero-scroll-indicator" aria-hidden="true" [style.opacity]="scrollHintOpacity()">
-        <span class="scroll-mouse-track">
-          <span class="scroll-mouse-wheel"></span>
-        </span>
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <span class="mono-label">{{ home.scrollHint }}</span>
+        <span class="scroll-line"></span>
       </div>
     </section>
   `,
   styleUrl: './hero.component.scss',
 })
-export class HeroComponent implements OnInit, OnDestroy {
-  protected readonly scrollService = inject(ScrollService);
-  protected readonly navigationService = inject(NavigationService);
+export class HeroComponent implements AfterViewInit, OnDestroy {
+  private readonly navigationService = inject(NavigationService);
   private readonly motionService = inject(MotionService);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly ngZone = inject(NgZone);
 
   @ViewChild('heroSection') heroSectionRef?: ElementRef<HTMLElement>;
-  @ViewChild('particleCanvas') canvasRef?: ElementRef<HTMLCanvasElement>;
+  @ViewChild('heroInner') heroInnerRef?: ElementRef<HTMLElement>;
 
   protected readonly heroConfig = SITE_CONFIG.hero;
+  protected readonly home = SITE_CONFIG.home;
+  protected readonly diagnosisUrl = whatsappUrl(WHATSAPP_MESSAGES.heroDiagnosis);
 
-  // Rotating words signal
   readonly currentWordIndex = signal<number>(0);
   readonly isWordChanging = signal<boolean>(false);
   readonly currentWord = computed(() => {
@@ -219,189 +126,96 @@ export class HeroComponent implements OnInit, OnDestroy {
     return words[this.currentWordIndex() % words.length];
   });
 
+  protected readonly useFallback = signal(false);
+
+  private gsapCtx?: gsap.Context;
+  private motionApplied?: boolean;
   private wordInterval?: ReturnType<typeof setInterval>;
   private wordTimeout?: ReturnType<typeof setTimeout>;
 
-  // Canvas Particles
-  private particles: Particle[] = [];
-  private rafId?: number;
-  private canvasObserver?: IntersectionObserver;
-  private isHeroVisible = false;
-
-  // Dynamic responsive symbol size
-  protected readonly heroSymbolSize = computed(() => {
-    const vh = this.scrollService.viewportHeight();
-    return vh < 700 ? 84 : 110;
-  });
-
-  // Logo docking handoff transformation
-  protected readonly heroLogoTransform = computed(() => {
-    const p = this.scrollService.dockingProgress();
-    const scale = 1 - p * 0.35;
-    const translateY = -p * 60;
-    return `scale(${scale}) translateY(${translateY}px)`;
-  });
-
-  protected readonly heroLogoOpacity = computed(() => {
-    const p = this.scrollService.dockingProgress();
-    return Math.max(0, 1 - p * 1.5);
-  });
-
-  protected readonly scrollHintOpacity = computed(() => {
-    const p = this.scrollService.dockingProgress();
-    return Math.max(0, 1 - p * 3);
-  });
-
-  ngOnInit(): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
-
-    this.initRotatingWords();
+  constructor() {
+    effect(() => {
+      const enabled = this.motionService.animationsEnabled();
+      if (!isPlatformBrowser(this.platformId)) return;
+      enabled ? this.startWordRotation() : this.stopWordRotation();
+      this.setupMotion(enabled);
+    });
   }
 
-  private initRotatingWords(): void {
-    if (!this.motionService.animationsEnabled()) {
-      return;
-    }
+  ngAfterViewInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.setupMotion(this.motionService.animationsEnabled());
+  }
 
+  /** Entrada do título em máscara + leve paralaxe do conteúdo no scroll. */
+  private setupMotion(enabled: boolean): void {
+    const section = this.heroSectionRef?.nativeElement;
+    if (!section || this.motionApplied === enabled || !motionRuntimeAvailable()) return;
+    this.motionApplied = enabled;
+
+    this.gsapCtx?.revert();
+    this.gsapCtx = undefined;
+    if (!enabled) return;
+
+    // espera o loader de primeira visita sair
+    const loaderOn = !!document.querySelector('app-loader')?.children.length;
+    const delay = loaderOn ? 1.35 : 0.15;
+
+    this.ngZone.runOutsideAngular(() => {
+      this.gsapCtx = gsap.context(() => {
+        gsap.from('.split-word', {
+          yPercent: 110,
+          duration: 1.15,
+          ease: 'expo.out',
+          stagger: 0.06,
+          delay,
+        });
+        gsap.from('[data-hero-fade]', {
+          opacity: 0,
+          y: 24,
+          duration: 1,
+          ease: 'expo.out',
+          stagger: 0.1,
+          delay: delay + 0.35,
+        });
+        gsap.to(this.heroInnerRef!.nativeElement, {
+          yPercent: -8,
+          opacity: 0.15,
+          ease: 'none',
+          scrollTrigger: { trigger: section, start: 'top top', end: 'bottom top', scrub: true },
+        });
+      }, section);
+    });
+  }
+
+  private startWordRotation(): void {
+    if (this.wordInterval) return;
     const words = this.heroConfig.rotatingWords;
     if (!words || words.length <= 1) return;
-
     this.wordInterval = setInterval(() => {
       this.isWordChanging.set(true);
       this.wordTimeout = setTimeout(() => {
         this.currentWordIndex.update((i) => (i + 1) % words.length);
         this.isWordChanging.set(false);
-      }, 240);
-    }, 2800);
+      }, 320);
+    }, 3000);
   }
 
-  ngAfterViewInit(): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
-
-    this.initParticleCanvas();
+  private stopWordRotation(): void {
+    if (this.wordInterval) clearInterval(this.wordInterval);
+    if (this.wordTimeout) clearTimeout(this.wordTimeout);
+    this.wordInterval = undefined;
+    this.isWordChanging.set(false);
   }
 
-  private initParticleCanvas(): void {
-    const canvas = this.canvasRef?.nativeElement;
-    const section = this.heroSectionRef?.nativeElement;
-    if (!canvas || !section || typeof IntersectionObserver === 'undefined') return;
-
-    if (!this.motionService.animationsEnabled()) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const resizeCanvas = () => {
-      canvas.width = section.clientWidth;
-      canvas.height = section.clientHeight;
-    };
-    resizeCanvas();
-
-    // Create particles
-    const particleCount = Math.min(35, Math.floor(canvas.width / 35));
-    this.particles = [];
-    for (let i = 0; i < particleCount; i++) {
-      this.particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        radius: Math.random() * 1.5 + 1,
-      });
-    }
-
-    // Observer to pause canvas when off-screen
-    this.ngZone.runOutsideAngular(() => {
-      this.canvasObserver = new IntersectionObserver(
-        (entries) => {
-          const entry = entries[0];
-          if (entry) {
-            this.isHeroVisible = entry.isIntersecting;
-            if (this.isHeroVisible && !this.rafId) {
-              this.animateParticles(canvas, ctx);
-            } else if (!this.isHeroVisible && this.rafId) {
-              cancelAnimationFrame(this.rafId);
-              this.rafId = undefined;
-            }
-          }
-        },
-        { threshold: 0.05 },
-      );
-      this.canvasObserver.observe(section);
-    });
-  }
-
-  private animateParticles(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D): void {
-    const render = () => {
-      if (!this.isHeroVisible || !this.motionService.animationsEnabled()) {
-        this.rafId = undefined;
-        return;
-      }
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const isLight =
-        typeof document !== 'undefined' &&
-        document.documentElement.getAttribute('data-theme') === 'light';
-      const dotColor = isLight ? 'rgba(0, 102, 204, 0.22)' : 'rgba(41, 151, 255, 0.25)';
-      const lineRgb = isLight ? '0, 102, 204' : '41, 151, 255';
-      const maxAlpha = isLight ? 0.08 : 0.12;
-
-      const count = this.particles.length;
-      for (let i = 0; i < count; i++) {
-        const p = this.particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
-        ctx.fillStyle = dotColor;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        for (let j = i + 1; j < count; j++) {
-          const p2 = this.particles[j];
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 90) {
-            const alpha = (1 - dist / 90) * maxAlpha;
-            ctx.strokeStyle = `rgba(${lineRgb}, ${alpha})`;
-            ctx.lineWidth = 0.75;
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      this.rafId = requestAnimationFrame(render);
-    };
-
-    this.rafId = requestAnimationFrame(render);
-  }
-
-  protected onCtaClick(e: MouseEvent, href: string): void {
-    if (href.startsWith('#')) {
-      e.preventDefault();
-      this.navigationService.scrollToSection(href);
-    }
+  protected onAnchor(e: MouseEvent, href: string): void {
+    e.preventDefault();
+    this.navigationService.scrollToSection(href);
   }
 
   ngOnDestroy(): void {
-    if (this.wordInterval) clearInterval(this.wordInterval);
-    if (this.wordTimeout) clearTimeout(this.wordTimeout);
-    if (this.rafId) cancelAnimationFrame(this.rafId);
-    this.canvasObserver?.disconnect();
+    this.stopWordRotation();
+    this.gsapCtx?.revert();
+    if (motionRuntimeAvailable()) ScrollTrigger.refresh();
   }
 }

@@ -47,28 +47,36 @@ describe('HeroComponent', () => {
     const titleEl = fixture.nativeElement.querySelector('.hero-title');
     const subtitleEl = fixture.nativeElement.querySelector('.hero-subtitle');
     const ctaGroupEl = fixture.nativeElement.querySelector('.hero-cta-group');
-    const wordmarkEl = fixture.nativeElement.querySelector('.hero-wordmark');
 
     expect(titleEl).toBeTruthy();
     expect(subtitleEl).toBeTruthy();
     expect(ctaGroupEl).toBeTruthy();
-    expect(wordmarkEl).toBeTruthy();
 
     expect(titleEl.classList.contains('reveal-init')).toBe(false);
     expect(subtitleEl.classList.contains('reveal-init')).toBe(false);
     expect(ctaGroupEl.classList.contains('reveal-init')).toBe(false);
 
-    expect(titleEl.textContent.trim().length).toBeGreaterThan(0);
+    // palavras do título separadas por espaço (não "IAnoseu")
+    expect(titleEl.textContent.replace(/\s+/g, ' ').trim()).toMatch(/^IA no seu funil de /);
     expect(subtitleEl.textContent.trim().length).toBeGreaterThan(0);
 
-    const buttons = ctaGroupEl.querySelectorAll('app-button');
-    expect(buttons.length).toBe(2);
+    const links = ctaGroupEl.querySelectorAll('a');
+    expect(links.length).toBe(2);
+  });
+
+  it('should open WhatsApp with a pre-filled message on the primary CTA', () => {
+    const primary: HTMLAnchorElement = fixture.nativeElement.querySelector('.hero-btn--solid');
+    expect(primary.href).toContain('https://wa.me/');
+    expect(primary.href).toContain('text=');
+    expect(primary.target).toBe('_blank');
+    expect(primary.rel).toContain('noopener');
   });
 
   it('should render rotating word from SITE_CONFIG', () => {
     const rotatingWordEl = fixture.nativeElement.querySelector('.hero-rotating-word');
     expect(rotatingWordEl).toBeTruthy();
-    expect(SITE_CONFIG.hero.rotatingWords).toContain(rotatingWordEl.textContent.trim());
+    const word = rotatingWordEl.textContent.trim().replace(/\.$/, '');
+    expect(SITE_CONFIG.hero.rotatingWords).toContain(word);
   });
 
   it('should render stats bar with all stats from SITE_CONFIG', () => {
@@ -76,19 +84,9 @@ describe('HeroComponent', () => {
     expect(statItems.length).toBe(SITE_CONFIG.hero.stats.length);
   });
 
-  it('should render the whatsapp mockup component in hero', () => {
-    const mockupEl = fixture.nativeElement.querySelector('app-whatsapp-mockup');
-    expect(mockupEl).toBeTruthy();
-  });
-
-  it('should support light and dark theme mode on container', () => {
-    const heroSection = fixture.nativeElement.querySelector('.hero-section');
-    expect(heroSection).toBeTruthy();
-
-    // Verify both wordmark images exist for dark/light visibility toggling
-    const wordmarkImgs = heroSection.querySelectorAll('.hero-wordmark-img');
-    expect(wordmarkImgs.length).toBe(2);
-    expect(wordmarkImgs[0].classList.contains('dark-only')).toBe(true);
-    expect(wordmarkImgs[1].classList.contains('light-only')).toBe(true);
+  it('should render the 3D stage canvas behind the content', () => {
+    const canvas = fixture.nativeElement.querySelector('.hero-stage canvas.hero-canvas');
+    expect(canvas).toBeTruthy();
+    expect(canvas.closest('.hero-stage').getAttribute('aria-hidden')).toBe('true');
   });
 });

@@ -4,8 +4,9 @@
 
 .scroll-to-top-btn {
   position: fixed;
-  bottom: clamp(20px, 3.5vw, 36px);
-  right: clamp(18px, 3vw, 32px);
+  /* fica acima do botão do WhatsApp (60px + 24px + respiro) */
+  bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  right: calc(27px + env(safe-area-inset-right, 0px));
   z-index: 95;
   width: 46px;
   height: 46px;

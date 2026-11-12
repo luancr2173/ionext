@@ -24,7 +24,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
       <div class="container contact-container">
         <!-- Header -->
         <header class="contact-header" appReveal>
-          <span class="section-label">Próximo Passo</span>
+          <span class="mono-label section-label">(A) — Diagnóstico gratuito</span>
           <h2 class="contact-title">{{ config.title }}</h2>
           <p class="contact-subtitle">{{ config.subtitle }}</p>
         </header>
@@ -291,7 +291,12 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
 
                 <!-- Selo de Confidencialidade e LGPD -->
                 <div class="security-seal-badge">
-                  <span class="seal-icon" aria-hidden="true">🔒</span>
+                  <span class="seal-icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="4" y="11" width="16" height="10" rx="2" />
+                      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                    </svg>
+                  </span>
                   <span class="seal-text">
                     Seus dados e processos operacionais são protegidos sob conformidade LGPD e sigilo (NDA).
                   </span>

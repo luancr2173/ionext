@@ -236,7 +236,7 @@ export class ThemeService {
       'meta[name="theme-color"]',
     ) as HTMLMetaElement | null;
     if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
+      metaThemeColor.setAttribute('content', theme === 'dark' ? '#0a0a0c' : '#f4f2ee');
     }
   }
 }

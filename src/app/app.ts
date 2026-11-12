@@ -5,6 +5,8 @@ import { NavbarComponent } from './features/navbar/navbar.component';
 import { FooterComponent } from './features/footer/footer.component';
 import { ScrollToTopComponent } from './shared/components/scroll-to-top/scroll-to-top.component';
 import { AppLoaderComponent } from './shared/components/app-loader/app-loader.component';
+import { WhatsappFloatComponent } from './shared/components/whatsapp-float/whatsapp-float.component';
+import { SmoothScrollService } from './core/services/smooth-scroll.service';
 
 import { ThemeService } from './core/services/theme.service';
 
@@ -17,6 +19,7 @@ import { ThemeService } from './core/services/theme.service';
     FooterComponent,
     ScrollToTopComponent,
     AppLoaderComponent,
+    WhatsappFloatComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -24,6 +27,8 @@ import { ThemeService } from './core/services/theme.service';
 })
 export class App {
   private readonly themeService = inject(ThemeService);
+  // instanciado aqui para ligar Lenis + ScrollTrigger em todas as rotas
+  private readonly smoothScroll = inject(SmoothScrollService);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
 

@@ -6,44 +6,60 @@
   position: relative;
   background-color: var(--bg-alt);
   color: var(--fg);
-  padding-top: clamp(96px, 14vw, 192px);
-  padding-bottom: clamp(96px, 14vw, 192px);
+  padding-top: clamp(112px, 15vw, 220px);
+  padding-bottom: clamp(112px, 15vw, 220px);
   overflow: hidden;
 }
 
 .manifesto-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  display: block;
+  max-width: 1440px;
 }
 
 .manifesto-statement {
-  font-size: clamp(26px, 5.2vw, 64px);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-tight);
-  line-height: 1.18;
-  max-width: 24ch;
-  text-wrap: balance;
-  margin: 0 auto;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 7.2vw, 7.6rem);
+  font-weight: 800;
+  font-stretch: 110%;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  max-width: 15ch;
+  text-wrap: initial;
+  margin: 0;
 }
 
 .manifesto-word {
   display: inline-block;
   color: var(--fg-subtle);
+  opacity: 0.45;
   transition:
-    color 350ms var(--ease-apple),
-    transform 350ms var(--ease-apple);
+    color 450ms var(--ease-apple),
+    opacity 450ms var(--ease-apple);
 
   &.is-lit {
     color: var(--fg);
+    opacity: 1;
+  }
+
+  /* a palavra final de cada frase vira serif itálica em azul */
+  &.is-em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-stretch: 100%;
+    letter-spacing: -0.02em;
+    font-size: 1.06em;
+
+    &.is-lit {
+      color: var(--accent);
+    }
   }
 }
 
-/* Reduced Motion Override */
 @media (prefers-reduced-motion: reduce) {
   .manifesto-word {
     color: var(--fg) !important;
+    opacity: 1 !important;
     transition: none !important;
   }
 }
