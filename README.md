@@ -53,6 +53,23 @@ O Angular CLI 22 exige Node ≥ 24.15 ou 26. O projeto já traz o Node 26 como d
 node_modules/node/bin/node.exe node_modules/@angular/cli/bin/ng.js serve
 ```
 
+## Portfólio e sites-modelo
+
+`/portfolio` mostra três **sites-modelo para clínicas odontológicas**. Marcas, equipe, endereço e telefone são **fictícios**; cada modelo tem um selo de "Modelo de demonstração" no topo, `noindex` e uma nota no rodapé. O Neo (agente de WhatsApp) envia este link quando a clínica demonstra interesse e apresenta os sites como modelos, nunca como clientes.
+
+| Modelo | Arquivo | Conceito 3D | Paleta e tipografia |
+| --- | --- | --- | --- |
+| Vellora Odontologia (estética) | `public/modelos/vellora/` | Lentes de porcelana chegam soltas e se encaixam no arco do sorriso | Escuro `#0d0c0b` + champanhe `#d9b88a` · Bodoni Moda + Instrument Sans + IBM Plex Mono |
+| Ninho Sorriso (odontopediatria) | `public/modelos/ninho/` | Dente brilhante num ninho de bolhas coral e menta, com espuma subindo | Creme `#faf6ef` + coral `#c43d27` · Fraunces + Space Grotesk + JetBrains Mono |
+| Lineo Ortodontia (alinhadores) | `public/modelos/lineo/` | Dentes tortos se alinham e um alinhador transparente se encaixa | Cinza-frio `#eef1f2` + petróleo `#0d6b74` · Syne + DM Serif Display + Instrument Sans |
+
+- **Arte da página `/portfolio`**: `src/app/shared/scenes/portfolio-scene.ts` — galeria em perspectiva com as capturas reais dos modelos em molduras de metal, em loop (as telas somem nas pontas para não passar por baixo do título).
+- Os modelos são HTML estático (fora do Angular), com Three.js, GSAP, ScrollTrigger e Lenis **auto-hospedados** em `public/modelos/_vendor/` (sem CDN) e comportamento comum em `public/modelos/_kit/` (selo, seletor de animações, menu, letreiro, cena 3D com fallback em SVG).
+- Todo botão de "Agendar" nos modelos abre um aviso explicando que é um modelo e oferece falar com a Ionext no WhatsApp com a mensagem do modelo.
+- Textos e links do portfólio: `SITE_CONFIG.pages.portfolio` e `PORTFOLIO_ITEMS` em `site.config.ts`.
+- Capturas em `public/assets/portfolio/` (1440×900 e 390×844 @2x), geradas com Playwright e animações desativadas (quadro final da cena). Ao mudar um modelo, gere de novo.
+- Licenças: fontes OFL (arquivos `LICENSE-*` em `public/modelos/_vendor/fonts/`), Three.js MIT, Lenis MIT, GSAP licença padrão (gratuita).
+
 ## Requisitos e execução local
 
 Use uma versão do Node.js suportada pelo Angular CLI 22 e npm 11.
@@ -72,6 +89,7 @@ O servidor local fica disponível em `http://localhost:4200`.
 | `/servicos` | Serviços |
 | `/processo` | Processo |
 | `/planos` | Planos |
+| `/portfolio` | Portfólio de sites (modelos de demonstração) |
 | `/contato` | Contato |
 | Qualquer caminho desconhecido | Página 404 |
 

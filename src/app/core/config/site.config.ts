@@ -104,6 +104,7 @@ export const SITE_CONFIG = {
       { label: 'Serviços', href: '/servicos' },
       { label: 'Processo', href: '/processo' },
       { label: 'Planos', href: '/planos' },
+      { label: 'Portfólio', href: '/portfolio' },
     ],
     cta: {
       label: 'Falar com a Ionext',
@@ -231,8 +232,26 @@ export const SITE_CONFIG = {
         secondaryLink: '/servicos',
       },
     },
-    contato: {
+    portfolio: {
       index: '05',
+      label: 'Portfólio de sites',
+      lead: 'Sites para clínicas',
+      em: 'com cara de marca grande.',
+      subtitle:
+        'Três modelos de demonstração para clínicas odontológicas. As marcas e os dados são fictícios; o design, a experiência no celular e os botões de WhatsApp são o padrão que a Ionext entrega.',
+      note:
+        'Estes são modelos criados pela Ionext para mostrar o padrão de trabalho, não sites de clientes. Cada site real é feito do zero com a marca, as fotos, os tratamentos e os profissionais da clínica.',
+      cta: {
+        lead: 'A sua clínica pode ser',
+        em: 'a próxima.',
+        text: 'Conte como a clínica atende hoje. A gente mostra como ficaria o site dela, com WhatsApp em cada botão e pronto para aparecer no Google.',
+        message: 'Olá! Vi o portfólio de sites da Ionext e quero um site assim para a minha clínica.',
+        secondaryLabel: 'Ver serviços',
+        secondaryLink: '/servicos',
+      },
+    },
+    contato: {
+      index: '06',
       label: 'Próximo passo',
       lead: 'Fale com a',
       em: 'Ionext.',
@@ -776,3 +795,59 @@ export const SITE_CONFIG = {
     ],
   },
 } as const;
+
+/** Sites-modelo do portfólio (marcas fictícias; arquivos em public/modelos/<slug>/). */
+export interface PortfolioItem {
+  slug: string;
+  name: string;
+  segment: string;
+  concept: string;
+  description: string;
+  features: readonly string[];
+  url: string;
+  image: string;
+  imageMobile: string;
+  whatsappMessage: string;
+}
+
+export const PORTFOLIO_ITEMS: readonly PortfolioItem[] = [
+  {
+    slug: 'vellora',
+    name: 'Vellora Odontologia',
+    segment: 'Odontologia estética',
+    concept: 'Lentes de porcelana se alinhando no arco do sorriso.',
+    description:
+      'Visual escuro e editorial, tipografia clássica e um acento champanhe para quem vende lentes, clareamento e reabilitação.',
+    features: ['Cena 3D própria', 'WhatsApp em cada tratamento', 'Equipe e CRO no rodapé', 'Feito para o celular'],
+    url: '/modelos/vellora/index.html',
+    image: '/assets/portfolio/vellora.jpg',
+    imageMobile: '/assets/portfolio/vellora-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo Vellora no portfólio da Ionext e quero um site assim para a minha clínica.',
+  },
+  {
+    slug: 'ninho',
+    name: 'Ninho Sorriso',
+    segment: 'Odontopediatria e família',
+    concept: 'Um dente que flutua num ninho de bolhas coloridas.',
+    description:
+      'Claro, acolhedor e direto para os pais: fases por idade, como é a primeira consulta e horários depois da escola.',
+    features: ['Cena 3D própria', 'Conteúdo pensado para os pais', 'Perguntas frequentes', 'Feito para o celular'],
+    url: '/modelos/ninho/index.html',
+    image: '/assets/portfolio/ninho.jpg',
+    imageMobile: '/assets/portfolio/ninho-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo Ninho Sorriso no portfólio da Ionext e quero um site assim para a minha clínica.',
+  },
+  {
+    slug: 'lineo',
+    name: 'Lineo Ortodontia',
+    segment: 'Ortodontia e alinhadores',
+    concept: 'Dentes que se alinham e um alinhador transparente que se encaixa.',
+    description:
+      'Técnico e limpo: comparação entre alinhador e aparelho, etapas do tratamento e convite para a avaliação.',
+    features: ['Cena 3D própria', 'Comparativo de tratamentos', 'Etapas com progresso no scroll', 'Feito para o celular'],
+    url: '/modelos/lineo/index.html',
+    image: '/assets/portfolio/lineo.jpg',
+    imageMobile: '/assets/portfolio/lineo-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo Lineo no portfólio da Ionext e quero um site assim para a minha clínica.',
+  },
+];

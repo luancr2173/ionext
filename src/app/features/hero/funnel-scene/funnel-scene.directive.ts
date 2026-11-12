@@ -22,9 +22,10 @@ import type { ManagedScene, SceneOptions } from '../../../shared/scenes/scene-ki
  * - 'services'          → constelação dos produtos (Serviços)
  * - 'process'           → planta que se monta (Processo)
  * - 'plans'             → três pilares (Planos)
+ * - 'portfolio'         → galeria em perspectiva com os sites-modelo (Portfólio)
  * Cada cena é um chunk separado, baixado só na página que a usa.
  */
-export type SceneVariant = 'hero' | 'compact' | 'services' | 'process' | 'plans';
+export type SceneVariant = 'hero' | 'compact' | 'services' | 'process' | 'plans' | 'portfolio';
 
 type SceneFactory = (canvas: HTMLCanvasElement, options: SceneOptions) => ManagedScene;
 
@@ -34,6 +35,7 @@ const SCENE_LOADERS: Record<SceneVariant, () => Promise<SceneFactory>> = {
   services: () => import('../../../shared/scenes/services-scene').then((m) => (c, o) => new m.ServicesScene(c, o)),
   process: () => import('../../../shared/scenes/process-scene').then((m) => (c, o) => new m.ProcessScene(c, o)),
   plans: () => import('../../../shared/scenes/plans-scene').then((m) => (c, o) => new m.PlansScene(c, o)),
+  portfolio: () => import('../../../shared/scenes/portfolio-scene').then((m) => (c, o) => new m.PortfolioScene(c, o)),
 };
 
 /**
