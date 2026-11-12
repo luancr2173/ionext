@@ -5,7 +5,7 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
 import { PORTFOLIO_ITEMS, SITE_CONFIG, whatsappUrl } from '../../core/config/site.config';
 
 /**
- * Portfólio: os sites-modelo (marcas fictícias) que a Ionext usa para mostrar o padrão
+ * Portfólio: os sites-modelo (sem marca real) que a Ionext usa para mostrar o padrão
  * de trabalho. Os modelos são HTML estático em public/modelos/<slug>/ — por isso os links
  * são <a href> normais (fora do router) e abrem em nova aba.
  */

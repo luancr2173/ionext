@@ -55,13 +55,13 @@ node_modules/node/bin/node.exe node_modules/@angular/cli/bin/ng.js serve
 
 ## Portfólio e sites-modelo
 
-`/portfolio` mostra três **sites-modelo para clínicas odontológicas**. Marcas, equipe, endereço e telefone são **fictícios**; cada modelo tem um selo de "Modelo de demonstração" no topo, `noindex` e uma nota no rodapé. O Neo (agente de WhatsApp) envia este link quando a clínica demonstra interesse e apresenta os sites como modelos, nunca como clientes.
+`/portfolio` mostra três **sites-modelo para clínicas odontológicas**. Os modelos **não usam nome de marca nem de profissional** (aparecem como "Sua Clínica" e "Nome do(a) dentista"), para não coincidir com clínicas reais; endereço e telefone são de exemplo; cada modelo tem um selo de "Modelo de demonstração" no topo, `noindex` e uma nota no rodapé. O Neo (agente de WhatsApp) envia este link quando a clínica demonstra interesse e apresenta os sites como modelos, nunca como clientes.
 
 | Modelo | Arquivo | Conceito 3D | Paleta e tipografia |
 | --- | --- | --- | --- |
-| Vellora Odontologia (estética) | `public/modelos/vellora/` | Lentes de porcelana chegam soltas e se encaixam no arco do sorriso | Escuro `#0d0c0b` + champanhe `#d9b88a` · Bodoni Moda + Instrument Sans + IBM Plex Mono |
-| Ninho Sorriso (odontopediatria) | `public/modelos/ninho/` | Dente brilhante num ninho de bolhas coral e menta, com espuma subindo | Creme `#faf6ef` + coral `#c43d27` · Fraunces + Space Grotesk + JetBrains Mono |
-| Lineo Ortodontia (alinhadores) | `public/modelos/lineo/` | Dentes tortos se alinham e um alinhador transparente se encaixa | Cinza-frio `#eef1f2` + petróleo `#0d6b74` · Syne + DM Serif Display + Instrument Sans |
+| Modelo 01 — Odontologia estética | `public/modelos/estetica/` | Lentes de porcelana chegam soltas e se encaixam no arco do sorriso | Escuro `#0d0c0b` + champanhe `#d9b88a` · Bodoni Moda + Instrument Sans + IBM Plex Mono |
+| Modelo 02 — Odontopediatria | `public/modelos/odontopediatria/` | Dente brilhante num ninho de bolhas coral e menta, com espuma subindo | Creme `#faf6ef` + coral `#c43d27` · Fraunces + Space Grotesk + JetBrains Mono |
+| Modelo 03 — Ortodontia | `public/modelos/ortodontia/` | Dentes tortos se alinham e um alinhador transparente se encaixa | Cinza-frio `#eef1f2` + petróleo `#0d6b74` · Syne + DM Serif Display + Instrument Sans |
 
 - **Arte da página `/portfolio`**: `src/app/shared/scenes/portfolio-scene.ts` — galeria em perspectiva com as capturas reais dos modelos em molduras de metal, em loop (as telas somem nas pontas para não passar por baixo do título).
 - Os modelos são HTML estático (fora do Angular), com Three.js, GSAP, ScrollTrigger e Lenis **auto-hospedados** em `public/modelos/_vendor/` (sem CDN) e comportamento comum em `public/modelos/_kit/` (selo, seletor de animações, menu, letreiro, cena 3D com fallback em SVG).

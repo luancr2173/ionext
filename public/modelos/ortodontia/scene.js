@@ -1,4 +1,4 @@
-// Lineo — "o alinhamento".
+// Modelo ortodontia — "o alinhamento".
 // Doze dentes chegam tortos e, aos poucos, se alinham no arco; um alinhador
 // transparente desce e se encaixa sobre eles. A rolagem gira o arco para mostrar a curva.
 import * as THREE from 'three';
@@ -13,14 +13,14 @@ const arch = (u) => {
   return new THREE.Vector3(x, 0, -0.55 * x * x);
 };
 
-export class LineoScene extends BaseScene {
+export class OrtodontiaScene extends BaseScene {
   constructor(canvas, opts) {
     super(canvas, opts);
     this.start();
   }
 
   layoutFor(aspect) {
-    if (aspect < 0.8) return { x: 0, y: 0.15, scale: 1.12 };
+    if (aspect < 0.8) return { x: -0.55, y: 0.15, scale: 1.0 };
     if (aspect < 1.25) return { x: 1.5, y: 0.6, scale: 0.85 };
     return { x: 3.5, y: 1.35, scale: 0.82 };
   }

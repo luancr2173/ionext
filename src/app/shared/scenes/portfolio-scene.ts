@@ -8,7 +8,7 @@
 import * as THREE from 'three';
 import { BaseScene, PALETTE, SceneOptions, dotTexture } from './scene-kit';
 
-const SHOTS = ['/assets/portfolio/vellora.jpg', '/assets/portfolio/ninho.jpg', '/assets/portfolio/lineo.jpg'];
+const SHOTS = ['/assets/portfolio/estetica.jpg', '/assets/portfolio/odontopediatria.jpg', '/assets/portfolio/ortodontia.jpg'];
 const W = 2.4;
 const H = W * (900 / 1440);
 const GAP = 0.55;
@@ -30,7 +30,7 @@ export class PortfolioScene extends BaseScene {
   }
 
   protected override layoutFor(aspect: number) {
-    if (aspect < 0.8) return { x: 0.2, y: 0.85, scale: 0.7 };
+    if (aspect < 0.8) return { x: 0, y: 0.05, scale: 0.72 };
     if (aspect < 1.25) return { x: 1.8, y: 0.95, scale: 0.6 };
     return { x: 4.25, y: 0.45, scale: 0.6 };
   }
@@ -133,6 +133,10 @@ export class PortfolioScene extends BaseScene {
       f.mats[2].opacity = fade * (this.theme === 'dark' ? 0.9 : 0.75);
       f.group.visible = fade > 0.01;
     }
-    this.gallery.rotation.y = -0.62 + this.pointer.x * 0.25;
+    // no celular a coluna fica de frente e centralizada; no desktop, em diagonal
+    const narrow = this.camera.aspect < 0.8;
+    this.gallery.rotation.x = narrow ? -0.5 : -0.42;
+    this.gallery.rotation.z = narrow ? 0 : -0.08;
+    this.gallery.rotation.y = (narrow ? -0.18 : -0.62) + this.pointer.x * 0.25;
   }
 }

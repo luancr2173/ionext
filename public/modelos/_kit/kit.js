@@ -214,12 +214,12 @@ function splitTitles() {
 
 /** Selo de demonstração, botão flutuante e o aviso dos botões de WhatsApp. */
 function mountChrome({ name, segment }) {
-  const msg = `Olá! Vi o modelo ${name} no portfólio da IONEXT e quero um site assim para a minha ${segment}.`;
+  const msg = `Olá! Vi o modelo de site de ${name} no portfólio da IONEXT e quero um site assim para a minha ${segment}.`;
   const link = ionextWhatsapp(msg);
 
   const bar = document.createElement('div');
   bar.className = 'demo-bar';
-  bar.innerHTML = `<span><strong>Modelo de demonstração</strong> · marca, equipe e dados fictícios · site criado pela IONEXT</span>`;
+  bar.innerHTML = `<span><strong>Modelo de demonstração</strong> · sem marca real, dados de exemplo · site criado pela IONEXT</span>`;
   const barLink = document.createElement('a');
   barLink.href = link;
   barLink.target = '_blank';
@@ -246,7 +246,7 @@ function mountChrome({ name, segment }) {
     <div class="demo-dialog-panel">
       <p class="demo-dialog-label">Modelo de demonstração</p>
       <h2 id="demo-dialog-title">No site real, este botão abre o WhatsApp da clínica.</h2>
-      <p>O paciente já chega com a mensagem pronta, dizendo o tratamento que quer. Este é um modelo com dados fictícios, feito pela IONEXT para mostrar como o site da sua clínica pode ficar.</p>
+      <p>O paciente já chega com a mensagem pronta, dizendo o tratamento que quer. Este é um modelo com dados de exemplo, feito pela IONEXT para mostrar como o site da sua clínica pode ficar.</p>
       <div class="demo-dialog-actions">
         <a class="demo-dialog-cta" target="_blank" rel="noopener">Quero um site assim</a>
         <button type="button" class="demo-dialog-close">Continuar vendo o modelo</button>

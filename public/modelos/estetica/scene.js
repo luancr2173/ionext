@@ -1,4 +1,4 @@
-// Vellora — "lentes de porcelana se alinhando".
+// Modelo odontologia estética — "lentes de porcelana se alinhando".
 // Dez lentes de porcelana chegam soltas no espaço e se encaixam no arco do sorriso.
 // O mouse inclina o arco; a rolagem abre levemente as peças. Poeira dourada ao fundo.
 import * as THREE from 'three';
@@ -31,7 +31,7 @@ function veneerGeometry(w, h) {
   return g;
 }
 
-export class VelloraScene extends BaseScene {
+export class EsteticaScene extends BaseScene {
   constructor(canvas, opts) {
     super(canvas, opts);
     this.pieces = [];
@@ -39,7 +39,7 @@ export class VelloraScene extends BaseScene {
   }
 
   layoutFor(aspect) {
-    if (aspect < 0.8) return { x: 0, y: 0.9, scale: 1.02 };
+    if (aspect < 0.8) return { x: 0, y: 0.9, scale: 0.94 };
     if (aspect < 1.25) return { x: 1.4, y: 0.8, scale: 0.85 };
     return { x: 3.35, y: 1.75, scale: 0.92 };
   }

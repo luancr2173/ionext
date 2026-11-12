@@ -1,4 +1,4 @@
-// Ninho Sorriso — "o ninho".
+// Modelo odontopediatria — "o ninho".
 // Um dente arredondado, brilhante, pousado num ninho de bolhas coral, menta e creme.
 // Bolhas sobem devagar como espuma; o mouse inclina o ninho, a rolagem faz o dente subir.
 import * as THREE from 'three';
@@ -45,14 +45,14 @@ function toothGeometry() {
   return g;
 }
 
-export class NinhoScene extends BaseScene {
+export class OdontopediatriaScene extends BaseScene {
   constructor(canvas, opts) {
     super(canvas, opts);
     this.start();
   }
 
   layoutFor(aspect) {
-    if (aspect < 0.8) return { x: 0, y: 0.55, scale: 0.95 };
+    if (aspect < 0.8) return { x: 0.12, y: 0.55, scale: 0.95 };
     if (aspect < 1.25) return { x: 1.5, y: 0.3, scale: 0.85 };
     return { x: 3.1, y: 0.1, scale: 0.9 };
   }

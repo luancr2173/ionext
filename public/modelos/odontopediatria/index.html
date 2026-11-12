@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Ninho Sorriso — modelo de site | IONEXT</title>
-  <meta name="description" content="Modelo de demonstração da IONEXT: site para clínica de odontopediatria e da família, com marca e dados fictícios." />
+  <title>Modelo de site: odontopediatria | IONEXT</title>
+  <meta name="description" content="Modelo de demonstração da IONEXT: site para clínica de odontopediatria e da família, sem marca real e com dados de exemplo." />
   <meta name="robots" content="noindex, nofollow" />
-  <meta property="og:title" content="Ninho Sorriso — modelo de site da IONEXT" />
-  <meta property="og:description" content="Modelo de demonstração (marca fictícia) de site para odontopediatria." />
-  <meta property="og:image" content="https://ionext.com.br/assets/portfolio/ninho.jpg" />
+  <meta property="og:title" content="Modelo de site para odontopediatria — IONEXT" />
+  <meta property="og:description" content="Modelo de demonstração (sem marca real) de site para odontopediatria." />
+  <meta property="og:image" content="https://ionext.com.br/assets/portfolio/odontopediatria.jpg" />
   <meta name="theme-color" content="#faf6ef" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../_kit/kit.css" />
@@ -77,7 +77,7 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a class="brand" href="#topo"><span class="brand-dot" aria-hidden="true"></span>Ninho Sorriso</a>
+      <a class="brand" href="#topo"><span class="brand-dot" aria-hidden="true"></span>Sua Clínica</a>
       <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
       <nav class="site-nav" id="menu" aria-label="Principal">
         <a href="#fases">Para cada idade</a>
@@ -194,12 +194,12 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div><a class="brand" href="#topo"><span class="brand-dot" aria-hidden="true"></span>Ninho Sorriso</a><p class="muted" style="margin-top:14px">Odontopediatria e clínica da família.</p></div>
-        <div><p class="mono muted">Responsável técnico</p><p>Dra. Marina Teles<br />CRO-DF 00000 (exemplo)</p></div>
-        <div><p class="mono muted">Este é um modelo</p><p class="muted">Marca, equipe, endereço e telefone fictícios. Site-modelo criado pela <a href="/portfolio">IONEXT</a>.</p></div>
+        <div><a class="brand" href="#topo"><span class="brand-dot" aria-hidden="true"></span>Sua Clínica</a><p class="muted" style="margin-top:14px">Odontopediatria e clínica da família.</p></div>
+        <div><p class="mono muted">Responsável técnico</p><p>Nome do(a) responsável técnico(a)<br />CRO-DF 00000 (exemplo)</p></div>
+        <div><p class="mono muted">Este é um modelo</p><p class="muted">Sem marca real: nome, equipe, endereço e telefone são espaços de exemplo. Site-modelo criado pela <a href="/portfolio">IONEXT</a>.</p></div>
       </div>
       <div class="footer-bottom">
-        <span class="mono muted">© <span data-year></span> Ninho Sorriso (marca fictícia)</span>
+        <span class="mono muted">© <span data-year></span> Sua Clínica · modelo de demonstração</span>
         <div class="motion-toggle" role="group" aria-label="Animações">
           <span class="mono muted">Animações</span>
           <button type="button" data-motion="auto">Auto</button>
@@ -216,10 +216,10 @@
   <script type="module">
     import { initModelo } from '../_kit/kit.js';
     initModelo({
-      name: 'Ninho Sorriso',
+      name: 'odontopediatria',
       segment: 'clínica',
       canvas: document.getElementById('cena'),
-      scene: () => import('./scene.js').then((m) => (c, o) => new m.NinhoScene(c, o)),
+      scene: () => import('./scene.js').then((m) => (c, o) => new m.OdontopediatriaScene(c, o)),
     });
   </script>
 </body>

@@ -238,7 +238,7 @@ export const SITE_CONFIG = {
       lead: 'Sites para clínicas',
       em: 'com cara de marca grande.',
       subtitle:
-        'Três modelos de demonstração para clínicas odontológicas. As marcas e os dados são fictícios; o design, a experiência no celular e os botões de WhatsApp são o padrão que a Ionext entrega.',
+        'Três modelos de demonstração para clínicas odontológicas, sem marca real e com dados de exemplo. O design, a experiência no celular e os botões de WhatsApp são o padrão que a Ionext entrega.',
       note:
         'Estes são modelos criados pela Ionext para mostrar o padrão de trabalho, não sites de clientes. Cada site real é feito do zero com a marca, as fotos, os tratamentos e os profissionais da clínica.',
       cta: {
@@ -796,7 +796,7 @@ export const SITE_CONFIG = {
   },
 } as const;
 
-/** Sites-modelo do portfólio (marcas fictícias; arquivos em public/modelos/<slug>/). */
+/** Sites-modelo do portfólio (sem marca real; arquivos em public/modelos/<slug>/). */
 export interface PortfolioItem {
   slug: string;
   name: string;
@@ -812,42 +812,42 @@ export interface PortfolioItem {
 
 export const PORTFOLIO_ITEMS: readonly PortfolioItem[] = [
   {
-    slug: 'vellora',
-    name: 'Vellora Odontologia',
-    segment: 'Odontologia estética',
+    slug: 'estetica',
+    name: 'Odontologia estética',
+    segment: 'Escuro e editorial',
     concept: 'Lentes de porcelana se alinhando no arco do sorriso.',
     description:
       'Visual escuro e editorial, tipografia clássica e um acento champanhe para quem vende lentes, clareamento e reabilitação.',
     features: ['Cena 3D própria', 'WhatsApp em cada tratamento', 'Equipe e CRO no rodapé', 'Feito para o celular'],
-    url: '/modelos/vellora/index.html',
-    image: '/assets/portfolio/vellora.jpg',
-    imageMobile: '/assets/portfolio/vellora-mobile.jpg',
-    whatsappMessage: 'Olá! Vi o modelo Vellora no portfólio da Ionext e quero um site assim para a minha clínica.',
+    url: '/modelos/estetica/index.html',
+    image: '/assets/portfolio/estetica.jpg',
+    imageMobile: '/assets/portfolio/estetica-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de odontologia estética no portfólio da Ionext e quero um site assim para a minha clínica.',
   },
   {
-    slug: 'ninho',
-    name: 'Ninho Sorriso',
-    segment: 'Odontopediatria e família',
+    slug: 'odontopediatria',
+    name: 'Odontopediatria',
+    segment: 'Claro e acolhedor',
     concept: 'Um dente que flutua num ninho de bolhas coloridas.',
     description:
       'Claro, acolhedor e direto para os pais: fases por idade, como é a primeira consulta e horários depois da escola.',
     features: ['Cena 3D própria', 'Conteúdo pensado para os pais', 'Perguntas frequentes', 'Feito para o celular'],
-    url: '/modelos/ninho/index.html',
-    image: '/assets/portfolio/ninho.jpg',
-    imageMobile: '/assets/portfolio/ninho-mobile.jpg',
-    whatsappMessage: 'Olá! Vi o modelo Ninho Sorriso no portfólio da Ionext e quero um site assim para a minha clínica.',
+    url: '/modelos/odontopediatria/index.html',
+    image: '/assets/portfolio/odontopediatria.jpg',
+    imageMobile: '/assets/portfolio/odontopediatria-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de odontopediatria no portfólio da Ionext e quero um site assim para a minha clínica.',
   },
   {
-    slug: 'lineo',
-    name: 'Lineo Ortodontia',
-    segment: 'Ortodontia e alinhadores',
+    slug: 'ortodontia',
+    name: 'Ortodontia',
+    segment: 'Técnico e limpo',
     concept: 'Dentes que se alinham e um alinhador transparente que se encaixa.',
     description:
       'Técnico e limpo: comparação entre alinhador e aparelho, etapas do tratamento e convite para a avaliação.',
     features: ['Cena 3D própria', 'Comparativo de tratamentos', 'Etapas com progresso no scroll', 'Feito para o celular'],
-    url: '/modelos/lineo/index.html',
-    image: '/assets/portfolio/lineo.jpg',
-    imageMobile: '/assets/portfolio/lineo-mobile.jpg',
-    whatsappMessage: 'Olá! Vi o modelo Lineo no portfólio da Ionext e quero um site assim para a minha clínica.',
+    url: '/modelos/ortodontia/index.html',
+    image: '/assets/portfolio/ortodontia.jpg',
+    imageMobile: '/assets/portfolio/ortodontia-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de ortodontia no portfólio da Ionext e quero um site assim para a minha clínica.',
   },
 ];
