@@ -1,4 +1,4 @@
-# IONEXT Landing Page
+# IONEXT 
 
 Frontend público institucional, construído como SPA em Angular 22 com componentes standalone e rotas carregadas sob demanda.
 
