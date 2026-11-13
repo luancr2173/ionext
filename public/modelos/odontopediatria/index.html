@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Modelo de site: odontopediatria | IONEXT</title>
+  <meta name="description" content="Modelo de demonstração da IONEXT: site para clínica de odontopediatria e da família, sem marca real e com dados de exemplo." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta property="og:title" content="Modelo de site para odontopediatria — IONEXT" />
+  <meta property="og:description" content="Modelo de demonstração (sem marca real) de site para odontopediatria." />
+  <meta property="og:image" content="https://ionext.com.br/assets/portfolio/odontopediatria.jpg" />
+  <meta name="theme-color" content="#faf6ef" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../_kit/kit.css" />
+  <style>
+    @font-face { font-family: 'Fraunces Variable'; src: url('../_vendor/fonts/fraunces-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+    @font-face { font-family: 'Fraunces Variable'; src: url('../_vendor/fonts/fraunces-latin-wght-italic.woff2') format('woff2'); font-weight: 100 900; font-style: italic; font-display: swap; }
+    @font-face { font-family: 'Space Grotesk Variable'; src: url('../_vendor/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2'); font-weight: 300 700; font-display: swap; }
+    @font-face { font-family: 'JetBrains Mono Variable'; src: url('../_vendor/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2'); font-weight: 100 800; font-display: swap; }
+    :root {
+      --bg: #faf6ef;
+      --ink: #1d1a17;
+      --accent: #c43d27;
+      --mint: #2f8a72;
+      --on-accent: #ffffff;
+      --font-display: 'Fraunces Variable', Georgia, serif;
+      --font-text: 'Space Grotesk Variable', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 24px; font-weight: 700; text-decoration: none; }
+    .brand-dot { width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff 0 18%, var(--accent) 19%); }
+    h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.025em; font-variation-settings: 'SOFT' 100, 'WONK' 1; }
+    .accent { color: var(--accent); }
+    .hero-stage::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(250,246,239,0.95) 0%, rgba(250,246,239,0.6) 40%, rgba(250,246,239,0) 62%); }
+    .hero-title { margin: 0 0 26px; font-size: clamp(3.3rem, 8.8vw, 9.8rem); line-height: 0.88; font-weight: 800; max-width: 10ch; }
+    .hero-title em { font-style: italic; font-weight: 400; color: var(--accent); }
+    .hero-sub { max-width: 44ch; font-size: 19px; margin: 0 0 34px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+    .chips { margin-top: 54px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip { padding: 8px 14px; border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius: 999px; font-size: 14px; background: color-mix(in srgb, var(--bg) 80%, transparent); }
+    .marquee-track span { font-family: var(--font-display); font-weight: 700; font-size: clamp(26px, 3.6vw, 48px); }
+    .marquee-track i { font-style: normal; color: var(--mint); }
+    section { padding: 140px 0; }
+    .section-head { display: flex; justify-content: space-between; gap: 32px; align-items: end; margin-bottom: 56px; flex-wrap: wrap; }
+    .section-title { margin: 0; font-size: clamp(2.6rem, 5.6vw, 6rem); line-height: 0.92; font-weight: 800; max-width: 14ch; }
+    .section-title em { font-style: italic; font-weight: 400; color: var(--accent); }
+    .phases { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+    .phase { padding: 30px 26px 34px 0; border-right: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+    .phase + .phase { padding-left: 26px; }
+    .phase:last-child { border-right: 0; }
+    .phase .big { font-family: var(--font-display); font-size: 64px; font-weight: 300; font-style: italic; color: var(--mint); line-height: 1; }
+    .phase h3 { font-size: 26px; margin: 22px 0 8px; }
+    .phase p { margin: 0; }
+    .list-item h3 { font-size: clamp(24px, 2.4vw, 34px); font-weight: 700; }
+    .band { background: var(--ink); color: var(--bg); }
+    .band .muted { color: color-mix(in srgb, var(--bg) 65%, transparent); }
+    .band .step::before { background: var(--ink); }
+    .band .steps-rail { background: color-mix(in srgb, var(--bg) 20%, transparent); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .final h2 { font-size: clamp(3.4rem, 10vw, 11rem); line-height: 0.86; margin: 0 0 40px; font-weight: 800; }
+    .final h2 em { font-style: italic; font-weight: 400; color: var(--accent); }
+    .final-grid { display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 32px; align-items: end; }
+    .fallback circle { fill: none; stroke: var(--accent); stroke-width: 1.4; }
+    @media (max-width: 900px) {
+      section { padding: 96px 0; }
+      .hero-stage { height: 62svh; }
+      .hero-stage::after { background: linear-gradient(180deg, rgba(250,246,239,0) 40%, rgba(250,246,239,0.92) 92%); }
+      .hero-inner { padding-top: 44svh; padding-bottom: 48px; }
+      .phases, .two-col, .final-grid { grid-template-columns: 1fr; }
+      .phase, .phase + .phase { padding: 26px 0; border-right: 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+    }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "../_vendor/three/three.module.js", "three/addons/": "../_vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#topo"><span class="brand-dot" aria-hidden="true"></span>Sua Clínica</a>
+      <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="site-nav" id="menu" aria-label="Principal">
+        <a href="#fases">Para cada idade</a>
+        <a href="#tratamentos">Tratamentos</a>
+        <a href="#primeira-consulta">Primeira consulta</a>
+        <a href="#duvidas">Dúvidas</a>
+        <button class="btn btn-solid" type="button" data-wa>Agendar consulta</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="topo">
+    <section class="hero" style="padding:0">
+      <div class="hero-stage" aria-hidden="true">
+        <canvas id="cena"></canvas>
+        <svg class="fallback" viewBox="0 0 400 300"><circle cx="200" cy="150" r="90" /><circle cx="110" cy="230" r="22" /><circle cx="290" cy="235" r="28" /><circle cx="200" cy="262" r="16" /></svg>
+      </div>
+      <div class="container hero-inner">
+        <p class="mono muted">Odontopediatria e clínica da família · Águas Claras — DF</p>
+        <h1 class="hero-title" data-split>Dentista que criança <em>quer visitar.</em></h1>
+        <p class="hero-sub muted">Atendimento para bebês, crianças e a família inteira, num consultório pensado para que a primeira consulta seja tranquila para todo mundo.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-solid" type="button" data-wa>Agendar consulta</button>
+          <a class="btn btn-ghost" href="#primeira-consulta">Como é a primeira consulta</a>
+        </div>
+        <div class="chips">
+          <span class="chip">Sala de espera com brinquedoteca</span>
+          <span class="chip">Horários depois da escola</span>
+          <span class="chip">Pais acompanham a consulta</span>
+        </div>
+      </div>
+    </section>
+
+    <div data-marquee aria-hidden="true">
+      <div class="marquee-track">
+        <span>Primeira consulta do bebê <i>●</i> Prevenção e flúor <i>●</i> Selantes <i>●</i> Ortodontia infantil <i>●</i> Clínico geral para adultos <i>●</i></span>
+        <span>Primeira consulta do bebê <i>●</i> Prevenção e flúor <i>●</i> Selantes <i>●</i> Ortodontia infantil <i>●</i> Clínico geral para adultos <i>●</i></span>
+      </div>
+    </div>
+
+    <section id="fases">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" data-split>Um cuidado para <em>cada fase.</em></h2>
+          <p class="muted" style="max-width:38ch;margin:0" data-reveal>Do primeiro dentinho ao sorriso dos pais: a família toda acompanhada no mesmo lugar.</p>
+        </div>
+        <div class="phases">
+          <div class="phase" data-reveal><span class="big">0–3</span><h3>Bebês</h3><p class="muted">Orientação para os pais, higiene desde o primeiro dente e hábitos que protegem o sorriso.</p></div>
+          <div class="phase" data-reveal><span class="big">4–12</span><h3>Crianças</h3><p class="muted">Prevenção, restaurações e acompanhamento da troca dos dentes, sem pressa e sem susto.</p></div>
+          <div class="phase" data-reveal><span class="big">13+</span><h3>Adolescentes</h3><p class="muted">Avaliação ortodôntica, cuidados com aparelho e orientação para a rotina.</p></div>
+          <div class="phase" data-reveal><span class="big">Pais</span><h3>Adultos</h3><p class="muted">Clínico geral e limpeza para quem acompanha, no mesmo horário dos filhos.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tratamentos" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" data-split>Tratamentos <em>da clínica.</em></h2>
+        </div>
+        <ol class="list">
+          <li class="list-item" data-reveal><span class="mono muted">01</span><h3>Primeira consulta</h3><p class="muted">Conhecer o consultório, brincar com os instrumentos e só depois examinar.</p><button class="list-link" type="button" data-wa>Agendar</button></li>
+          <li class="list-item" data-reveal><span class="mono muted">02</span><h3>Prevenção</h3><p class="muted">Limpeza, aplicação de flúor e orientação de escovação para a criança e para os pais.</p><button class="list-link" type="button" data-wa>Agendar</button></li>
+          <li class="list-item" data-reveal><span class="mono muted">03</span><h3>Selantes</h3><p class="muted">Proteção dos sulcos dos dentes de trás, onde a escova tem mais dificuldade.</p><button class="list-link" type="button" data-wa>Agendar</button></li>
+          <li class="list-item" data-reveal><span class="mono muted">04</span><h3>Restaurações</h3><p class="muted">Tratamento de cáries com materiais da cor do dente.</p><button class="list-link" type="button" data-wa>Agendar</button></li>
+          <li class="list-item" data-reveal><span class="mono muted">05</span><h3>Ortodontia infantil</h3><p class="muted">Acompanhamento do crescimento e da mordida desde cedo.</p><button class="list-link" type="button" data-wa>Agendar</button></li>
+          <li class="list-item" data-reveal><span class="mono muted">06</span><h3>Clínico para adultos</h3><p class="muted">Consultas, limpeza e restaurações para quem acompanha as crianças.</p><button class="list-link" type="button" data-wa>Agendar</button></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="primeira-consulta" class="band">
+      <div class="container two-col">
+        <div>
+          <p class="mono" style="color:#f2a08d" data-reveal>Primeira consulta</p>
+          <h2 class="section-title" data-split style="margin-top:22px">Sem pressa, <em style="color:#f2a08d">sem susto.</em></h2>
+          <p class="muted" style="max-width:40ch;margin-top:24px" data-reveal>A primeira visita define como a criança vai se sentir no dentista. Por isso ela é mais longa e começa pela conversa.</p>
+        </div>
+        <div class="steps">
+          <div class="steps-rail"><span data-progress style="background:#f2a08d"></span></div>
+          <div class="step" data-reveal><span class="mono muted">01</span><h3>Chegada</h3><p class="muted">A criança conhece a sala e a equipe antes de sentar na cadeira.</p></div>
+          <div class="step" data-reveal><span class="mono muted">02</span><h3>Conversa com os pais</h3><p class="muted">Hábitos, alimentação, escovação e o que preocupa a família.</p></div>
+          <div class="step" data-reveal><span class="mono muted">03</span><h3>Exame com calma</h3><p class="muted">No ritmo da criança, com os pais por perto o tempo todo.</p></div>
+          <div class="step" data-reveal><span class="mono muted">04</span><h3>Plano e retorno</h3><p class="muted">Orientações por escrito e a próxima visita já marcada.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas">
+      <div class="container two-col">
+        <h2 class="section-title" data-split>Dúvidas <em>dos pais.</em></h2>
+        <div class="faq">
+          <details><summary>Com que idade levar ao dentista?</summary><p class="muted">A orientação geral é ir quando o primeiro dente aparece, ou até o primeiro aniversário. Na consulta, o dentista indica a frequência ideal para a criança.</p></details>
+          <details><summary>Posso ficar junto durante a consulta?</summary><p class="muted">Pode e deve. Os pais acompanham a consulta inteira.</p></details>
+          <details><summary>E se meu filho tiver medo?</summary><p class="muted">A primeira visita é de adaptação: a equipe respeita o tempo da criança e nada é feito à força.</p></details>
+          <details><summary>Vocês atendem convênio?</summary><p class="muted">No site real, aqui entra a lista de convênios e formas de pagamento da clínica.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final" style="padding-top:40px">
+      <div class="container">
+        <h2 data-split>Vamos marcar <em>a primeira visita?</em></h2>
+        <div class="final-grid">
+          <div><p class="mono muted">Endereço</p><p>Endereço de exemplo, Águas Claras<br />Brasília — DF</p></div>
+          <div><p class="mono muted">Horário</p><p>Seg a sex, 9h às 19h<br />Sáb, 8h às 13h</p></div>
+          <div><p class="mono muted">Contato</p><p>(61) 0000-0000 (exemplo)</p></div>
+          <button class="btn btn-solid" type="button" data-wa>Agendar pelo WhatsApp</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="#topo"><span class="brand-dot" aria-hidden="true"></span>Sua Clínica</a><p class="muted" style="margin-top:14px">Odontopediatria e clínica da família.</p></div>
+        <div><p class="mono muted">Responsável técnico</p><p>Nome do(a) responsável técnico(a)<br />CRO-DF 00000 (exemplo)</p></div>
+        <div><p class="mono muted">Este é um modelo</p><p class="muted">Sem marca real: nome, equipe, endereço e telefone são espaços de exemplo. Site-modelo criado pela <a href="/portfolio">IONEXT</a>.</p></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="mono muted">© <span data-year></span> Sua Clínica · modelo de demonstração</span>
+        <div class="motion-toggle" role="group" aria-label="Animações">
+          <span class="mono muted">Animações</span>
+          <button type="button" data-motion="auto">Auto</button>
+          <button type="button" data-motion="on">Ativadas</button>
+          <button type="button" data-motion="off">Desativadas</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../_vendor/gsap.min.js"></script>
+  <script src="../_vendor/ScrollTrigger.min.js"></script>
+  <script src="../_vendor/lenis.min.js"></script>
+  <script type="module">
+    import { initModelo } from '../_kit/kit.js';
+    initModelo({
+      name: 'odontopediatria',
+      segment: 'clínica',
+      canvas: document.getElementById('cena'),
+      scene: () => import('./scene.js').then((m) => (c, o) => new m.OdontopediatriaScene(c, o)),
+    });
+  </script>
+</body>
+</html>

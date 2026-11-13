@@ -26,6 +26,12 @@ export const routes: Routes = [
     title: 'Planos — IONEXT',
   },
   {
+    path: 'portfolio',
+    loadComponent: () =>
+      import('./pages/portfolio/portfolio.component').then((m) => m.PortfolioPageComponent),
+    title: 'Portfólio de sites para clínicas — IONEXT',
+  },
+  {
     path: 'contato',
     loadComponent: () =>
       import('./pages/contato/contato.component').then((m) => m.ContatoPageComponent),
