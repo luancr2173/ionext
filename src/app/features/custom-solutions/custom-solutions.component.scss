@@ -93,6 +93,7 @@
 }
 
 .custom-card {
+  container-type: inline-size;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -172,7 +173,9 @@
 
 .custom-item-name {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 3.6vw, 3.4rem);
+  /* dimensionado pela largura do cartão, não da tela: "Diagnosticar" estourava a coluna em 1440 */
+  font-size: clamp(1.9rem, 3.6vw, 3.4rem);
+  font-size: clamp(1.9rem, 12cqi, 3.4rem);
   font-weight: 800;
   font-stretch: 110%;
   letter-spacing: -0.05em;

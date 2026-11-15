@@ -2,7 +2,7 @@
 // Oito fatias chegam de fora e se encaixam numa pizza inteira, com pepperoni,
 // manjericão e vapor subindo. O mouse inclina a pizza; a rolagem puxa uma fatia.
 import * as THREE from 'three';
-import { BaseScene, damp, dotTexture } from '../_kit/scene-base.js?v=20261115';
+import { BaseScene, damp, dotTexture } from '../_kit/scene-base.js?v=20261116';
 
 const R = 1.6;
 const SLICES = 8;
@@ -52,7 +52,7 @@ export class PizzaScene extends BaseScene {
   }
 
   layoutFor(aspect) {
-    if (aspect < 0.8) return { x: 0, y: 0.75, scale: 0.72 };
+    if (aspect < 0.8) return { x: 0, y: 0.8, scale: 0.98 };
     if (aspect < 1.25) return { x: 1.5, y: 0.35, scale: 0.8 };
     return { x: 3.0, y: 0.2, scale: 0.98 };
   }

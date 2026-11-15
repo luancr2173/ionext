@@ -2,7 +2,7 @@
 // Pão, carne, queijo derretendo, alface, tomate e o pão de cima com gergelim caem
 // um a um e se empilham. O mouse gira o lanche; a rolagem separa as camadas.
 import * as THREE from 'three';
-import { BaseScene, damp } from '../_kit/scene-base.js?v=20261115';
+import { BaseScene, damp } from '../_kit/scene-base.js?v=20261116';
 
 const R = 1.15;
 const easeOutBack = (t) => {
@@ -90,7 +90,7 @@ export class BurgerScene extends BaseScene {
   }
 
   layoutFor(aspect) {
-    if (aspect < 0.8) return { x: 0, y: 0.75, scale: 0.78 };
+    if (aspect < 0.8) return { x: 0, y: 0.75, scale: 1.08 };
     if (aspect < 1.25) return { x: 1.5, y: 0.4, scale: 0.85 };
     return { x: 3.0, y: 0.2, scale: 1.05 };
   }

@@ -2,7 +2,7 @@
 // selo de demonstração, rolagem suave (Lenis) + GSAP, títulos palavra a palavra,
 // seletor de animações, letreiro, botões de WhatsApp que explicam que é um modelo,
 // e montagem da cena 3D com fallback.
-import { webglAvailable } from './scene-base.js?v=20261115';
+import { webglAvailable } from './scene-base.js?v=20261116';
 
 const IONEXT_WA = '5561998145516';
 const STORE_KEY = 'ionext-modelo-animacoes';

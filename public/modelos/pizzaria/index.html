@@ -12,7 +12,7 @@
   <meta property="og:image" content="https://ionext.com.br/assets/portfolio/pizzaria.jpg" />
   <meta name="theme-color" content="#fbf5ec" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../_kit/kit.css?v=20261115" />
+  <link rel="stylesheet" href="../_kit/kit.css?v=20261116" />
   <style>
     @font-face { font-family: 'DM Serif Display'; src: url('../_vendor/fonts/dm-serif-display-latin-400-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
     @font-face { font-family: 'Instrument Sans Variable'; src: url('../_vendor/fonts/instrument-sans-latin-wght-normal.woff2') format('woff2'); font-weight: 400 700; font-display: swap; }
@@ -236,13 +236,13 @@
   <script src="../_vendor/ScrollTrigger.min.js"></script>
   <script src="../_vendor/lenis.min.js"></script>
   <script type="module">
-    import { initModelo } from '../_kit/kit.js?v=20261115';
+    import { initModelo } from '../_kit/kit.js?v=20261116';
     initModelo({
       name: 'pizzaria',
       segment: 'pizzaria',
       copy: { mine: 'a minha pizzaria', of: 'da pizzaria', person: 'O cliente', item: 'o sabor', yours: 'da sua pizzaria' },
       canvas: document.getElementById('cena'),
-      scene: () => import('./scene.js?v=20261115').then((m) => (c, o) => new m.PizzaScene(c, o)),
+      scene: () => import('./scene.js?v=20261116').then((m) => (c, o) => new m.PizzaScene(c, o)),
     });
   </script>
 </body>

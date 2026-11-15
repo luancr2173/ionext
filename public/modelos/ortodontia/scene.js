@@ -3,7 +3,7 @@
 // transparente desce e se encaixa sobre eles. A rolagem gira o arco para mostrar a curva.
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/RoundedBoxGeometry.js';
-import { BaseScene, damp } from '../_kit/scene-base.js?v=20261115';
+import { BaseScene, damp } from '../_kit/scene-base.js?v=20261116';
 
 const N = 12;
 const ease = (t) => (t >= 1 ? 1 : 1 - Math.pow(1 - t, 3));

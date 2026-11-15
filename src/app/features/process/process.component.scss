@@ -209,12 +209,15 @@
 }
 
 .phase-content {
+  container-type: inline-size;
   position: relative;
 }
 
 .phase-title {
   font-family: var(--font-display);
+  /* limitado também pela largura da coluna: "Implementação" estourava no celular */
   font-size: clamp(3rem, 8vw, 7.5rem);
+  font-size: clamp(2rem, min(8vw, 12.5cqi), 7.5rem);
   font-weight: 800;
   font-stretch: 112%;
   letter-spacing: -0.055em;

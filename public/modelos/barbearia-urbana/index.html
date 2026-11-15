@@ -12,7 +12,7 @@
   <meta property="og:image" content="https://ionext.com.br/assets/portfolio/barbearia-urbana.jpg" />
   <meta name="theme-color" content="#0b0b0c" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../_kit/kit.css?v=20261115" />
+  <link rel="stylesheet" href="../_kit/kit.css?v=20261116" />
   <style>
     @font-face { font-family: 'Syne Variable'; src: url('../_vendor/fonts/syne-latin-wght-normal.woff2') format('woff2'); font-weight: 400 800; font-display: swap; }
     @font-face { font-family: 'Space Grotesk Variable'; src: url('../_vendor/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2'); font-weight: 300 700; font-display: swap; }
@@ -252,13 +252,13 @@
   <script src="../_vendor/ScrollTrigger.min.js"></script>
   <script src="../_vendor/lenis.min.js"></script>
   <script type="module">
-    import { initModelo } from '../_kit/kit.js?v=20261115';
+    import { initModelo } from '../_kit/kit.js?v=20261116';
     initModelo({
       name: 'barbearia urbana',
       segment: 'barbearia',
       copy: { mine: 'a minha barbearia', of: 'da barbearia', person: 'O cliente', item: 'o corte', yours: 'da sua barbearia' },
       canvas: document.getElementById('cena'),
-      scene: () => import('./scene.js?v=20261115').then((m) => (c, o) => new m.ScissorsScene(c, o)),
+      scene: () => import('./scene.js?v=20261116').then((m) => (c, o) => new m.ScissorsScene(c, o)),
     });
   </script>
 </body>

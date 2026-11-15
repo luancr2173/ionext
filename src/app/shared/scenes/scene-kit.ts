@@ -43,6 +43,20 @@ export const PALETTE = {
 
 export const damp = THREE.MathUtils.damp;
 
+/** Mesmo breakpoint do CSS (hero e page-hero): até aqui o palco 3D fica em cima do texto. */
+export const STACKED_MAX_WIDTH = 768;
+
+/**
+ * Proporção usada para escolher a composição. Com o palco em cima do texto (celular e
+ * tablet em pé), a arte é sempre centralizada: em telas baixas (iPhone com a barra do
+ * Safari) ou largas (tablet), o canvas passa de 0,8 e cairia no layout de tablet, com a
+ * arte deslocada para a direita e cortada na borda.
+ */
+export function layoutAspect(w: number, h: number): number {
+  const aspect = w / h;
+  return window.innerWidth <= STACKED_MAX_WIDTH ? Math.min(aspect, 0.79) : aspect;
+}
+
 // Mesmos caminhos do favicon.svg (viewBox 244 x 204)
 export const SYMBOL_PATHS = [
   'M 195.240 9.494 C 172.148 11.679, 159.517 13.295, 156.490 14.451 C 154.021 15.394, 152 16.423, 152 16.738 C 152 17.053, 153.153 18.823, 154.562 20.670 C 158.386 25.683, 166.962 31.757, 175.391 35.421 L 182.881 38.678 148.957 77.089 C 130.299 98.215, 115.026 115.744, 115.017 116.043 C 115.007 116.341, 120.354 121.883, 126.899 128.358 L 138.797 140.131 143.248 135.315 C 145.696 132.667, 151.479 126.186, 156.099 120.914 C 160.720 115.641, 171.703 103.266, 180.506 93.414 C 189.310 83.561, 198.733 72.912, 201.447 69.750 C 204.161 66.588, 206.719 64, 207.132 64 C 207.545 64, 209.264 66.587, 210.952 69.750 C 215.065 77.454, 221.194 84.443, 226.629 87.628 C 229.083 89.066, 231.306 90.027, 231.571 89.763 C 232.094 89.239, 233.078 76.002, 235.455 37.500 C 236.304 23.750, 237.244 11.038, 237.544 9.250 L 238.091 6 233.795 6.126 C 231.433 6.196, 214.083 7.711, 195.240 9.494',
@@ -230,7 +244,8 @@ export abstract class BaseScene implements ManagedScene {
   protected onDegrade(): void {}
 
   protected layoutFor(aspect: number): { x: number; y: number; scale: number } {
-    if (aspect < 0.8) return { x: 0, y: 2.15, scale: 0.46 };
+    // aspect é do CANVAS: no celular ele ocupa só parte da altura e é mais largo que a tela
+    if (aspect < 0.8) return { x: 0, y: 1.4, scale: 0.58 };
     if (aspect < 1.25) return { x: 1.9, y: 0.55, scale: 0.7 };
     return { x: 3.25, y: 0.35, scale: 0.92 };
   }
@@ -286,7 +301,7 @@ export abstract class BaseScene implements ManagedScene {
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
-    this.layout = this.layoutFor(w / h);
+    this.layout = this.layoutFor(layoutAspect(w, h));
     this.rig.position.set(this.layout.x, this.layout.y, 0);
     this.rig.scale.setScalar(this.layout.scale);
     this.renderOnce();

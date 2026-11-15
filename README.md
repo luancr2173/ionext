@@ -27,11 +27,14 @@ Frontend público institucional, construído como SPA em Angular 22 com componen
   - **Serviços** — `services-scene.ts`: os 5 produtos como ícones em metal (balão de conversa, calendário, seta de retorno, gráfico, janela de site) orbitando o símbolo, ligados por pulsos de dados.
   - **Processo** — `process-scene.ts`: uma planta que se monta em três atos — arestas (Diagnóstico), blocos descendo (Implementação), módulos acesos com dados correndo (Operação).
   - **Planos** — `plans-scene.ts`: três pilares de camadas (Essencial, Profissional, Enterprise); o do meio em azul sólido, como o plano em destaque.
+  - **Portfólio** — `portfolio-scene.ts`: galeria em perspectiva com as capturas reais dos sites-modelo.
   - **Contato e 404** continuam com o funil compacto (o contato é a saída do funil).
-  - Base comum em `scene-kit.ts` (renderer, luz, laço, mouse/scroll, tema, seletor de animações, queda de qualidade e limpeza). A diretiva `canvas[appFunnelScene="hero|compact|services|process|plans"]` escolhe a cena; cada uma é um chunk separado.
+  - Base comum em `scene-kit.ts` (renderer, luz, laço, mouse/scroll, tema, seletor de animações, queda de qualidade e limpeza). A diretiva `canvas[appFunnelScene="hero|compact|services|process|plans|portfolio"]` escolhe a cena; cada uma é um chunk separado.
+  - **Composição no celular e no tablet em pé**: até 768 px (mesmo breakpoint do CSS) o palco fica em cima do texto e a arte é sempre centralizada (`layoutAspect()` no `scene-kit.ts`, usado também pelo funil). Sem isso, em telas baixas (iPhone com a barra do Safari) e em tablets o canvas passava de 0,8 de proporção e a arte caía no layout de tablet, deslocada para a direita e cortada.
 - **Global**: botão flutuante do WhatsApp em todas as páginas; o "voltar ao topo" subiu para não colidir. Novos tokens de cor/fonte em `src/styles.scss` (as outras páginas herdam a tipografia e as cores). Logo da navegação sempre visível.
 - **Animações: Auto / Ativadas / Desativadas** (rodapé): "Desativadas" destrói o Lenis, reverte todas as animações GSAP (tudo visível), congela a cena 3D num quadro estático e para as animações CSS (classe `motion-off` no `<html>`).
-- **SEO**: título/descrição novos, JSON-LD `ProfessionalService`, `og-image.png` 1200×630 (`node scripts/generate-og-image.mjs` regenera), canonical.
+- **SEO**: JSON-LD `ProfessionalService`, `og-image.png` 1200×630 (`node scripts/generate-og-image.mjs` regenera). **Por página**: cada rota tem `title` (até 60 caracteres) e `data.description` (até 155) com serviço e cidade em `app.routes.ts`; o `SeoService` (`core/services/seo.service.ts`) aplica a cada navegação a descrição, o `canonical` e o `og:url` da própria página (sem `?ramo=`), os títulos/descrições de Open Graph e Twitter, e `noindex` na 404. Antes, todas as páginas declaravam canonical = home. O título e a descrição da home precisam bater com o `index.html`.
+- **Nomes longos em colunas** ("Diagnosticar" na grade Sob medida, "Implementação" nas fases do processo) são dimensionados pela largura da coluna (`container-type: inline-size` + `cqi`), não só pela tela.
 
 ### Como trocar o conteúdo
 

@@ -12,6 +12,7 @@
 import * as THREE from 'three';
 import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { layoutAspect } from '../../../shared/scenes/scene-kit';
 
 export type SceneTheme = 'dark' | 'light';
 
@@ -411,8 +412,8 @@ export class FunnelScene {
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
 
-    // Composição própria por formato de tela
-    const aspect = w / h;
+    // Composição própria por formato de tela (palco em cima do texto = sempre centralizado)
+    const aspect = layoutAspect(w, h);
     if (this.variant === 'compact') {
       // cabeçalho interno: funil menor, encostado à direita (ou no topo, no celular)
       this.layout =

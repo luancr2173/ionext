@@ -9,6 +9,7 @@ import { WhatsappFloatComponent } from './shared/components/whatsapp-float/whats
 import { SmoothScrollService } from './core/services/smooth-scroll.service';
 
 import { ThemeService } from './core/services/theme.service';
+import { SeoService } from './core/services/seo.service';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +36,8 @@ export class App {
   readonly isNavigating = signal<boolean>(false);
 
   constructor() {
+    inject(SeoService).init();
+
     this.router.events
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((event) => {

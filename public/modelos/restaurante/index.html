@@ -12,7 +12,7 @@
   <meta property="og:image" content="https://ionext.com.br/assets/portfolio/restaurante.jpg" />
   <meta name="theme-color" content="#120a0b" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../_kit/kit.css?v=20261115" />
+  <link rel="stylesheet" href="../_kit/kit.css?v=20261116" />
   <style>
     @font-face { font-family: 'Bodoni Moda Variable'; src: url('../_vendor/fonts/bodoni-moda-latin-wght-normal.woff2') format('woff2'); font-weight: 400 900; font-display: swap; }
     @font-face { font-family: 'Bodoni Moda Variable'; src: url('../_vendor/fonts/bodoni-moda-latin-wght-italic.woff2') format('woff2'); font-weight: 400 900; font-style: italic; font-display: swap; }
@@ -258,13 +258,13 @@
   <script src="../_vendor/ScrollTrigger.min.js"></script>
   <script src="../_vendor/lenis.min.js"></script>
   <script type="module">
-    import { initModelo } from '../_kit/kit.js?v=20261115';
+    import { initModelo } from '../_kit/kit.js?v=20261116';
     initModelo({
       name: 'restaurante',
       segment: 'restaurante',
       copy: { mine: 'o meu restaurante', of: 'do restaurante', person: 'O cliente', item: 'o dia e o horário', yours: 'do seu restaurante' },
       canvas: document.getElementById('cena'),
-      scene: () => import('./scene.js?v=20261115').then((m) => (c, o) => new m.WineGlassScene(c, o)),
+      scene: () => import('./scene.js?v=20261116').then((m) => (c, o) => new m.WineGlassScene(c, o)),
     });
   </script>
 </body>

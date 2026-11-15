@@ -2,7 +2,7 @@
 // Um poste de vidro com listras vermelho/branco/azul girando dentro, tampas de latão
 // polido. O mouse inclina o poste; a rolagem acelera o giro. Poeira de latão ao fundo.
 import * as THREE from 'three';
-import { BaseScene, damp, dotTexture } from '../_kit/scene-base.js?v=20261115';
+import { BaseScene, damp, dotTexture } from '../_kit/scene-base.js?v=20261116';
 
 /** Listras diagonais que fecham sem emenda nos dois eixos (viram hélice no cilindro). */
 function stripeTexture() {
@@ -43,7 +43,7 @@ export class BarberPoleScene extends BaseScene {
   }
 
   layoutFor(aspect) {
-    if (aspect < 0.8) return { x: 0, y: 0.8, scale: 0.62 };
+    if (aspect < 0.8) return { x: 0, y: 0.75, scale: 0.72 };
     if (aspect < 1.25) return { x: 1.5, y: 0.55, scale: 0.7 };
     return { x: 3.1, y: 0.5, scale: 0.84 };
   }

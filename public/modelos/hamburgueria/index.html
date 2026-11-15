@@ -12,7 +12,7 @@
   <meta property="og:image" content="https://ionext.com.br/assets/portfolio/hamburgueria.jpg" />
   <meta name="theme-color" content="#f7efe1" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../_kit/kit.css?v=20261115" />
+  <link rel="stylesheet" href="../_kit/kit.css?v=20261116" />
   <style>
     @font-face { font-family: 'Fraunces Variable'; src: url('../_vendor/fonts/fraunces-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
     @font-face { font-family: 'Fraunces Variable'; src: url('../_vendor/fonts/fraunces-latin-wght-italic.woff2') format('woff2'); font-weight: 100 900; font-style: italic; font-display: swap; }
@@ -227,13 +227,13 @@
   <script src="../_vendor/ScrollTrigger.min.js"></script>
   <script src="../_vendor/lenis.min.js"></script>
   <script type="module">
-    import { initModelo } from '../_kit/kit.js?v=20261115';
+    import { initModelo } from '../_kit/kit.js?v=20261116';
     initModelo({
       name: 'hamburgueria',
       segment: 'hamburgueria',
       copy: { mine: 'a minha hamburgueria', of: 'da hamburgueria', person: 'O cliente', item: 'o pedido', yours: 'da sua hamburgueria' },
       canvas: document.getElementById('cena'),
-      scene: () => import('./scene.js?v=20261115').then((m) => (c, o) => new m.BurgerScene(c, o)),
+      scene: () => import('./scene.js?v=20261116').then((m) => (c, o) => new m.BurgerScene(c, o)),
     });
   </script>
 </body>

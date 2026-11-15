@@ -2,7 +2,7 @@
 // Dez lentes de porcelana chegam soltas no espaço e se encaixam no arco do sorriso.
 // O mouse inclina o arco; a rolagem abre levemente as peças. Poeira dourada ao fundo.
 import * as THREE from 'three';
-import { BaseScene, damp, dotTexture } from '../_kit/scene-base.js?v=20261115';
+import { BaseScene, damp, dotTexture } from '../_kit/scene-base.js?v=20261116';
 
 // largura/altura relativas: centrais, laterais, caninos, pré-molares (de cada lado)
 const TEETH = [0.5, 0.42, 0.44, 0.4, 0.38].map((w, i) => ({ w, h: [0.74, 0.64, 0.7, 0.6, 0.56][i] }));
