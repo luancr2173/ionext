@@ -298,7 +298,7 @@ export const SITE_CONFIG = {
       text:
         'O Neo é treinado com o jeito da sua empresa: preços, regras, tom de voz. Responde em segundos, tira dúvidas, qualifica e marca a reunião — e só passa para o seu time quem está pronto para comprar.',
       bullets: [
-        'Responde no WhatsApp, Instagram e site',
+        'Responde no WhatsApp em segundos, 24/7',
         'Agenda direto no Google Agenda ou Outlook',
         'Registra cada conversa no seu CRM',
       ],
@@ -322,9 +322,9 @@ export const SITE_CONFIG = {
       {
         id: 'atender',
         name: 'Atendimento',
-        subtitle: 'Agente de IA no WhatsApp, Instagram ou site, 24 horas por dia, 7 dias na semana, qualifica cada cliente.',
+        subtitle: 'Agente de IA no WhatsApp, 24 horas por dia, 7 dias na semana, que qualifica cada cliente.',
         highlight: 'Nenhum contato fica sem resposta.',
-        whatsappMessage: 'Olá! Gostaria de mais informações e um orçamento da Ionext.\n\n*Serviço de interesse:* Atendimento\n*Finalidade:* Agente de IA no WhatsApp, Instagram ou site, 24 horas por dia, 7 dias na semanaras , qualifica cada cliente.\n\nPoderiam me passar uma proposta e detalhes de orçamento para essa solução?',
+        whatsappMessage: 'Olá! Gostaria de mais informações e um orçamento da Ionext.\n\n*Serviço de interesse:* Atendimento\n*Finalidade:* Agente de IA no WhatsApp, 24 horas por dia, 7 dias na semana, que qualifica cada cliente.\n\nPoderiam me passar uma proposta e detalhes de orçamento para essa solução?',
         description:
           'Responde em segundos, entende o contexto da mensagem, esclarece dúvidas com a base de conhecimento da sua empresa e encaminha contatos quentes.',
       },
@@ -703,7 +703,7 @@ export const SITE_CONFIG = {
         pricingModel: 'Preço fixo + mensalidade',
         featured: false,
         features: [
-          '1 agente de IA dedicado (WhatsApp ou Web)',
+          '1 agente de IA dedicado no WhatsApp',
           'Qualificação automática de clientes 24/7',
           'Transbordo humanizado para atendentes',
           'Base de conhecimento customizada',
