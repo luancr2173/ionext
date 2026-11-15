@@ -97,7 +97,11 @@ export class BaseScene {
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
-    this.layout = this.layoutFor(w / h);
+    // Até 900 px o palco fica em cima e o texto embaixo (ver o @media dos modelos):
+    // usa sempre o layout de celular (objeto centralizado), mesmo em telas baixas como
+    // o iPhone SE ou tablets em pé, onde o palco fica quase quadrado.
+    const stacked = innerWidth <= 900;
+    this.layout = this.layoutFor(stacked ? Math.min(w / h, 0.79) : w / h);
     this.rig.position.set(this.layout.x, this.layout.y, 0);
     this.rig.scale.setScalar(this.layout.scale);
     this.renderOnce();

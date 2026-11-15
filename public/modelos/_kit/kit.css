@@ -63,6 +63,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   border-color: color-mix(in srgb, var(--ink) 10%, transparent);
 }
 .site-header .container { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
+.site-header .brand { white-space: nowrap; }
 .site-nav { display: flex; gap: 30px; align-items: center; }
 .site-nav a { text-decoration: none; font-size: 15px; }
 .site-nav a:not(.btn):hover { color: var(--accent); }
@@ -216,4 +217,12 @@ html.motion-off .hero-stage canvas { opacity: 1; }
   }
   .site-nav.is-open { opacity: 1; pointer-events: auto; }
   .site-nav a { font-size: 26px; font-family: var(--font-display); }
+}
+
+/* telas bem estreitas (320 px, iPhone SE de 1ª geração) */
+@media (max-width: 340px) {
+  .container { width: min(100% - 32px, 1320px); }
+  .hero-title { font-size: min(2.9rem, 10vw) !important; }
+  .site-header .brand { font-size: 15px !important; }
+  .menu-toggle { padding: 7px 12px; }
 }
