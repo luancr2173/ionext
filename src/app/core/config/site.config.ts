@@ -513,45 +513,45 @@ export const SITE_CONFIG = {
         name: 'Criar',
         stepNumber: '04',
         category: 'Engenharia Criativa',
-        badge: 'Conteúdo & Voz',
-        description: 'Conteúdo, anúncios em escala e réplicas de voz e texto da marca.',
-        detailedTitle: 'Motor Criativo e Réplicas de Voz Orientadas pelo DNA da Marca',
+        badge: 'Conteúdo & Anúncios',
+        description: 'Conteúdo e anúncios em escala, alinhados à identidade da marca.',
+        detailedTitle: 'Produção de conteúdo e anúncios em escala com IA',
         detailedDescription:
-          'Escale a produção criativa de marketing e vendas sem perder o refinamento ou a identidade da sua marca. Nosso motor generativo é rigorosamente calibrado no seu tom de voz, regras de escrita e atributos de posicionamento. Ele produz dezenas de variações de criativos de alta conversão para mídia paga, roteiros de vendas, sequências de e-mail e até mensagens de áudio ultra-realistas com a voz autorizada de líderes e porta-vozes da empresa.',
+          'Escale a produção criativa de marketing e vendas sem perder a identidade da sua marca. A IA trabalha a partir das diretrizes de comunicação da empresa e produz variações de anúncios para mídia paga, roteiros de vendas, sequências de e-mail e posts, sempre com revisão do seu time antes de publicar.',
         howItWorks: [
           {
-            title: 'Modelagem do DNA da Marca',
+            title: 'Diretrizes da Marca',
             description:
-              'Absorção de manuais de identidade, diretrizes de comunicação e campanhas históricas vencedoras.',
+              'Leitura do manual de identidade, das diretrizes de comunicação e das campanhas que já deram resultado.',
           },
           {
             title: 'Produção de Criativos em Escala',
             description:
-              'Geração instantânea de dezenas de variações de cópia, testes de headlines e ângulos de vendas.',
+              'Dezenas de variações de texto, headlines e ângulos de venda para testar em cada campanha.',
           },
           {
-            title: 'Síntese de Voz Autorizada',
+            title: 'Testes A/B e Otimização',
             description:
-              'Gravação de mensagens de áudio personalizadas e humanizadas para follow-up de alta conversão no WhatsApp.',
+              'Os criativos entram em testes estruturados e as versões que vendem mais orientam a próxima rodada.',
           },
           {
-            title: 'Reciclagem Inteligente de Conteúdo',
+            title: 'Reaproveitamento de Conteúdo',
             description:
-              'Transformação de palestras, estudos de caso e reuniões em materiais ricos para o funil.',
+              'Palestras, estudos de caso e reuniões viram posts, e-mails e materiais para o funil.',
           },
         ],
         deliverables: [
-          'Motor gerador de copys calibrado no manual de voz e estilo da empresa',
-          'Clonagem e modelagem de voz sintética autorizada para comunicações no WhatsApp',
-          'Acervo dinâmico de criativos e testes A/B estruturados para Meta Ads e Google Ads',
-          'Esteira de produção ágil de roteiros comerciais e sequências de nutrição de clientes',
+          'Gerador de textos configurado com as diretrizes de comunicação da empresa',
+          'Acervo de criativos e testes A/B estruturados para Meta Ads e Google Ads',
+          'Calendário de conteúdo com roteiros para posts, Reels e anúncios',
+          'Esteira de produção de roteiros comerciais e sequências de nutrição de clientes',
         ],
         benefits: [
           'Redução de até 80% nos prazos e custos de desenvolvimento criativo',
           'Capacidade de testar novas hipóteses de mercado e posicionamento no mesmo dia',
-          'Comunicação em áudio hiperpersonalizada que eleva drasticamente o engajamento',
+          'Mais testes de anúncio por mês sem aumentar a equipe',
         ],
-        integrations: ['Meta Ads', 'Google Ads', 'ElevenLabs', 'Canva API', 'Notion', 'WordPress / Webflow'],
+        integrations: ['Meta Ads', 'Google Ads', 'Canva', 'Notion', 'RD Station', 'WordPress / Webflow'],
       },
       {
         id: 'cuidar',
