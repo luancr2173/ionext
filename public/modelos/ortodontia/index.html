@@ -11,7 +11,7 @@
   <meta property="og:image" content="https://ionext.com.br/assets/portfolio/ortodontia.jpg" />
   <meta name="theme-color" content="#eef1f2" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../_kit/kit.css" />
+  <link rel="stylesheet" href="../_kit/kit.css?v=20261115" />
   <style>
     @font-face { font-family: 'Syne Variable'; src: url('../_vendor/fonts/syne-latin-wght-normal.woff2') format('woff2'); font-weight: 400 800; font-display: swap; }
     @font-face { font-family: 'DM Serif Display'; src: url('../_vendor/fonts/dm-serif-display-latin-400-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
@@ -236,12 +236,12 @@
   <script src="../_vendor/ScrollTrigger.min.js"></script>
   <script src="../_vendor/lenis.min.js"></script>
   <script type="module">
-    import { initModelo } from '../_kit/kit.js';
+    import { initModelo } from '../_kit/kit.js?v=20261115';
     initModelo({
       name: 'ortodontia',
       segment: 'clínica',
       canvas: document.getElementById('cena'),
-      scene: () => import('./scene.js').then((m) => (c, o) => new m.OrtodontiaScene(c, o)),
+      scene: () => import('./scene.js?v=20261115').then((m) => (c, o) => new m.OrtodontiaScene(c, o)),
     });
   </script>
 </body>

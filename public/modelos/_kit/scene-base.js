@@ -41,7 +41,12 @@ export class BaseScene {
     pmrem.dispose();
 
     this.clock = new THREE.Timer();
-    this.onPointer = (e) => this.pointerTarget.set((e.clientX / innerWidth) * 2 - 1, -((e.clientY / innerHeight) * 2 - 1));
+    // só o mouse inclina a cena: no celular o dedo que rola a página deixaria o
+    // objeto torto e fora do centro, preso onde o toque terminou
+    this.onPointer = (e) => {
+      if (e.pointerType && e.pointerType !== 'mouse') return;
+      this.pointerTarget.set((e.clientX / innerWidth) * 2 - 1, -((e.clientY / innerHeight) * 2 - 1));
+    };
     this.onScroll = () => {
       const h = this.canvas.clientHeight || innerHeight;
       this.scroll = THREE.MathUtils.clamp(scrollY / h, 0, 1);

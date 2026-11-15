@@ -3,7 +3,7 @@
 // Bolhas sobem devagar como espuma; o mouse inclina o ninho, a rolagem faz o dente subir.
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/BufferGeometryUtils.js';
-import { BaseScene, damp } from '../_kit/scene-base.js';
+import { BaseScene, damp } from '../_kit/scene-base.js?v=20261115';
 
 const COLORS = [0xe8664f, 0x7fcbb4, 0xf3e3cf, 0xf2a08d];
 const ease = (t) => (t >= 1 ? 1 : 1 - Math.pow(2, -9 * t));

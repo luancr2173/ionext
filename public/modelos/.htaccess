@@ -1,0 +1,10 @@
+# Sites-modelo: os arquivos não têm hash no nome (kit.js, scene.js, kit.css...).
+# Sem isto a Hostinger manda cache de 7 dias e o celular de quem já abriu um modelo
+# continua com a versão antiga depois de uma correção. "no-cache" não impede o cache:
+# o navegador só confirma com o servidor (ETag) e recebe um 304 leve se nada mudou.
+# As bibliotecas em _vendor/ não mudam e continuam com cache longo (ver _vendor/.htaccess).
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|js|css)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>

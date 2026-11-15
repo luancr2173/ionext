@@ -2,7 +2,7 @@
 // Mechas largas e sedosas, em tons de caramelo, mel e rosé, ondulam como cabelo
 // solto ao vento. O mouse inclina o conjunto; a rolagem abre as ondas.
 import * as THREE from 'three';
-import { BaseScene, damp, dotTexture } from '../_kit/scene-base.js';
+import { BaseScene, damp, dotTexture } from '../_kit/scene-base.js?v=20261115';
 
 const COLORS = [0x8a4a2f, 0xa8553b, 0xc98a5e, 0xe0b48a, 0xd9a294, 0x6e3a26];
 

@@ -1,0 +1,7 @@
+# Bibliotecas e fontes de terceiros (Three.js, GSAP, Lenis, fontes): não mudam,
+# então mantêm cache longo, ao contrário do resto de /modelos/.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2)$">
+    Header set Cache-Control "public, max-age=2592000, immutable"
+  </FilesMatch>
+</IfModule>

@@ -2,7 +2,7 @@
 // Um poste de vidro com listras vermelho/branco/azul girando dentro, tampas de latão
 // polido. O mouse inclina o poste; a rolagem acelera o giro. Poeira de latão ao fundo.
 import * as THREE from 'three';
-import { BaseScene, damp, dotTexture } from '../_kit/scene-base.js';
+import { BaseScene, damp, dotTexture } from '../_kit/scene-base.js?v=20261115';
 
 /** Listras diagonais que fecham sem emenda nos dois eixos (viram hélice no cilindro). */
 function stripeTexture() {

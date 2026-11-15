@@ -2,7 +2,7 @@
 // Uma tesoura de aço escovado abre e fecha em cortes curtos enquanto fios de cabelo
 // caem ao redor. O mouse gira a tesoura; a rolagem acelera a queda dos fios.
 import * as THREE from 'three';
-import { BaseScene, damp } from '../_kit/scene-base.js';
+import { BaseScene, damp } from '../_kit/scene-base.js?v=20261115';
 
 function bladeGeometry() {
   const s = new THREE.Shape();

@@ -12,7 +12,7 @@
   <meta property="og:image" content="https://ionext.com.br/assets/portfolio/salao-beleza.jpg" />
   <meta name="theme-color" content="#f6efe9" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../_kit/kit.css" />
+  <link rel="stylesheet" href="../_kit/kit.css?v=20261115" />
   <style>
     @font-face { font-family: 'Bodoni Moda Variable'; src: url('../_vendor/fonts/bodoni-moda-latin-wght-normal.woff2') format('woff2'); font-weight: 400 900; font-display: swap; }
     @font-face { font-family: 'Bodoni Moda Variable'; src: url('../_vendor/fonts/bodoni-moda-latin-wght-italic.woff2') format('woff2'); font-weight: 400 900; font-style: italic; font-display: swap; }
@@ -273,13 +273,13 @@
   <script src="../_vendor/ScrollTrigger.min.js"></script>
   <script src="../_vendor/lenis.min.js"></script>
   <script type="module">
-    import { initModelo } from '../_kit/kit.js';
+    import { initModelo } from '../_kit/kit.js?v=20261115';
     initModelo({
       name: 'salão de beleza',
       segment: 'salão',
       copy: { mine: 'o meu salão', of: 'do salão', person: 'A cliente', item: 'o serviço', yours: 'do seu salão' },
       canvas: document.getElementById('cena'),
-      scene: () => import('./scene.js').then((m) => (c, o) => new m.SilkHairScene(c, o)),
+      scene: () => import('./scene.js?v=20261115').then((m) => (c, o) => new m.SilkHairScene(c, o)),
     });
   </script>
 </body>
