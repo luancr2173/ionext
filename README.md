@@ -55,19 +55,34 @@ node_modules/node/bin/node.exe node_modules/@angular/cli/bin/ng.js serve
 
 ## Portfólio e sites-modelo
 
-`/portfolio` mostra três **sites-modelo para clínicas odontológicas**. Os modelos **não usam nome de marca nem de profissional** (aparecem como "Sua Clínica" e "Nome do(a) dentista"), para não coincidir com clínicas reais; endereço e telefone são de exemplo; cada modelo tem um selo de "Modelo de demonstração" no topo, `noindex` e uma nota no rodapé. O Neo (agente de WhatsApp) envia este link quando a clínica demonstra interesse e apresenta os sites como modelos, nunca como clientes.
+`/portfolio` mostra **sites-modelo por ramo de atuação**, com um seletor no topo da lista (Todos · Clínicas odontológicas · Barbearias & salões). O ramo fica na URL, então dá para mandar o link já filtrado:
 
-| Modelo | Arquivo | Conceito 3D | Paleta e tipografia |
-| --- | --- | --- | --- |
-| Modelo 01 — Odontologia estética | `public/modelos/estetica/` | Lentes de porcelana chegam soltas e se encaixam no arco do sorriso | Escuro `#0d0c0b` + champanhe `#d9b88a` · Bodoni Moda + Instrument Sans + IBM Plex Mono |
-| Modelo 02 — Odontopediatria | `public/modelos/odontopediatria/` | Dente brilhante num ninho de bolhas coral e menta, com espuma subindo | Creme `#faf6ef` + coral `#c43d27` · Fraunces + Space Grotesk + JetBrains Mono |
-| Modelo 03 — Ortodontia | `public/modelos/ortodontia/` | Dentes tortos se alinham e um alinhador transparente se encaixa | Cinza-frio `#eef1f2` + petróleo `#0d6b74` · Syne + DM Serif Display + Instrument Sans |
+- `/portfolio?ramo=clinicas` — só os modelos de clínica
+- `/portfolio?ramo=barbearias` — só os modelos de barbearia e salão
+
+Os modelos **não usam nome de marca nem de profissional** (aparecem como "Sua Clínica", "Sua Barbearia", "Nome do(a) dentista", "Nome do barbeiro"), para não coincidir com negócios reais; endereço, telefone e preços são de exemplo; cada modelo tem um selo de "Modelo de demonstração" no topo, `noindex` e uma nota no rodapé. O Neo (agente de WhatsApp) envia este link quando o cliente demonstra interesse e apresenta os sites como modelos, nunca como clientes.
+
+| Modelo | Ramo | Arquivo | Conceito 3D | Paleta e tipografia |
+| --- | --- | --- | --- | --- |
+| Odontologia estética | Clínicas | `public/modelos/estetica/` | Lentes de porcelana chegam soltas e se encaixam no arco do sorriso | Escuro `#0d0c0b` + champanhe `#d9b88a` · Bodoni Moda + Instrument Sans + IBM Plex Mono |
+| Odontopediatria | Clínicas | `public/modelos/odontopediatria/` | Dente brilhante num ninho de bolhas coral e menta, com espuma subindo | Creme `#faf6ef` + coral `#c43d27` · Fraunces + Space Grotesk + JetBrains Mono |
+| Ortodontia | Clínicas | `public/modelos/ortodontia/` | Dentes tortos se alinham e um alinhador transparente se encaixa | Cinza-frio `#eef1f2` + petróleo `#0d6b74` · Syne + DM Serif Display + Instrument Sans |
+| Barbearia clássica | Barbearias & salões | `public/modelos/barbearia-classica/` | Poste de barbeiro de vidro com as listras subindo e tampas de latão | Café `#120e0b` + latão `#c8933f` · Fraunces + Instrument Sans + IBM Plex Mono |
+| Barbearia urbana | Barbearias & salões | `public/modelos/barbearia-urbana/` | Tesoura de aço cortando no ar, com fios de cabelo caindo | Preto `#0b0b0c` + verde-limão `#d4ff3a` · Syne + Space Grotesk + JetBrains Mono |
+| Salão de beleza | Barbearias & salões | `public/modelos/salao-beleza/` | Mechas sedosas em tons de mel e rosé ondulando | Creme `#f6efe9` + terracota `#a8553b` · Bodoni Moda + Instrument Sans + IBM Plex Mono |
+
+- **Novo ramo ou modelo**: acrescente o ramo em `PORTFOLIO_SECTORS` (id, nome e CTA do fim da página) e o modelo em `PORTFOLIO_ITEMS` com o `sector` certo. O aviso do botão de WhatsApp dos modelos se adapta ao ramo pela opção `copy` do `initModelo` (ex.: "WhatsApp da barbearia", "O cliente").
 
 - **Arte da página `/portfolio`**: `src/app/shared/scenes/portfolio-scene.ts` — galeria em perspectiva com as capturas reais dos modelos em molduras de metal, em loop (as telas somem nas pontas para não passar por baixo do título).
 - Os modelos são HTML estático (fora do Angular), com Three.js, GSAP, ScrollTrigger e Lenis **auto-hospedados** em `public/modelos/_vendor/` (sem CDN) e comportamento comum em `public/modelos/_kit/` (selo, seletor de animações, menu, letreiro, cena 3D com fallback em SVG).
 - Todo botão de "Agendar" nos modelos abre um aviso explicando que é um modelo e oferece falar com a Ionext no WhatsApp com a mensagem do modelo.
 - Textos e links do portfólio: `SITE_CONFIG.pages.portfolio` e `PORTFOLIO_ITEMS` em `site.config.ts`.
-- Capturas em `public/assets/portfolio/` (1440×900 e 390×844 @2x), geradas com Playwright e animações desativadas (quadro final da cena). Ao mudar um modelo, gere de novo.
+- Capturas em `public/assets/portfolio/` (1440×900 e 780×1688 no celular), em JPG. Ao mudar um modelo, gere de novo. Sem Playwright, dá para usar o Chrome headless (com o servidor de dev rodando); no celular use janela de 500 px com escala 1,56, porque o headless não abre janelas mais estreitas que ~500 px:
+
+  ```bash
+  chrome --headless=new --use-angle=swiftshader --enable-unsafe-swiftshader --hide-scrollbars --window-size=1440,900 --virtual-time-budget=7000 --screenshot=capa.png http://localhost:4317/modelos/<slug>/index.html
+  chrome --headless=new --use-angle=swiftshader --enable-unsafe-swiftshader --hide-scrollbars --window-size=500,1082 --force-device-scale-factor=1.56 --virtual-time-budget=7000 --screenshot=capa-mobile.png http://localhost:4317/modelos/<slug>/index.html
+  ```
 - Licenças: fontes OFL (arquivos `LICENSE-*` em `public/modelos/_vendor/fonts/`), Three.js MIT, Lenis MIT, GSAP licença padrão (gratuita).
 
 ## Requisitos e execução local

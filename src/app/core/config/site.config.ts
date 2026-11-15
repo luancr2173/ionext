@@ -235,17 +235,19 @@ export const SITE_CONFIG = {
     portfolio: {
       index: '05',
       label: 'Portfólio de sites',
-      lead: 'Sites para clínicas',
+      lead: 'Sites para o seu negócio',
       em: 'com cara de marca grande.',
       subtitle:
-        'Três modelos de demonstração para clínicas odontológicas, sem marca real e com dados de exemplo. O design, a experiência no celular e os botões de WhatsApp são o padrão que a Ionext entrega.',
+        'Modelos de demonstração para clínicas, barbearias e salões, sem marca real e com dados de exemplo. Escolha o seu ramo: o design, a experiência no celular e os botões de WhatsApp são o padrão que a Ionext entrega.',
       note:
-        'Estes são modelos criados pela Ionext para mostrar o padrão de trabalho, não sites de clientes. Cada site real é feito do zero com a marca, as fotos, os tratamentos e os profissionais da clínica.',
+        'Estes são modelos criados pela Ionext para mostrar o padrão de trabalho, não sites de clientes. Cada site real é feito do zero com a marca, as fotos, os serviços e os profissionais do seu negócio.',
+      filterLabel: 'Ramo de atuação',
+      filterAll: 'Todos os ramos',
       cta: {
-        lead: 'A sua clínica pode ser',
-        em: 'a próxima.',
-        text: 'Conte como a clínica atende hoje. A gente mostra como ficaria o site dela, com WhatsApp em cada botão e pronto para aparecer no Google.',
-        message: 'Olá! Vi o portfólio de sites da Ionext e quero um site assim para a minha clínica.',
+        lead: 'O seu negócio pode ser',
+        em: 'o próximo.',
+        text: 'Conte como você atende hoje. A gente mostra como ficaria o seu site, com WhatsApp em cada botão e pronto para aparecer no Google.',
+        message: 'Olá! Vi o portfólio de sites da Ionext e quero um site assim para o meu negócio.',
         secondaryLabel: 'Ver serviços',
         secondaryLink: '/servicos',
       },
@@ -796,8 +798,42 @@ export const SITE_CONFIG = {
 } as const;
 
 /** Sites-modelo do portfólio (sem marca real; arquivos em public/modelos/<slug>/). */
+/** Ramos de atuação do portfólio. O id vai na URL: /portfolio?ramo=barbearias */
+export type PortfolioSectorId = 'clinicas' | 'barbearias';
+
+export interface PortfolioSector {
+  id: PortfolioSectorId;
+  label: string;
+  /** Texto do CTA do fim da página quando o ramo está selecionado. */
+  cta: { lead: string; em: string; text: string; message: string };
+}
+
+export const PORTFOLIO_SECTORS: readonly PortfolioSector[] = [
+  {
+    id: 'clinicas',
+    label: 'Clínicas odontológicas',
+    cta: {
+      lead: 'A sua clínica pode ser',
+      em: 'a próxima.',
+      text: 'Conte como a clínica atende hoje. A gente mostra como ficaria o site dela, com WhatsApp em cada botão e pronto para aparecer no Google.',
+      message: 'Olá! Vi o portfólio de sites da Ionext e quero um site assim para a minha clínica.',
+    },
+  },
+  {
+    id: 'barbearias',
+    label: 'Barbearias & salões',
+    cta: {
+      lead: 'O seu espaço pode ser',
+      em: 'o próximo.',
+      text: 'Conte como a sua barbearia ou o seu salão marca horários hoje. A gente mostra como ficaria o site, com agendamento pelo WhatsApp em cada botão.',
+      message: 'Olá! Vi o portfólio de sites da Ionext e quero um site assim para a minha barbearia ou salão.',
+    },
+  },
+];
+
 export interface PortfolioItem {
   slug: string;
+  sector: PortfolioSectorId;
   name: string;
   segment: string;
   concept: string;
@@ -812,6 +848,7 @@ export interface PortfolioItem {
 export const PORTFOLIO_ITEMS: readonly PortfolioItem[] = [
   {
     slug: 'estetica',
+    sector: 'clinicas',
     name: 'Odontologia estética',
     segment: 'Escuro e editorial',
     concept: 'Lentes de porcelana se alinhando no arco do sorriso.',
@@ -825,6 +862,7 @@ export const PORTFOLIO_ITEMS: readonly PortfolioItem[] = [
   },
   {
     slug: 'odontopediatria',
+    sector: 'clinicas',
     name: 'Odontopediatria',
     segment: 'Claro e acolhedor',
     concept: 'Um dente que flutua num ninho de bolhas coloridas.',
@@ -838,6 +876,7 @@ export const PORTFOLIO_ITEMS: readonly PortfolioItem[] = [
   },
   {
     slug: 'ortodontia',
+    sector: 'clinicas',
     name: 'Ortodontia',
     segment: 'Técnico e limpo',
     concept: 'Dentes que se alinham e um alinhador transparente que se encaixa.',
@@ -848,5 +887,47 @@ export const PORTFOLIO_ITEMS: readonly PortfolioItem[] = [
     image: '/assets/portfolio/ortodontia.jpg',
     imageMobile: '/assets/portfolio/ortodontia-mobile.jpg',
     whatsappMessage: 'Olá! Vi o modelo de site de ortodontia no portfólio da Ionext e quero um site assim para a minha clínica.',
+  },
+  {
+    slug: 'barbearia-classica',
+    sector: 'barbearias',
+    name: 'Barbearia clássica',
+    segment: 'Escuro e tradicional',
+    concept: 'Um poste de barbeiro de vidro com as listras girando.',
+    description:
+      'Tons escuros, latão e tipografia clássica para a barbearia de tesoura e navalha: cardápio de serviços com preço, barbeiros e agendamento.',
+    features: ['Cena 3D própria', 'Cardápio de serviços com preço', 'Agendamento pelo WhatsApp', 'Feito para o celular'],
+    url: '/modelos/barbearia-classica/index.html',
+    image: '/assets/portfolio/barbearia-classica.jpg',
+    imageMobile: '/assets/portfolio/barbearia-classica-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de barbearia clássica no portfólio da Ionext e quero um site assim para a minha barbearia.',
+  },
+  {
+    slug: 'barbearia-urbana',
+    sector: 'barbearias',
+    name: 'Barbearia urbana',
+    segment: 'Preto e neon',
+    concept: 'Uma tesoura de aço que corta no ar enquanto os fios caem.',
+    description:
+      'Preto, verde-limão e letras grandes para a barbearia de degradê e freestyle: cortes em cartões, plano mensal e time com Instagram.',
+    features: ['Cena 3D própria', 'Plano mensal em destaque', 'Time com Instagram', 'Feito para o celular'],
+    url: '/modelos/barbearia-urbana/index.html',
+    image: '/assets/portfolio/barbearia-urbana.jpg',
+    imageMobile: '/assets/portfolio/barbearia-urbana-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de barbearia urbana no portfólio da Ionext e quero um site assim para a minha barbearia.',
+  },
+  {
+    slug: 'salao-beleza',
+    sector: 'barbearias',
+    name: 'Salão de beleza',
+    segment: 'Claro e sofisticado',
+    concept: 'Mechas sedosas em tons de mel e rosé ondulando.',
+    description:
+      'Claro, elegante e feminino: serviços por área (cabelo, tratamentos, unhas e rosto), equipe e agendamento com foto de referência.',
+    features: ['Cena 3D própria', 'Serviços por área com preço', 'Equipe em destaque', 'Feito para o celular'],
+    url: '/modelos/salao-beleza/index.html',
+    image: '/assets/portfolio/salao-beleza.jpg',
+    imageMobile: '/assets/portfolio/salao-beleza-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de salão de beleza no portfólio da Ionext e quero um site assim para o meu salão.',
   },
 ];

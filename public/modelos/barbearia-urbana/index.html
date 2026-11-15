@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Modelo de site: barbearia urbana | IONEXT</title>
+  <meta name="description" content="Modelo de demonstração da IONEXT: site para barbearia urbana, sem marca real e com dados de exemplo." />
+  <!-- modelo com dados de exemplo: não deve aparecer no Google como se fosse uma barbearia real -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta property="og:title" content="Modelo de site para barbearia urbana — IONEXT" />
+  <meta property="og:description" content="Modelo de demonstração (sem marca real) de site para barbearia." />
+  <meta property="og:image" content="https://ionext.com.br/assets/portfolio/barbearia-urbana.jpg" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../_kit/kit.css" />
+  <style>
+    @font-face { font-family: 'Syne Variable'; src: url('../_vendor/fonts/syne-latin-wght-normal.woff2') format('woff2'); font-weight: 400 800; font-display: swap; }
+    @font-face { font-family: 'Space Grotesk Variable'; src: url('../_vendor/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2'); font-weight: 300 700; font-display: swap; }
+    @font-face { font-family: 'JetBrains Mono Variable'; src: url('../_vendor/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2'); font-weight: 100 800; font-display: swap; }
+    :root {
+      --bg: #0b0b0c;
+      --ink: #ededea;
+      --accent: #d4ff3a;
+      --on-accent: #0b0b0c;
+      --font-display: 'Syne Variable', 'Arial Black', sans-serif;
+      --font-text: 'Space Grotesk Variable', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+    }
+    .brand { font-family: var(--font-display); font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; text-decoration: none; }
+    .brand em { font-style: normal; color: var(--bg); background: var(--accent); padding: 0 6px; margin-left: 4px; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase; }
+    .accent { color: var(--accent); }
+    .hl { color: var(--accent); }
+    .hero-stage::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(11,11,12,0.95) 0%, rgba(11,11,12,0.6) 40%, rgba(11,11,12,0) 66%);
+    }
+    .hero-title { margin: 0 0 28px; font-size: clamp(3rem, 6.6vw, 7.4rem); line-height: 0.88; max-width: 9ch; }
+    .hero-sub { max-width: 44ch; font-size: 19px; margin: 0 0 36px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn { border-radius: 0; text-transform: uppercase; letter-spacing: 0.04em; }
+    .btn-ghost { border-color: var(--ink); }
+    .hero-meta { margin-top: 64px; display: flex; gap: 32px; flex-wrap: wrap; }
+    [data-marquee] { background: var(--accent); color: var(--on-accent); border: 0; }
+    .marquee-track span { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(28px, 4vw, 56px); }
+    .marquee-track i { font-style: normal; font-size: 22px; }
+    section { padding: 140px 0; }
+    .section-head { display: grid; grid-template-columns: 220px 1fr; gap: 32px; margin-bottom: 64px; }
+    .section-title { margin: 0; font-size: clamp(2.6rem, 6vw, 6.4rem); line-height: 0.9; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: color-mix(in srgb, var(--ink) 14%, transparent); border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+    .stat { background: var(--bg); padding: 34px 28px; }
+    .stat strong { display: block; font-family: var(--font-display); font-size: clamp(48px, 6vw, 84px); line-height: 1; color: var(--accent); }
+    .stat span { display: block; margin-top: 10px; }
+    /* serviços em cartões */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: color-mix(in srgb, var(--ink) 14%, transparent); border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+    .card { background: var(--bg); padding: 30px 28px 28px; display: flex; flex-direction: column; gap: 14px; min-height: 260px; transition: background-color 0.35s; }
+    .card:hover { background: color-mix(in srgb, var(--accent) 8%, var(--bg)); }
+    .card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .card h3 { margin: 0; font-size: clamp(22px, 2.2vw, 30px); line-height: 1; }
+    .card .price { font-family: var(--font-mono); color: var(--accent); white-space: nowrap; }
+    .card p { margin: 0; flex: 1; }
+    .card .list-link { align-self: flex-start; }
+    .tag { display: inline-block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); padding: 3px 8px; }
+    .team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .member { border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); padding: 28px; min-height: 300px; display: flex; flex-direction: column; justify-content: space-between; }
+    .avatar { aspect-ratio: 1; width: 96px; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); font-family: var(--font-display); font-weight: 800; font-size: 34px; }
+    .member h3 { margin: 22px 0 6px; font-size: 24px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .final h2 { font-size: clamp(3.4rem, 11vw, 12rem); line-height: 0.84; margin: 0 0 40px; }
+    .final-grid { display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 32px; align-items: end; }
+    .fallback path { fill: none; stroke: var(--accent); stroke-width: 2; }
+    @media (max-width: 900px) {
+      section { padding: 96px 0; }
+      .hero-stage { height: 62svh; }
+      .hero-stage::after { background: linear-gradient(180deg, rgba(11,11,12,0) 35%, rgba(11,11,12,0.9) 92%); }
+      .hero-inner { padding-top: 46svh; padding-bottom: 48px; }
+      .section-head, .two-col, .stats, .cards, .team, .final-grid { grid-template-columns: 1fr; }
+      .section-head { gap: 14px; margin-bottom: 40px; }
+      .card { min-height: 0; }
+    }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "../_vendor/three/three.module.js", "three/addons/": "../_vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#topo">Sua Barber<em>Co</em></a>
+      <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="site-nav" id="menu" aria-label="Principal">
+        <a href="#servicos">Serviços</a>
+        <a href="#time">Time</a>
+        <a href="#como-funciona">Agendamento</a>
+        <a href="#duvidas">Dúvidas</a>
+        <button class="btn btn-solid" type="button" data-wa>Marcar corte</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="topo">
+    <section class="hero" style="padding:0">
+      <div class="hero-stage" aria-hidden="true">
+        <canvas id="cena"></canvas>
+        <svg class="fallback" viewBox="0 0 400 300">
+          <circle cx="80" cy="220" r="40" fill="none" stroke="#d4ff3a" stroke-width="2" /><circle cx="170" cy="250" r="40" fill="none" stroke="#d4ff3a" stroke-width="2" />
+          <path d="M110 195 L380 40 M140 225 L380 90" />
+        </svg>
+      </div>
+      <div class="container hero-inner">
+        <p class="mono muted">Barbearia urbana · Brasília — DF</p>
+        <h1 class="hero-title" data-split>Degradê no <span class="hl">detalhe.</span></h1>
+        <p class="hero-sub muted">Fade, freestyle, platinado e barba desenhada. Marque pelo WhatsApp em menos de um minuto e chegue com o horário garantido.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-solid" type="button" data-wa>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>
+            Marcar corte
+          </button>
+          <a class="btn btn-ghost" href="#servicos">Ver serviços</a>
+        </div>
+        <div class="hero-meta mono muted">
+          <span>Seg a sáb · 10h às 22h</span>
+          <span>Dom · 10h às 16h</span>
+          <span>Plano mensal disponível</span>
+        </div>
+      </div>
+    </section>
+
+    <div data-marquee aria-hidden="true">
+      <div class="marquee-track">
+        <span>Low fade <i>✕</i> Mid fade <i>✕</i> Freestyle <i>✕</i> Platinado <i>✕</i> Barba desenhada <i>✕</i> Sobrancelha <i>✕</i></span>
+        <span>Low fade <i>✕</i> Mid fade <i>✕</i> Freestyle <i>✕</i> Platinado <i>✕</i> Barba desenhada <i>✕</i> Sobrancelha <i>✕</i></span>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(01) — A cena</p>
+          <h2 class="section-title" data-split>Mais que um corte: <span class="hl">um ponto de encontro.</span></h2>
+        </div>
+        <div class="stats">
+          <div class="stat" data-reveal><strong>00+</strong><span class="muted">cortes por mês (exemplo)</span></div>
+          <div class="stat" data-reveal><strong>4,9</strong><span class="muted">nota no Google (exemplo)</span></div>
+          <div class="stat" data-reveal><strong>1 min</strong><span class="muted">para marcar pelo WhatsApp</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicos" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(02) — Serviços</p>
+          <h2 class="section-title" data-split>Escolhe <span class="hl">o estilo.</span></h2>
+        </div>
+        <div class="cards">
+          <article class="card" data-reveal><div class="card-top"><h3>Degradê</h3><span class="price">R$ 00</span></div><p class="muted">Low, mid ou high fade, na navalha ou na máquina zero.</p><button class="list-link" type="button" data-wa>Marcar</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Freestyle</h3><span class="price">R$ 00</span></div><p class="muted">Risco, desenho e arte na lateral. Traga a referência.</p><button class="list-link" type="button" data-wa>Marcar</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Barba desenhada</h3><span class="price">R$ 00</span></div><p class="muted">Contorno na navalha, alinhamento e hidratação.</p><button class="list-link" type="button" data-wa>Marcar</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Platinado</h3><span class="price">R$ 00</span></div><p class="muted">Descoloração, matização e cuidado com o couro cabeludo.</p><button class="list-link" type="button" data-wa>Marcar</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Corte + barba</h3><span class="tag">Mais pedido</span></div><p class="muted">O combo completo, com sobrancelha de cortesia. R$ 00.</p><button class="list-link" type="button" data-wa>Marcar</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Plano mensal</h3><span class="price">R$ 00/mês</span></div><p class="muted">Cortes ilimitados no mês, com horário reservado toda semana.</p><button class="list-link" type="button" data-wa>Assinar</button></article>
+        </div>
+        <p class="demo-note muted" style="margin-top:28px">Preços de exemplo: no site real entram os valores, os combos e os planos da barbearia.</p>
+      </div>
+    </section>
+
+    <section id="time" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(03) — Time</p>
+          <h2 class="section-title" data-split>Quem faz <span class="hl">o corte.</span></h2>
+        </div>
+        <div class="team">
+          <article class="member" data-reveal><div class="avatar">01</div><div><h3>Nome do barbeiro</h3><p class="muted">Degradê e freestyle · @perfil (exemplo)</p></div></article>
+          <article class="member" data-reveal><div class="avatar">02</div><div><h3>Nome do barbeiro</h3><p class="muted">Platinado e química · @perfil (exemplo)</p></div></article>
+          <article class="member" data-reveal><div class="avatar">03</div><div><h3>Nome do barbeiro</h3><p class="muted">Barba e navalha · @perfil (exemplo)</p></div></article>
+        </div>
+        <p class="demo-note muted" style="margin-top:28px">Espaço do time: no site real entram as fotos, os cortes de cada barbeiro e o link do Instagram.</p>
+      </div>
+    </section>
+
+    <section id="como-funciona" style="padding-top:0">
+      <div class="container two-col">
+        <div>
+          <p class="mono accent" data-reveal>(04) — Agendamento</p>
+          <h2 class="section-title" data-split style="margin-top:24px">Marcou, <span class="hl">tá garantido.</span></h2>
+        </div>
+        <div class="steps">
+          <div class="steps-rail"><span data-progress></span></div>
+          <div class="step" data-reveal><span class="mono muted">01</span><h3>Chama no WhatsApp</h3><p class="muted">Toca no botão e a mensagem já vai com o corte que você quer.</p></div>
+          <div class="step" data-reveal><span class="mono muted">02</span><h3>Escolhe barbeiro e horário</h3><p class="muted">Você recebe os horários livres e confirma na hora.</p></div>
+          <div class="step" data-reveal><span class="mono muted">03</span><h3>Recebe o lembrete</h3><p class="muted">Um aviso antes do horário. Imprevisto? Responde e remarca.</p></div>
+          <div class="step" data-reveal><span class="mono muted">04</span><h3>Chega e senta</h3><p class="muted">Sem fila e sem espera. Música boa e cadeira pronta.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas" style="padding-top:0">
+      <div class="container two-col">
+        <div>
+          <p class="mono accent" data-reveal>(05) — Dúvidas</p>
+          <h2 class="section-title" data-split style="margin-top:24px">Pergunta <span class="hl">aí.</span></h2>
+        </div>
+        <div class="faq">
+          <details><summary>Como funciona o plano mensal?</summary><p class="muted">Você paga um valor fixo por mês e corta quantas vezes quiser, com horário reservado. No site real, aqui entram as regras do plano.</p></details>
+          <details><summary>Posso levar uma foto de referência?</summary><p class="muted">Deve! Manda a foto no WhatsApp junto com o agendamento e o barbeiro já chega preparado.</p></details>
+          <details><summary>Atendem criança?</summary><p class="muted">No site real, aqui entra a idade mínima e os horários para os pequenos.</p></details>
+          <details><summary>Quais formas de pagamento?</summary><p class="muted">Pix, débito e crédito. No site real, aqui entram as condições da barbearia.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final" style="padding-top:0">
+      <div class="container">
+        <h2 data-split>Bora <span class="hl">cortar?</span></h2>
+        <div class="final-grid">
+          <div><p class="mono muted">Endereço</p><p>Endereço de exemplo, Taguatinga<br />Brasília — DF</p></div>
+          <div><p class="mono muted">Horário</p><p>Seg a sáb, 10h às 22h<br />Dom, 10h às 16h</p></div>
+          <div><p class="mono muted">Contato</p><p>(61) 0000-0000 (exemplo)</p></div>
+          <button class="btn btn-solid" type="button" data-wa>Marcar pelo WhatsApp</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="#topo">Sua Barber<em>Co</em></a><p class="muted" style="margin-top:14px">Barbearia urbana em Brasília.</p></div>
+        <div><p class="mono muted">Redes</p><p>@suabarberco (exemplo)</p></div>
+        <div><p class="mono muted">Este é um modelo</p><p class="muted">Sem marca real: nome, time, preços, endereço e telefone são espaços de exemplo. Site-modelo criado pela <a href="/portfolio">IONEXT</a>.</p></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="mono muted">© <span data-year></span> Sua BarberCo · modelo de demonstração</span>
+        <div class="motion-toggle" role="group" aria-label="Animações">
+          <span class="mono muted">Animações</span>
+          <button type="button" data-motion="auto">Auto</button>
+          <button type="button" data-motion="on">Ativadas</button>
+          <button type="button" data-motion="off">Desativadas</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../_vendor/gsap.min.js"></script>
+  <script src="../_vendor/ScrollTrigger.min.js"></script>
+  <script src="../_vendor/lenis.min.js"></script>
+  <script type="module">
+    import { initModelo } from '../_kit/kit.js';
+    initModelo({
+      name: 'barbearia urbana',
+      segment: 'barbearia',
+      copy: { mine: 'a minha barbearia', of: 'da barbearia', person: 'O cliente', item: 'o corte', yours: 'da sua barbearia' },
+      canvas: document.getElementById('cena'),
+      scene: () => import('./scene.js').then((m) => (c, o) => new m.ScissorsScene(c, o)),
+    });
+  </script>
+</body>
+</html>

@@ -12,7 +12,7 @@ export function ionextWhatsapp(message) {
 }
 
 /**
- * @param {{ name: string, segment: string, scene?: () => Promise<any>, canvas?: HTMLCanvasElement }} opts
+ * @param {{ name: string, segment: string, copy?: Record<string, string>, scene?: () => Promise<any>, canvas?: HTMLCanvasElement }} opts
  */
 export function initModelo(opts) {
   const html = document.documentElement;
@@ -212,9 +212,21 @@ function splitTitles() {
   });
 }
 
-/** Selo de demonstração, botão flutuante e o aviso dos botões de WhatsApp. */
-function mountChrome({ name, segment }) {
-  const msg = `Olá! Vi o modelo de site de ${name} no portfólio da IONEXT e quero um site assim para a minha ${segment}.`;
+/**
+ * Selo de demonstração, botão flutuante e o aviso dos botões de WhatsApp.
+ * `copy` adapta o aviso ao ramo (padrão: clínica). Ex. barbearia:
+ * { mine: 'a minha barbearia', of: 'da barbearia', person: 'O cliente', item: 'o serviço', yours: 'da sua barbearia' }
+ */
+function mountChrome({ name, segment, copy = {} }) {
+  const c = {
+    mine: `a minha ${segment}`,
+    of: 'da clínica',
+    person: 'O paciente',
+    item: 'o tratamento',
+    yours: 'da sua clínica',
+    ...copy,
+  };
+  const msg = `Olá! Vi o modelo de site de ${name} no portfólio da IONEXT e quero um site assim para ${c.mine}.`;
   const link = ionextWhatsapp(msg);
 
   const bar = document.createElement('div');
@@ -245,8 +257,8 @@ function mountChrome({ name, segment }) {
   dialog.innerHTML = `
     <div class="demo-dialog-panel">
       <p class="demo-dialog-label">Modelo de demonstração</p>
-      <h2 id="demo-dialog-title">No site real, este botão abre o WhatsApp da clínica.</h2>
-      <p>O paciente já chega com a mensagem pronta, dizendo o tratamento que quer. Este é um modelo com dados de exemplo, feito pela IONEXT para mostrar como o site da sua clínica pode ficar.</p>
+      <h2 id="demo-dialog-title">No site real, este botão abre o WhatsApp ${c.of}.</h2>
+      <p>${c.person} já chega com a mensagem pronta, dizendo ${c.item} que quer. Este é um modelo com dados de exemplo, feito pela IONEXT para mostrar como o site ${c.yours} pode ficar.</p>
       <div class="demo-dialog-actions">
         <a class="demo-dialog-cta" target="_blank" rel="noopener">Quero um site assim</a>
         <button type="button" class="demo-dialog-close">Continuar vendo o modelo</button>

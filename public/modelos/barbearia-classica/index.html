@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Modelo de site: barbearia clássica | IONEXT</title>
+  <meta name="description" content="Modelo de demonstração da IONEXT: site para barbearia clássica, sem marca real e com dados de exemplo." />
+  <!-- modelo com dados de exemplo: não deve aparecer no Google como se fosse uma barbearia real -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta property="og:title" content="Modelo de site para barbearia clássica — IONEXT" />
+  <meta property="og:description" content="Modelo de demonstração (sem marca real) de site para barbearia." />
+  <meta property="og:image" content="https://ionext.com.br/assets/portfolio/barbearia-classica.jpg" />
+  <meta name="theme-color" content="#120e0b" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../_kit/kit.css" />
+  <style>
+    @font-face { font-family: 'Fraunces Variable'; src: url('../_vendor/fonts/fraunces-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+    @font-face { font-family: 'Fraunces Variable'; src: url('../_vendor/fonts/fraunces-latin-wght-italic.woff2') format('woff2'); font-weight: 100 900; font-style: italic; font-display: swap; }
+    @font-face { font-family: 'Instrument Sans Variable'; src: url('../_vendor/fonts/instrument-sans-latin-wght-normal.woff2') format('woff2'); font-weight: 400 700; font-display: swap; }
+    @font-face { font-family: 'IBM Plex Mono'; src: url('../_vendor/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    :root {
+      --bg: #120e0b;
+      --ink: #efe6d8;
+      --accent: #c8933f;
+      --red: #b2392c;
+      --on-accent: #1a1209;
+      --font-display: 'Fraunces Variable', Georgia, serif;
+      --font-text: 'Instrument Sans Variable', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    }
+    .brand { font-family: var(--font-display); font-size: 24px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; }
+    .brand em { color: var(--accent); font-style: normal; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; }
+    em { font-style: italic; }
+    .accent { color: var(--accent); }
+    .hero-stage::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(18,14,11,0.94) 0%, rgba(18,14,11,0.6) 40%, rgba(18,14,11,0) 64%);
+    }
+    .hero-title { margin: 0 0 28px; font-size: clamp(3.3rem, 8.4vw, 9.4rem); line-height: 0.9; max-width: 10ch; }
+    .hero-title em { color: var(--accent); font-weight: 400; }
+    .hero-sub { max-width: 46ch; font-size: 19px; margin: 0 0 36px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+    .hero-meta { margin-top: 64px; display: flex; gap: 32px; flex-wrap: wrap; }
+    .marquee-track span { font-family: var(--font-display); font-style: italic; font-size: clamp(28px, 4vw, 54px); }
+    .marquee-track i { font-style: normal; color: var(--red); font-size: 18px; }
+    section { padding: 140px 0; }
+    .section-head { display: grid; grid-template-columns: 220px 1fr; gap: 32px; margin-bottom: 64px; }
+    .section-title { margin: 0; font-size: clamp(2.6rem, 5.4vw, 5.6rem); line-height: 0.95; }
+    .section-title em { color: var(--accent); font-weight: 400; }
+    .manifesto-text { font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 4.2vw, 4.4rem); line-height: 1.05; margin: 0; max-width: 20ch; }
+    .principles { margin-top: 72px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .principles div { border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent); padding-top: 22px; }
+    .principles h3 { font-size: 26px; margin: 10px 0 8px; }
+    /* cardápio de serviços: nome ... preço */
+    .menu-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 72px; }
+    .menu-item { padding: 26px 0; border-top: 1px solid color-mix(in srgb, var(--ink) 13%, transparent); }
+    .menu-row { display: flex; align-items: baseline; gap: 14px; }
+    .menu-row h3 { margin: 0; font-size: clamp(22px, 2.2vw, 30px); }
+    .menu-row .dots { flex: 1; border-bottom: 1px dotted color-mix(in srgb, var(--ink) 35%, transparent); transform: translateY(-6px); }
+    .menu-row .price { font-family: var(--font-mono); font-size: 15px; color: var(--accent); white-space: nowrap; }
+    .menu-item p { margin: 8px 0 12px; }
+    .team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: color-mix(in srgb, var(--ink) 12%, transparent); }
+    .member { background: var(--bg); padding: 30px; min-height: 280px; display: flex; flex-direction: column; justify-content: space-between; }
+    .monogram { width: 76px; height: 76px; border: 1px solid var(--accent); border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-size: 28px; color: var(--accent); }
+    .member h3 { margin: 24px 0 4px; font-size: 24px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .final { padding-bottom: 100px; }
+    .final h2 { font-size: clamp(3.4rem, 10vw, 11rem); line-height: 0.86; margin: 0 0 40px; }
+    .final h2 em { color: var(--accent); font-weight: 400; }
+    .final-grid { display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 32px; align-items: end; }
+    .fallback rect { fill: none; stroke: var(--accent); stroke-width: 1.2; }
+    .fallback path { fill: none; stroke: var(--red); stroke-width: 6; }
+    @media (max-width: 900px) {
+      section { padding: 96px 0; }
+      .hero-stage { height: 64svh; }
+      .hero-stage::after { background: linear-gradient(180deg, rgba(18,14,11,0) 35%, rgba(18,14,11,0.88) 92%); }
+      .hero-inner { padding-top: 46svh; padding-bottom: 48px; }
+      .section-head, .two-col, .principles, .team, .final-grid, .menu-list { grid-template-columns: 1fr; }
+      .section-head { gap: 14px; margin-bottom: 40px; }
+    }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "../_vendor/three/three.module.js", "three/addons/": "../_vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#topo">Sua Barbearia<em>.</em></a>
+      <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="site-nav" id="menu" aria-label="Principal">
+        <a href="#servicos">Serviços</a>
+        <a href="#barbeiros">Barbeiros</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#duvidas">Dúvidas</a>
+        <button class="btn btn-solid" type="button" data-wa>Agendar horário</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="topo">
+    <section class="hero" style="padding:0">
+      <div class="hero-stage" aria-hidden="true">
+        <canvas id="cena"></canvas>
+        <svg class="fallback" viewBox="0 0 200 420">
+          <rect x="70" y="40" width="60" height="340" rx="30" />
+          <path d="M70 90 L130 60 M70 160 L130 130 M70 230 L130 200 M70 300 L130 270" />
+        </svg>
+      </div>
+      <div class="container hero-inner">
+        <p class="mono muted">Barbearia clássica · Brasília — DF</p>
+        <h1 class="hero-title" data-split>Corte de respeito, <em>navalha na nuca.</em></h1>
+        <p class="hero-sub muted">Corte na tesoura, barba com toalha quente e acabamento na navalha. Hora marcada, café passado na hora e cadeira sem fila.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-solid" type="button" data-wa>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>
+            Agendar horário
+          </button>
+          <a class="btn btn-ghost" href="#servicos">Ver serviços e preços</a>
+        </div>
+        <div class="hero-meta mono muted">
+          <span>Ter a sex · 9h às 20h</span>
+          <span>Sáb · 8h às 18h</span>
+          <span>Sem fila, com hora marcada</span>
+        </div>
+      </div>
+    </section>
+
+    <div data-marquee aria-hidden="true">
+      <div class="marquee-track">
+        <span>Corte na tesoura <i>●</i> Barba com toalha quente <i>●</i> Navalha <i>●</i> Pigmentação <i>●</i> Dia do noivo <i>●</i></span>
+        <span>Corte na tesoura <i>●</i> Barba com toalha quente <i>●</i> Navalha <i>●</i> Pigmentação <i>●</i> Dia do noivo <i>●</i></span>
+      </div>
+    </div>
+
+    <section class="manifesto">
+      <div class="container">
+        <p class="mono accent" data-reveal>(01) — A casa</p>
+        <p class="manifesto-text" data-split style="margin-top:28px">Aqui ninguém tem pressa: <em class="accent">o seu horário é só seu.</em></p>
+        <div class="principles">
+          <div data-reveal><span class="mono muted">Tradição</span><h3>Ofício de barbeiro</h3><p class="muted">Tesoura, pente e navalha, do jeito que se aprende com quem faz há anos.</p></div>
+          <div data-reveal><span class="mono muted">Pontualidade</span><h3>Hora marcada de verdade</h3><p class="muted">Você chega e senta. Sem lista de espera e sem perder a tarde.</p></div>
+          <div data-reveal><span class="mono muted">Ambiente</span><h3>Café, conversa e futebol</h3><p class="muted">Um lugar para relaxar enquanto cuida do visual.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicos">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(02) — Serviços</p>
+          <h2 class="section-title" data-split>A cadeira <em>e o cardápio.</em></h2>
+        </div>
+        <ul class="menu-list">
+          <li class="menu-item" data-reveal><div class="menu-row"><h3>Corte clássico</h3><span class="dots"></span><span class="price">R$ 00</span></div><p class="muted">Na tesoura ou na máquina, com lavagem e finalização.</p><button class="list-link" type="button" data-wa>Agendar</button></li>
+          <li class="menu-item" data-reveal><div class="menu-row"><h3>Barba completa</h3><span class="dots"></span><span class="price">R$ 00</span></div><p class="muted">Toalha quente, óleo, navalha e balm pós-barba.</p><button class="list-link" type="button" data-wa>Agendar</button></li>
+          <li class="menu-item" data-reveal><div class="menu-row"><h3>Corte + barba</h3><span class="dots"></span><span class="price">R$ 00</span></div><p class="muted">O combo da casa, com tempo para fazer tudo com calma.</p><button class="list-link" type="button" data-wa>Agendar</button></li>
+          <li class="menu-item" data-reveal><div class="menu-row"><h3>Acabamento</h3><span class="dots"></span><span class="price">R$ 00</span></div><p class="muted">Pezinho, contorno e sobrancelha entre um corte e outro.</p><button class="list-link" type="button" data-wa>Agendar</button></li>
+          <li class="menu-item" data-reveal><div class="menu-row"><h3>Pigmentação de barba</h3><span class="dots"></span><span class="price">R$ 00</span></div><p class="muted">Preenche falhas e uniformiza o tom, com resultado natural.</p><button class="list-link" type="button" data-wa>Agendar</button></li>
+          <li class="menu-item" data-reveal><div class="menu-row"><h3>Dia do noivo</h3><span class="dots"></span><span class="price">R$ 00</span></div><p class="muted">Corte, barba e cuidados para o noivo e os padrinhos.</p><button class="list-link" type="button" data-wa>Agendar</button></li>
+        </ul>
+        <p class="demo-note muted" style="margin-top:28px">Preços de exemplo: no site real entram os valores e os pacotes da barbearia.</p>
+      </div>
+    </section>
+
+    <section id="barbeiros">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(03) — Barbeiros</p>
+          <h2 class="section-title" data-split>Quem segura <em>a navalha.</em></h2>
+        </div>
+        <div class="team">
+          <article class="member" data-reveal><div class="monogram">01</div><div><h3>Nome do barbeiro</h3><p class="muted">Corte clássico e navalha · 12 anos de cadeira (exemplo)</p></div></article>
+          <article class="member" data-reveal><div class="monogram">02</div><div><h3>Nome do barbeiro</h3><p class="muted">Barba e pigmentação · 8 anos de cadeira (exemplo)</p></div></article>
+          <article class="member" data-reveal><div class="monogram">03</div><div><h3>Nome do barbeiro</h3><p class="muted">Degradê e tesoura · 6 anos de cadeira (exemplo)</p></div></article>
+        </div>
+        <p class="demo-note muted" style="margin-top:28px">Espaço da equipe: no site real entram as fotos, os nomes e o Instagram de cada barbeiro.</p>
+      </div>
+    </section>
+
+    <section id="como-funciona">
+      <div class="container two-col">
+        <div>
+          <p class="mono accent" data-reveal>(04) — Como funciona</p>
+          <h2 class="section-title" data-split style="margin-top:24px">Do WhatsApp <em>à cadeira.</em></h2>
+        </div>
+        <div class="steps">
+          <div class="steps-rail"><span data-progress></span></div>
+          <div class="step" data-reveal><span class="mono muted">Passo 1</span><h3>Escolha o serviço</h3><p class="muted">Corte, barba ou o combo. A mensagem já sai pronta com o que você quer.</p></div>
+          <div class="step" data-reveal><span class="mono muted">Passo 2</span><h3>Escolha o barbeiro e o horário</h3><p class="muted">A gente responde com os horários livres do dia e confirma na hora.</p></div>
+          <div class="step" data-reveal><span class="mono muted">Passo 3</span><h3>Lembrete no dia</h3><p class="muted">Você recebe um aviso antes do horário. Precisa remarcar? É só responder.</p></div>
+          <div class="step" data-reveal><span class="mono muted">Passo 4</span><h3>Chegou, sentou</h3><p class="muted">Sem fila. O café está pronto e a cadeira está esperando.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas">
+      <div class="container two-col">
+        <div>
+          <p class="mono accent" data-reveal>(05) — Dúvidas</p>
+          <h2 class="section-title" data-split style="margin-top:24px">Perguntas <em>frequentes.</em></h2>
+        </div>
+        <div class="faq">
+          <details><summary>Atendem sem horário marcado?</summary><p class="muted">Quando sobra cadeira, sim. Mas com hora marcada você não espera: é só chamar no WhatsApp.</p></details>
+          <details><summary>Quanto tempo leva corte e barba?</summary><p class="muted">Em média 1 hora. A agenda é montada para cada cliente ter o tempo dele, sem correria.</p></details>
+          <details><summary>Quais formas de pagamento?</summary><p class="muted">No site real, aqui entram as formas de pagamento e os planos de assinatura da barbearia.</p></details>
+          <details><summary>Tem estacionamento?</summary><p class="muted">No site real, aqui entra como chegar, onde estacionar e o link do mapa.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="container">
+        <h2 data-split>Marque o seu <em>horário.</em></h2>
+        <div class="final-grid">
+          <div><p class="mono muted">Endereço</p><p>Endereço de exemplo, Asa Norte<br />Brasília — DF</p></div>
+          <div><p class="mono muted">Horário</p><p>Ter a sex, 9h às 20h<br />Sáb, 8h às 18h</p></div>
+          <div><p class="mono muted">Contato</p><p>(61) 0000-0000 (exemplo)</p></div>
+          <button class="btn btn-solid" type="button" data-wa>Agendar pelo WhatsApp</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="#topo">Sua Barbearia<em>.</em></a><p class="muted" style="margin-top:14px">Barbearia clássica em Brasília.</p></div>
+        <div><p class="mono muted">Redes</p><p>@suabarbearia (exemplo)</p></div>
+        <div><p class="mono muted">Este é um modelo</p><p class="muted">Sem marca real: nome, equipe, preços, endereço e telefone são espaços de exemplo. Site-modelo criado pela <a href="/portfolio">IONEXT</a>.</p></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="mono muted">© <span data-year></span> Sua Barbearia · modelo de demonstração</span>
+        <div class="motion-toggle" role="group" aria-label="Animações">
+          <span class="mono muted">Animações</span>
+          <button type="button" data-motion="auto">Auto</button>
+          <button type="button" data-motion="on">Ativadas</button>
+          <button type="button" data-motion="off">Desativadas</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../_vendor/gsap.min.js"></script>
+  <script src="../_vendor/ScrollTrigger.min.js"></script>
+  <script src="../_vendor/lenis.min.js"></script>
+  <script type="module">
+    import { initModelo } from '../_kit/kit.js';
+    initModelo({
+      name: 'barbearia clássica',
+      segment: 'barbearia',
+      copy: { mine: 'a minha barbearia', of: 'da barbearia', person: 'O cliente', item: 'o serviço', yours: 'da sua barbearia' },
+      canvas: document.getElementById('cena'),
+      scene: () => import('./scene.js').then((m) => (c, o) => new m.BarberPoleScene(c, o)),
+    });
+  </script>
+</body>
+</html>

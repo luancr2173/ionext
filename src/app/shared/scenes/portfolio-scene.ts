@@ -1,6 +1,6 @@
 /**
  * Portfólio — "galeria em perspectiva".
- * Os três sites-modelo viram telas de vidro em fila, inclinadas como num piso de
+ * Os sites-modelo viram telas de vidro em fila, inclinadas como num piso de
  * galeria (estilo labs.griflan.com). Cada tela tem a captura real do modelo, uma moldura
  * fina em metal e um reflexo no acento. As telas deslizam em loop; o scroll acelera,
  * o mouse inclina a galeria. Mesmo material e partículas das outras páginas.
@@ -8,11 +8,19 @@
 import * as THREE from 'three';
 import { BaseScene, PALETTE, SceneOptions, dotTexture } from './scene-kit';
 
-const SHOTS = ['/assets/portfolio/estetica.jpg', '/assets/portfolio/odontopediatria.jpg', '/assets/portfolio/ortodontia.jpg'];
+// alterna clínicas e barbearias/salões para a galeria mostrar os dois ramos
+const SHOTS = [
+  '/assets/portfolio/estetica.jpg',
+  '/assets/portfolio/barbearia-classica.jpg',
+  '/assets/portfolio/odontopediatria.jpg',
+  '/assets/portfolio/salao-beleza.jpg',
+  '/assets/portfolio/ortodontia.jpg',
+  '/assets/portfolio/barbearia-urbana.jpg',
+];
 const W = 2.4;
 const H = W * (900 / 1440);
 const GAP = 0.55;
-const SLOTS = 6; // 3 modelos repetidos para o loop não ter buraco
+const SLOTS = 6; // telas no loop (se houver menos modelos, eles se repetem)
 
 export class PortfolioScene extends BaseScene {
   private readonly gallery = new THREE.Group();
