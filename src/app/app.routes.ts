@@ -29,7 +29,7 @@ export const routes: Routes = [
     path: 'portfolio',
     loadComponent: () =>
       import('./pages/portfolio/portfolio.component').then((m) => m.PortfolioPageComponent),
-    title: 'Portfólio de sites para clínicas, barbearias e salões — IONEXT',
+    title: 'Portfólio de sites para clínicas, barbearias, salões e restaurantes — IONEXT',
   },
   {
     path: 'contato',

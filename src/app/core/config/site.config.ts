@@ -238,7 +238,7 @@ export const SITE_CONFIG = {
       lead: 'Sites para o seu negócio',
       em: 'com cara de marca grande.',
       subtitle:
-        'Modelos de demonstração para clínicas, barbearias e salões, sem marca real e com dados de exemplo. Escolha o seu ramo: o design, a experiência no celular e os botões de WhatsApp são o padrão que a Ionext entrega.',
+        'Modelos de demonstração para clínicas, barbearias, salões, lanchonetes e restaurantes, sem marca real e com dados de exemplo. Escolha o seu ramo: o design, a experiência no celular e os botões de WhatsApp são o padrão que a Ionext entrega.',
       note:
         'Estes são modelos criados pela Ionext para mostrar o padrão de trabalho, não sites de clientes. Cada site real é feito do zero com a marca, as fotos, os serviços e os profissionais do seu negócio.',
       filterLabel: 'Ramo de atuação',
@@ -799,7 +799,7 @@ export const SITE_CONFIG = {
 
 /** Sites-modelo do portfólio (sem marca real; arquivos em public/modelos/<slug>/). */
 /** Ramos de atuação do portfólio. O id vai na URL: /portfolio?ramo=barbearias */
-export type PortfolioSectorId = 'clinicas' | 'barbearias';
+export type PortfolioSectorId = 'clinicas' | 'barbearias' | 'restaurantes';
 
 export interface PortfolioSector {
   id: PortfolioSectorId;
@@ -827,6 +827,16 @@ export const PORTFOLIO_SECTORS: readonly PortfolioSector[] = [
       em: 'o próximo.',
       text: 'Conte como a sua barbearia ou o seu salão marca horários hoje. A gente mostra como ficaria o site, com agendamento pelo WhatsApp em cada botão.',
       message: 'Olá! Vi o portfólio de sites da Ionext e quero um site assim para a minha barbearia ou salão.',
+    },
+  },
+  {
+    id: 'restaurantes',
+    label: 'Lanchonetes & restaurantes',
+    cta: {
+      lead: 'A sua casa pode ser',
+      em: 'a próxima.',
+      text: 'Conte como você recebe pedidos e reservas hoje. A gente mostra como ficaria o site, com cardápio e pedido pelo WhatsApp em cada botão.',
+      message: 'Olá! Vi o portfólio de sites da Ionext e quero um site assim para a minha lanchonete ou restaurante.',
     },
   },
 ];
@@ -929,5 +939,47 @@ export const PORTFOLIO_ITEMS: readonly PortfolioItem[] = [
     image: '/assets/portfolio/salao-beleza.jpg',
     imageMobile: '/assets/portfolio/salao-beleza-mobile.jpg',
     whatsappMessage: 'Olá! Vi o modelo de site de salão de beleza no portfólio da Ionext e quero um site assim para o meu salão.',
+  },
+  {
+    slug: 'hamburgueria',
+    sector: 'restaurantes',
+    name: 'Hamburgueria',
+    segment: 'Retrô e divertido',
+    concept: 'Um hambúrguer que se monta camada por camada.',
+    description:
+      'Creme, vermelho-ketchup e letras gordas para a lanchonete de smash e delivery: cardápio em cartões com preço, combos e pedido pelo WhatsApp.',
+    features: ['Cena 3D própria', 'Cardápio com preço', 'Pedido pelo WhatsApp', 'Feito para o celular'],
+    url: '/modelos/hamburgueria/index.html',
+    image: '/assets/portfolio/hamburgueria.jpg',
+    imageMobile: '/assets/portfolio/hamburgueria-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de hamburgueria no portfólio da Ionext e quero um site assim para a minha lanchonete.',
+  },
+  {
+    slug: 'restaurante',
+    sector: 'restaurantes',
+    name: 'Restaurante',
+    segment: 'Escuro e elegante',
+    concept: 'Uma taça de cristal com o vinho girando.',
+    description:
+      'Vinho, dourado e tipografia clássica para a casa à la carte: menu em três tempos, menu degustação, o chef e reserva de mesa pelo WhatsApp.',
+    features: ['Cena 3D própria', 'Menu em tempos', 'Reserva pelo WhatsApp', 'Feito para o celular'],
+    url: '/modelos/restaurante/index.html',
+    image: '/assets/portfolio/restaurante.jpg',
+    imageMobile: '/assets/portfolio/restaurante-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de restaurante no portfólio da Ionext e quero um site assim para o meu restaurante.',
+  },
+  {
+    slug: 'pizzaria',
+    sector: 'restaurantes',
+    name: 'Pizzaria',
+    segment: 'Claro e acolhedor',
+    concept: 'Oito fatias que se encaixam numa pizza fumegante.',
+    description:
+      'Clima de cantina, com verde, branco e vermelho: sabores com preço por tamanho, promoção da semana e delivery pelo WhatsApp.',
+    features: ['Cena 3D própria', 'Sabores por tamanho', 'Promoção em destaque', 'Feito para o celular'],
+    url: '/modelos/pizzaria/index.html',
+    image: '/assets/portfolio/pizzaria.jpg',
+    imageMobile: '/assets/portfolio/pizzaria-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de pizzaria no portfólio da Ionext e quero um site assim para a minha pizzaria.',
   },
 ];

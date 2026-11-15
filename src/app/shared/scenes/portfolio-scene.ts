@@ -8,19 +8,22 @@
 import * as THREE from 'three';
 import { BaseScene, PALETTE, SceneOptions, dotTexture } from './scene-kit';
 
-// alterna clínicas e barbearias/salões para a galeria mostrar os dois ramos
+// alterna os ramos (clínica, barbearia/salão, restaurante) para a galeria mostrar todos
 const SHOTS = [
   '/assets/portfolio/estetica.jpg',
   '/assets/portfolio/barbearia-classica.jpg',
+  '/assets/portfolio/hamburgueria.jpg',
   '/assets/portfolio/odontopediatria.jpg',
   '/assets/portfolio/salao-beleza.jpg',
+  '/assets/portfolio/restaurante.jpg',
   '/assets/portfolio/ortodontia.jpg',
   '/assets/portfolio/barbearia-urbana.jpg',
+  '/assets/portfolio/pizzaria.jpg',
 ];
 const W = 2.4;
 const H = W * (900 / 1440);
 const GAP = 0.55;
-const SLOTS = 6; // telas no loop (se houver menos modelos, eles se repetem)
+const SLOTS = SHOTS.length; // uma tela por modelo no loop
 
 export class PortfolioScene extends BaseScene {
   private readonly gallery = new THREE.Group();

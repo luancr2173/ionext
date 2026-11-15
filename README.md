@@ -59,6 +59,7 @@ node_modules/node/bin/node.exe node_modules/@angular/cli/bin/ng.js serve
 
 - `/portfolio?ramo=clinicas` — só os modelos de clínica
 - `/portfolio?ramo=barbearias` — só os modelos de barbearia e salão
+- `/portfolio?ramo=restaurantes` — só os modelos de lanchonete, restaurante e pizzaria
 
 Os modelos **não usam nome de marca nem de profissional** (aparecem como "Sua Clínica", "Sua Barbearia", "Nome do(a) dentista", "Nome do barbeiro"), para não coincidir com negócios reais; endereço, telefone e preços são de exemplo; cada modelo tem um selo de "Modelo de demonstração" no topo, `noindex` e uma nota no rodapé. O Neo (agente de WhatsApp) envia este link quando o cliente demonstra interesse e apresenta os sites como modelos, nunca como clientes.
 
@@ -70,6 +71,9 @@ Os modelos **não usam nome de marca nem de profissional** (aparecem como "Sua C
 | Barbearia clássica | Barbearias & salões | `public/modelos/barbearia-classica/` | Poste de barbeiro de vidro com as listras subindo e tampas de latão | Café `#120e0b` + latão `#c8933f` · Fraunces + Instrument Sans + IBM Plex Mono |
 | Barbearia urbana | Barbearias & salões | `public/modelos/barbearia-urbana/` | Tesoura de aço cortando no ar, com fios de cabelo caindo | Preto `#0b0b0c` + verde-limão `#d4ff3a` · Syne + Space Grotesk + JetBrains Mono |
 | Salão de beleza | Barbearias & salões | `public/modelos/salao-beleza/` | Mechas sedosas em tons de mel e rosé ondulando | Creme `#f6efe9` + terracota `#a8553b` · Bodoni Moda + Instrument Sans + IBM Plex Mono |
+| Hamburgueria | Lanchonetes & restaurantes | `public/modelos/hamburgueria/` | Hambúrguer que se monta camada por camada; a rolagem separa as camadas | Creme `#f7efe1` + ketchup `#d93a24` + mostarda `#f2b134` · Fraunces + Space Grotesk + JetBrains Mono |
+| Restaurante | Lanchonetes & restaurantes | `public/modelos/restaurante/` | Taça de cristal com o vinho balançando | Vinho escuro `#120a0b` + dourado `#c9a46a` · Bodoni Moda + Instrument Sans + IBM Plex Mono |
+| Pizzaria | Lanchonetes & restaurantes | `public/modelos/pizzaria/` | Oito fatias se encaixam numa pizza, com vapor subindo | Creme `#fbf5ec` + tomate `#c8371f` + manjericão `#2f6b3a` · DM Serif Display + Instrument Sans + IBM Plex Mono |
 
 - **Novo ramo ou modelo**: acrescente o ramo em `PORTFOLIO_SECTORS` (id, nome e CTA do fim da página) e o modelo em `PORTFOLIO_ITEMS` com o `sector` certo. O aviso do botão de WhatsApp dos modelos se adapta ao ramo pela opção `copy` do `initModelo` (ex.: "WhatsApp da barbearia", "O cliente").
 
@@ -80,9 +84,11 @@ Os modelos **não usam nome de marca nem de profissional** (aparecem como "Sua C
 - Textos e links do portfólio: `SITE_CONFIG.pages.portfolio` e `PORTFOLIO_ITEMS` em `site.config.ts`.
 - Capturas em `public/assets/portfolio/` (1440×900 e 780×1688 no celular), em JPG. Ao mudar um modelo, gere de novo. Sem Playwright, dá para usar o Chrome headless (com o servidor de dev rodando); no celular use janela de 500 px com escala 1,56, porque o headless não abre janelas mais estreitas que ~500 px:
 
+  Use `--force-prefers-reduced-motion` para a captura mostrar o quadro final da cena (no headless a animação de entrada fica pela metade):
+
   ```bash
-  chrome --headless=new --use-angle=swiftshader --enable-unsafe-swiftshader --hide-scrollbars --window-size=1440,900 --virtual-time-budget=7000 --screenshot=capa.png http://localhost:4317/modelos/<slug>/index.html
-  chrome --headless=new --use-angle=swiftshader --enable-unsafe-swiftshader --hide-scrollbars --window-size=500,1082 --force-device-scale-factor=1.56 --virtual-time-budget=7000 --screenshot=capa-mobile.png http://localhost:4317/modelos/<slug>/index.html
+  chrome --headless=new --force-prefers-reduced-motion --use-angle=swiftshader --enable-unsafe-swiftshader --hide-scrollbars --window-size=1440,900 --virtual-time-budget=6000 --screenshot=capa.png http://localhost:4317/modelos/<slug>/index.html
+  chrome --headless=new --force-prefers-reduced-motion --use-angle=swiftshader --enable-unsafe-swiftshader --hide-scrollbars --window-size=500,1082 --force-device-scale-factor=1.56 --virtual-time-budget=6000 --screenshot=capa-mobile.png http://localhost:4317/modelos/<slug>/index.html
   ```
 - Licenças: fontes OFL (arquivos `LICENSE-*` em `public/modelos/_vendor/fonts/`), Three.js MIT, Lenis MIT, GSAP licença padrão (gratuita).
 

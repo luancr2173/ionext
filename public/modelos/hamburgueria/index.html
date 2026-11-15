@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Modelo de site: hamburgueria | IONEXT</title>
+  <meta name="description" content="Modelo de demonstração da IONEXT: site para hamburgueria e lanchonete, sem marca real e com dados de exemplo." />
+  <!-- modelo com dados de exemplo: não deve aparecer no Google como se fosse uma lanchonete real -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta property="og:title" content="Modelo de site para hamburgueria — IONEXT" />
+  <meta property="og:description" content="Modelo de demonstração (sem marca real) de site para hamburgueria e lanchonete." />
+  <meta property="og:image" content="https://ionext.com.br/assets/portfolio/hamburgueria.jpg" />
+  <meta name="theme-color" content="#f7efe1" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../_kit/kit.css?v=20261115" />
+  <style>
+    @font-face { font-family: 'Fraunces Variable'; src: url('../_vendor/fonts/fraunces-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+    @font-face { font-family: 'Fraunces Variable'; src: url('../_vendor/fonts/fraunces-latin-wght-italic.woff2') format('woff2'); font-weight: 100 900; font-style: italic; font-display: swap; }
+    @font-face { font-family: 'Space Grotesk Variable'; src: url('../_vendor/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2'); font-weight: 300 700; font-display: swap; }
+    @font-face { font-family: 'JetBrains Mono Variable'; src: url('../_vendor/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2'); font-weight: 100 800; font-display: swap; }
+    :root {
+      --bg: #f7efe1;
+      --ink: #1d140f;
+      --accent: #d93a24;
+      --mustard: #f2b134;
+      --on-accent: #ffffff;
+      --font-display: 'Fraunces Variable', Georgia, serif;
+      --font-text: 'Space Grotesk Variable', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+    }
+    .brand { font-family: var(--font-display); font-size: 26px; font-weight: 900; letter-spacing: -0.03em; text-decoration: none; }
+    .brand em { color: var(--accent); font-style: normal; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 900; letter-spacing: -0.035em; }
+    em { font-style: italic; }
+    .accent { color: var(--accent); }
+    .hero-stage::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(247,239,225,0.96) 0%, rgba(247,239,225,0.65) 40%, rgba(247,239,225,0) 64%);
+    }
+    .hero-title { margin: 0 0 28px; font-size: clamp(3.3rem, 8.4vw, 9.4rem); line-height: 0.88; max-width: 9ch; }
+    .hero-title em { color: var(--accent); font-weight: 800; }
+    .hero-sub { max-width: 44ch; font-size: 19px; margin: 0 0 36px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+    .hero-meta { margin-top: 64px; display: flex; gap: 32px; flex-wrap: wrap; }
+    [data-marquee] { background: var(--accent); color: var(--on-accent); border: 0; }
+    .marquee-track span { font-family: var(--font-display); font-weight: 900; font-size: clamp(28px, 4vw, 54px); }
+    .marquee-track i { font-style: normal; color: var(--mustard); font-size: 22px; }
+    section { padding: 140px 0; }
+    .section-head { display: grid; grid-template-columns: 220px 1fr; gap: 32px; margin-bottom: 64px; }
+    .section-title { margin: 0; font-size: clamp(2.6rem, 5.6vw, 5.8rem); line-height: 0.92; }
+    .section-title em { color: var(--accent); font-weight: 800; }
+    .manifesto-text { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 4.2vw, 4.4rem); line-height: 1.02; margin: 0; max-width: 18ch; }
+    .principles { margin-top: 72px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .principles div { border-top: 2px solid var(--ink); padding-top: 22px; }
+    .principles h3 { font-size: 26px; margin: 10px 0 8px; }
+    /* cardápio em cartões */
+    .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .dish { background: #fffaf1; border: 2px solid var(--ink); border-radius: 22px; padding: 26px 24px 22px; display: flex; flex-direction: column; gap: 10px; box-shadow: 6px 6px 0 var(--ink); transition: transform 0.3s, box-shadow 0.3s; }
+    .dish:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0 var(--ink); }
+    .dish-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .dish h3 { margin: 0; font-size: 26px; line-height: 1; }
+    .dish .price { font-family: var(--font-mono); font-weight: 700; color: var(--accent); white-space: nowrap; }
+    .dish p { margin: 0; flex: 1; }
+    .badge { align-self: flex-start; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; background: var(--mustard); color: var(--ink); padding: 4px 10px; border-radius: 999px; }
+    .channels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .channel { border-top: 2px solid var(--ink); padding-top: 22px; }
+    .channel h3 { margin: 10px 0 8px; font-size: 28px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .final { padding-bottom: 100px; }
+    .final h2 { font-size: clamp(3.4rem, 10vw, 11rem); line-height: 0.86; margin: 0 0 40px; }
+    .final h2 em { color: var(--accent); }
+    .final-grid { display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 32px; align-items: end; }
+    .fallback rect, .fallback circle { fill: none; stroke: var(--accent); stroke-width: 3; }
+    @media (max-width: 900px) {
+      section { padding: 96px 0; }
+      .hero-stage { height: 62svh; }
+      .hero-stage::after { background: linear-gradient(180deg, rgba(247,239,225,0) 35%, rgba(247,239,225,0.94) 92%); }
+      .hero-inner { padding-top: 46svh; padding-bottom: 48px; }
+      .section-head, .two-col, .principles, .menu-grid, .channels, .final-grid { grid-template-columns: 1fr; }
+      .section-head { gap: 14px; margin-bottom: 40px; }
+    }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "../_vendor/three/three.module.js", "three/addons/": "../_vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#topo">Sua Burger<em>.</em></a>
+      <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="site-nav" id="menu" aria-label="Principal">
+        <a href="#cardapio">Cardápio</a>
+        <a href="#pedir">Como pedir</a>
+        <a href="#duvidas">Dúvidas</a>
+        <button class="btn btn-solid" type="button" data-wa>Pedir agora</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="topo">
+    <section class="hero" style="padding:0">
+      <div class="hero-stage" aria-hidden="true">
+        <canvas id="cena"></canvas>
+        <svg class="fallback" viewBox="0 0 300 260">
+          <rect x="40" y="40" width="220" height="60" rx="30" /><rect x="30" y="120" width="240" height="26" rx="13" /><rect x="40" y="170" width="220" height="50" rx="20" />
+        </svg>
+      </div>
+      <div class="container hero-inner">
+        <p class="mono muted">Hamburgueria artesanal · Brasília — DF</p>
+        <h1 class="hero-title" data-split>Smash no ponto, <em>queijo escorrendo.</em></h1>
+        <p class="hero-sub muted">Blend da casa, pão brioche selado na chapa e batata frita na hora. Peça pelo WhatsApp para retirar ou receber em casa.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-solid" type="button" data-wa>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>
+            Pedir agora
+          </button>
+          <a class="btn btn-ghost" href="#cardapio">Ver cardápio</a>
+        </div>
+        <div class="hero-meta mono muted">
+          <span>Ter a dom · 18h às 23h30</span>
+          <span>Delivery e retirada</span>
+          <span>Pix, cartão e vale-refeição</span>
+        </div>
+      </div>
+    </section>
+
+    <div data-marquee aria-hidden="true">
+      <div class="marquee-track">
+        <span>Smash burger <i>★</i> Cheddar cremoso <i>★</i> Bacon crocante <i>★</i> Batata rústica <i>★</i> Milkshake <i>★</i></span>
+        <span>Smash burger <i>★</i> Cheddar cremoso <i>★</i> Bacon crocante <i>★</i> Batata rústica <i>★</i> Milkshake <i>★</i></span>
+      </div>
+    </div>
+
+    <section class="manifesto">
+      <div class="container">
+        <p class="mono accent" data-reveal>(01) — A casa</p>
+        <p class="manifesto-text" data-split style="margin-top:28px">Carne moída todo dia, <em class="accent">pão que não desmancha.</em></p>
+        <div class="principles">
+          <div data-reveal><span class="mono muted">Blend</span><h3>Moído na casa</h3><p class="muted">Cortes selecionados, moídos todos os dias e prensados na chapa bem quente.</p></div>
+          <div data-reveal><span class="mono muted">Pão</span><h3>Brioche selado</h3><p class="muted">Selado na manteiga para segurar o molho até a última mordida.</p></div>
+          <div data-reveal><span class="mono muted">Entrega</span><h3>Chega quente</h3><p class="muted">Embalagem que respira, para a batata não murchar no caminho.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cardapio" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(02) — Cardápio</p>
+          <h2 class="section-title" data-split>Escolhe o seu <em>e pede já.</em></h2>
+        </div>
+        <div class="menu-grid">
+          <article class="dish" data-reveal><span class="badge">Mais pedido</span><div class="dish-top"><h3>Smash duplo</h3><span class="price">R$ 00</span></div><p class="muted">Dois smash de 90 g, cheddar, cebola caramelizada e molho da casa.</p><button class="list-link" type="button" data-wa>Pedir</button></article>
+          <article class="dish" data-reveal><div class="dish-top"><h3>Bacon lover</h3><span class="price">R$ 00</span></div><p class="muted">Blend de 160 g, bacon crocante, queijo prato e maionese defumada.</p><button class="list-link" type="button" data-wa>Pedir</button></article>
+          <article class="dish" data-reveal><div class="dish-top"><h3>Salada da casa</h3><span class="price">R$ 00</span></div><p class="muted">Blend de 160 g, alface, tomate, picles e cheddar no brioche.</p><button class="list-link" type="button" data-wa>Pedir</button></article>
+          <article class="dish" data-reveal><span class="badge">Vegetariano</span><div class="dish-top"><h3>Veggie</h3><span class="price">R$ 00</span></div><p class="muted">Hambúrguer de grão-de-bico, queijo, rúcula e tomate confit.</p><button class="list-link" type="button" data-wa>Pedir</button></article>
+          <article class="dish" data-reveal><div class="dish-top"><h3>Combo</h3><span class="price">R$ 00</span></div><p class="muted">Qualquer burger + batata média + refrigerante lata.</p><button class="list-link" type="button" data-wa>Pedir</button></article>
+          <article class="dish" data-reveal><div class="dish-top"><h3>Milkshake</h3><span class="price">R$ 00</span></div><p class="muted">Chocolate, morango ou doce de leite, 400 ml.</p><button class="list-link" type="button" data-wa>Pedir</button></article>
+        </div>
+        <p class="demo-note muted" style="margin-top:28px">Cardápio e preços de exemplo: no site real entram os lanches, as fotos e os valores da lanchonete.</p>
+      </div>
+    </section>
+
+    <section id="pedir" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(03) — Como pedir</p>
+          <h2 class="section-title" data-split>Do jeito <em>que você preferir.</em></h2>
+        </div>
+        <div class="channels">
+          <div class="channel" data-reveal><span class="mono muted">WhatsApp</span><h3>Pede em 1 minuto</h3><p class="muted">Toque no botão, escolha os lanches e mande o endereço. A gente confirma o valor e o tempo de entrega.</p></div>
+          <div class="channel" data-reveal><span class="mono muted">Retirada</span><h3>Pede e busca</h3><p class="muted">Faça o pedido antes de sair de casa e pegue no balcão, sem fila.</p></div>
+          <div class="channel" data-reveal><span class="mono muted">No salão</span><h3>Come aqui</h3><p class="muted">Mesas para a galera, chopp gelado e música boa.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas" style="padding-top:0">
+      <div class="container two-col">
+        <div>
+          <p class="mono accent" data-reveal>(04) — Dúvidas</p>
+          <h2 class="section-title" data-split style="margin-top:24px">Perguntas <em>frequentes.</em></h2>
+        </div>
+        <div class="faq">
+          <details><summary>Quais bairros vocês entregam?</summary><p class="muted">No site real, aqui entram os bairros atendidos, a taxa de entrega e o tempo médio.</p></details>
+          <details><summary>Dá para tirar ou trocar ingredientes?</summary><p class="muted">Claro. É só avisar no WhatsApp junto com o pedido.</p></details>
+          <details><summary>Tem opção sem glúten ou vegetariana?</summary><p class="muted">Temos o Veggie e pão sem glúten sob pedido. No site real, aqui entram as opções da casa.</p></details>
+          <details><summary>Quais formas de pagamento?</summary><p class="muted">Pix, cartão e vale-refeição, na entrega ou no balcão.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final" style="padding-top:0">
+      <div class="container">
+        <h2 data-split>Bateu a <em>fome?</em></h2>
+        <div class="final-grid">
+          <div><p class="mono muted">Endereço</p><p>Endereço de exemplo, Sudoeste<br />Brasília — DF</p></div>
+          <div><p class="mono muted">Horário</p><p>Ter a dom, 18h às 23h30<br />Seg, fechado</p></div>
+          <div><p class="mono muted">Contato</p><p>(61) 0000-0000 (exemplo)</p></div>
+          <button class="btn btn-solid" type="button" data-wa>Pedir pelo WhatsApp</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="#topo">Sua Burger<em>.</em></a><p class="muted" style="margin-top:14px">Hamburgueria artesanal em Brasília.</p></div>
+        <div><p class="mono muted">Redes</p><p>@suaburger (exemplo)</p></div>
+        <div><p class="mono muted">Este é um modelo</p><p class="muted">Sem marca real: nome, cardápio, preços, endereço e telefone são espaços de exemplo. Site-modelo criado pela <a href="/portfolio">IONEXT</a>.</p></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="mono muted">© <span data-year></span> Sua Burger · modelo de demonstração</span>
+        <div class="motion-toggle" role="group" aria-label="Animações">
+          <span class="mono muted">Animações</span>
+          <button type="button" data-motion="auto">Auto</button>
+          <button type="button" data-motion="on">Ativadas</button>
+          <button type="button" data-motion="off">Desativadas</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../_vendor/gsap.min.js"></script>
+  <script src="../_vendor/ScrollTrigger.min.js"></script>
+  <script src="../_vendor/lenis.min.js"></script>
+  <script type="module">
+    import { initModelo } from '../_kit/kit.js?v=20261115';
+    initModelo({
+      name: 'hamburgueria',
+      segment: 'hamburgueria',
+      copy: { mine: 'a minha hamburgueria', of: 'da hamburgueria', person: 'O cliente', item: 'o pedido', yours: 'da sua hamburgueria' },
+      canvas: document.getElementById('cena'),
+      scene: () => import('./scene.js?v=20261115').then((m) => (c, o) => new m.BurgerScene(c, o)),
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Modelo de site: restaurante | IONEXT</title>
+  <meta name="description" content="Modelo de demonstração da IONEXT: site para restaurante, sem marca real e com dados de exemplo." />
+  <!-- modelo com dados de exemplo: não deve aparecer no Google como se fosse um restaurante real -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta property="og:title" content="Modelo de site para restaurante — IONEXT" />
+  <meta property="og:description" content="Modelo de demonstração (sem marca real) de site para restaurante." />
+  <meta property="og:image" content="https://ionext.com.br/assets/portfolio/restaurante.jpg" />
+  <meta name="theme-color" content="#120a0b" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../_kit/kit.css?v=20261115" />
+  <style>
+    @font-face { font-family: 'Bodoni Moda Variable'; src: url('../_vendor/fonts/bodoni-moda-latin-wght-normal.woff2') format('woff2'); font-weight: 400 900; font-display: swap; }
+    @font-face { font-family: 'Bodoni Moda Variable'; src: url('../_vendor/fonts/bodoni-moda-latin-wght-italic.woff2') format('woff2'); font-weight: 400 900; font-style: italic; font-display: swap; }
+    @font-face { font-family: 'Instrument Sans Variable'; src: url('../_vendor/fonts/instrument-sans-latin-wght-normal.woff2') format('woff2'); font-weight: 400 700; font-display: swap; }
+    @font-face { font-family: 'IBM Plex Mono'; src: url('../_vendor/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    :root {
+      --bg: #120a0b;
+      --ink: #f1e7dc;
+      --accent: #c9a46a;
+      --wine: #8e2236;
+      --on-accent: #1a1209;
+      --font-display: 'Bodoni Moda Variable', 'Didot', serif;
+      --font-text: 'Instrument Sans Variable', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    }
+    .brand { font-family: var(--font-display); font-size: 25px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; }
+    .brand em { color: var(--accent); font-style: normal; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; }
+    em { font-style: italic; }
+    .accent { color: var(--accent); }
+    .hero-stage::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(18,10,11,0.95) 0%, rgba(18,10,11,0.6) 40%, rgba(18,10,11,0) 64%);
+    }
+    .hero-title { margin: 0 0 28px; font-size: clamp(3.2rem, 8vw, 9rem); line-height: 0.92; max-width: 11ch; }
+    .hero-title em { color: var(--accent); }
+    .hero-sub { max-width: 46ch; font-size: 19px; margin: 0 0 36px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn { border-radius: 2px; letter-spacing: 0.06em; text-transform: uppercase; font-size: 13px; }
+    .hero-meta { margin-top: 64px; display: flex; gap: 32px; flex-wrap: wrap; }
+    .marquee-track span { font-family: var(--font-display); font-style: italic; font-size: clamp(28px, 4vw, 54px); }
+    .marquee-track i { font-style: normal; color: var(--wine); font-size: 18px; }
+    section { padding: 140px 0; }
+    .section-head { display: grid; grid-template-columns: 220px 1fr; gap: 32px; margin-bottom: 64px; }
+    .section-title { margin: 0; font-size: clamp(2.6rem, 5.4vw, 5.6rem); line-height: 0.95; }
+    .section-title em { color: var(--accent); }
+    .manifesto-text { font-family: var(--font-display); font-size: clamp(2rem, 4.2vw, 4.4rem); line-height: 1.05; margin: 0; max-width: 20ch; }
+    /* cardápio em tempos, como menu impresso */
+    .courses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); }
+    .course { padding: 34px 30px 30px; border-right: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
+    .course:last-child { border-right: 0; }
+    .course h3 { margin: 6px 0 22px; font-size: clamp(28px, 2.6vw, 38px); font-style: italic; color: var(--accent); }
+    .plate { margin-bottom: 22px; }
+    .plate-row { display: flex; justify-content: space-between; gap: 14px; align-items: baseline; }
+    .plate-row strong { font-family: var(--font-display); font-weight: 500; font-size: 20px; }
+    .plate-row span { font-family: var(--font-mono); font-size: 13px; color: var(--accent); white-space: nowrap; }
+    .plate p { margin: 6px 0 0; font-size: 15px; }
+    .tasting { margin-top: 40px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; padding: 30px; border: 1px solid var(--accent); }
+    .tasting h3 { margin: 0 0 6px; font-size: 30px; }
+    .tasting p { margin: 0; }
+    .chef { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 64px; align-items: center; }
+    .chef-portrait { aspect-ratio: 4 / 5; background: linear-gradient(170deg, #2a1517, #0d0708); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); display: grid; place-items: end start; padding: 26px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--ink) 60%, transparent); }
+    .chef blockquote { margin: 0 0 24px; font-family: var(--font-display); font-style: italic; font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1.15; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .final { padding-bottom: 100px; }
+    .final h2 { font-size: clamp(3.4rem, 10vw, 11rem); line-height: 0.86; margin: 0 0 40px; }
+    .final h2 em { color: var(--accent); }
+    .final-grid { display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 32px; align-items: end; }
+    .fallback path { fill: none; stroke: var(--accent); stroke-width: 1.4; }
+    @media (max-width: 900px) {
+      section { padding: 96px 0; }
+      .hero-stage { height: 62svh; }
+      .hero-stage::after { background: linear-gradient(180deg, rgba(18,10,11,0) 35%, rgba(18,10,11,0.9) 92%); }
+      .hero-inner { padding-top: 46svh; padding-bottom: 48px; }
+      .section-head, .two-col, .courses, .chef, .final-grid, .tasting { grid-template-columns: 1fr; }
+      .course { border-right: 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); padding-inline: 0; }
+      .section-head { gap: 14px; margin-bottom: 40px; }
+      .chef-portrait { max-width: 320px; }
+    }
+    @media (max-width: 420px) {
+      .brand { font-size: 19px; letter-spacing: 0.1em; }
+    }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "../_vendor/three/three.module.js", "three/addons/": "../_vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#topo">Seu Restaurante<em>.</em></a>
+      <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="site-nav" id="menu" aria-label="Principal">
+        <a href="#menu-casa">Menu</a>
+        <a href="#chef">O chef</a>
+        <a href="#reservas">Reservas</a>
+        <a href="#duvidas">Dúvidas</a>
+        <button class="btn btn-solid" type="button" data-wa>Reservar mesa</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="topo">
+    <section class="hero" style="padding:0">
+      <div class="hero-stage" aria-hidden="true">
+        <canvas id="cena"></canvas>
+        <svg class="fallback" viewBox="0 0 200 360">
+          <path d="M50 30 Q40 150 100 170 Q160 150 150 30 Z M100 170 L100 300 M60 310 Q100 296 140 310" />
+        </svg>
+      </div>
+      <div class="container hero-inner">
+        <p class="mono muted">Restaurante · Cozinha contemporânea · Brasília — DF</p>
+        <h1 class="hero-title" data-split>Uma noite <em>para lembrar.</em></h1>
+        <p class="hero-sub muted">Cozinha contemporânea com ingredientes do cerrado, carta de vinhos autoral e serviço sem pressa. Reserve sua mesa pelo WhatsApp.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-solid" type="button" data-wa>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>
+            Reservar mesa
+          </button>
+          <a class="btn btn-ghost" href="#menu-casa">Ver o menu</a>
+        </div>
+        <div class="hero-meta mono muted">
+          <span>Ter a sáb · 19h às 23h</span>
+          <span>Dom · almoço 12h às 16h</span>
+          <span>Valet no local</span>
+        </div>
+      </div>
+    </section>
+
+    <div data-marquee aria-hidden="true">
+      <div class="marquee-track">
+        <span>Menu degustação <i>◆</i> Carta de vinhos <i>◆</i> Ingredientes do cerrado <i>◆</i> Eventos privativos <i>◆</i></span>
+        <span>Menu degustação <i>◆</i> Carta de vinhos <i>◆</i> Ingredientes do cerrado <i>◆</i> Eventos privativos <i>◆</i></span>
+      </div>
+    </div>
+
+    <section class="manifesto">
+      <div class="container">
+        <p class="mono accent" data-reveal>(01) — A casa</p>
+        <p class="manifesto-text" data-split style="margin-top:28px">O tempo certo de cada prato <em class="accent">e da sua noite.</em></p>
+      </div>
+    </section>
+
+    <section id="menu-casa" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(02) — Menu</p>
+          <h2 class="section-title" data-split>Em três <em>tempos.</em></h2>
+        </div>
+        <div class="courses">
+          <div class="course" data-reveal>
+            <span class="mono muted">Primeiro tempo</span>
+            <h3>Entradas</h3>
+            <div class="plate"><div class="plate-row"><strong>Tartare de atum</strong><span>R$ 00</span></div><p class="muted">Pequi, gema curada e crocante de mandioca.</p></div>
+            <div class="plate"><div class="plate-row"><strong>Burrata da casa</strong><span>R$ 00</span></div><p class="muted">Tomates assados, pesto de baru e pão de fermentação natural.</p></div>
+          </div>
+          <div class="course" data-reveal>
+            <span class="mono muted">Segundo tempo</span>
+            <h3>Principais</h3>
+            <div class="plate"><div class="plate-row"><strong>Costela 12 horas</strong><span>R$ 00</span></div><p class="muted">Purê de mandioquinha, jus de vinho tinto e farofa de castanhas.</p></div>
+            <div class="plate"><div class="plate-row"><strong>Peixe do dia</strong><span>R$ 00</span></div><p class="muted">Risoto de limão-siciliano e beurre blanc de cajá.</p></div>
+          </div>
+          <div class="course" data-reveal>
+            <span class="mono muted">Terceiro tempo</span>
+            <h3>Sobremesas</h3>
+            <div class="plate"><div class="plate-row"><strong>Pudim de doce de leite</strong><span>R$ 00</span></div><p class="muted">Calda de café e flor de sal.</p></div>
+            <div class="plate"><div class="plate-row"><strong>Mousse de cumbaru</strong><span>R$ 00</span></div><p class="muted">Chocolate 70% e sorvete de cagaita.</p></div>
+          </div>
+        </div>
+        <div class="tasting" data-reveal>
+          <div><h3>Menu degustação</h3><p class="muted">Sete tempos escolhidos pelo chef, com harmonização opcional. R$ 00 por pessoa.</p></div>
+          <button class="btn btn-solid" type="button" data-wa>Reservar degustação</button>
+        </div>
+        <p class="demo-note muted" style="margin-top:28px">Menu e preços de exemplo: no site real entram os pratos, as fotos e a carta de vinhos do restaurante.</p>
+      </div>
+    </section>
+
+    <section id="chef" style="padding-top:0">
+      <div class="container chef">
+        <div class="chef-portrait" data-reveal>Foto do chef (exemplo)</div>
+        <div>
+          <p class="mono accent" data-reveal>(03) — O chef</p>
+          <blockquote data-reveal style="margin-top:24px">"Cozinhar é escolher o melhor do dia e não atrapalhar o ingrediente."</blockquote>
+          <p class="muted" data-reveal>Nome do chef (exemplo). No site real, aqui entram a história do chef, a formação e o que inspira a cozinha da casa.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="reservas" style="padding-top:0">
+      <div class="container two-col">
+        <div>
+          <p class="mono accent" data-reveal>(04) — Reservas</p>
+          <h2 class="section-title" data-split style="margin-top:24px">Sua mesa <em>em minutos.</em></h2>
+        </div>
+        <div class="steps">
+          <div class="steps-rail"><span data-progress></span></div>
+          <div class="step" data-reveal><span class="mono muted">1</span><h3>Diga dia, horário e pessoas</h3><p class="muted">Pelo WhatsApp, a mensagem já vai pronta. Só completar.</p></div>
+          <div class="step" data-reveal><span class="mono muted">2</span><h3>Confirmação na hora</h3><p class="muted">A gente responde com a disponibilidade e guarda a mesa.</p></div>
+          <div class="step" data-reveal><span class="mono muted">3</span><h3>Ocasião especial?</h3><p class="muted">Aniversário ou pedido de casamento: conte para prepararmos algo.</p></div>
+          <div class="step" data-reveal><span class="mono muted">4</span><h3>Lembrete no dia</h3><p class="muted">Um aviso antes do horário. Precisa mudar? É só responder.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas" style="padding-top:0">
+      <div class="container two-col">
+        <div>
+          <p class="mono accent" data-reveal>(05) — Dúvidas</p>
+          <h2 class="section-title" data-split style="margin-top:24px">Perguntas <em>frequentes.</em></h2>
+        </div>
+        <div class="faq">
+          <details><summary>Precisa reservar?</summary><p class="muted">Recomendamos, principalmente de quinta a sábado. Sem reserva, atendemos conforme a disponibilidade.</p></details>
+          <details><summary>Atendem restrições alimentares?</summary><p class="muted">Sim. Avise na reserva e a cozinha adapta os pratos, inclusive no menu degustação.</p></details>
+          <details><summary>Fazem eventos privativos?</summary><p class="muted">No site real, aqui entram o salão privativo, a capacidade e como pedir um orçamento.</p></details>
+          <details><summary>Tem estacionamento?</summary><p class="muted">Valet na porta. No site real, aqui entram o valor e o link do mapa.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final" style="padding-top:0">
+      <div class="container">
+        <h2 data-split>Reserve sua <em>mesa.</em></h2>
+        <div class="final-grid">
+          <div><p class="mono muted">Endereço</p><p>Endereço de exemplo, Lago Sul<br />Brasília — DF</p></div>
+          <div><p class="mono muted">Horário</p><p>Ter a sáb, 19h às 23h<br />Dom, 12h às 16h</p></div>
+          <div><p class="mono muted">Contato</p><p>(61) 0000-0000 (exemplo)</p></div>
+          <button class="btn btn-solid" type="button" data-wa>Reservar pelo WhatsApp</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="#topo">Seu Restaurante<em>.</em></a><p class="muted" style="margin-top:14px">Cozinha contemporânea em Brasília.</p></div>
+        <div><p class="mono muted">Redes</p><p>@seurestaurante (exemplo)</p></div>
+        <div><p class="mono muted">Este é um modelo</p><p class="muted">Sem marca real: nome, chef, menu, preços, endereço e telefone são espaços de exemplo. Site-modelo criado pela <a href="/portfolio">IONEXT</a>.</p></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="mono muted">© <span data-year></span> Seu Restaurante · modelo de demonstração</span>
+        <div class="motion-toggle" role="group" aria-label="Animações">
+          <span class="mono muted">Animações</span>
+          <button type="button" data-motion="auto">Auto</button>
+          <button type="button" data-motion="on">Ativadas</button>
+          <button type="button" data-motion="off">Desativadas</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../_vendor/gsap.min.js"></script>
+  <script src="../_vendor/ScrollTrigger.min.js"></script>
+  <script src="../_vendor/lenis.min.js"></script>
+  <script type="module">
+    import { initModelo } from '../_kit/kit.js?v=20261115';
+    initModelo({
+      name: 'restaurante',
+      segment: 'restaurante',
+      copy: { mine: 'o meu restaurante', of: 'do restaurante', person: 'O cliente', item: 'o dia e o horário', yours: 'do seu restaurante' },
+      canvas: document.getElementById('cena'),
+      scene: () => import('./scene.js?v=20261115').then((m) => (c, o) => new m.WineGlassScene(c, o)),
+    });
+  </script>
+</body>
+</html>
