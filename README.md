@@ -58,11 +58,12 @@ node_modules/node/bin/node.exe node_modules/@angular/cli/bin/ng.js serve
 
 ## Portfólio e sites-modelo
 
-`/portfolio` mostra **sites-modelo por ramo de atuação**, com um seletor no topo da lista (Todos · Clínicas odontológicas · Barbearias & salões). O ramo fica na URL, então dá para mandar o link já filtrado:
+`/portfolio` mostra **sites-modelo por ramo de atuação**, com um seletor no topo da lista (Todos · Clínicas odontológicas · Barbearias & salões · Lanchonetes & restaurantes · Celulares & assistência). O ramo fica na URL, então dá para mandar o link já filtrado:
 
 - `/portfolio?ramo=clinicas` — só os modelos de clínica
 - `/portfolio?ramo=barbearias` — só os modelos de barbearia e salão
 - `/portfolio?ramo=restaurantes` — só os modelos de lanchonete, restaurante e pizzaria
+- `/portfolio?ramo=celulares` — só os modelos de celulares e assistência técnica
 
 Os modelos **não usam nome de marca nem de profissional** (aparecem como "Sua Clínica", "Sua Barbearia", "Nome do(a) dentista", "Nome do barbeiro"), para não coincidir com negócios reais; endereço, telefone e preços são de exemplo; cada modelo tem um selo de "Modelo de demonstração" no topo, `noindex` e uma nota no rodapé. O Neo (agente de WhatsApp) envia este link quando o cliente demonstra interesse e apresenta os sites como modelos, nunca como clientes.
 
@@ -77,6 +78,9 @@ Os modelos **não usam nome de marca nem de profissional** (aparecem como "Sua C
 | Hamburgueria | Lanchonetes & restaurantes | `public/modelos/hamburgueria/` | Hambúrguer que se monta camada por camada; a rolagem separa as camadas | Creme `#f7efe1` + ketchup `#d93a24` + mostarda `#f2b134` · Fraunces + Space Grotesk + JetBrains Mono |
 | Restaurante | Lanchonetes & restaurantes | `public/modelos/restaurante/` | Taça de cristal com o vinho balançando | Vinho escuro `#120a0b` + dourado `#c9a46a` · Bodoni Moda + Instrument Sans + IBM Plex Mono |
 | Pizzaria | Lanchonetes & restaurantes | `public/modelos/pizzaria/` | Oito fatias se encaixam numa pizza, com vapor subindo | Creme `#fbf5ec` + tomate `#c8371f` + manjericão `#2f6b3a` · DM Serif Display + Instrument Sans + IBM Plex Mono |
+| Assistência express | Celulares & assistência | `public/modelos/assistencia-express/` | Smartphone em vista explodida técnica com tela OLED e camadas alinhadas | Escuro `#090d14` + ciano elétrico `#00e5ff` · Syne + Space Grotesk + JetBrains Mono |
+| Loja de celulares | Celulares & assistência | `public/modelos/loja-smartphones/` | Smartphone em titânio girando sob reflexos de estúdio com lentes em ouro | Preto grafite `#0b0c0f` + dourado titânio `#dfab52` · Bodoni Moda + Instrument Sans + IBM Plex Mono |
+| Laboratório de placas | Celulares & assistência | `public/modelos/reparo-placas/` | Microprocessador BGA e circuitos em escala nanométrica pulsando dados | Preto profundo `#080c0a` + verde esmeralda `#00f58d` · Space Grotesk + Instrument Sans + JetBrains Mono |
 
 - **Novo ramo ou modelo**: acrescente o ramo em `PORTFOLIO_SECTORS` (id, nome e CTA do fim da página) e o modelo em `PORTFOLIO_ITEMS` com o `sector` certo. O aviso do botão de WhatsApp dos modelos se adapta ao ramo pela opção `copy` do `initModelo` (ex.: "WhatsApp da barbearia", "O cliente").
 

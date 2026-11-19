@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Modelo de site: assistência express | IONEXT</title>
+  <meta name="description" content="Modelo de demonstração da IONEXT: site para assistência técnica express de celulares, sem marca real e com dados de exemplo." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta property="og:title" content="Modelo de site para assistência express — IONEXT" />
+  <meta property="og:description" content="Modelo de demonstração (sem marca real) de site para assistência técnica de celulares." />
+  <meta property="og:image" content="https://ionext.com.br/assets/portfolio/assistencia-express.jpg" />
+  <meta name="theme-color" content="#090d14" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../_kit/kit.css?v=20261116" />
+  <style>
+    @font-face { font-family: 'Syne Variable'; src: url('../_vendor/fonts/syne-latin-wght-normal.woff2') format('woff2'); font-weight: 400 800; font-display: swap; }
+    @font-face { font-family: 'Space Grotesk Variable'; src: url('../_vendor/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2'); font-weight: 300 700; font-display: swap; }
+    @font-face { font-family: 'JetBrains Mono Variable'; src: url('../_vendor/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2'); font-weight: 100 800; font-display: swap; }
+    :root {
+      --bg: #090d14;
+      --ink: #f0f4f8;
+      --accent: #00e5ff;
+      --on-accent: #090d14;
+      --font-display: 'Syne Variable', system-ui, sans-serif;
+      --font-text: 'Space Grotesk Variable', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+    }
+    .brand { font-family: var(--font-display); font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; text-decoration: none; }
+    .brand em { font-style: normal; color: var(--bg); background: var(--accent); padding: 0 6px; margin-left: 4px; border-radius: 2px; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase; }
+    .accent { color: var(--accent); }
+    .hl { color: var(--accent); }
+    .hero-stage::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(9,13,20,0.96) 0%, rgba(9,13,20,0.65) 42%, rgba(9,13,20,0) 68%);
+    }
+    .hero-title { margin: 0 0 28px; font-size: clamp(2.8rem, 6.4vw, 7.2rem); line-height: 0.9; max-width: 11ch; }
+    .hero-sub { max-width: 46ch; font-size: 19px; margin: 0 0 36px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn { border-radius: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .btn-ghost { border-color: var(--ink); }
+    .hero-meta { margin-top: 56px; display: grid; grid-template-columns: repeat(3, max-content); gap: 36px; }
+    .hero-meta b { display: block; font-family: var(--font-display); font-size: 22px; letter-spacing: -0.02em; color: var(--accent); }
+    [data-marquee] { background: var(--accent); color: var(--on-accent); border: 0; }
+    .marquee-track span { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 3.8vw, 52px); }
+    .marquee-track i { font-style: normal; font-size: 20px; }
+    section { padding: 140px 0; }
+    .section-head { display: grid; grid-template-columns: 220px 1fr; gap: 32px; margin-bottom: 64px; }
+    .section-title { margin: 0; font-size: clamp(2.4rem, 5.8vw, 6rem); line-height: 0.92; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: color-mix(in srgb, var(--ink) 14%, transparent); border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+    .stat { background: var(--bg); padding: 34px 28px; }
+    .stat strong { display: block; font-family: var(--font-display); font-size: clamp(48px, 6vw, 84px); line-height: 1; color: var(--accent); }
+    .stat span { display: block; margin-top: 10px; }
+    /* cartões de reparo */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: color-mix(in srgb, var(--ink) 14%, transparent); border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+    .card { background: var(--bg); padding: 30px 28px 28px; display: flex; flex-direction: column; gap: 14px; min-height: 270px; transition: background-color 0.35s; }
+    .card:hover { background: color-mix(in srgb, var(--accent) 7%, var(--bg)); }
+    .card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .card h3 { margin: 0; font-size: clamp(20px, 2vw, 26px); line-height: 1.1; }
+    .card .price { font-family: var(--font-mono); color: var(--accent); white-space: nowrap; font-size: 13px; }
+    .card p { margin: 0; flex: 1; }
+    .card .list-link { align-self: flex-start; }
+    .tag { display: inline-block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); padding: 3px 8px; border-radius: 2px; }
+    .team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .member { border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); padding: 28px; min-height: 280px; display: flex; flex-direction: column; justify-content: space-between; }
+    .avatar { aspect-ratio: 1; width: 88px; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 15%, var(--bg)); border: 1px solid var(--accent); color: var(--accent); font-family: var(--font-mono); font-weight: 700; font-size: 26px; border-radius: 4px; }
+    .member h3 { margin: 20px 0 6px; font-size: 22px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .final h2 { font-size: clamp(3rem, 10vw, 11rem); line-height: 0.86; margin: 0 0 40px; }
+    .final-grid { display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 32px; align-items: end; }
+    .fallback path { fill: none; stroke: var(--accent); stroke-width: 2; }
+    @media (max-width: 900px) {
+      section { padding: 96px 0; }
+      .hero-stage { height: 62svh; }
+      .hero-stage::after { background: linear-gradient(180deg, rgba(9,13,20,0) 35%, rgba(9,13,20,0.94) 92%); }
+      .hero-inner { padding-top: 46svh; padding-bottom: 48px; }
+      .section-head, .two-col, .stats, .cards, .team, .final-grid { grid-template-columns: 1fr; }
+      .section-head { gap: 14px; margin-bottom: 40px; }
+      .hero-meta { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .card { min-height: 0; }
+      .hero-title { font-size: 11vw; }
+    }
+    @media (max-width: 420px) {
+      .brand { font-size: 18px; }
+    }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "../_vendor/three/three.module.js", "three/addons/": "../_vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#topo">Sua Tech<em>Fix</em></a>
+      <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="site-nav" id="menu" aria-label="Principal">
+        <a href="#servicos">Reparos</a>
+        <a href="#bancada">Bancada</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#duvidas">Dúvidas</a>
+        <button class="btn btn-solid" type="button" data-wa>Pedir orçamento</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="topo">
+    <section class="hero" style="padding:0">
+      <div class="hero-stage" aria-hidden="true">
+        <canvas id="cena"></canvas>
+        <svg class="fallback" viewBox="0 0 400 300">
+          <rect x="120" y="40" width="160" height="220" rx="20" fill="none" stroke="#00e5ff" stroke-width="2" />
+          <line x1="150" y1="65" x2="250" y2="65" stroke="#00e5ff" stroke-width="2" />
+          <circle cx="200" cy="235" r="10" fill="none" stroke="#00e5ff" stroke-width="2" />
+        </svg>
+      </div>
+      <div class="container hero-inner">
+        <p class="mono muted">Assistência técnica especializada · Brasília — DF</p>
+        <h1 class="hero-title" data-split>Celular pronto em <span class="hl">30 minutos.</span></h1>
+        <p class="hero-sub muted">Troca de tela, bateria nova e reparos na hora, na sua frente. Peças homologadas com 1 ano de garantia e orçamento em 1 minuto pelo WhatsApp.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-solid" type="button" data-wa>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>
+            Pedir orçamento
+          </button>
+          <a class="btn btn-ghost" href="#servicos">Ver serviços</a>
+        </div>
+        <div class="hero-meta">
+          <div><b>30 min</b><span class="mono muted">troca de tela express</span></div>
+          <div><b>1 ano</b><span class="mono muted">de garantia em peças</span></div>
+          <div><b>Sem formatar</b><span class="mono muted">dados preservados</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div data-marquee aria-hidden="true">
+      <div class="marquee-track">
+        <span>Troca de tela OLED <i>✕</i> Bateria nova na hora <i>✕</i> Conector de carga <i>✕</i> Vidro traseiro a laser <i>✕</i> Câmeras e lentes <i>✕</i> Banho químico <i>✕</i></span>
+        <span>Troca de tela OLED <i>✕</i> Bateria nova na hora <i>✕</i> Conector de carga <i>✕</i> Vidro traseiro a laser <i>✕</i> Câmeras e lentes <i>✕</i> Banho químico <i>✕</i></span>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(01) — Diferencial</p>
+          <h2 class="section-title" data-split>Transparência total: <span class="hl">reparo na sua frente.</span></h2>
+        </div>
+        <div class="stats">
+          <div class="stat" data-reveal><strong>30 min</strong><span class="muted">tempo médio para tela ou bateria</span></div>
+          <div class="stat" data-reveal><strong>4,9★</strong><span class="muted">nota no Google com 1.200+ avaliações (exemplo)</span></div>
+          <div class="stat" data-reveal><strong>1 ano</strong><span class="muted">garantia documentada por escrito</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicos" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(02) — Serviços</p>
+          <h2 class="section-title" data-split>O que o seu celular <span class="hl">precisa?</span></h2>
+        </div>
+        <div class="cards">
+          <article class="card" data-reveal><div class="card-top"><h3>Troca de tela frontal</h3><span class="price">R$ 00</span></div><p class="muted">Vidro trincado ou touch travando. Telas OLED e Premium com calibração de TrueTone e biometria facial.</p><button class="list-link" type="button" data-wa>Orçar tela</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Troca de bateria</h3><span class="tag">Mais pedido</span></div><p class="muted">Bateria descarregando rápido ou desligando sozinha. Baterias com ciclo zero e saúde em 100%.</p><button class="list-link" type="button" data-wa>Orçar bateria</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Conector de carga</h3><span class="price">R$ 00</span></div><p class="muted">Aparelho só carrega em uma posição ou não conecta no cabo? Troca do módulo com teste de corrente.</p><button class="list-link" type="button" data-wa>Orçar conector</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Vidro traseiro a laser</h3><span class="price">R$ 00</span></div><p class="muted">Remoção a laser com precisão cirúrgica, preservando o chassi e a bobina de carregamento sem fio.</p><button class="list-link" type="button" data-wa>Orçar vidro</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Câmeras & sensores</h3><span class="price">R$ 00</span></div><p class="muted">Lente externa quebrada, câmera tremendo ou fotos com manchas pretas. Troca rápida do módulo.</p><button class="list-link" type="button" data-wa>Orçar câmera</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Desoxidação & água</h3><span class="price">Sob consulta</span></div><p class="muted">Caiu na água ou piscina? Banho químico imediato em cuba ultrassônica para estancar a corrosão da placa.</p><button class="list-link" type="button" data-wa>Salvar celular</button></article>
+        </div>
+        <p class="demo-note muted" style="margin-top:28px">Preços de exemplo: no site real entram os valores, as marcas suportadas (Apple, Samsung, Xiaomi, Motorola) e as condições da sua assistência.</p>
+      </div>
+    </section>
+
+    <section id="bancada" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(03) — Especialistas</p>
+          <h2 class="section-title" data-split>Quem mexe <span class="hl">no seu aparelho.</span></h2>
+        </div>
+        <div class="team">
+          <article class="member" data-reveal><div class="avatar">01</div><div><h3>Nome do técnico</h3><p class="muted">Telas OLED e linha Apple · Certificação CREA (exemplo)</p></div></article>
+          <article class="member" data-reveal><div class="avatar">02</div><div><h3>Nome do técnico</h3><p class="muted">Android e desoxidação · Especialista hardware (exemplo)</p></div></article>
+          <article class="member" data-reveal><div class="avatar">03</div><div><h3>Nome do técnico</h3><p class="muted">Conectores e baterias · Controle de qualidade (exemplo)</p></div></article>
+        </div>
+        <p class="demo-note muted" style="margin-top:28px">Espaço do time: no site real entram os nomes, certificações, fotos da bancada e tempo de experiência dos técnicos.</p>
+      </div>
+    </section>
+
+    <section id="como-funciona" style="padding-top:0">
+      <div class="container two-col">
+        <div>
+          <p class="mono accent" data-reveal>(04) — Agilidade</p>
+          <h2 class="section-title" data-split style="margin-top:24px">Sem burocracia, <span class="hl">do início ao fim.</span></h2>
+        </div>
+        <div class="steps">
+          <div class="steps-rail"><span data-progress></span></div>
+          <div class="step" data-reveal><span class="mono muted">01</span><h3>Chama no WhatsApp</h3><p class="muted">Informe o modelo e o problema. Você recebe o orçamento exato em menos de 2 minutos.</p></div>
+          <div class="step" data-reveal><span class="mono muted">02</span><h3>Traz ou pede motoboy</h3><p class="muted">Atendimento balcão na hora ou serviço leva-e-traz com lacre de segurança.</p></div>
+          <div class="step" data-reveal><span class="mono muted">03</span><h3>Reparo feito na hora</h3><p class="muted">Assistência envidraçada: você assiste o reparo ser feito na bancada sem precisar formatar nada.</p></div>
+          <div class="step" data-reveal><span class="mono muted">04</span><h3>Checklist e garantia</h3><p class="muted">Aparelho testado em 25 funções, limpo e entregue com certificado de garantia de 1 ano.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas" style="padding-top:0">
+      <div class="container two-col">
+        <div>
+          <p class="mono accent" data-reveal>(05) — Dúvidas</p>
+          <h2 class="section-title" data-split style="margin-top:24px">Perguntas <span class="hl">frequentes.</span></h2>
+        </div>
+        <div class="faq">
+          <details><summary>Preciso formatar ou apagar minhas fotos?</summary><p class="muted">Não! Mais de 95% dos reparos (tela, bateria, conectores) são feitos com o aparelho protegido sem necessidade de apagar nada. Seus dados permanecem 100% seguros.</p></details>
+          <details><summary>Quanto tempo demora a troca de tela ou bateria?</summary><p class="muted">Em média entre 25 e 40 minutos. Você pode tomar um café e sair da loja com o aparelho pronto no mesmo momento.</p></details>
+          <details><summary>O Face ID e a biometria continuam funcionando?</summary><p class="muted">Sim! Nossos técnicos realizam a transferência de sensores e regravação de EEPROM mantendo Face ID, True Tone e biometria digital 100% ativos.</p></details>
+          <details><summary>Quais são as formas de pagamento?</summary><p class="muted">Pix com desconto, cartões de crédito em até 12x e débito. No site real, aqui entram as condições da sua loja.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final" style="padding-top:0">
+      <div class="container">
+        <h2 data-split>Seu celular <span class="hl">novo de novo.</span></h2>
+        <div class="final-grid">
+          <div><p class="mono muted">Endereço</p><p>Endereço de exemplo, Asa Sul<br />Brasília — DF</p></div>
+          <div><p class="mono muted">Horário</p><p>Seg a sex, 8h30 às 18h30<br />Sáb, 9h às 14h</p></div>
+          <div><p class="mono muted">Contato</p><p>(61) 0000-0000 (exemplo)</p></div>
+          <button class="btn btn-solid" type="button" data-wa>Pedir orçamento no WhatsApp</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="#topo">Sua Tech<em>Fix</em></a><p class="muted" style="margin-top:14px">Assistência técnica especializada em smartphones.</p></div>
+        <div><p class="mono muted">Redes</p><p>@suatechfix (exemplo)</p></div>
+        <div><p class="mono muted">Este é um modelo</p><p class="muted">Sem marca real: nome, time, preços, endereço e telefone são espaços de exemplo. Site-modelo criado pela <a href="/portfolio">IONEXT</a>.</p></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="mono muted">© <span data-year></span> Sua TechFix · modelo de demonstração</span>
+        <div class="motion-toggle" role="group" aria-label="Animações">
+          <span class="mono muted">Animações</span>
+          <button type="button" data-motion="auto">Auto</button>
+          <button type="button" data-motion="on">Ativadas</button>
+          <button type="button" data-motion="off">Desativadas</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../_vendor/gsap.min.js"></script>
+  <script src="../_vendor/ScrollTrigger.min.js"></script>
+  <script src="../_vendor/lenis.min.js"></script>
+  <script type="module">
+    import { initModelo } from '../_kit/kit.js?v=20261116';
+    initModelo({
+      name: 'assistência express',
+      segment: 'assistência',
+      copy: { mine: 'a minha assistência técnica', of: 'da assistência', person: 'O cliente', item: 'o reparo', yours: 'da sua assistência' },
+      canvas: document.getElementById('cena'),
+      scene: () => import('./scene.js?v=20261116').then((m) => (c, o) => new m.ExplodedPhoneScene(c, o)),
+    });
+  </script>
+</body>
+</html>

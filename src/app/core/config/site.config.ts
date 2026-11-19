@@ -238,7 +238,7 @@ export const SITE_CONFIG = {
       lead: 'Sites para o seu negócio',
       em: 'com cara de marca grande.',
       subtitle:
-        'Modelos de demonstração para clínicas, barbearias, salões, lanchonetes e restaurantes, sem marca real e com dados de exemplo. Escolha o seu ramo: o design, a experiência no celular e os botões de WhatsApp são o padrão que a Ionext entrega.',
+        'Modelos de demonstração para clínicas, barbearias, salões, restaurantes, lojas de celular e assistência técnica, sem marca real e com dados de exemplo. Escolha o seu ramo: o design, a experiência no celular e os botões de WhatsApp são o padrão que a Ionext entrega.',
       note:
         'Estes são modelos criados pela Ionext para mostrar o padrão de trabalho, não sites de clientes. Cada site real é feito do zero com a marca, as fotos, os serviços e os profissionais do seu negócio.',
       filterLabel: 'Ramo de atuação',
@@ -799,7 +799,7 @@ export const SITE_CONFIG = {
 
 /** Sites-modelo do portfólio (sem marca real; arquivos em public/modelos/<slug>/). */
 /** Ramos de atuação do portfólio. O id vai na URL: /portfolio?ramo=barbearias */
-export type PortfolioSectorId = 'clinicas' | 'barbearias' | 'restaurantes';
+export type PortfolioSectorId = 'clinicas' | 'barbearias' | 'restaurantes' | 'celulares';
 
 export interface PortfolioSector {
   id: PortfolioSectorId;
@@ -837,6 +837,16 @@ export const PORTFOLIO_SECTORS: readonly PortfolioSector[] = [
       em: 'a próxima.',
       text: 'Conte como você recebe pedidos e reservas hoje. A gente mostra como ficaria o site, com cardápio e pedido pelo WhatsApp em cada botão.',
       message: 'Olá! Vi o portfólio de sites da Ionext e quero um site assim para a minha lanchonete ou restaurante.',
+    },
+  },
+  {
+    id: 'celulares',
+    label: 'Celulares & assistência',
+    cta: {
+      lead: 'A sua loja ou assistência pode ser',
+      em: 'a próxima.',
+      text: 'Conte como você recebe orçamentos e vende aparelhos hoje. A gente mostra como ficaria o seu site, com WhatsApp em cada aparelho e orçamento de reparo em um clique.',
+      message: 'Olá! Vi o portfólio de sites da Ionext e quero um site assim para a minha loja de celulares ou assistência técnica.',
     },
   },
 ];
@@ -981,5 +991,47 @@ export const PORTFOLIO_ITEMS: readonly PortfolioItem[] = [
     image: '/assets/portfolio/pizzaria.jpg',
     imageMobile: '/assets/portfolio/pizzaria-mobile.jpg',
     whatsappMessage: 'Olá! Vi o modelo de site de pizzaria no portfólio da Ionext e quero um site assim para a minha pizzaria.',
+  },
+  {
+    slug: 'assistencia-express',
+    sector: 'celulares',
+    name: 'Assistência express',
+    segment: 'Técnico e ágil',
+    concept: 'Um smartphone se abrindo em camadas técnicas com tela e peças alinhadas.',
+    description:
+      'Foco em agilidade, confiança e peças com garantia: orçamento rápido pelo WhatsApp, troca de tela e bateria em 30 min e consulta de ordem de serviço.',
+    features: ['Cena 3D própria', 'Orçamento pelo WhatsApp', 'Garantia de 1 ano', 'Feito para o celular'],
+    url: '/modelos/assistencia-express/index.html',
+    image: '/assets/portfolio/assistencia-express.jpg',
+    imageMobile: '/assets/portfolio/assistencia-express-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de assistência express no portfólio da Ionext e quero um site assim para a minha assistência.',
+  },
+  {
+    slug: 'loja-smartphones',
+    sector: 'celulares',
+    name: 'Loja de celulares',
+    segment: 'Dark e premium',
+    concept: 'Um smartphone de titânio girando sob iluminação de estúdio com lentes em destaque.',
+    description:
+      'Visual moderno e comercial para venda de novos e seminovos selecionados: vitrine de modelos com bateria 100%, avaliação de usados na troca e parcelamento.',
+    features: ['Cena 3D própria', 'Vitrine de seminovos selecionados', 'Avaliação de troca pelo WhatsApp', 'Feito para o celular'],
+    url: '/modelos/loja-smartphones/index.html',
+    image: '/assets/portfolio/loja-smartphones.jpg',
+    imageMobile: '/assets/portfolio/loja-smartphones-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de loja de celulares no portfólio da Ionext e quero um site assim para a minha loja.',
+  },
+  {
+    slug: 'reparo-placas',
+    sector: 'celulares',
+    name: 'Laboratório de placas',
+    segment: 'Laboratório e precisão',
+    concept: 'Um microprocessador com trilhas de circuito energizadas e componentes eletrônicos.',
+    description:
+      'Para quem resolve o que os outros condenam: reparo avançado de placas, Face ID, solda BGA, recuperação de molhados e atendimento para lojistas parceiros.',
+    features: ['Cena 3D própria', 'Diagnóstico laboratorial e laudo', 'Envio por motoboy ou correios', 'Feito para o celular'],
+    url: '/modelos/reparo-placas/index.html',
+    image: '/assets/portfolio/reparo-placas.jpg',
+    imageMobile: '/assets/portfolio/reparo-placas-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de laboratório de placas no portfólio da Ionext e quero um site assim para o meu laboratório.',
   },
 ];

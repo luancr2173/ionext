@@ -8,17 +8,20 @@
 import * as THREE from 'three';
 import { BaseScene, PALETTE, SceneOptions, dotTexture } from './scene-kit';
 
-// alterna os ramos (clínica, barbearia/salão, restaurante) para a galeria mostrar todos
+// alterna os ramos (clínica, barbearia/salão, restaurante, celulares) para a galeria mostrar todos
 const SHOTS = [
   '/assets/portfolio/estetica.jpg',
   '/assets/portfolio/barbearia-classica.jpg',
   '/assets/portfolio/hamburgueria.jpg',
+  '/assets/portfolio/assistencia-express.jpg',
   '/assets/portfolio/odontopediatria.jpg',
   '/assets/portfolio/salao-beleza.jpg',
   '/assets/portfolio/restaurante.jpg',
+  '/assets/portfolio/loja-smartphones.jpg',
   '/assets/portfolio/ortodontia.jpg',
   '/assets/portfolio/barbearia-urbana.jpg',
   '/assets/portfolio/pizzaria.jpg',
+  '/assets/portfolio/reparo-placas.jpg',
 ];
 const W = 2.4;
 const H = W * (900 / 1440);

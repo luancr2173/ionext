@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Modelo de site: loja de celulares | IONEXT</title>
+  <meta name="description" content="Modelo de demonstração da IONEXT: site para loja de celulares e seminovos premium, sem marca real e com dados de exemplo." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta property="og:title" content="Modelo de site para loja de celulares — IONEXT" />
+  <meta property="og:description" content="Modelo de demonstração (sem marca real) de site para loja de celulares e seminovos." />
+  <meta property="og:image" content="https://ionext.com.br/assets/portfolio/loja-smartphones.jpg" />
+  <meta name="theme-color" content="#0b0c0f" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../_kit/kit.css?v=20261116" />
+  <style>
+    @font-face { font-family: 'Bodoni Moda Variable'; src: url('../_vendor/fonts/bodoni-moda-latin-wght-italic.woff2') format('woff2'); font-weight: 400 900; font-style: italic; font-display: swap; }
+    @font-face { font-family: 'Bodoni Moda Roman'; src: url('../_vendor/fonts/bodoni-moda-latin-wght-normal.woff2') format('woff2'); font-weight: 400 900; font-display: swap; }
+    @font-face { font-family: 'Instrument Sans Variable'; src: url('../_vendor/fonts/instrument-sans-latin-wght-normal.woff2') format('woff2'); font-weight: 400 700; font-display: swap; }
+    @font-face { font-family: 'IBM Plex Mono'; src: url('../_vendor/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    :root {
+      --bg: #0b0c0f;
+      --ink: #f4f4f2;
+      --accent: #dfab52;
+      --on-accent: #0b0c0f;
+      --font-display: 'Bodoni Moda Roman', Georgia, serif;
+      --font-serif: 'Bodoni Moda Variable', Georgia, serif;
+      --font-text: 'Instrument Sans Variable', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    }
+    .brand { font-family: var(--font-display); font-size: 24px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; }
+    .brand em { font-family: var(--font-serif); font-style: italic; color: var(--accent); font-weight: 400; margin-left: 6px; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; }
+    em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--accent); }
+    .accent { color: var(--accent); }
+    .hl { color: var(--accent); }
+    .hero-stage::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(11,12,15,0.95) 0%, rgba(11,12,15,0.6) 42%, rgba(11,12,15,0) 68%);
+    }
+    .hero-title { margin: 0 0 28px; font-size: clamp(2.9rem, 6.6vw, 7.6rem); line-height: 0.92; max-width: 12ch; }
+    .hero-sub { max-width: 46ch; font-size: 19px; margin: 0 0 36px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn { border-radius: 999px; letter-spacing: 0.02em; }
+    .btn-ghost { border-color: color-mix(in srgb, var(--ink) 30%, transparent); }
+    .hero-meta { margin-top: 56px; display: grid; grid-template-columns: repeat(3, max-content); gap: 36px; }
+    .hero-meta b { display: block; font-family: var(--font-display); font-size: 22px; color: var(--accent); }
+    [data-marquee] { border-block-color: color-mix(in srgb, var(--ink) 12%, transparent); }
+    .marquee-track span { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; font-size: clamp(24px, 3.4vw, 46px); letter-spacing: 0.02em; }
+    .marquee-track i { font-style: normal; color: var(--accent); font-family: var(--font-mono); font-size: 18px; }
+    section { padding: 140px 0; }
+    .section-head { display: grid; grid-template-columns: 220px 1fr; gap: 32px; margin-bottom: 64px; }
+    .section-title { margin: 0; font-size: clamp(2.4rem, 5.8vw, 6rem); line-height: 0.94; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: color-mix(in srgb, var(--ink) 14%, transparent); border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+    .stat { background: var(--bg); padding: 36px 30px; }
+    .stat strong { display: block; font-family: var(--font-display); font-size: clamp(48px, 6vw, 84px); line-height: 1; color: var(--accent); font-weight: 400; }
+    .stat span { display: block; margin-top: 12px; }
+    /* vitrine em cartões premium */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: color-mix(in srgb, var(--ink) 14%, transparent); border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+    .card { background: var(--bg); padding: 32px 28px 28px; display: flex; flex-direction: column; gap: 14px; min-height: 290px; transition: background-color 0.35s; }
+    .card:hover { background: color-mix(in srgb, var(--accent) 7%, var(--bg)); }
+    .card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .card h3 { margin: 0; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.1; font-weight: 600; }
+    .card .price { font-family: var(--font-mono); color: var(--accent); white-space: nowrap; font-size: 13px; }
+    .card p { margin: 0; flex: 1; }
+    .card .list-link { align-self: flex-start; color: var(--accent); }
+    .tag { display: inline-block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); padding: 3px 8px; border-radius: 999px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .final h2 { font-size: clamp(3rem, 10vw, 11rem); line-height: 0.88; margin: 0 0 40px; }
+    .final-grid { display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 32px; align-items: end; }
+    .fallback circle { fill: none; stroke: var(--accent); stroke-width: 2; }
+    @media (max-width: 900px) {
+      section { padding: 96px 0; }
+      .hero-stage { height: 62svh; }
+      .hero-stage::after { background: linear-gradient(180deg, rgba(11,12,15,0) 35%, rgba(11,12,15,0.92) 92%); }
+      .hero-inner { padding-top: 46svh; padding-bottom: 48px; }
+      .section-head, .two-col, .stats, .cards, .final-grid { grid-template-columns: 1fr; }
+      .section-head { gap: 14px; margin-bottom: 40px; }
+      .hero-meta { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .card { min-height: 0; }
+      .hero-title { font-size: 11vw; }
+    }
+    @media (max-width: 420px) {
+      .brand { font-size: 20px; }
+    }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "../_vendor/three/three.module.js", "three/addons/": "../_vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#topo">PhoneStore<em>Select</em></a>
+      <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="site-nav" id="menu" aria-label="Principal">
+        <a href="#vitrine">Vitrine</a>
+        <a href="#tradein">Troca de Usado</a>
+        <a href="#procedencia">Garantia</a>
+        <a href="#duvidas">Dúvidas</a>
+        <button class="btn btn-solid" type="button" data-wa>Ver aparelhos</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="topo">
+    <section class="hero" style="padding:0">
+      <div class="hero-stage" aria-hidden="true">
+        <canvas id="cena"></canvas>
+        <svg class="fallback" viewBox="0 0 400 300">
+          <circle cx="200" cy="150" r="100" />
+          <circle cx="200" cy="150" r="60" />
+        </svg>
+      </div>
+      <div class="container hero-inner">
+        <p class="mono muted">Smartphones novos & seminovos selecionados · Brasília — DF</p>
+        <h1 class="hero-title" data-split>Celulares de ponta <em>com procedência garantida.</em></h1>
+        <p class="hero-sub muted">iPhones e smartphones premium testados em mais de 40 itens, bateria 100% e garantia de até 1 ano. Seu aparelho usado entra como entrada no negócio.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-solid" type="button" data-wa>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>
+            Ver vitrine no WhatsApp
+          </button>
+          <a class="btn btn-ghost" href="#tradein">Simular troca do usado</a>
+        </div>
+        <div class="hero-meta">
+          <div><b>Bateria 100%</b><span class="mono muted">saúde máxima atestada</span></div>
+          <div><b>Até 18x</b><span class="mono muted">no cartão de crédito</span></div>
+          <div><b>Troca com troco</b><span class="mono muted">seu usado vale dinheiro</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div data-marquee aria-hidden="true">
+      <div class="marquee-track">
+        <span>Linha iPhone Pro Max <i>✦</i> Seminovos Impecáveis <i>✦</i> Lacrados com Nota <i>✦</i> Avaliação de Usados <i>✦</i> Apple Watch & iPads <i>✦</i> Acessórios Homologados <i>✦</i></span>
+        <span>Linha iPhone Pro Max <i>✦</i> Seminovos Impecáveis <i>✦</i> Lacrados com Nota <i>✦</i> Avaliação de Usados <i>✦</i> Apple Watch & iPads <i>✦</i> Acessórios Homologados <i>✦</i></span>
+      </div>
+    </div>
+
+    <section id="procedencia">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(01) — Padrão Select</p>
+          <h2 class="section-title" data-split>Seminovos que parecem <em>saídos da caixa.</em></h2>
+        </div>
+        <div class="stats">
+          <div class="stat" data-reveal><strong>40+</strong><span class="muted">itens inspecionados: tela, câmeras, biometria e bateria</span></div>
+          <div class="stat" data-reveal><strong>100%</strong><span class="muted">aparelhos desbloqueados de fábrica, com nota e procedência</span></div>
+          <div class="stat" data-reveal><strong>1 ano</strong><span class="muted">garantia da loja com suporte imediato</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="vitrine" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono accent" data-reveal>(02) — Catálogo</p>
+          <h2 class="section-title" data-split>Escolha o seu <em>próximo celular.</em></h2>
+        </div>
+        <div class="cards">
+          <article class="card" data-reveal><div class="card-top"><h3>Linha Pro Max</h3><span class="tag">Destaque</span></div><p class="muted">15 e 16 Pro Max. Titânio escovado, câmeras com zoom óptico 5x e bateria com autonomia para o dia todo.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Linha Pro</h3><span class="price">A partir de R$ 0.000</span></div><p class="muted">14 Pro e 15 Pro. Tela ProMotion 120Hz fluida, acabamento fosco e tamanho compacto com potência máxima.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Linha Standard</h3><span class="price">A partir de R$ 0.000</span></div><p class="muted">13, 14 e 15. O equilíbrio perfeito entre custo, câmera cinematográfica e desempenho de última geração.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Galaxy Linha S & Z</h3><span class="price">A partir de R$ 0.000</span></div><p class="muted">S23 / S24 Ultra e Linha Z Fold/Flip. Câmeras de 200MP, recursos Galaxy AI e telas dobráveis premium.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Apple Watch & Tablets</h3><span class="price">A partir de R$ 0.000</span></div><p class="muted">Series 9, Ultra e iPads. Saúde avançada, conectividade celular e caixas originais completas.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Acessórios Originais</h3><span class="price">A partir de R$ 00</span></div><p class="muted">Carregadores rápidos homologados pela Anatel, cabos reforçados, capas antichoque e películas 3D.</p><button class="list-link" type="button" data-wa>Ver acessórios</button></article>
+        </div>
+        <p class="demo-note muted" style="margin-top:28px">Preços e modelos de exemplo: no site real entram os estoques em tempo real, capacidades (128GB, 256GB, 512GB) e cores disponíveis.</p>
+      </div>
+    </section>
+
+    <section id="tradein" style="padding-top:0">
+      <div class="container two-col">
+        <div>
+          <p class="mono accent" data-reveal>(03) — Troca com Troco</p>
+          <h2 class="section-title" data-split style="margin-top:24px">Seu usado vale dinheiro <em>na compra do novo.</em></h2>
+        </div>
+        <div class="steps">
+          <div class="steps-rail"><span data-progress></span></div>
+          <div class="step" data-reveal><span class="mono muted">01</span><h3>Mande fotos no WhatsApp</h3><p class="muted">Informe o modelo, saúde da bateria e envie fotos do seu celular atual.</p></div>
+          <div class="step" data-reveal><span class="mono muted">02</span><h3>Receba a avaliação na hora</h3><p class="muted">Nossa equipe faz a cotação justa baseada na tabela de mercado em menos de 5 minutos.</p></div>
+          <div class="step" data-reveal><span class="mono muted">03</span><h3>Escolha seu novo aparelho</h3><p class="muted">Use o valor como entrada e parcele a diferença em até 18x no cartão.</p></div>
+          <div class="step" data-reveal><span class="mono muted">04</span><h3>Transferência gratuita</h3><p class="muted">Passamos todos os seus contatos, fotos e aplicativos na hora sem perder nada.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas" style="padding-top:0">
+      <div class="container two-col">
+        <div>
+          <p class="mono accent" data-reveal>(04) — Dúvidas</p>
+          <h2 class="section-title" data-split style="margin-top:24px">Perguntas <em>frequentes.</em></h2>
+        </div>
+        <div class="faq">
+          <details><summary>Os aparelhos seminovos têm marcas de uso?</summary><p class="muted">Trabalhamos com classificação Grau A+: aparelhos impecáveis, sem riscos na tela, sem trincados e com carcaça preservada.</p></details>
+          <details><summary>Como funciona a garantia?</summary><p class="muted">Todos os aparelhos seminovos contam com garantia própria de até 1 ano contra qualquer defeito funcional. Os novos lacrados possuem 1 ano de garantia oficial do fabricante.</p></details>
+          <details><summary>Aceitam celular com tela quebrada na troca?</summary><p class="muted">Sim! Avaliamos aparelhos com detalhes estéticos ou tela trincada para abater no valor do seu novo celular.</p></details>
+          <details><summary>Enviam para outras cidades?</summary><p class="muted">Sim! Enviamos para todo o Brasil com frete segurado via Sedex Express ou motoboy local com entrega no mesmo dia no DF.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final" style="padding-top:0">
+      <div class="container">
+        <h2 data-split>Pronto para o <em>upgrade?</em></h2>
+        <div class="final-grid">
+          <div><p class="mono muted">Showroom</p><p>Endereço de exemplo, Águas Claras<br />Brasília — DF</p></div>
+          <div><p class="mono muted">Atendimento</p><p>Seg a sáb, 10h às 21h<br />Dom, 14h às 20h</p></div>
+          <div><p class="mono muted">WhatsApp</p><p>(61) 0000-0000 (exemplo)</p></div>
+          <button class="btn btn-solid" type="button" data-wa>Ver aparelhos disponíveis</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="#topo">PhoneStore<em>Select</em></a><p class="muted" style="margin-top:14px">Smartphones e acessórios de alto padrão.</p></div>
+        <div><p class="mono muted">Redes</p><p>@phonestoreselect (exemplo)</p></div>
+        <div><p class="mono muted">Este é um modelo</p><p class="muted">Sem marca real: nome, catálogo, preços, endereço e telefone são espaços de exemplo. Site-modelo criado pela <a href="/portfolio">IONEXT</a>.</p></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="mono muted">© <span data-year></span> PhoneStore Select · modelo de demonstração</span>
+        <div class="motion-toggle" role="group" aria-label="Animações">
+          <span class="mono muted">Animações</span>
+          <button type="button" data-motion="auto">Auto</button>
+          <button type="button" data-motion="on">Ativadas</button>
+          <button type="button" data-motion="off">Desativadas</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../_vendor/gsap.min.js"></script>
+  <script src="../_vendor/ScrollTrigger.min.js"></script>
+  <script src="../_vendor/lenis.min.js"></script>
+  <script type="module">
+    import { initModelo } from '../_kit/kit.js?v=20261116';
+    initModelo({
+      name: 'loja de celulares',
+      segment: 'loja de celulares',
+      copy: { mine: 'a minha loja de celulares', of: 'da loja', person: 'O cliente', item: 'o aparelho', yours: 'da sua loja de celulares' },
+      canvas: document.getElementById('cena'),
+      scene: () => import('./scene.js?v=20261116').then((m) => (c, o) => new m.TitaniumPhoneScene(c, o)),
+    });
+  </script>
+</body>
+</html>
