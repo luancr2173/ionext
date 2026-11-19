@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Modelo de site: loja de celulares | IONEXT</title>
-  <meta name="description" content="Modelo de demonstração da IONEXT: site para loja de celulares e seminovos premium, sem marca real e com dados de exemplo." />
+  <meta name="description" content="Modelo de demonstração da IONEXT: site para loja de celulares e seminovos premium (iPhone 17, Xiaomi, Galaxy), com animação de vídeo sincronizada com a rolagem do site." />
   <meta name="robots" content="noindex, nofollow" />
   <meta property="og:title" content="Modelo de site para loja de celulares — IONEXT" />
-  <meta property="og:description" content="Modelo de demonstração (sem marca real) de site para loja de celulares e seminovos." />
+  <meta property="og:description" content="Modelo de demonstração (sem marca real) de site para loja de celulares com scroll-driven animation do iPhone 17." />
   <meta property="og:image" content="https://ionext.com.br/assets/portfolio/loja-smartphones.jpg" />
   <meta name="theme-color" content="#0b0c0f" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -33,17 +33,100 @@
     em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--accent); }
     .accent { color: var(--accent); }
     .hl { color: var(--accent); }
+
+    /* Palco 3D do Hero */
+    .hero-stage { pointer-events: none; }
+    .hero-stage canvas { pointer-events: auto; cursor: grab; }
+    .hero-stage canvas:active { cursor: grabbing; }
     .hero-stage::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(90deg, rgba(11,12,15,0.95) 0%, rgba(11,12,15,0.6) 42%, rgba(11,12,15,0) 68%);
+      background: linear-gradient(90deg, rgba(11,12,15,0.96) 0%, rgba(11,12,15,0.62) 42%, rgba(11,12,15,0) 70%);
+      pointer-events: none;
     }
-    .hero-title { margin: 0 0 28px; font-size: clamp(2.9rem, 6.6vw, 7.6rem); line-height: 0.92; max-width: 12ch; }
-    .hero-sub { max-width: 46ch; font-size: 19px; margin: 0 0 36px; }
+    .hero-title { margin: 0 0 24px; font-size: clamp(2.8rem, 6.4vw, 7.4rem); line-height: 0.92; max-width: 12ch; }
+    .hero-sub { max-width: 46ch; font-size: 19px; margin: 0 0 28px; }
+
+    /* Seletor interativo de aparelhos no hero */
+    .device-control { margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .device-switcher {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 5px;
+      background: color-mix(in srgb, var(--ink) 8%, var(--bg));
+      border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+      border-radius: 999px;
+      width: fit-content;
+    }
+    .device-chip {
+      background: transparent;
+      border: 0;
+      color: color-mix(in srgb, var(--ink) 65%, transparent);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      transition: background-color 0.3s, color 0.3s, transform 0.2s;
+    }
+    .device-chip:hover {
+      color: var(--ink);
+    }
+    .device-chip.is-active {
+      background: var(--accent);
+      color: var(--on-accent);
+      font-weight: 600;
+    }
+    .device-hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: color-mix(in srgb, var(--accent) 85%, transparent);
+      letter-spacing: 0.05em;
+    }
+
     .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
     .btn { border-radius: 999px; letter-spacing: 0.02em; }
     .btn-ghost { border-color: color-mix(in srgb, var(--ink) 30%, transparent); }
-    .hero-meta { margin-top: 56px; display: grid; grid-template-columns: repeat(3, max-content); gap: 36px; }
+    .hero-meta { margin-top: 48px; display: grid; grid-template-columns: repeat(3, max-content); gap: 36px; }
     .hero-meta b { display: block; font-family: var(--font-display); font-size: 22px; color: var(--accent); }
+
+    /* Seção de Destaque: Scroll-Driven Video Animation */
+    .scroll-showcase {
+      position: relative;
+      background: #000000;
+      width: 100%;
+      border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    }
+    .scroll-video-track {
+      position: relative;
+      width: 100%;
+      height: 380vh; /* Altura ampla para scrub detalhado, fluido e imersivo */
+    }
+    .scroll-video-sticky {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 50%, #11141c 0%, #06080c 60%, #000000 100%);
+    }
+    .scroll-video-element {
+      width: 100%;
+      height: 100%;
+      max-width: 100vw;
+      max-height: 100vh;
+      object-fit: contain;
+      pointer-events: none;
+      display: block;
+      background: transparent;
+    }
+
     [data-marquee] { border-block-color: color-mix(in srgb, var(--ink) 12%, transparent); }
     .marquee-track span { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; font-size: clamp(24px, 3.4vw, 46px); letter-spacing: 0.02em; }
     .marquee-track i { font-style: normal; color: var(--accent); font-family: var(--font-mono); font-size: 18px; }
@@ -71,13 +154,14 @@
     @media (max-width: 900px) {
       section { padding: 96px 0; }
       .hero-stage { height: 62svh; }
-      .hero-stage::after { background: linear-gradient(180deg, rgba(11,12,15,0) 35%, rgba(11,12,15,0.92) 92%); }
+      .hero-stage::after { background: linear-gradient(180deg, rgba(11,12,15,0) 35%, rgba(11,12,15,0.94) 92%); }
       .hero-inner { padding-top: 46svh; padding-bottom: 48px; }
       .section-head, .two-col, .stats, .cards, .final-grid { grid-template-columns: 1fr; }
       .section-head { gap: 14px; margin-bottom: 40px; }
       .hero-meta { grid-template-columns: 1fr 1fr; gap: 20px; }
       .card { min-height: 0; }
       .hero-title { font-size: 11vw; }
+      .scroll-video-track { height: 300vh; }
     }
     @media (max-width: 420px) {
       .brand { font-size: 20px; }
@@ -93,6 +177,7 @@
       <a class="brand" href="#topo">PhoneStore<em>Select</em></a>
       <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
       <nav class="site-nav" id="menu" aria-label="Principal">
+        <a href="#experiencia">Experiência 360°</a>
         <a href="#vitrine">Vitrine</a>
         <a href="#tradein">Troca de Usado</a>
         <a href="#procedencia">Garantia</a>
@@ -114,13 +199,26 @@
       <div class="container hero-inner">
         <p class="mono muted">Smartphones novos & seminovos selecionados · Brasília — DF</p>
         <h1 class="hero-title" data-split>Celulares de ponta <em>com procedência garantida.</em></h1>
-        <p class="hero-sub muted">iPhones e smartphones premium testados em mais de 40 itens, bateria 100% e garantia de até 1 ano. Seu aparelho usado entra como entrada no negócio.</p>
+        <p class="hero-sub muted">iPhones, Xiaomis e Galaxys de última geração rigorosamente testados, bateria 100% e garantia de até 1 ano. Seu aparelho usado entra como entrada no negócio.</p>
+
+        <!-- Seletor interativo de aparelhos no modelo 3D do hero -->
+        <div class="device-control">
+          <div class="device-switcher" role="tablist" aria-label="Escolher aparelho 3D">
+            <button type="button" class="device-chip is-active" data-device-btn="0" role="tab" aria-selected="true">iPhone 17</button>
+            <button type="button" class="device-chip" data-device-btn="1" role="tab" aria-selected="false">Xiaomi 15 Ultra</button>
+            <button type="button" class="device-chip" data-device-btn="2" role="tab" aria-selected="false">Galaxy S25 Ultra</button>
+          </div>
+          <p class="mono device-hint">
+            <span>✦ Toque no aparelho 3D ou selecione acima para alternar o modelo</span>
+          </p>
+        </div>
+
         <div class="hero-ctas">
           <button class="btn btn-solid" type="button" data-wa>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>
             Ver vitrine no WhatsApp
           </button>
-          <a class="btn btn-ghost" href="#tradein">Simular troca do usado</a>
+          <a class="btn btn-ghost" href="#experiencia">Ver experiência 360° ↓</a>
         </div>
         <div class="hero-meta">
           <div><b>Bateria 100%</b><span class="mono muted">saúde máxima atestada</span></div>
@@ -130,10 +228,27 @@
       </div>
     </section>
 
+    <!-- Seção de Destaque: Vídeo Imersivo com Scroll-Driven Animation (iPhone 17 em 360°) -->
+    <section class="scroll-showcase" id="experiencia" aria-label="Apresentação interativa do iPhone 17 com animação sincronizada ao scroll">
+      <div class="scroll-video-track">
+        <div class="scroll-video-sticky">
+          <video
+            id="iphone-scroll-video"
+            class="scroll-video-element"
+            src="./iphone17-scroll.mp4"
+            muted
+            playsinline
+            webkit-playsinline
+            preload="auto"
+          ></video>
+        </div>
+      </div>
+    </section>
+
     <div data-marquee aria-hidden="true">
       <div class="marquee-track">
-        <span>Linha iPhone Pro Max <i>✦</i> Seminovos Impecáveis <i>✦</i> Lacrados com Nota <i>✦</i> Avaliação de Usados <i>✦</i> Apple Watch & iPads <i>✦</i> Acessórios Homologados <i>✦</i></span>
-        <span>Linha iPhone Pro Max <i>✦</i> Seminovos Impecáveis <i>✦</i> Lacrados com Nota <i>✦</i> Avaliação de Usados <i>✦</i> Apple Watch & iPads <i>✦</i> Acessórios Homologados <i>✦</i></span>
+        <span>Linha iPhone 17 & Pro Max <i>✦</i> Xiaomi 15 Ultra Leica <i>✦</i> Galaxy S25 Ultra <i>✦</i> Seminovos Impecáveis <i>✦</i> Avaliação de Usados <i>✦</i> Acessórios Homologados <i>✦</i></span>
+        <span>Linha iPhone 17 & Pro Max <i>✦</i> Xiaomi 15 Ultra Leica <i>✦</i> Galaxy S25 Ultra <i>✦</i> Seminovos Impecáveis <i>✦</i> Avaliação de Usados <i>✦</i> Acessórios Homologados <i>✦</i></span>
       </div>
     </div>
 
@@ -158,14 +273,14 @@
           <h2 class="section-title" data-split>Escolha o seu <em>próximo celular.</em></h2>
         </div>
         <div class="cards">
-          <article class="card" data-reveal><div class="card-top"><h3>Linha Pro Max</h3><span class="tag">Destaque</span></div><p class="muted">15 e 16 Pro Max. Titânio escovado, câmeras com zoom óptico 5x e bateria com autonomia para o dia todo.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
-          <article class="card" data-reveal><div class="card-top"><h3>Linha Pro</h3><span class="price">A partir de R$ 0.000</span></div><p class="muted">14 Pro e 15 Pro. Tela ProMotion 120Hz fluida, acabamento fosco e tamanho compacto com potência máxima.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
-          <article class="card" data-reveal><div class="card-top"><h3>Linha Standard</h3><span class="price">A partir de R$ 0.000</span></div><p class="muted">13, 14 e 15. O equilíbrio perfeito entre custo, câmera cinematográfica e desempenho de última geração.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
-          <article class="card" data-reveal><div class="card-top"><h3>Galaxy Linha S & Z</h3><span class="price">A partir de R$ 0.000</span></div><p class="muted">S23 / S24 Ultra e Linha Z Fold/Flip. Câmeras de 200MP, recursos Galaxy AI e telas dobráveis premium.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Linha iPhone 17 & Pro</h3><span class="tag">Mais procurado</span></div><p class="muted">iPhone 17 com módulo de câmera em pílula vertical, acabamento em titânio acetinado e tela ProMotion com Dynamic Island.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Xiaomi 15 & 14 Ultra</h3><span class="price">A partir de R$ 0.000</span></div><p class="muted">Câmera fotográfica com lentes Leica profissionais, sensor de 1 polegada, corpo em cerâmica e Snapdragon de última geração.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Galaxy S25 & S24 Ultra</h3><span class="price">A partir de R$ 0.000</span></div><p class="muted">Câmera de 200MP com zoom espacial, acabamento em titânio reto, recursos de inteligência artificial Galaxy AI e caneta S-Pen.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
+          <article class="card" data-reveal><div class="card-top"><h3>Linha Z Fold & Flip</h3><span class="price">A partir de R$ 0.000</span></div><p class="muted">Telas dobráveis premium, produtividade multitarefa e design inovador para quem quer o futuro na palma da mão.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
           <article class="card" data-reveal><div class="card-top"><h3>Apple Watch & Tablets</h3><span class="price">A partir de R$ 0.000</span></div><p class="muted">Series 9, Ultra e iPads. Saúde avançada, conectividade celular e caixas originais completas.</p><button class="list-link" type="button" data-wa>Consultar modelos</button></article>
           <article class="card" data-reveal><div class="card-top"><h3>Acessórios Originais</h3><span class="price">A partir de R$ 00</span></div><p class="muted">Carregadores rápidos homologados pela Anatel, cabos reforçados, capas antichoque e películas 3D.</p><button class="list-link" type="button" data-wa>Ver acessórios</button></article>
         </div>
-        <p class="demo-note muted" style="margin-top:28px">Preços e modelos de exemplo: no site real entram os estoques em tempo real, capacidades (128GB, 256GB, 512GB) e cores disponíveis.</p>
+        <p class="demo-note muted" style="margin-top:28px">Preços e modelos de exemplo: no site real entram os estoques em tempo real, capacidades (128GB, 256GB, 512GB, 1TB) e cores disponíveis.</p>
       </div>
     </section>
 
@@ -237,13 +352,123 @@
   <script src="../_vendor/lenis.min.js"></script>
   <script type="module">
     import { initModelo } from '../_kit/kit.js?v=20261116';
+    let sceneInstance = null;
+
     initModelo({
       name: 'loja de celulares',
       segment: 'loja de celulares',
       copy: { mine: 'a minha loja de celulares', of: 'da loja', person: 'O cliente', item: 'o aparelho', yours: 'da sua loja de celulares' },
       canvas: document.getElementById('cena'),
-      scene: () => import('./scene.js?v=20261116').then((m) => (c, o) => new m.TitaniumPhoneScene(c, o)),
+      scene: () => import('./scene.js?v=20261116').then((m) => (c, o) => {
+        sceneInstance = new m.MultiPhoneScene(c, {
+          ...o,
+          onDeviceChange: (index) => {
+            document.querySelectorAll('[data-device-btn]').forEach((btn) => {
+              const active = Number(btn.dataset.deviceBtn) === index;
+              btn.classList.toggle('is-active', active);
+              btn.setAttribute('aria-selected', String(active));
+            });
+          },
+        });
+        return sceneInstance;
+      }),
     });
+
+    // Botões para troca de aparelho na cena 3D
+    document.querySelectorAll('[data-device-btn]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const idx = Number(btn.dataset.deviceBtn);
+        sceneInstance?.switchTo(idx);
+      });
+    });
+
+    // ========================================================
+    // ANIMAÇÃO DE VÍDEO SINCRONIZADA COM A ROLAGEM (SCROLL)
+    // ========================================================
+    const videoTrack = document.querySelector('.scroll-video-track');
+    const scrollVideo = document.getElementById('iphone-scroll-video');
+
+    if (scrollVideo && videoTrack) {
+      let duration = 10.027;
+      let targetProgress = 0;
+      let currentProgress = 0;
+      let isSeeking = false;
+      let initialized = false;
+
+      const initVideo = () => {
+        if (initialized) return;
+        initialized = true;
+        duration = scrollVideo.duration || 10.027;
+        scrollVideo.pause();
+        scrollVideo.currentTime = 0;
+      };
+
+      scrollVideo.addEventListener('loadedmetadata', initVideo);
+      scrollVideo.addEventListener('canplay', initVideo);
+      if (scrollVideo.readyState >= 1) initVideo();
+
+      scrollVideo.addEventListener('seeked', () => {
+        isSeeking = false;
+      });
+
+      // Cálculo da posição de rolagem em relação à seção
+      const computeScrollProgress = () => {
+        const rect = videoTrack.getBoundingClientRect();
+        const maxScrollable = rect.height - window.innerHeight;
+        if (maxScrollable <= 0) return;
+
+        // Se o topo da seção ainda não chegou ao topo da tela: 0 (primeiro frame)
+        // Conforme o usuário rola pela seção: avanço progressivo de 0 a 1
+        // Se ultrapassou o final da seção: 1 (último frame)
+        const scrolled = -rect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / maxScrollable));
+        targetProgress = progress;
+      };
+
+      window.addEventListener('scroll', computeScrollProgress, { passive: true });
+      window.addEventListener('resize', computeScrollProgress, { passive: true });
+      computeScrollProgress();
+
+      // Integração com ScrollTrigger do GSAP para sincronização absoluta com o Lenis
+      if (window.ScrollTrigger) {
+        window.ScrollTrigger.create({
+          trigger: videoTrack,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: true,
+          onUpdate: (self) => {
+            targetProgress = self.progress;
+          },
+        });
+      }
+
+      // Loop de animação via requestAnimationFrame com interpolação contínua (lerp)
+      // Garante transição suave, sem cortes, sem saltos e com parada exata no frame atual
+      const renderScrollVideo = () => {
+        const diff = targetProgress - currentProgress;
+
+        if (Math.abs(diff) > 0.0003) {
+          // Interpolação suave para absorver acelerações e frenagens
+          currentProgress += diff * 0.14;
+          const targetTime = Math.max(0, Math.min(currentProgress * duration, duration));
+
+          if (!isSeeking && Math.abs(scrollVideo.currentTime - targetTime) > 0.02) {
+            isSeeking = true;
+            scrollVideo.currentTime = targetTime;
+          }
+        } else if (currentProgress !== targetProgress) {
+          currentProgress = targetProgress;
+          const targetTime = Math.max(0, Math.min(currentProgress * duration, duration));
+          if (!isSeeking) {
+            scrollVideo.currentTime = targetTime;
+          }
+        }
+
+        requestAnimationFrame(renderScrollVideo);
+      };
+
+      requestAnimationFrame(renderScrollVideo);
+    }
   </script>
 </body>
 </html>

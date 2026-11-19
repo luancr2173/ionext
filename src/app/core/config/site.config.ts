@@ -1011,10 +1011,10 @@ export const PORTFOLIO_ITEMS: readonly PortfolioItem[] = [
     sector: 'celulares',
     name: 'Loja de celulares',
     segment: 'Dark e premium',
-    concept: 'Um smartphone de titânio girando sob iluminação de estúdio com lentes em destaque.',
+    concept: 'iPhone 17 interativo em 3D que alterna entre Xiaomi e Galaxy ao clicar.',
     description:
-      'Visual moderno e comercial para venda de novos e seminovos selecionados: vitrine de modelos com bateria 100%, avaliação de usados na troca e parcelamento.',
-    features: ['Cena 3D própria', 'Vitrine de seminovos selecionados', 'Avaliação de troca pelo WhatsApp', 'Feito para o celular'],
+      'Vitrine interativa com iPhone 17, Xiaomi 15 Ultra e Galaxy S25 que trocam ao toque: seminovos com bateria 100%, avaliação de usados e parcelamento.',
+    features: ['Cena 3D interativa', 'Alterna iPhone/Xiaomi/Galaxy', 'Avaliação de troca pelo WhatsApp', 'Feito para o celular'],
     url: '/modelos/loja-smartphones/index.html',
     image: '/assets/portfolio/loja-smartphones.jpg',
     imageMobile: '/assets/portfolio/loja-smartphones-mobile.jpg',
