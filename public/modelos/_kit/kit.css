@@ -219,6 +219,44 @@ html.motion-off .hero-stage canvas { opacity: 1; }
   .site-nav a { font-size: 26px; font-family: var(--font-display); }
 }
 
+/* ── SMARTPHONE PORTRAIT (≤ 600 px) — kit global ── */
+@media (max-width: 600px) {
+  /* Container: reduz o sangramento lateral para telas muito estreitas */
+  .container { width: min(100% - 36px, 1320px); }
+
+  /* Header: ajusta altura e garante que brand + toggle não se sobreponham */
+  .site-header .container {
+    height: 60px;
+    gap: 12px;
+    padding-inline: 4px; /* o container já tem margens; aqui só afina o gap interno */
+  }
+  .site-header .brand { font-size: 18px; white-space: nowrap; flex-shrink: 0; }
+  .menu-toggle { padding: 7px 13px; font-size: 12px; flex-shrink: 0; }
+
+  /* Botões menores em mobile */
+  .btn { padding: 13px 20px; font-size: 14px; gap: 8px; }
+  .btn svg { width: 16px; height: 16px; }
+
+  /* Hero (global kit) */
+  .hero { min-height: 100svh; min-height: 100dvh; }
+
+  /* Steps */
+  .steps { padding-left: 28px; }
+  .step { padding-bottom: 36px; }
+  .step::before { left: -32px; width: 10px; height: 10px; }
+
+  /* FAQ */
+  .faq summary { font-size: 15px; }
+
+  /* Footer */
+  .site-footer { padding: 48px 0 calc(80px + env(safe-area-inset-bottom)); }
+  .footer-grid { gap: 28px; }
+  .footer-bottom { margin-top: 32px; }
+
+  /* Demo bar */
+  .demo-bar { font-size: 10.5px; padding: 8px 12px; }
+}
+
 /* telas bem estreitas (320 px, iPhone SE de 1ª geração) */
 @media (max-width: 340px) {
   .container { width: min(100% - 32px, 1320px); }

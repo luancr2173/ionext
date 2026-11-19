@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body style="margin:0;background:#000">
+<video id="v" src="/modelos/loja-smartphones/iphone17-scroll.mp4" muted playsinline autoplay style="width:100vw;height:100vh;object-fit:contain"></video>
+<script>
+const v = document.getElementById('v');
+v.onloadedmetadata = () => {
+  v.currentTime = 2;
+  v.pause();
+};
+</script>
+</body>
+</html>

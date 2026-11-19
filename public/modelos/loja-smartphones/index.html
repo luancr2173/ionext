@@ -151,6 +151,7 @@
     .final h2 { font-size: clamp(3rem, 10vw, 11rem); line-height: 0.88; margin: 0 0 40px; }
     .final-grid { display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 32px; align-items: end; }
     .fallback circle { fill: none; stroke: var(--accent); stroke-width: 2; }
+    /* ── TABLET / PAISAGEM GRANDE (≤ 900 px) ── */
     @media (max-width: 900px) {
       section { padding: 96px 0; }
       .hero-stage { height: 62svh; }
@@ -160,11 +161,140 @@
       .section-head { gap: 14px; margin-bottom: 40px; }
       .hero-meta { grid-template-columns: 1fr 1fr; gap: 20px; }
       .card { min-height: 0; }
-      .hero-title { font-size: 11vw; }
+      .hero-title { font-size: clamp(2rem, 9vw, 3.6rem); line-height: 1; }
       .scroll-video-track { height: 300vh; }
+      .scroll-video-sticky { height: 100svh; height: 100dvh; }
+      .scroll-video-element { width: 100%; height: 100%; object-fit: contain; }
+      .final-grid { gap: 24px; }
+      .final h2 { font-size: clamp(2.6rem, 10vw, 6rem); }
     }
-    @media (max-width: 420px) {
-      .brand { font-size: 20px; }
+
+    /* ── SMARTPHONE PORTRAIT (≤ 600 px) ── */
+    @media (max-width: 600px) {
+      section { padding: 72px 0; }
+
+      /* Hero */
+      .hero { min-height: 100svh; }
+      .hero-stage { height: 100svh; height: 100dvh; }
+      .hero-stage::after {
+        background: linear-gradient(
+          180deg,
+          rgba(11,12,15,0) 28%,
+          rgba(11,12,15,0.80) 60%,
+          rgba(11,12,15,0.98) 88%
+        );
+      }
+      .hero-inner {
+        padding-top: 52svh;
+        padding-bottom: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .hero-title {
+        font-size: clamp(1.9rem, 7.6vw, 2.6rem);
+        line-height: 1.05;
+        margin-bottom: 16px;
+        max-width: 100%;
+      }
+      .hero-sub {
+        font-size: 15px;
+        margin-bottom: 20px;
+        max-width: 100%;
+      }
+
+      /* Device switcher */
+      .device-control { gap: 8px; margin-bottom: 20px; }
+      .device-switcher {
+        width: 100%;
+        justify-content: center;
+        padding: 4px;
+        border-radius: 14px;
+        gap: 4px;
+      }
+      .device-chip {
+        flex: 1 1 0;
+        text-align: center;
+        padding: 7px 8px;
+        font-size: 10px;
+        letter-spacing: 0.03em;
+        border-radius: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .device-hint { font-size: 10px; }
+
+      /* CTAs */
+      .hero-ctas {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .hero-ctas .btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+
+      /* Meta estatísticas do hero */
+      .hero-meta {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+        margin-top: 28px;
+      }
+      .hero-meta b { font-size: 15px; }
+      .hero-meta span { font-size: 10px; }
+
+      /* Scroll video */
+      .scroll-video-track { height: 280vh; }
+      .scroll-video-sticky {
+        height: 100svh;
+        height: 100dvh;
+        background: radial-gradient(circle at 50% 50%, #0f121a 0%, #06080c 55%, #000 100%);
+      }
+      .scroll-video-element {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center center;
+      }
+
+      /* Sections */
+      .section-head { margin-bottom: 28px; }
+      .section-title { font-size: clamp(2rem, 9vw, 3rem); }
+      .stat { padding: 24px 18px; }
+      .stat strong { font-size: clamp(36px, 12vw, 60px); }
+      .cards { gap: 1px; }
+      .card { padding: 24px 18px 20px; }
+      .card h3 { font-size: clamp(18px, 5vw, 22px); }
+      .faq summary { font-size: 16px; }
+
+      /* Trade-in steps */
+      .steps { padding-left: 32px; }
+      .step h3 { font-size: 17px; }
+      .step p { font-size: 14px; }
+
+      /* Final CTA */
+      .final h2 { font-size: clamp(2.2rem, 10vw, 4rem); line-height: 0.92; }
+      .final-grid { gap: 20px; }
+      .final-grid .btn { width: 100%; text-align: center; justify-content: center; }
+
+      /* Footer */
+      .site-footer { padding: 48px 0 100px; }
+    }
+
+    /* ── TELAS MUITO ESTREITAS (≤ 390 px — iPhone SE/mini/13 mini) ── */
+    @media (max-width: 390px) {
+      .hero-title { font-size: clamp(1.75rem, 7.2vw, 2.2rem); }
+      .hero-meta { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .device-chip { font-size: 9px; padding: 6px 6px; }
+      .brand { font-size: 18px; }
+    }
+
+    /* ── TELAS MÍNIMAS (≤ 340 px — iPhone SE 1ª geração) ── */
+    @media (max-width: 340px) {
+      .hero-title { font-size: clamp(1.6rem, 6.8vw, 2rem) !important; }
+      .device-chip { font-size: 8px; padding: 5px 4px; }
     }
   </style>
   <script type="importmap">
@@ -384,6 +514,7 @@
 
     // ========================================================
     // ANIMAÇÃO DE VÍDEO SINCRONIZADA COM A ROLAGEM (SCROLL)
+    // Suporte total a desktop, iOS Safari e Android Chrome
     // ========================================================
     const videoTrack = document.querySelector('.scroll-video-track');
     const scrollVideo = document.getElementById('iphone-scroll-video');
@@ -394,7 +525,9 @@
       let currentProgress = 0;
       let isSeeking = false;
       let initialized = false;
+      let primed = false;
 
+      // ── Inicialização do metadata ──────────────────────────
       const initVideo = () => {
         if (initialized) return;
         initialized = true;
@@ -411,15 +544,34 @@
         isSeeking = false;
       });
 
-      // Cálculo da posição de rolagem em relação à seção
+      // ── Priming para iOS Safari / Android Chrome ───────────
+      // O browser mobile só decodifica o vídeo após uma interação do usuário.
+      // Um play+pause silencioso desbloqueia a API de currentTime para scrubbing.
+      const primeVideo = () => {
+        if (primed || !initialized) return;
+        primed = true;
+        const p = scrollVideo.play();
+        if (p instanceof Promise) {
+          p.then(() => { scrollVideo.pause(); scrollVideo.currentTime = 0; }).catch(() => {});
+        } else {
+          scrollVideo.pause();
+          scrollVideo.currentTime = 0;
+        }
+      };
+
+      // Priming em qualquer interação — scroll, toque ou clique
+      window.addEventListener('touchstart', primeVideo, { once: true, passive: true });
+      window.addEventListener('scroll',     primeVideo, { once: true, passive: true });
+      window.addEventListener('click',      primeVideo, { once: true });
+
+      // ── Cálculo do progresso de rolagem ───────────────────
       const computeScrollProgress = () => {
         const rect = videoTrack.getBoundingClientRect();
-        const maxScrollable = rect.height - window.innerHeight;
+        // Usa a altura da viewport visual (dvh) para evitar saltos com barra do browser
+        const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        const maxScrollable = rect.height - vh;
         if (maxScrollable <= 0) return;
 
-        // Se o topo da seção ainda não chegou ao topo da tela: 0 (primeiro frame)
-        // Conforme o usuário rola pela seção: avanço progressivo de 0 a 1
-        // Se ultrapassou o final da seção: 1 (último frame)
         const scrolled = -rect.top;
         const progress = Math.max(0, Math.min(1, scrolled / maxScrollable));
         targetProgress = progress;
@@ -427,9 +579,16 @@
 
       window.addEventListener('scroll', computeScrollProgress, { passive: true });
       window.addEventListener('resize', computeScrollProgress, { passive: true });
+      // visualViewport muda quando a barra do browser aparece/desaparece em mobile
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', computeScrollProgress);
+        window.visualViewport.addEventListener('scroll', computeScrollProgress);
+      }
       computeScrollProgress();
 
-      // Integração com ScrollTrigger do GSAP para sincronização absoluta com o Lenis
+      // ── Integração com GSAP ScrollTrigger + Lenis ─────────
+      // Quando disponível, o ScrollTrigger fornece progresso 100% sincronizado
+      // com o Lenis (smooth scroll), eliminando micro-jitters entre os dois loops.
       if (window.ScrollTrigger) {
         window.ScrollTrigger.create({
           trigger: videoTrack,
@@ -442,17 +601,21 @@
         });
       }
 
-      // Loop de animação via requestAnimationFrame com interpolação contínua (lerp)
-      // Garante transição suave, sem cortes, sem saltos e com parada exata no frame atual
+      // ── Loop rAF com lerp suave ────────────────────────────
+      // Fator de lerp menor em mobile (0.11) → movimento mais fluido em 60fps
+      // independente de pequenas oscilações do scroll nativo.
+      const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+      const LERP = isMobile ? 0.11 : 0.14;
+      const SEEK_THRESHOLD = isMobile ? 0.016 : 0.02; // segundos
+
       const renderScrollVideo = () => {
         const diff = targetProgress - currentProgress;
 
         if (Math.abs(diff) > 0.0003) {
-          // Interpolação suave para absorver acelerações e frenagens
-          currentProgress += diff * 0.14;
+          currentProgress += diff * LERP;
           const targetTime = Math.max(0, Math.min(currentProgress * duration, duration));
 
-          if (!isSeeking && Math.abs(scrollVideo.currentTime - targetTime) > 0.02) {
+          if (!isSeeking && Math.abs(scrollVideo.currentTime - targetTime) > SEEK_THRESHOLD) {
             isSeeking = true;
             scrollVideo.currentTime = targetTime;
           }
