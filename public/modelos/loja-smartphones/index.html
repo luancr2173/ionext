@@ -245,19 +245,8 @@
       .hero-meta b { font-size: 15px; }
       .hero-meta span { font-size: 10px; }
 
-      /* Scroll video */
-      .scroll-video-track { height: 280vh; }
-      .scroll-video-sticky {
-        height: 100svh;
-        height: 100dvh;
-        background: radial-gradient(circle at 50% 50%, #0f121a 0%, #06080c 55%, #000 100%);
-      }
-      .scroll-video-element {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: center center;
-      }
+      /* Scroll video — oculto em mobile */
+      .scroll-showcase { display: none; }
 
       /* Sections */
       .section-head { margin-bottom: 28px; }
@@ -369,7 +358,7 @@
             muted
             playsinline
             webkit-playsinline
-            preload="auto"
+            preload="none"
           ></video>
         </div>
       </div>
@@ -514,124 +503,110 @@
 
     // ========================================================
     // ANIMAÇÃO DE VÍDEO SINCRONIZADA COM A ROLAGEM (SCROLL)
-    // Suporte total a desktop, iOS Safari e Android Chrome
+    // Desativada em dispositivos mobile (≤ 600 px):
+    //  - a seção .scroll-showcase é ocultada via CSS
+    //  - o vídeo não é carregado nem processado
     // ========================================================
-    const videoTrack = document.querySelector('.scroll-video-track');
-    const scrollVideo = document.getElementById('iphone-scroll-video');
+    if (window.matchMedia('(min-width: 601px)').matches) {
+      // Ativa o pré-carregamento apenas em desktop
+      const scrollVideo = document.getElementById('iphone-scroll-video');
+      const videoTrack  = document.querySelector('.scroll-video-track');
+      if (scrollVideo) scrollVideo.preload = 'auto';
 
-    if (scrollVideo && videoTrack) {
-      let duration = 10.027;
-      let targetProgress = 0;
-      let currentProgress = 0;
-      let isSeeking = false;
-      let initialized = false;
-      let primed = false;
+      if (scrollVideo && videoTrack) {
+        let duration = 10.027;
+        let targetProgress = 0;
+        let currentProgress = 0;
+        let isSeeking = false;
+        let initialized = false;
+        let primed = false;
 
-      // ── Inicialização do metadata ──────────────────────────
-      const initVideo = () => {
-        if (initialized) return;
-        initialized = true;
-        duration = scrollVideo.duration || 10.027;
-        scrollVideo.pause();
-        scrollVideo.currentTime = 0;
-      };
-
-      scrollVideo.addEventListener('loadedmetadata', initVideo);
-      scrollVideo.addEventListener('canplay', initVideo);
-      if (scrollVideo.readyState >= 1) initVideo();
-
-      scrollVideo.addEventListener('seeked', () => {
-        isSeeking = false;
-      });
-
-      // ── Priming para iOS Safari / Android Chrome ───────────
-      // O browser mobile só decodifica o vídeo após uma interação do usuário.
-      // Um play+pause silencioso desbloqueia a API de currentTime para scrubbing.
-      const primeVideo = () => {
-        if (primed || !initialized) return;
-        primed = true;
-        const p = scrollVideo.play();
-        if (p instanceof Promise) {
-          p.then(() => { scrollVideo.pause(); scrollVideo.currentTime = 0; }).catch(() => {});
-        } else {
+        // ── Inicialização do metadata ──────────────────────────
+        const initVideo = () => {
+          if (initialized) return;
+          initialized = true;
+          duration = scrollVideo.duration || 10.027;
           scrollVideo.pause();
           scrollVideo.currentTime = 0;
-        }
-      };
+        };
 
-      // Priming em qualquer interação — scroll, toque ou clique
-      window.addEventListener('touchstart', primeVideo, { once: true, passive: true });
-      window.addEventListener('scroll',     primeVideo, { once: true, passive: true });
-      window.addEventListener('click',      primeVideo, { once: true });
+        scrollVideo.addEventListener('loadedmetadata', initVideo);
+        scrollVideo.addEventListener('canplay', initVideo);
+        if (scrollVideo.readyState >= 1) initVideo();
 
-      // ── Cálculo do progresso de rolagem ───────────────────
-      const computeScrollProgress = () => {
-        const rect = videoTrack.getBoundingClientRect();
-        // Usa a altura da viewport visual (dvh) para evitar saltos com barra do browser
-        const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-        const maxScrollable = rect.height - vh;
-        if (maxScrollable <= 0) return;
+        scrollVideo.addEventListener('seeked', () => { isSeeking = false; });
 
-        const scrolled = -rect.top;
-        const progress = Math.max(0, Math.min(1, scrolled / maxScrollable));
-        targetProgress = progress;
-      };
-
-      window.addEventListener('scroll', computeScrollProgress, { passive: true });
-      window.addEventListener('resize', computeScrollProgress, { passive: true });
-      // visualViewport muda quando a barra do browser aparece/desaparece em mobile
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', computeScrollProgress);
-        window.visualViewport.addEventListener('scroll', computeScrollProgress);
-      }
-      computeScrollProgress();
-
-      // ── Integração com GSAP ScrollTrigger + Lenis ─────────
-      // Quando disponível, o ScrollTrigger fornece progresso 100% sincronizado
-      // com o Lenis (smooth scroll), eliminando micro-jitters entre os dois loops.
-      if (window.ScrollTrigger) {
-        window.ScrollTrigger.create({
-          trigger: videoTrack,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: true,
-          onUpdate: (self) => {
-            targetProgress = self.progress;
-          },
-        });
-      }
-
-      // ── Loop rAF com lerp suave ────────────────────────────
-      // Fator de lerp menor em mobile (0.11) → movimento mais fluido em 60fps
-      // independente de pequenas oscilações do scroll nativo.
-      const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-      const LERP = isMobile ? 0.11 : 0.14;
-      const SEEK_THRESHOLD = isMobile ? 0.016 : 0.02; // segundos
-
-      const renderScrollVideo = () => {
-        const diff = targetProgress - currentProgress;
-
-        if (Math.abs(diff) > 0.0003) {
-          currentProgress += diff * LERP;
-          const targetTime = Math.max(0, Math.min(currentProgress * duration, duration));
-
-          if (!isSeeking && Math.abs(scrollVideo.currentTime - targetTime) > SEEK_THRESHOLD) {
-            isSeeking = true;
-            scrollVideo.currentTime = targetTime;
+        // ── Priming do vídeo (desbloqueia currentTime em Safari) ──
+        const primeVideo = () => {
+          if (primed || !initialized) return;
+          primed = true;
+          const p = scrollVideo.play();
+          if (p instanceof Promise) {
+            p.then(() => { scrollVideo.pause(); scrollVideo.currentTime = 0; }).catch(() => {});
+          } else {
+            scrollVideo.pause();
+            scrollVideo.currentTime = 0;
           }
-        } else if (currentProgress !== targetProgress) {
-          currentProgress = targetProgress;
-          const targetTime = Math.max(0, Math.min(currentProgress * duration, duration));
-          if (!isSeeking) {
-            scrollVideo.currentTime = targetTime;
-          }
+        };
+
+        window.addEventListener('scroll', primeVideo, { once: true, passive: true });
+        window.addEventListener('click',  primeVideo, { once: true });
+
+        // ── Cálculo do progresso de rolagem ───────────────────
+        const computeScrollProgress = () => {
+          const rect = videoTrack.getBoundingClientRect();
+          const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+          const maxScrollable = rect.height - vh;
+          if (maxScrollable <= 0) return;
+          const scrolled  = -rect.top;
+          targetProgress  = Math.max(0, Math.min(1, scrolled / maxScrollable));
+        };
+
+        window.addEventListener('scroll', computeScrollProgress, { passive: true });
+        window.addEventListener('resize', computeScrollProgress, { passive: true });
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener('resize', computeScrollProgress);
+          window.visualViewport.addEventListener('scroll', computeScrollProgress);
         }
+        computeScrollProgress();
+
+        // ── Integração com GSAP ScrollTrigger + Lenis ─────────
+        if (window.ScrollTrigger) {
+          window.ScrollTrigger.create({
+            trigger: videoTrack,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: true,
+            onUpdate: (self) => { targetProgress = self.progress; },
+          });
+        }
+
+        // ── Loop rAF com interpolação (lerp) ──────────────────
+        const LERP           = 0.14;
+        const SEEK_THRESHOLD = 0.02; // segundos
+
+        const renderScrollVideo = () => {
+          const diff = targetProgress - currentProgress;
+
+          if (Math.abs(diff) > 0.0003) {
+            currentProgress += diff * LERP;
+            const t = Math.max(0, Math.min(currentProgress * duration, duration));
+            if (!isSeeking && Math.abs(scrollVideo.currentTime - t) > SEEK_THRESHOLD) {
+              isSeeking = true;
+              scrollVideo.currentTime = t;
+            }
+          } else if (currentProgress !== targetProgress) {
+            currentProgress = targetProgress;
+            const t = Math.max(0, Math.min(currentProgress * duration, duration));
+            if (!isSeeking) scrollVideo.currentTime = t;
+          }
+
+          requestAnimationFrame(renderScrollVideo);
+        };
 
         requestAnimationFrame(renderScrollVideo);
-      };
-
-      requestAnimationFrame(renderScrollVideo);
-    }
+      }
+    } // fim: apenas desktop ≥ 601px
   </script>
 </body>
 </html>
