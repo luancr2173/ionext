@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Modelo de site: box de cross training | IONEXT</title>
+  <meta name="description" content="Modelo de demonstração da IONEXT: site para box de cross training, sem marca real e com dados de exemplo." />
+  <!-- modelo com dados de exemplo: não deve aparecer no Google como se fosse um box real -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta property="og:title" content="Modelo de site para box de cross training — IONEXT" />
+  <meta property="og:description" content="Modelo de demonstração (sem marca real) de site para box de cross training." />
+  <meta property="og:image" content="https://ionext.com.br/assets/portfolio/box-cross.jpg" />
+  <meta name="theme-color" content="#e8e6e0" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../_kit/kit.css?v=20261123" />
+  <style>
+    @font-face { font-family: 'Archivo Width'; src: url('../_vendor/fonts/archivo-latin-wdth-normal.woff2') format('woff2'); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
+    @font-face { font-family: 'Space Grotesk Variable'; src: url('../_vendor/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2'); font-weight: 300 700; font-display: swap; }
+    @font-face { font-family: 'IBM Plex Mono'; src: url('../_vendor/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    /* Design system — "Concreto"
+       Tom: bruto, coletivo, honesto. Movimento: seco e rápido, como um quadro de giz.
+       Pode: fundo concreto claro, título expandido pesado, vermelho só em CTA e destaques,
+       blocos com borda preta de 2px e cantos retos, mono para dados (horários, cargas).
+       Não pode: sombras suaves, gradientes, cantos arredondados, preto puro no fundo. */
+    :root {
+      --bg: #e8e6e0;
+      --paper: #f3f2ee;
+      --ink: #131313;
+      --accent: #e3261b;
+      --on-accent: #ffffff;
+      --font-display: 'Archivo Width', 'Arial Black', sans-serif;
+      --font-text: 'Space Grotesk Variable', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    }
+    body { background-image: radial-gradient(color-mix(in srgb, var(--ink) 7%, transparent) 1px, transparent 1px); background-size: 22px 22px; }
+    h1, h2, h3, .brand { font-family: var(--font-display); font-stretch: 125%; font-weight: 900; text-transform: uppercase; letter-spacing: -0.035em; }
+    .brand { font-size: 20px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+    .brand i { width: 14px; height: 14px; background: var(--accent); display: inline-block; }
+    [data-split] .w { padding-top: 0.16em; margin-top: -0.16em; }
+    .hl { color: var(--accent); }
+    .btn { border-radius: 0; border-width: 2px; text-transform: uppercase; letter-spacing: 0.05em; font-size: 14px; }
+    .btn-solid { box-shadow: 5px 5px 0 var(--ink); }
+    .btn-solid:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+    .btn-ghost { border-color: var(--ink); }
+    .site-header.is-scrolled { border-color: var(--ink); }
+
+    .hero-stage::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(232,230,224,0.97) 0%, rgba(232,230,224,0.7) 40%, rgba(232,230,224,0) 64%);
+    }
+    .hero-title { margin: 0 0 26px; font-size: clamp(3rem, 6.8vw, 7.8rem); line-height: 0.88; max-width: 10ch; }
+    .hero-sub { max-width: 44ch; font-size: 19px; margin: 0 0 34px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; }
+    .hero-meta { margin-top: 56px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .chip { border: 2px solid var(--ink); padding: 6px 10px; background: var(--paper); }
+
+    [data-marquee] { background: var(--ink); color: var(--bg); border: 0; transform: rotate(-1.5deg); margin: 20px -20px 0; }
+    .marquee-track span { font-family: var(--font-display); font-stretch: 125%; font-weight: 900; text-transform: uppercase; font-size: clamp(26px, 3.4vw, 46px); }
+    .marquee-track i { font-style: normal; color: var(--accent); }
+
+    section { padding: 140px 0; }
+    .section-head { display: grid; grid-template-columns: 200px 1fr; gap: 32px; margin-bottom: 56px; }
+    .section-title { margin: 0; font-size: clamp(2.4rem, 5.4vw, 5.8rem); line-height: 0.9; }
+    .kicker { color: var(--accent); }
+
+    /* quadro do WOD */
+    .wod { display: grid; grid-template-columns: 1.1fr 1fr; border: 2px solid var(--ink); background: var(--ink); gap: 2px; }
+    .wod > div { background: var(--paper); padding: 34px; }
+    .wod-board { background: #1b1c1a !important; color: #ecebe5; font-family: var(--font-mono); }
+    .wod-board h3 { font-size: 30px; margin: 0 0 4px; color: #fff; }
+    .wod-board ol { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; font-size: 17px; }
+    .wod-board li { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px dashed rgba(236,235,229,0.25); padding-bottom: 10px; }
+    .wod-board li b { color: #ff6a5f; font-weight: 400; }
+    .levels { display: grid; gap: 18px; }
+    .level { border-left: 4px solid var(--ink); padding: 4px 0 4px 18px; }
+    .level h4 { margin: 0 0 4px; font-family: var(--font-display); font-stretch: 125%; font-weight: 900; text-transform: uppercase; font-size: 20px; }
+    .level p { margin: 0; }
+    .level.rx { border-color: var(--accent); }
+
+    /* grade de horários */
+    .schedule { border: 2px solid var(--ink); background: var(--paper); overflow-x: auto; }
+    .schedule table { width: 100%; border-collapse: collapse; min-width: 640px; font-family: var(--font-mono); font-size: 15px; }
+    .schedule th, .schedule td { padding: 16px 18px; text-align: left; border-bottom: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); }
+    .schedule thead th { background: var(--ink); color: var(--bg); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; font-size: 12px; }
+    .schedule td.lot { color: var(--accent); }
+    .schedule tbody tr:hover { background: color-mix(in srgb, var(--accent) 8%, var(--paper)); }
+
+    /* planos */
+    .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .plan { border: 2px solid var(--ink); background: var(--paper); padding: 30px 26px; display: flex; flex-direction: column; gap: 16px; transition: transform 0.3s, box-shadow 0.3s; }
+    .plan:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--ink); }
+    .plan.featured { background: var(--accent); color: var(--on-accent); }
+    .plan.featured .muted { color: rgba(255,255,255,0.82); }
+    .plan.featured .btn { background: var(--ink); color: #fff; box-shadow: 5px 5px 0 #fff; }
+    .plan h3 { margin: 0; font-size: 26px; }
+    .plan .price { font-family: var(--font-display); font-stretch: 125%; font-weight: 900; font-size: 52px; line-height: 1; margin: 0; }
+    .plan .price small { font-family: var(--font-mono); font-size: 13px; font-weight: 400; }
+    .plan ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; flex: 1; }
+    .plan .btn { justify-content: center; }
+
+    .coaches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .coach { border: 2px solid var(--ink); background: var(--paper); }
+    .coach .photo { aspect-ratio: 4/3; background: repeating-linear-gradient(-45deg, color-mix(in srgb, var(--ink) 8%, var(--paper)) 0 12px, var(--paper) 12px 24px); border-bottom: 2px solid var(--ink); display: grid; place-items: center; }
+    .coach .photo span { font-family: var(--font-display); font-stretch: 125%; font-weight: 900; font-size: 56px; color: var(--accent); }
+    .coach div:last-child { padding: 20px 22px 24px; }
+    .coach h3 { margin: 0 0 6px; font-size: 20px; }
+    .coach p { margin: 0; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .faq details { border-color: var(--ink) !important; }
+    .final { background: var(--ink); color: var(--bg); padding: 120px 0 !important; }
+    .final h2 { font-size: clamp(3rem, 10vw, 11rem); line-height: 0.86; margin: 0 0 44px; }
+    .final .btn-solid { box-shadow: 5px 5px 0 var(--bg); }
+    .final-grid { display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 32px; align-items: end; }
+    .final .muted { color: rgba(232,230,224,0.62); }
+    .fallback circle, .fallback path { fill: none; stroke: var(--ink); stroke-width: 6; }
+
+    @media (max-width: 900px) {
+      section { padding: 96px 0; }
+      .hero-stage { height: 58svh; }
+      .hero-stage::after { background: linear-gradient(180deg, rgba(232,230,224,0) 40%, rgba(232,230,224,0.96) 90%); }
+      .hero-inner { padding-top: 46svh; padding-bottom: 48px; }
+      .hero-title { font-size: 11.5vw; }
+      .section-head, .two-col, .wod, .plans, .coaches, .final-grid { grid-template-columns: 1fr; }
+      .section-head { gap: 12px; margin-bottom: 36px; }
+      .wod > div { padding: 24px; }
+      .plan.featured { order: -1; }
+    }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "../_vendor/three/three.module.js", "three/addons/": "../_vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#topo"><i></i>Seu Box</a>
+      <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="site-nav" id="menu" aria-label="Principal">
+        <a href="#wod">WOD</a>
+        <a href="#horarios">Horários</a>
+        <a href="#planos">Planos</a>
+        <a href="#coaches">Coaches</a>
+        <button class="btn btn-solid" type="button" data-wa>Aula teste</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="topo">
+    <section class="hero" style="padding:0">
+      <div class="hero-stage" aria-hidden="true">
+        <canvas id="cena"></canvas>
+        <svg class="fallback" viewBox="0 0 300 300"><path d="M95 120 Q95 40 150 40 Q205 40 205 120" /><circle cx="150" cy="190" r="85" /></svg>
+      </div>
+      <div class="container hero-inner">
+        <p class="mono muted">Box de cross training · Brasília — DF</p>
+        <h1 class="hero-title" data-split>Ninguém treina <span class="hl">sozinho</span> aqui.</h1>
+        <p class="hero-sub muted">Turmas de até 14 pessoas, coach do aquecimento ao último round e treino adaptado ao seu nível. A primeira aula é por nossa conta.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-solid" type="button" data-wa>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>
+            Marcar aula teste
+          </button>
+          <a class="btn btn-ghost" href="#horarios">Ver horários</a>
+        </div>
+        <div class="hero-meta mono">
+          <span class="chip">Turmas de 5h30 às 21h</span>
+          <span class="chip">Iniciante bem-vindo</span>
+          <span class="chip">Open box aos sábados</span>
+        </div>
+      </div>
+    </section>
+
+    <div data-marquee aria-hidden="true">
+      <div class="marquee-track">
+        <span>Força <i>/</i> Ginástica <i>/</i> LPO <i>/</i> Condicionamento <i>/</i> Mobilidade <i>/</i> Comunidade <i>/</i></span>
+        <span>Força <i>/</i> Ginástica <i>/</i> LPO <i>/</i> Condicionamento <i>/</i> Mobilidade <i>/</i> Comunidade <i>/</i></span>
+      </div>
+    </div>
+
+    <section id="wod">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono kicker" data-reveal>[01] WOD</p>
+          <h2 class="section-title" data-split>O treino de hoje, <span class="hl">no seu nível.</span></h2>
+        </div>
+        <div class="wod" data-reveal>
+          <div class="wod-board">
+            <p style="margin:0;opacity:.6">TERÇA · EXEMPLO</p>
+            <h3>“Concreto”</h3>
+            <p style="margin:0;opacity:.75">AMRAP 16 min</p>
+            <ol>
+              <li><span>Kettlebell swing</span><b>15 · 24/16 kg</b></li>
+              <li><span>Box jump</span><b>12 · 60/50 cm</b></li>
+              <li><span>Pull-up</span><b>9</b></li>
+              <li><span>Remo</span><b>250 m</b></li>
+            </ol>
+          </div>
+          <div class="levels">
+            <p class="mono muted" style="margin:0">Cada treino tem 3 versões</p>
+            <div class="level"><h4>Iniciante</h4><p class="muted">Movimento aprendido com calma, carga leve e progressão semana a semana.</p></div>
+            <div class="level"><h4>Scaled</h4><p class="muted">Mesmo estímulo, com adaptações de carga e de movimento.</p></div>
+            <div class="level rx"><h4>RX</h4><p class="muted">O treino como foi escrito, para quem já domina os movimentos.</p></div>
+          </div>
+        </div>
+        <p class="demo-note muted" style="margin-top:24px">WOD de exemplo: no site real o box publica o treino do dia aqui ou no Instagram.</p>
+      </div>
+    </section>
+
+    <section id="horarios" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono kicker" data-reveal>[02] Horários</p>
+          <h2 class="section-title" data-split>Tem turma <span class="hl">no seu horário.</span></h2>
+        </div>
+        <div class="schedule" data-reveal>
+          <table>
+            <thead><tr><th>Turma</th><th>Seg · Qua · Sex</th><th>Ter · Qui</th><th>Sábado</th></tr></thead>
+            <tbody>
+              <tr><td>Manhã cedo</td><td>5h30 · 6h30</td><td>5h30 · 6h30</td><td>8h</td></tr>
+              <tr><td>Manhã</td><td class="lot">7h30 (lotando)</td><td>7h30</td><td>9h · Open box</td></tr>
+              <tr><td>Almoço</td><td>12h</td><td>12h</td><td>—</td></tr>
+              <tr><td>Tarde</td><td>17h · 18h</td><td class="lot">18h (lotando)</td><td>—</td></tr>
+              <tr><td>Noite</td><td>19h · 20h</td><td>19h · 20h</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="demo-note muted" style="margin-top:24px">Grade de exemplo: no site real entram as turmas, os coaches e as vagas do box.</p>
+      </div>
+    </section>
+
+    <section id="planos" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono kicker" data-reveal>[03] Planos</p>
+          <h2 class="section-title" data-split>Escolha a <span class="hl">frequência.</span></h2>
+        </div>
+        <div class="plans">
+          <article class="plan" data-reveal><h3>2x por semana</h3><p class="price">R$ 00<small> /mês</small></p><ul class="muted"><li>Qualquer turma</li><li>Acompanhamento de cargas</li></ul><button class="btn btn-ghost" type="button" data-wa>Quero este</button></article>
+          <article class="plan featured" data-reveal><span class="mono">Mais escolhido</span><h3>Livre</h3><p class="price">R$ 00<small> /mês</small></p><ul class="muted"><li>Todas as turmas, todos os dias</li><li>Open box aos sábados</li><li>Avaliação de movimentos</li></ul><button class="btn btn-solid" type="button" data-wa>Quero este</button></article>
+          <article class="plan" data-reveal><h3>3x por semana</h3><p class="price">R$ 00<small> /mês</small></p><ul class="muted"><li>Qualquer turma</li><li>1 open box por mês</li></ul><button class="btn btn-ghost" type="button" data-wa>Quero este</button></article>
+        </div>
+        <p class="demo-note muted" style="margin-top:24px">Preços de exemplo: no site real entram os valores e as regras do box.</p>
+      </div>
+    </section>
+
+    <section id="coaches" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <p class="mono kicker" data-reveal>[04] Coaches</p>
+          <h2 class="section-title" data-split>Quem puxa <span class="hl">o treino.</span></h2>
+        </div>
+        <div class="coaches">
+          <article class="coach" data-reveal><div class="photo"><span>01</span></div><div><h3>Nome do coach</h3><p class="muted">LPO e força · CREF (exemplo)</p></div></article>
+          <article class="coach" data-reveal><div class="photo"><span>02</span></div><div><h3>Nome do coach</h3><p class="muted">Ginástica e mobilidade · CREF (exemplo)</p></div></article>
+          <article class="coach" data-reveal><div class="photo"><span>03</span></div><div><h3>Nome do coach</h3><p class="muted">Condicionamento e iniciantes · CREF (exemplo)</p></div></article>
+        </div>
+        <p class="demo-note muted" style="margin-top:24px">Espaço dos coaches: no site real entram as fotos, as certificações e o Instagram de cada um.</p>
+      </div>
+    </section>
+
+    <section id="duvidas" style="padding-top:0">
+      <div class="container two-col">
+        <div>
+          <p class="mono kicker" data-reveal>[05] Dúvidas</p>
+          <h2 class="section-title" data-split style="margin-top:20px">Sem <span class="hl">mistério.</span></h2>
+        </div>
+        <div class="faq">
+          <details><summary>Nunca treinei. Posso começar?</summary><p class="muted">Pode. Todo treino tem versão para iniciante, e o coach ensina cada movimento antes de pôr carga.</p></details>
+          <details><summary>Cross training machuca?</summary><p class="muted">Com técnica, carga certa e coach olhando, o risco é baixo. No site real, aqui entra como o box acompanha cada aluno.</p></details>
+          <details><summary>Preciso levar algo na aula teste?</summary><p class="muted">Roupa confortável, tênis e garrafinha de água. No site real, aqui entram as orientações do box.</p></details>
+          <details><summary>Tem fidelidade?</summary><p class="muted">No site real, aqui entram as condições de cada plano.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="container">
+        <h2 data-split>Primeira aula <span class="hl">por nossa conta.</span></h2>
+        <div class="final-grid">
+          <div><p class="mono muted">Endereço</p><p>Endereço de exemplo, Guará<br />Brasília — DF</p></div>
+          <div><p class="mono muted">Turmas</p><p>Seg a sex, 5h30 às 21h<br />Sáb, 8h às 10h</p></div>
+          <div><p class="mono muted">Contato</p><p>(61) 0000-0000 (exemplo)</p></div>
+          <button class="btn btn-solid" type="button" data-wa>Marcar aula teste</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="#topo"><i></i>Seu Box</a><p class="muted" style="margin-top:14px">Box de cross training em Brasília.</p></div>
+        <div><p class="mono muted">Redes</p><p>@seubox (exemplo)</p></div>
+        <div><p class="mono muted">Este é um modelo</p><p class="muted">Sem marca real: nome, coaches, treinos, preços, endereço e telefone são espaços de exemplo. Site-modelo criado pela <a href="/portfolio">IONEXT</a>.</p></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="mono muted">© <span data-year></span> Seu Box · modelo de demonstração</span>
+        <div class="motion-toggle" role="group" aria-label="Animações">
+          <span class="mono muted">Animações</span>
+          <button type="button" data-motion="auto">Auto</button>
+          <button type="button" data-motion="on">Ativadas</button>
+          <button type="button" data-motion="off">Desativadas</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../_vendor/gsap.min.js"></script>
+  <script src="../_vendor/ScrollTrigger.min.js"></script>
+  <script src="../_vendor/lenis.min.js"></script>
+  <script type="module">
+    import { initModelo } from '../_kit/kit.js?v=20261116';
+    import { initFx } from '../_kit/fx.js?v=20261123';
+    initModelo({
+      name: 'box de cross training',
+      segment: 'box',
+      copy: { mine: 'o meu box', of: 'do box', person: 'O aluno', item: 'a turma', yours: 'do seu box' },
+      canvas: document.getElementById('cena'),
+      scene: () => import('./scene.js?v=20261123').then((m) => (c, o) => new m.KettlebellScene(c, o)),
+    });
+    initFx();
+  </script>
+</body>
+</html>

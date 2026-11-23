@@ -238,7 +238,7 @@ export const SITE_CONFIG = {
       lead: 'Sites para o seu negócio',
       em: 'com cara de marca grande.',
       subtitle:
-        'Modelos de demonstração para clínicas, barbearias, salões, restaurantes, lojas de celular e assistência técnica, sem marca real e com dados de exemplo. Escolha o seu ramo: o design, a experiência no celular e os botões de WhatsApp são o padrão que a Ionext entrega.',
+        'Modelos de demonstração para clínicas, barbearias, salões, restaurantes, lojas de celular, assistência técnica e academias, sem marca real e com dados de exemplo. Escolha o seu ramo: o design, a experiência no celular e os botões de WhatsApp são o padrão que a Ionext entrega.',
       note:
         'Estes são modelos criados pela Ionext para mostrar o padrão de trabalho, não sites de clientes. Cada site real é feito do zero com a marca, as fotos, os serviços e os profissionais do seu negócio.',
       filterLabel: 'Ramo de atuação',
@@ -799,7 +799,7 @@ export const SITE_CONFIG = {
 
 /** Sites-modelo do portfólio (sem marca real; arquivos em public/modelos/<slug>/). */
 /** Ramos de atuação do portfólio. O id vai na URL: /portfolio?ramo=barbearias */
-export type PortfolioSectorId = 'clinicas' | 'barbearias' | 'restaurantes' | 'celulares';
+export type PortfolioSectorId = 'clinicas' | 'barbearias' | 'restaurantes' | 'celulares' | 'academias';
 
 export interface PortfolioSector {
   id: PortfolioSectorId;
@@ -847,6 +847,16 @@ export const PORTFOLIO_SECTORS: readonly PortfolioSector[] = [
       em: 'a próxima.',
       text: 'Conte como você recebe orçamentos e vende aparelhos hoje. A gente mostra como ficaria o seu site, com WhatsApp em cada aparelho e orçamento de reparo em um clique.',
       message: 'Olá! Vi o portfólio de sites da Ionext e quero um site assim para a minha loja de celulares ou assistência técnica.',
+    },
+  },
+  {
+    id: 'academias',
+    label: 'Academias & studios',
+    cta: {
+      lead: 'A sua academia pode ser',
+      em: 'a próxima.',
+      text: 'Conte como você capta alunos hoje. A gente mostra como ficaria o seu site, com planos, horários e aula experimental pelo WhatsApp em cada botão.',
+      message: 'Olá! Vi o portfólio de sites da Ionext e quero um site assim para a minha academia, box ou studio.',
     },
   },
 ];
@@ -1033,5 +1043,47 @@ export const PORTFOLIO_ITEMS: readonly PortfolioItem[] = [
     image: '/assets/portfolio/reparo-placas.jpg',
     imageMobile: '/assets/portfolio/reparo-placas-mobile.jpg',
     whatsappMessage: 'Olá! Vi o modelo de site de laboratório de placas no portfólio da Ionext e quero um site assim para o meu laboratório.',
+  },
+  {
+    slug: 'academia-musculacao',
+    sector: 'academias',
+    name: 'Academia de musculação',
+    segment: 'Preto e laranja',
+    concept: 'Uma barra olímpica carregada que faz repetições no ar.',
+    description:
+      'Preto, laranja-fogo e títulos condensados gigantes para a academia 24h: modalidades, planos sem pegadinha, estrutura em bento e aula grátis pelo WhatsApp.',
+    features: ['Cena 3D própria', 'Planos com destaque', 'Aula experimental pelo WhatsApp', 'Feito para o celular'],
+    url: '/modelos/academia-musculacao/index.html',
+    image: '/assets/portfolio/academia-musculacao.jpg',
+    imageMobile: '/assets/portfolio/academia-musculacao-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de academia de musculação no portfólio da Ionext e quero um site assim para a minha academia.',
+  },
+  {
+    slug: 'box-cross',
+    sector: 'academias',
+    name: 'Box de cross training',
+    segment: 'Concreto e vermelho',
+    concept: 'Um kettlebell de ferro em swing, soltando giz no topo.',
+    description:
+      'Claro como concreto, vermelho e letras largas para o box: WOD do dia com 3 níveis, grade de turmas, planos por frequência e coaches.',
+    features: ['Cena 3D própria', 'WOD do dia e níveis', 'Grade de horários', 'Feito para o celular'],
+    url: '/modelos/box-cross/index.html',
+    image: '/assets/portfolio/box-cross.jpg',
+    imageMobile: '/assets/portfolio/box-cross-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de box de cross training no portfólio da Ionext e quero um site assim para o meu box.',
+  },
+  {
+    slug: 'studio-pilates',
+    sector: 'academias',
+    name: 'Studio de pilates',
+    segment: 'Claro e sereno',
+    concept: 'Uma bola suíça e um anel de pilates no ritmo da respiração.',
+    description:
+      'Creme, sálvia e serifa leve para o studio: aulas por objetivo, primeira aula passo a passo, planos por vezes na semana e equipe com CREFITO.',
+    features: ['Cena 3D própria', 'Aulas por objetivo', 'Planos por frequência', 'Feito para o celular'],
+    url: '/modelos/studio-pilates/index.html',
+    image: '/assets/portfolio/studio-pilates.jpg',
+    imageMobile: '/assets/portfolio/studio-pilates-mobile.jpg',
+    whatsappMessage: 'Olá! Vi o modelo de site de studio de pilates no portfólio da Ionext e quero um site assim para o meu studio.',
   },
 ];

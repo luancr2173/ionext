@@ -54,7 +54,7 @@ export const routes: Routes = [
     title: 'Portfólio de sites para negócios locais — IONEXT',
     data: {
       description:
-        'Modelos de sites para clínicas, barbearias, salões, restaurantes, celulares e assistência técnica, com 3D e WhatsApp em cada botão. Feitos pela IONEXT, Brasília.',
+        'Modelos de sites para clínicas, barbearias, salões, restaurantes, celulares, assistência técnica e academias, com 3D e WhatsApp em cada botão. Feitos pela IONEXT, Brasília.',
     },
   },
   {

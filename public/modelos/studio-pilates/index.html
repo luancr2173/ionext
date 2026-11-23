@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Modelo de site: studio de pilates | IONEXT</title>
+  <meta name="description" content="Modelo de demonstração da IONEXT: site para studio de pilates, sem marca real e com dados de exemplo." />
+  <!-- modelo com dados de exemplo: não deve aparecer no Google como se fosse um studio real -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta property="og:title" content="Modelo de site para studio de pilates — IONEXT" />
+  <meta property="og:description" content="Modelo de demonstração (sem marca real) de site para studio de pilates." />
+  <meta property="og:image" content="https://ionext.com.br/assets/portfolio/studio-pilates.jpg" />
+  <meta name="theme-color" content="#f3efe7" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../_kit/kit.css?v=20261123" />
+  <style>
+    @font-face { font-family: 'Fraunces Variable'; src: url('../_vendor/fonts/fraunces-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+    @font-face { font-family: 'Fraunces Variable'; src: url('../_vendor/fonts/fraunces-latin-wght-italic.woff2') format('woff2'); font-weight: 100 900; font-style: italic; font-display: swap; }
+    @font-face { font-family: 'Instrument Sans Variable'; src: url('../_vendor/fonts/instrument-sans-latin-wght-normal.woff2') format('woff2'); font-weight: 400 700; font-display: swap; }
+    @font-face { font-family: 'JetBrains Mono Variable'; src: url('../_vendor/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2'); font-weight: 100 800; font-display: swap; }
+    /* Design system — "Respiro"
+       Tom: calmo, cuidadoso, preciso. Movimento: lento, sem pressa (como a respiração da aula).
+       Pode: serifada leve nos títulos com itálico em sálvia, muito respiro, cantos de 20px,
+       superfícies creme sobrepostas, assimetria (texto à esquerda, cena à direita).
+       Não pode: preto puro, neon, caixa alta em título, mais de um destaque por bloco. */
+    :root {
+      --bg: #f3efe7;
+      --surface: #fbf9f4;
+      --ink: #23251f;
+      --accent: #5f7a5b;
+      --clay: #c9775a;
+      --on-accent: #fbf9f4;
+      --font-display: 'Fraunces Variable', Georgia, serif;
+      --font-text: 'Instrument Sans Variable', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+    }
+    h1, h2, h3, .brand { font-family: var(--font-display); font-weight: 340; letter-spacing: -0.02em; }
+    h1 em, h2 em { font-style: italic; color: var(--accent); }
+    .brand { font-size: 24px; text-decoration: none; }
+    .brand em { font-style: italic; color: var(--clay); }
+    .site-nav a:not(.btn):hover { color: var(--clay); }
+
+    .hero-stage::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(243,239,231,0.96) 0%, rgba(243,239,231,0.6) 40%, rgba(243,239,231,0) 64%);
+    }
+    .hero-title { margin: 0 0 26px; font-size: clamp(3rem, 6.4vw, 7rem); line-height: 0.98; max-width: 11ch; }
+    .hero-sub { max-width: 44ch; font-size: 19px; margin: 0 0 34px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-meta { margin-top: 56px; display: flex; gap: 24px; flex-wrap: wrap; }
+    .breath { display: inline-flex; align-items: center; gap: 12px; }
+    .breath i { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); animation: breathe 8s ease-in-out infinite; }
+    @keyframes breathe { 0%, 100% { transform: scale(0.6); opacity: 0.5; } 50% { transform: scale(1.4); opacity: 1; } }
+
+    [data-marquee] { border-color: color-mix(in srgb, var(--ink) 10%, transparent); }
+    .marquee-track span { font-family: var(--font-display); font-weight: 300; font-style: italic; font-size: clamp(28px, 3.6vw, 52px); }
+    .marquee-track i { font-style: normal; color: var(--clay); font-size: 0.5em; }
+
+    section { padding: 150px 0; }
+    .section-head { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; margin-bottom: 64px; align-items: end; }
+    .section-title { margin: 0; font-size: clamp(2.4rem, 4.8vw, 5rem); line-height: 1.02; }
+    .section-head p { margin: 0; max-width: 46ch; }
+
+    .intro { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; }
+    .intro .big { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1.2; margin: 0; }
+    .intro .big em { color: var(--accent); }
+    .nums { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .num { background: var(--surface); border-radius: 20px; padding: 26px; }
+    .num strong { display: block; font-family: var(--font-display); font-weight: 300; font-size: 56px; line-height: 1; color: var(--accent); }
+    .num span { display: block; margin-top: 8px; }
+
+    /* modalidades: cartões com foco (focus-cards) */
+    .mods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .mod { background: var(--surface); border-radius: 20px; padding: 28px 24px; display: flex; flex-direction: column; gap: 14px; min-height: 340px; transition: opacity 0.4s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s; }
+    .mod .ic { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 14%, var(--surface)); color: var(--accent); }
+    .mod .ic svg { width: 26px; height: 26px; }
+    .mod h3 { margin: 0; font-size: 28px; line-height: 1.05; }
+    .mod p { margin: 0; flex: 1; }
+    .mod .list-link { align-self: flex-start; }
+    .mod .list-link:hover { color: var(--clay); }
+    @media (hover: hover) and (pointer: fine) {
+      .mods:hover .mod { opacity: 0.55; }
+      .mods .mod:hover { opacity: 1; transform: translateY(-6px); background: #fff; }
+    }
+
+    /* planos por frequência */
+    .freq { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .plan { border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; }
+    .plan.featured { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+    .plan.featured .muted { color: rgba(251,249,244,0.8); }
+    .plan.featured .btn { background: var(--surface); color: var(--ink); }
+    .plan .x { font-family: var(--font-display); font-weight: 300; font-size: 76px; line-height: 0.9; margin: 0; }
+    .plan .x small { font-size: 22px; font-style: italic; }
+    .plan .price { font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.04em; margin: 0; }
+    .plan p { margin: 0; flex: 1; }
+    .plan .btn { justify-content: center; }
+
+    .team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .person { background: var(--surface); border-radius: 20px; overflow: hidden; }
+    .person .photo { aspect-ratio: 4/5; background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--clay) 30%, var(--surface)) 0 22%, transparent 23%), radial-gradient(ellipse 46% 40% at 50% 100%, color-mix(in srgb, var(--accent) 26%, var(--surface)) 0 98%, transparent 100%), color-mix(in srgb, var(--accent) 7%, var(--surface)); }
+    .person div:last-child { padding: 20px 24px 26px; }
+    .person h3 { margin: 0 0 6px; font-size: 24px; }
+    .person p { margin: 0; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: start; }
+    .faq summary { font-family: var(--font-display); font-weight: 400; font-size: 21px; }
+    .faq summary::after { color: var(--clay); }
+    .final { padding: 0 0 120px !important; }
+    .final-card { background: var(--ink); color: var(--bg); border-radius: 28px; padding: clamp(36px, 6vw, 88px); display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: end; }
+    .final-card h2 { margin: 0; font-size: clamp(2.8rem, 6vw, 6rem); line-height: 1; }
+    .final-card h2 em { color: #a9c0a4; }
+    .final-card .muted { color: rgba(243,239,231,0.66); }
+    .final-card p { margin: 0 0 6px; }
+    .final-card .btn { margin-top: 22px; }
+    .fallback circle { fill: none; stroke: var(--accent); stroke-width: 10; }
+
+    @media (max-width: 1100px) { .mods { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 900px) {
+      section { padding: 100px 0; }
+      .hero-stage { height: 58svh; }
+      .hero-stage::after { background: linear-gradient(180deg, rgba(243,239,231,0) 40%, rgba(243,239,231,0.96) 90%); }
+      .hero-inner { padding-top: 46svh; padding-bottom: 48px; }
+      .hero-title { font-size: 12.5vw; }
+      .section-head, .intro, .freq, .team, .two-col, .final-card { grid-template-columns: 1fr; }
+      .section-head { gap: 16px; margin-bottom: 40px; }
+      .mod { min-height: 0; }
+      .plan.featured { order: -1; }
+    }
+    @media (max-width: 560px) { .mods { grid-template-columns: 1fr; } }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "../_vendor/three/three.module.js", "three/addons/": "../_vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#topo">Seu Studio <em>Pilates</em></a>
+      <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="site-nav" id="menu" aria-label="Principal">
+        <a href="#aulas">Aulas</a>
+        <a href="#planos">Planos</a>
+        <a href="#equipe">Equipe</a>
+        <a href="#duvidas">Dúvidas</a>
+        <button class="btn btn-solid" type="button" data-wa>Aula experimental</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="topo">
+    <section class="hero" style="padding:0">
+      <div class="hero-stage" aria-hidden="true">
+        <canvas id="cena"></canvas>
+        <svg class="fallback" viewBox="0 0 300 300"><circle cx="150" cy="150" r="110" /></svg>
+      </div>
+      <div class="container hero-inner">
+        <p class="mono muted breath"><i></i>Studio de pilates · Brasília — DF</p>
+        <h1 class="hero-title" data-split>Um corpo que se move <em>sem dor.</em></h1>
+        <p class="hero-sub muted">Aulas em turmas de até 3 alunos, com fisioterapeuta do começo ao fim. Para postura, coluna, gestação ou para voltar a se mexer com segurança.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-solid" type="button" data-wa>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>
+            Agendar aula experimental
+          </button>
+          <a class="btn btn-ghost" href="#aulas">Conhecer as aulas</a>
+        </div>
+        <div class="hero-meta mono muted">
+          <span>Até 3 alunos por turma</span>
+          <span>Avaliação postural inclusa</span>
+          <span>Seg a sáb</span>
+        </div>
+      </div>
+    </section>
+
+    <div data-marquee aria-hidden="true">
+      <div class="marquee-track">
+        <span>respire <i>●</i> alongue <i>●</i> fortaleça <i>●</i> alinhe <i>●</i> controle <i>●</i></span>
+        <span>respire <i>●</i> alongue <i>●</i> fortaleça <i>●</i> alinhe <i>●</i> controle <i>●</i></span>
+      </div>
+    </div>
+
+    <section>
+      <div class="container intro">
+        <p class="big" data-reveal>Aqui ninguém fica perdido no meio da turma. Cada aula é planejada para <em>o seu corpo</em>, a partir de uma avaliação postural feita no primeiro dia.</p>
+        <div class="nums">
+          <div class="num" data-reveal><strong data-count="3">0</strong><span class="muted">alunos, no máximo, por turma</span></div>
+          <div class="num" data-reveal><strong data-count="55" data-suffix=" min">0</strong><span class="muted">de aula, sem pressa</span></div>
+          <div class="num" data-reveal><strong data-count="12" data-suffix=" anos">0</strong><span class="muted">de experiência (exemplo)</span></div>
+          <div class="num" data-reveal><strong data-count="4.9" data-decimals="1">0</strong><span class="muted">nota no Google (exemplo)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="aulas" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" data-split>Aulas para <em>cada fase.</em></h2>
+          <p class="muted" data-reveal>Escolha pelo objetivo. Na dúvida, a fisioterapeuta indica o melhor caminho na avaliação.</p>
+        </div>
+        <div class="mods">
+          <article class="mod" data-reveal><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="9" width="18" height="6" rx="2"/><path d="M7 9V6m10 3V6"/></svg></span><h3>Pilates nos aparelhos</h3><p class="muted">Reformer, cadillac e chair para força, mobilidade e controle.</p><button class="list-link" type="button" data-wa>Agendar</button></article>
+          <article class="mod" data-reveal><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></span><h3>Pilates solo</h3><p class="muted">Bola, anel e faixa elástica. Ótimo para começar e para a rotina.</p><button class="list-link" type="button" data-wa>Agendar</button></article>
+          <article class="mod" data-reveal><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c3 3 3 6 0 9s-3 6 0 9"/></svg></span><h3>Coluna e postura</h3><p class="muted">Para dor nas costas, hérnia e quem passa o dia sentado.</p><button class="list-link" type="button" data-wa>Agendar</button></article>
+          <article class="mod" data-reveal><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="6" r="3"/><path d="M8 21c0-5 1-9 4-9s5 3 5 6-2 3-3 3"/></svg></span><h3>Gestantes</h3><p class="muted">Exercícios seguros em cada trimestre, com liberação do obstetra.</p><button class="list-link" type="button" data-wa>Agendar</button></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona" style="padding-top:0">
+      <div class="container two-col">
+        <div>
+          <h2 class="section-title" data-split>A primeira aula, <em>passo a passo.</em></h2>
+        </div>
+        <div class="steps">
+          <div class="steps-rail"><span data-progress></span></div>
+          <div class="step" data-reveal><span class="mono muted">01</span><h3>Você chama no WhatsApp</h3><p class="muted">A mensagem já vai pronta. Conte o objetivo ou a dor que trouxe você até aqui.</p></div>
+          <div class="step" data-reveal><span class="mono muted">02</span><h3>Avaliação postural</h3><p class="muted">Antes da aula, a fisioterapeuta olha postura, mobilidade e histórico.</p></div>
+          <div class="step" data-reveal><span class="mono muted">03</span><h3>Aula experimental</h3><p class="muted">Você conhece os aparelhos e sente o método, no seu ritmo.</p></div>
+          <div class="step" data-reveal><span class="mono muted">04</span><h3>Plano sob medida</h3><p class="muted">Frequência e horário fixos, com reavaliação a cada 3 meses.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="planos" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" data-split>Quantas vezes <em>por semana?</em></h2>
+          <p class="muted" data-reveal>Horário fixo, reposição de faltas avisadas e avaliação inclusa em todos os planos.</p>
+        </div>
+        <div class="freq">
+          <article class="plan" data-reveal><p class="x">1<small>× semana</small></p><p class="price">R$ 00 /mês</p><p class="muted">Para manter o corpo em dia junto com outra atividade.</p><button class="btn btn-ghost" type="button" data-wa>Quero 1×</button></article>
+          <article class="plan featured" data-reveal><span class="mono">Mais escolhido</span><p class="x">2<small>× semana</small></p><p class="price">R$ 00 /mês</p><p class="muted">O ritmo ideal para sentir diferença na postura em poucas semanas.</p><button class="btn" type="button" data-wa>Quero 2×</button></article>
+          <article class="plan" data-reveal><p class="x">3<small>× semana</small></p><p class="price">R$ 00 /mês</p><p class="muted">Para reabilitação ou objetivo com prazo.</p><button class="btn btn-ghost" type="button" data-wa>Quero 3×</button></article>
+        </div>
+        <p class="demo-note muted" style="margin-top:28px">Preços de exemplo: no site real entram os valores e as regras de reposição do studio.</p>
+      </div>
+    </section>
+
+    <section id="equipe" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" data-split>Quem cuida <em>de você.</em></h2>
+          <p class="muted" data-reveal>Fisioterapeutas com formação no método pilates.</p>
+        </div>
+        <div class="team">
+          <article class="person" data-reveal><div class="photo"></div><div><h3>Nome da profissional</h3><p class="muted">Fisioterapeuta · CREFITO (exemplo)</p></div></article>
+          <article class="person" data-reveal><div class="photo"></div><div><h3>Nome da profissional</h3><p class="muted">Pilates para gestantes · CREFITO (exemplo)</p></div></article>
+          <article class="person" data-reveal><div class="photo"></div><div><h3>Nome do profissional</h3><p class="muted">Coluna e reabilitação · CREFITO (exemplo)</p></div></article>
+        </div>
+        <p class="demo-note muted" style="margin-top:28px">Espaço da equipe: no site real entram as fotos, as formações e o registro de cada profissional.</p>
+      </div>
+    </section>
+
+    <section id="duvidas" style="padding-top:0">
+      <div class="container two-col">
+        <h2 class="section-title" data-split>Perguntas <em>frequentes.</em></h2>
+        <div class="faq">
+          <details><summary>Nunca fiz pilates. Preciso ter flexibilidade?</summary><p class="muted">Não. A flexibilidade vem com as aulas, e os exercícios começam no seu nível.</p></details>
+          <details><summary>Tenho hérnia de disco. Posso fazer?</summary><p class="muted">Na maioria dos casos, sim, com acompanhamento. A avaliação define o que é seguro para você.</p></details>
+          <details><summary>E se eu faltar?</summary><p class="muted">No site real, aqui entra a regra de reposição do studio.</p></details>
+          <details><summary>Atendem por convênio ou reembolso?</summary><p class="muted">No site real, aqui entram os convênios e como pedir reembolso.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="container">
+        <div class="final-card">
+          <h2 data-split>Comece pela <em>aula experimental.</em></h2>
+          <div>
+            <p class="muted mono">Endereço</p><p>Endereço de exemplo, Sudoeste · Brasília — DF</p>
+            <p class="muted mono" style="margin-top:16px">Horário</p><p>Seg a sex, 6h às 21h · Sáb, 8h às 12h</p>
+            <button class="btn btn-solid" type="button" data-wa>Agendar pelo WhatsApp</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a class="brand" href="#topo">Seu Studio <em>Pilates</em></a><p class="muted" style="margin-top:14px">Studio de pilates em Brasília.</p></div>
+        <div><p class="mono muted">Contato</p><p>(61) 0000-0000 (exemplo)</p><p>@seustudio (exemplo)</p></div>
+        <div><p class="mono muted">Este é um modelo</p><p class="muted">Sem marca real: nome, equipe, números, preços, endereço e telefone são espaços de exemplo. Site-modelo criado pela <a href="/portfolio">IONEXT</a>.</p></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="mono muted">© <span data-year></span> Seu Studio Pilates · modelo de demonstração</span>
+        <div class="motion-toggle" role="group" aria-label="Animações">
+          <span class="mono muted">Animações</span>
+          <button type="button" data-motion="auto">Auto</button>
+          <button type="button" data-motion="on">Ativadas</button>
+          <button type="button" data-motion="off">Desativadas</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../_vendor/gsap.min.js"></script>
+  <script src="../_vendor/ScrollTrigger.min.js"></script>
+  <script src="../_vendor/lenis.min.js"></script>
+  <script type="module">
+    import { initModelo } from '../_kit/kit.js?v=20261116';
+    import { initFx } from '../_kit/fx.js?v=20261123';
+    initModelo({
+      name: 'studio de pilates',
+      segment: 'studio',
+      copy: { mine: 'o meu studio', of: 'do studio', person: 'O aluno', item: 'a aula', yours: 'do seu studio' },
+      canvas: document.getElementById('cena'),
+      scene: () => import('./scene.js?v=20261123').then((m) => (c, o) => new m.PilatesScene(c, o)),
+    });
+    initFx();
+  </script>
+</body>
+</html>

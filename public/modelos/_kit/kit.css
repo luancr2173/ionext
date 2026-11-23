@@ -264,3 +264,16 @@ html.motion-off .hero-stage canvas { opacity: 1; }
   .site-header .brand { font-size: 15px !important; }
   .menu-toggle { padding: 7px 12px; }
 }
+
+/* fx.js: palavra que alterna (rotating-text) */
+.rot { display: inline-block; overflow: hidden; vertical-align: bottom; padding: 0.16em 0 0.06em; margin: -0.16em 0 -0.06em; }
+.rot-in { display: inline-block; transition: transform 0.38s cubic-bezier(0.7, 0, 0.84, 0), opacity 0.38s; }
+.rot-in.is-out { transform: translateY(-105%); opacity: 0; }
+.rot-in.is-in { transform: translateY(105%); opacity: 0; transition: none; }
+/* fx.js: luz que segue o mouse (spotlight-card) */
+[data-spotlight] { position: relative; isolation: isolate; }
+[data-spotlight]::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 0.4s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 22%, transparent), transparent 65%);
+}
+@media (hover: hover) and (pointer: fine) { [data-spotlight]:hover::after { opacity: 1; } }

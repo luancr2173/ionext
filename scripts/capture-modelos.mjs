@@ -42,7 +42,7 @@ const PORT = 4399;
 server.listen(PORT, async () => {
   console.log(`Static server running on http://localhost:${PORT}`);
 
-  const slugs = ['assistencia-express', 'loja-smartphones', 'reparo-placas'];
+  const slugs = process.argv.slice(2).length ? process.argv.slice(2) : ['assistencia-express', 'loja-smartphones', 'reparo-placas'];
 
   for (const slug of slugs) {
     const desktopPng = path.join(process.cwd(), `temp-${slug}-desktop.png`);
