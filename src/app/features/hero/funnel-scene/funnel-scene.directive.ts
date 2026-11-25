@@ -90,7 +90,10 @@ export class FunnelSceneDirective implements AfterViewInit, OnDestroy {
       return;
     }
     try {
-      const create = await SCENE_LOADERS[this.variant()]();
+      // Baixa o chunk já, mas só monta a cena (shaders, PMREM, geometrias: trabalho
+      // pesado no thread principal) quando o navegador estiver livre, para o texto
+      // e a primeira pintura da página não esperarem pela arte 3D.
+      const [create] = await Promise.all([SCENE_LOADERS[this.variant()](), whenIdle()]);
       if (this.destroyed) return;
       this.ngZone.runOutsideAngular(() => {
         this.scene = create(this.el.nativeElement, {
@@ -111,10 +114,26 @@ export class FunnelSceneDirective implements AfterViewInit, OnDestroy {
   }
 }
 
+/** Resolve depois do próximo quadro, quando o thread principal estiver ocioso (máx. ~600 ms). */
+function whenIdle(): Promise<void> {
+  return new Promise((resolve) => {
+    requestAnimationFrame(() => {
+      if (typeof window.requestIdleCallback === 'function') {
+        window.requestIdleCallback(() => resolve(), { timeout: 600 });
+      } else {
+        setTimeout(resolve, 0);
+      }
+    });
+  });
+}
+
 function webglAvailable(): boolean {
   try {
     const c = document.createElement('canvas');
-    return !!(c.getContext('webgl2') || c.getContext('webgl'));
+    const gl = (c.getContext('webgl2') || c.getContext('webgl')) as WebGLRenderingContext | null;
+    // libera o contexto de teste na hora (o navegador limita quantos ficam abertos)
+    gl?.getExtension('WEBGL_lose_context')?.loseContext();
+    return !!gl;
   } catch {
     return false;
   }
