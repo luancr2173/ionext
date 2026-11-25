@@ -3,17 +3,25 @@
 <div class="page-transition-bar" [class.is-active]="isNavigating()" aria-hidden="true"></div>
 
 <!-- Fixed Navigation Bar with Translucent Blur & Logo -->
-<app-navbar />
+@if (!isCrm()) {
+  <app-navbar />
+}
 
 <main id="main-content">
   <router-outlet />
 </main>
 
-<!-- Footer -->
-<app-footer />
+@if (!isCrm()) {
+  <!-- Footer -->
+  <app-footer />
+}
 
 <!-- Floating Lateral Scroll-to-Top Arrow Button -->
-<app-scroll-to-top />
+@if (!isCrm()) {
+  <app-scroll-to-top />
+}
 
 <!-- WhatsApp flutuante (todas as páginas) -->
-<app-whatsapp-float />
+@if (!isCrm()) {
+  <app-whatsapp-float />
+}

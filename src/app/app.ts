@@ -34,6 +34,8 @@ export class App {
   private readonly destroyRef = inject(DestroyRef);
 
   readonly isNavigating = signal<boolean>(false);
+  /** No CRM o site some (navbar, rodapé, WhatsApp flutuante): é outra aplicação. */
+  readonly isCrm = signal<boolean>(typeof location !== 'undefined' && location.pathname.startsWith('/crm'));
 
   constructor() {
     inject(SeoService).init();
@@ -43,8 +45,12 @@ export class App {
       .subscribe((event) => {
         if (event instanceof NavigationStart) {
           this.isNavigating.set(true);
+        } else if (event instanceof NavigationEnd) {
+          this.isCrm.set(event.urlAfterRedirects.startsWith('/crm'));
+          setTimeout(() => {
+            this.isNavigating.set(false);
+          }, 180);
         } else if (
-          event instanceof NavigationEnd ||
           event instanceof NavigationCancel ||
           event instanceof NavigationError
         ) {

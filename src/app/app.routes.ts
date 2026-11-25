@@ -68,6 +68,11 @@ export const routes: Routes = [
     },
   },
   {
+    // CRM por ramo de atuação: cadastro, login e ambiente do cliente
+    path: 'crm',
+    loadChildren: () => import('./crm/crm.routes').then((m) => m.CRM_ROUTES),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./pages/not-found/not-found.component').then((m) => m.NotFoundComponent),
