@@ -45,3 +45,16 @@
     .agent { grid-template-columns: 12px 1fr; .agent-actions { grid-column: 1 / -1; } }
   }
 }
+
+.crm-admin {
+  .billing-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-sm); margin-top: var(--space-xs); font-size: var(--font-size-body-sm); }
+  .select-sm { width: auto; min-height: 32px; padding: 4px 10px; font-size: var(--font-size-body-sm); }
+  .status-pill {
+    padding: 2px 10px; border-radius: var(--radius-full); font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+    background: var(--surface-alt); color: var(--fg-muted);
+    &[data-status='ativo'] { background: var(--color-success-bg); color: var(--color-success); }
+    &[data-status='aguardando_pagamento'] { background: var(--accent-subtle); color: var(--accent); }
+    &[data-status='teste'] { background: var(--color-success-bg); color: var(--color-success); }
+    &[data-status='inadimplente'], &[data-status='cancelado'], &[data-status='bloqueado'] { background: var(--color-error-bg); color: var(--color-error); }
+  }
+}

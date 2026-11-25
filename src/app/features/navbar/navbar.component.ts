@@ -150,7 +150,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
               </li>
             }
             <li class="mobile-nav-item" [style.--item-idx]="navLinks.length">
-              <a routerLink="/crm/entrar" class="mobile-nav-link" (click)="closeMobileMenu()">
+              <a routerLink="/crm/entrar" class="mobile-nav-link mobile-client-link" (click)="closeMobileMenu()">
                 Área do cliente
               </a>
             </li>

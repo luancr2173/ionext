@@ -41,7 +41,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
           <button class="btn btn-primary btn-block" type="submit" [disabled]="busy() || f.invalid">
             {{ busy() ? 'Entrando…' : 'Entrar' }}
           </button>
-          <p class="muted auth-switch">Ainda não tem conta? <a routerLink="/crm/cadastro">Criar meu CRM</a></p>
+          <p class="muted auth-switch">Ainda não tem conta? <a routerLink="/crm/planos">Ver planos</a></p>
         </form>
       </main>
     </div>

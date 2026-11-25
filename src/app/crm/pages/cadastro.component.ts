@@ -3,7 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SupabaseService } from '../core/supabase.service';
 import { CrmEnvironmentService } from '../core/crm-environment.service';
-import { Segment } from '../core/crm.models';
+import { CrmPlan, Segment } from '../core/crm.models';
+import { brl } from './planos.component';
 import { CrmIconComponent } from '../shared/crm-icon.component';
 import { Crm3dIconComponent } from '../shared/crm-3d-icon.component';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
@@ -34,13 +35,27 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
           <div class="card auth-done auth-done-center">
             <h2>Confirme seu e-mail</h2>
             <p class="muted">Enviamos um link para <strong>{{ email }}</strong>. Depois de confirmar, entre e o seu CRM de
-              {{ selectedName() }} será criado automaticamente.</p>
+              {{ selectedName() }} será criado automaticamente no plano {{ selectedPlan()?.nome }},
+              com 7 dias de teste grátis. Antes do fim do teste, você escolhe se quer continuar.</p>
             <a class="btn btn-primary" routerLink="/crm/entrar">Ir para o login</a>
           </div>
         } @else {
           <form class="auth-form auth-form-steps" (ngSubmit)="submit()" #f="ngForm">
+            <fieldset class="plans-pick" [disabled]="busy()">
+              <legend class="mono">1 · Plano <span class="legend-note">7 dias grátis em qualquer plano</span> <a routerLink="/crm/planos" class="legend-link">comparar planos</a></legend>
+              <div class="plan-pills" role="radiogroup" aria-label="Plano">
+                @for (p of plans(); track p.slug) {
+                  <label class="plan-pill" [class.is-selected]="plano === p.slug">
+                    <input type="radio" name="plano" [value]="p.slug" [(ngModel)]="plano" required />
+                    <span class="pill-name">{{ p.nome }}</span>
+                    <span class="pill-price muted">{{ priceLabel(p) }}</span>
+                  </label>
+                }
+              </div>
+            </fieldset>
+
             <fieldset class="segments" [disabled]="busy()">
-              <legend class="mono">1 · Ramo de atuação</legend>
+              <legend class="mono">2 · Ramo de atuação</legend>
               @if (segmentsError()) {
                 <p class="alert alert-error">{{ segmentsError() }}</p>
               }
@@ -59,7 +74,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
             </fieldset>
 
             <fieldset class="form-grid" [disabled]="busy()">
-              <legend class="mono span-all">2 · Sua empresa</legend>
+              <legend class="mono span-all">3 · Sua empresa</legend>
               <label class="field">
                 <span>Nome da empresa <b class="req">*</b></span>
                 <input class="input" name="empresa" [(ngModel)]="empresa" required minlength="2" maxlength="120" autocomplete="organization" />
@@ -72,7 +87,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 
             @if (!loggedIn()) {
               <fieldset class="form-grid" [disabled]="busy()">
-                <legend class="mono span-all">3 · Seu acesso</legend>
+                <legend class="mono span-all">4 · Seu acesso</legend>
                 <label class="field">
                   <span>Seu nome <b class="req">*</b></span>
                   <input class="input" name="nome" [(ngModel)]="nome" required autocomplete="name" />
@@ -92,7 +107,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 
             <div class="auth-actions auth-actions-center">
               <button class="btn btn-primary btn-wide" type="submit" [disabled]="busy() || f.invalid">
-                {{ busy() ? 'Criando seu CRM…' : 'Criar meu CRM' }}
+                {{ busy() ? 'Criando seu CRM…' : 'Começar teste grátis de 7 dias' }}
               </button>
               @if (!loggedIn()) {
                 <p class="muted auth-switch">Já tem conta? <a routerLink="/crm/entrar">Entrar</a></p>
@@ -117,6 +132,8 @@ export class CadastroComponent implements OnInit {
   protected readonly done = signal(false);
   protected readonly loggedIn = signal(false);
 
+  protected readonly plans = signal<CrmPlan[]>([]);
+  protected plano = 'essencial';
   protected segmento = '';
   protected empresa = '';
   protected cnpj = '';
@@ -127,6 +144,14 @@ export class CadastroComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.loggedIn.set(!!(await this.sb.currentSession()));
     const ramo = this.route.snapshot.queryParamMap.get('ramo');
+    const plano = this.route.snapshot.queryParamMap.get('plano');
+    this.envService
+      .listPlans()
+      .then((list) => {
+        this.plans.set(list);
+        if (plano && list.some((p) => p.slug === plano)) this.plano = plano;
+      })
+      .catch(() => this.plans.set([]));
     try {
       const list = await this.envService.listSegments();
       this.segments.set(list);
@@ -134,6 +159,16 @@ export class CadastroComponent implements OnInit {
     } catch {
       this.segmentsError.set('Não foi possível carregar os ramos de atuação. Tente recarregar a página.');
     }
+  }
+
+  protected selectedPlan(): CrmPlan | undefined {
+    return this.plans().find((p) => p.slug === this.plano);
+  }
+
+  protected priceLabel(p: CrmPlan): string {
+    if (p.preco_mensal === null) return 'sob consulta';
+    if (p.preco_primeiro_mes !== null) return `${brl(p.preco_primeiro_mes)} no 1º mês, depois ${brl(p.preco_mensal)}/mês`;
+    return `${p.preco_a_partir ? 'a partir de ' : ''}${brl(p.preco_mensal)}/mês`;
   }
 
   protected selectedName(): string {
@@ -155,7 +190,7 @@ export class CadastroComponent implements OnInit {
     this.error.set('');
     try {
       if (this.loggedIn()) {
-        await this.envService.createTenant(this.empresa, this.segmento, cnpjDigits);
+        await this.envService.createTenant(this.empresa, this.segmento, cnpjDigits, this.plano);
         await this.router.navigateByUrl('/crm');
         return;
       }
@@ -165,14 +200,14 @@ export class CadastroComponent implements OnInit {
         password: this.senha,
         options: {
           emailRedirectTo: `${location.origin}/crm`,
-          data: { nome: this.nome.trim(), empresa: this.empresa.trim(), segmento: this.segmento, cnpj: cnpjDigits || null },
+          data: { nome: this.nome.trim(), empresa: this.empresa.trim(), segmento: this.segmento, cnpj: cnpjDigits || null, plano: this.plano },
         },
       });
       if (error) throw error;
 
       if (data.session) {
         // Confirmação de e-mail desligada: já cria o ambiente
-        await this.envService.createTenant(this.empresa, this.segmento, cnpjDigits);
+        await this.envService.createTenant(this.empresa, this.segmento, cnpjDigits, this.plano);
         await this.router.navigateByUrl('/crm');
       } else {
         this.done.set(true);

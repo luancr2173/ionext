@@ -19,6 +19,14 @@ export interface AdminTenant {
   ramo: string;
   ramo_slug: string;
   criado_em: string;
+  plano: string;
+  plano_slug: string;
+  preco_mensal: number | null;
+  status_assinatura: 'teste' | 'aguardando_pagamento' | 'ativo' | 'inadimplente' | 'cancelado' | 'cortesia';
+  teste_ate: string | null;
+  pedido_plano_em: string | null;
+  acesso: boolean;
+  status_desde: string;
   dono_email: string | null;
   membros: number;
   contatos: number;
@@ -60,6 +68,20 @@ export class CrmAdminService {
     const { data, error } = await this.sb.client.rpc('admin_rotate_agent_key', { p_agent: agentId });
     if (error) throw error;
     return (data as { chave: string }).chave;
+  }
+
+  async setSubscription(tenantId: string, status: string, plano?: string | null): Promise<void> {
+    const { error } = await this.sb.client.rpc('admin_set_subscription', {
+      p_tenant: tenantId,
+      p_status: status,
+      p_plan: plano ?? null,
+    });
+    if (error) throw error;
+  }
+
+  async extendTrial(tenantId: string, dias = 7): Promise<void> {
+    const { error } = await this.sb.client.rpc('admin_extend_trial', { p_tenant: tenantId, p_days: dias });
+    if (error) throw error;
   }
 
   async setActive(agentId: string, ativo: boolean): Promise<void> {

@@ -67,11 +67,36 @@ export interface Tenant {
     neo: { tom?: string; perguntas_qualificacao?: string[] };
   };
   criado_em: string;
+  plan_slug: string;
+  subscription_status: SubscriptionStatus;
+  subscription_updated_at: string;
+  trial_ends_at: string | null;
+  upgrade_requested_at: string | null;
+}
+
+export type SubscriptionStatus = 'teste' | 'aguardando_pagamento' | 'ativo' | 'inadimplente' | 'cancelado' | 'cortesia';
+
+export interface CrmPlan {
+  slug: string;
+  nome: string;
+  descricao: string;
+  preco_mensal: number | null;
+  preco_primeiro_mes: number | null;
+  preco_a_partir: boolean;
+  taxa_implantacao: boolean;
+  max_usuarios: number | null;
+  inclui_agente: boolean;
+  destaque: boolean;
+  recursos: string[];
+  ordem: number;
 }
 
 export interface CrmEnvironment {
   tenant: Tenant;
   segment: Pick<Segment, 'slug' | 'nome' | 'icone'>;
+  plano: Pick<CrmPlan, 'slug' | 'nome' | 'preco_mensal' | 'preco_primeiro_mes' | 'inclui_agente' | 'max_usuarios'>;
+  /** false quando o teste acabou ou o pagamento não foi confirmado (o banco também bloqueia os dados) */
+  acesso: boolean;
   papel: 'dono' | 'admin' | 'membro';
   modules: TenantModule[];
   stages: PipelineStage[];

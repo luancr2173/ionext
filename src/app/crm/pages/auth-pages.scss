@@ -237,3 +237,23 @@
   .crm-auth .segment-card .seg-icon * ,
   .crm-auth .segment-card .seg-icon::after { animation: none !important; }
 }
+
+/* Escolha do plano no cadastro */
+.crm-auth.auth-center {
+  .legend-link { margin-left: var(--space-sm); color: var(--accent); text-transform: none; letter-spacing: 0; font-family: var(--font-display); }
+  .plan-pills { display: grid; gap: var(--space-sm); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .plan-pill {
+    position: relative; display: grid; gap: 4px; padding: var(--space-md);
+    border: 1px solid var(--card-border); border-radius: var(--radius-md); background: var(--card);
+    cursor: pointer; transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+    input { position: absolute; opacity: 0; pointer-events: none; }
+    .pill-name { font-weight: var(--font-weight-semibold); }
+    .pill-price { font-size: var(--font-size-body-sm); }
+    &:hover { border-color: var(--input-border-hover); }
+    &:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+    &.is-selected { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-subtle); }
+  }
+  @media (max-width: 720px) { .plan-pills { grid-template-columns: 1fr; } }
+}
+
+.crm-auth.auth-center .legend-note { margin-left: var(--space-sm); color: var(--color-success); text-transform: none; letter-spacing: 0; font-family: var(--font-display); }

@@ -15,6 +15,14 @@ export const CRM_ROUTES: Routes = [
     data: { description: 'Acesse o CRM da IONEXT.', noindex: true },
   },
   {
+    path: 'planos',
+    loadComponent: () => import('./pages/planos.component').then((m) => m.PlanosComponent),
+    title: 'Planos do CRM IONEXT — Essencial, Profissional e Enterprise',
+    data: {
+      description: 'CRM pronto para o seu ramo: Essencial com 1º mês por R$ 10, Profissional e Enterprise com agente de IA no WhatsApp.',
+    },
+  },
+  {
     path: 'cadastro',
     canActivate: [crmGuestGuard],
     loadComponent: () => import('./pages/cadastro.component').then((m) => m.CadastroComponent),
@@ -38,6 +46,11 @@ export const CRM_ROUTES: Routes = [
     data: { description: 'CRM IONEXT', noindex: true },
     children: [
       { path: '', pathMatch: 'full', redirectTo: firstModule },
+      {
+        path: 'assinatura',
+        loadComponent: () => import('./modules/assinatura.component').then((m) => m.AssinaturaComponent),
+        title: 'Plano e assinatura — CRM IONEXT',
+      },
       {
         path: ':modulo',
         loadComponent: () => import('./shell/module-host.component').then((m) => m.ModuleHostComponent),

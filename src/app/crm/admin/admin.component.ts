@@ -8,6 +8,7 @@ import { CRM_CONFIG } from '../crm.config';
 import { CrmIconComponent } from '../shared/crm-icon.component';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { formatDateTime } from '../shared/dynamic-fields.component';
+import { brl } from '../pages/planos.component';
 
 interface AgentDraft {
   tenant: AdminTenant;
@@ -40,7 +41,9 @@ interface AgentDraft {
       <section class="kpis">
         <div class="card kpi"><span class="muted">Ambientes</span><strong>{{ tenants().length }}</strong></div>
         <div class="card kpi"><span class="muted">Agentes ativos</span><strong>{{ activeAgents() }}</strong></div>
-        <div class="card kpi"><span class="muted">Leads (total)</span><strong>{{ totalLeads() }}</strong></div>
+        <div class="card kpi"><span class="muted">Receita mensal (pagos)</span><strong>{{ brl(mrr()) }}</strong></div>
+        <div class="card kpi"><span class="muted">Em teste grátis</span><strong>{{ inTrial() }}</strong></div>
+        <div class="card kpi"><span class="muted">Aguardando pagamento</span><strong>{{ pending() }}</strong></div>
         <div class="card kpi"><span class="muted">Leads vindos de agentes</span><strong>{{ agentLeads() }}</strong></div>
       </section>
 
@@ -66,6 +69,29 @@ interface AgentDraft {
                 <div class="tenant-id">
                   <h2>{{ t.nome }}</h2>
                   <span class="muted">{{ t.ramo }} · {{ t.dono_email }} · desde {{ fmtDay(t.criado_em) }}</span>
+                  <div class="billing-row">
+                    <span class="status-pill" [attr.data-status]="t.acesso ? t.status_assinatura : 'bloqueado'">{{ statusText(t) }}</span>
+                    @if (t.pedido_plano_em) { <span class="muted">pediu plano em {{ fmtDay(t.pedido_plano_em) }}</span> }
+                    <span class="muted">Plano {{ t.plano }}{{ t.preco_mensal !== null ? ' · ' + brl(t.preco_mensal) + '/mês' : '' }}</span>
+                    @if (t.status_assinatura === 'teste' || t.status_assinatura === 'cancelado') {
+                      <button class="btn btn-sm" type="button" [disabled]="busy()" (click)="extendTrial(t)">+7 dias de teste</button>
+                    }
+                    @if (t.status_assinatura !== 'ativo' && t.status_assinatura !== 'cortesia') {
+                      <button class="btn btn-sm btn-primary" type="button" [disabled]="busy()" (click)="setStatus(t, 'ativo')">Marcar como pago</button>
+                    }
+                    <select class="select select-sm" [disabled]="busy()" aria-label="Status da assinatura"
+                      [value]="t.status_assinatura" (change)="setStatus(t, $any($event.target).value)">
+                      @for (st of statuses; track st.value) {
+                        <option [value]="st.value" [selected]="st.value === t.status_assinatura">{{ st.label }}</option>
+                      }
+                    </select>
+                    <select class="select select-sm" [disabled]="busy()" aria-label="Plano"
+                      (change)="setPlan(t, $any($event.target).value)">
+                      @for (pl of planOptions; track pl.value) {
+                        <option [value]="pl.value" [selected]="pl.value === t.plano_slug">{{ pl.label }}</option>
+                      }
+                    </select>
+                  </div>
                 </div>
                 <dl class="tenant-stats">
                   <div><dt>Leads</dt><dd>{{ t.contatos }}</dd></div>
@@ -205,6 +231,35 @@ export class AdminComponent implements OnInit {
   protected readonly totalLeads = computed(() => this.tenants().reduce((n, t) => n + t.contatos, 0));
   protected readonly agentLeads = computed(() => this.tenants().reduce((n, t) => n + t.leads_agente, 0));
 
+  protected readonly brl = brl;
+  protected readonly statuses = [
+    { value: 'teste', label: 'Em teste' },
+    { value: 'aguardando_pagamento', label: 'Aguardando pagamento' },
+    { value: 'ativo', label: 'Ativo (pago)' },
+    { value: 'inadimplente', label: 'Inadimplente' },
+    { value: 'cancelado', label: 'Cancelado' },
+    { value: 'cortesia', label: 'Cortesia' },
+  ];
+  protected readonly planOptions = [
+    { value: 'essencial', label: 'Essencial' },
+    { value: 'profissional', label: 'Profissional' },
+    { value: 'enterprise', label: 'Enterprise' },
+  ];
+  protected statusLabel = (st: string) => this.statuses.find((x) => x.value === st)?.label ?? st;
+  protected readonly mrr = computed(() =>
+    this.tenants()
+      .filter((t) => t.status_assinatura === 'ativo')
+      .reduce((n, t) => n + (t.preco_mensal ?? 0), 0),
+  );
+  protected readonly pending = computed(() => this.tenants().filter((t) => t.status_assinatura === 'aguardando_pagamento').length);
+  protected readonly inTrial = computed(() => this.tenants().filter((t) => t.status_assinatura === 'teste' && t.acesso).length);
+  protected statusText(t: AdminTenant): string {
+    if (t.status_assinatura === 'teste') {
+      return t.acesso && t.teste_ate ? `Em teste até ${this.fmtDay(t.teste_ate)}` : 'Teste acabou';
+    }
+    return this.statusLabel(t.status_assinatura);
+  }
+
   protected fmt = (iso: string) => formatDateTime(iso);
   protected fmtDay = (iso: string) => new Date(iso).toLocaleDateString('pt-BR');
 
@@ -261,6 +316,44 @@ export class AdminComponent implements OnInit {
       await this.load();
     } catch {
       this.error.set('Não foi possível gerar a nova chave.');
+    } finally {
+      this.busy.set(false);
+    }
+  }
+
+  protected async setStatus(t: AdminTenant, status: string): Promise<void> {
+    if (status === t.status_assinatura) return;
+    this.busy.set(true);
+    try {
+      await this.admin.setSubscription(t.id, status);
+      await this.load();
+    } catch {
+      this.error.set('Não foi possível alterar a assinatura.');
+    } finally {
+      this.busy.set(false);
+    }
+  }
+
+  protected async extendTrial(t: AdminTenant): Promise<void> {
+    this.busy.set(true);
+    try {
+      await this.admin.extendTrial(t.id, 7);
+      await this.load();
+    } catch {
+      this.error.set('Não foi possível estender o teste.');
+    } finally {
+      this.busy.set(false);
+    }
+  }
+
+  protected async setPlan(t: AdminTenant, plano: string): Promise<void> {
+    if (plano === t.plano_slug) return;
+    this.busy.set(true);
+    try {
+      await this.admin.setSubscription(t.id, t.status_assinatura, plano);
+      await this.load();
+    } catch {
+      this.error.set('Não foi possível trocar o plano.');
     } finally {
       this.busy.set(false);
     }

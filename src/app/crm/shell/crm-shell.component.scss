@@ -34,6 +34,15 @@
   }
   .topbar-user { font-size: var(--font-size-body-sm); }
   .menu-btn { display: none; margin-right: auto; }
+  .billing-notice {
+    display: flex; flex-wrap: wrap; gap: 4px var(--space-sm); align-items: baseline;
+    margin-bottom: var(--space-xl); padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm); border: 1px solid var(--accent-subtle);
+    background: var(--accent-subtle); font-size: var(--font-size-body-sm);
+    strong { color: var(--accent); }
+    a { margin-left: auto; color: var(--accent); font-weight: var(--font-weight-semibold); }
+    &.is-warning { border-color: var(--color-error-bg); background: var(--color-error-bg); strong { color: var(--color-error); } }
+  }
   .crm-content { padding: var(--space-xl) var(--container-padding) var(--space-4xl); min-width: 0; }
   .side-scrim { display: none; }
 
@@ -52,3 +61,5 @@
     .menu-btn { display: inline-flex; }
   }
 }
+
+.crm-shell .side-admin.side-plan { color: var(--fg-muted); &:hover, &.is-active { color: var(--accent); } }
