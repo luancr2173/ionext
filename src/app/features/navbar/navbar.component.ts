@@ -78,6 +78,13 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
         <div class="nav-actions">
           <app-theme-toggle />
 
+          <a routerLink="/crm/entrar" class="nav-client-link" (click)="closeMobileMenu()">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8a7 7 0 0 1 14 0" />
+            </svg>
+            Área do cliente
+          </a>
+
           <app-button
             variant="primary"
             size="sm"
@@ -142,10 +149,15 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
                 }
               </li>
             }
-            <li class="mobile-nav-item mobile-theme-item" [style.--item-idx]="navLinks.length">
+            <li class="mobile-nav-item" [style.--item-idx]="navLinks.length">
+              <a routerLink="/crm/entrar" class="mobile-nav-link" (click)="closeMobileMenu()">
+                Área do cliente
+              </a>
+            </li>
+            <li class="mobile-nav-item mobile-theme-item" [style.--item-idx]="navLinks.length + 1">
               <app-theme-toggle [showLabel]="true" />
             </li>
-            <li class="mobile-nav-item mobile-cta-item" [style.--item-idx]="navLinks.length + 1">
+            <li class="mobile-nav-item mobile-cta-item" [style.--item-idx]="navLinks.length + 2">
               <app-button
                 variant="primary"
                 size="lg"

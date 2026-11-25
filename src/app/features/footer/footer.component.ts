@@ -40,6 +40,9 @@ import { RevealDirective } from '../../core/directives/reveal.directive';
               <li>
                 <a routerLink="/contato">Contato</a>
               </li>
+              <li>
+                <a routerLink="/crm/entrar">Área do cliente</a>
+              </li>
             </ul>
           </div>
 
