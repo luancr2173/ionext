@@ -23,6 +23,9 @@ MODELOS = {
     "estetica": ("a sua clínica", "clínica odontológica"),
     "ortodontia": ("a sua clínica", "ortodontia"),
     "odontopediatria": ("a sua clínica", "odontopediatria"),
+    "academia-musculacao": ("a sua academia", "academia"),
+    "studio-pilates": ("o seu studio", "studio de pilates"),
+    "box-cross": ("o seu box", "cross training"),
 }
 
 TEMPLATE = """<!doctype html><html><head><meta charset="utf-8"><style>
